@@ -21,6 +21,14 @@ from a Relay expression.
 import warnings
 import numpy as np
 
+"""
+TVM Partition Dependencies
+"""
+import json
+import copy
+
+""""""
+
 from tvm.ir import IRModule
 
 from tvm.ir.transform import PassContext
@@ -286,6 +294,157 @@ def get_executor_from_target(target, target_host):
                 executor = target[device_type].attrs.get("executor", "graph")
     return executor
 
+def partition_graph(ir_mod, target=None, target_host=None, params=None, mod_name="default", graph_config='{}', partition_point=0, part='all'):
+    if partition_point == 0:
+        return build_graph(ir_mod, target=target, target_host=target_host, params=params, mod_name=mod_name, graph_config=graph_config)
+    
+    graph_json_data = json.loads(graph_config)
+    front_graph_json_data = copy.deepcopy(graph_json_data)
+    back_graph_json_data = copy.deepcopy(graph_json_data)
+
+    front_nodes = front_graph_json_data['nodes'][:partition_point+1]
+    front_arg_idx = 0
+    while front_graph_json_data['arg_nodes'][front_arg_idx] < partition_point:
+        front_arg_idx += 1
+
+    # front setting
+    front_arg_nodes = front_graph_json_data['arg_nodes'][:front_arg_idx]
+    front_heads = [[partition_point, 0, 0]]
+    front_row_ptr = front_graph_json_data['node_row_ptr'][:partition_point + 2]
+    front_attr_dltype = front_graph_json_data['attrs']['dltype'][1][:partition_point + 1]
+    front_attr_shape = front_graph_json_data['attrs']['shape'][1][:partition_point + 1]
+    front_attr_storage_id = front_graph_json_data['attrs']['storage_id'][1][:partition_point + 1]
+    front_graph_json_data['nodes'] = front_nodes
+    front_graph_json_data['arg_nodes'] = front_arg_nodes
+    front_graph_json_data['heads'] = front_heads
+    front_graph_json_data['node_row_ptr'] = front_row_ptr
+    front_graph_json_data['attrs']['dltype'][1] = front_attr_dltype
+    front_graph_json_data['attrs']['shape'][1] = front_attr_shape
+    front_graph_json_data['attrs']['storage_id'][1] = front_attr_storage_id
+    front_graph_config = json.dumps(front_graph_json_data)
+    
+    if part == 'front':
+        front_lib = build_graph(ir_mod, target, params=params, graph_config=front_graph_config)
+        return front_lib
+    
+    # back setting
+    def null_ops(idx):
+        return {'op': 'null', 'name': 'nullop'+ str(idx), 'inputs': []}
+
+    partition_point_input_list = []
+    for node_idx, node_info in enumerate(back_graph_json_data['nodes']):
+        for order_idx, input_node_info in enumerate(node_info['inputs']):
+            if input_node_info[0] == partition_point:
+                partition_point_input_list.append([node_idx, order_idx])
+    back_nodes = [back_graph_json_data['nodes'][0]] + [null_ops(i) for i in range(partition_point)] + back_graph_json_data['nodes'][partition_point + 1:]
+    for node_idx, order_idx in partition_point_input_list:
+        back_nodes[node_idx]['inputs'][order_idx][0] = 0
+    back_graph_json_data['nodes'] = back_nodes
+    back_graph_json_data['attrs']['shape'][1][0] = back_graph_json_data['attrs']['shape'][1][partition_point]
+    back_graph_config = json.dumps(back_graph_json_data)
+
+    if part == 'all':
+        front_lib = build_graph(ir_mod, target[0], params=params, graph_config=front_graph_config)
+        back_lib = build_graph(ir_mod, target[1], params=params, graph_config=back_graph_config)
+        return front_lib, back_lib
+    return None
+
+def build_graph(ir_mod, target=None, target_host=None, params=None, mod_name="default", graph_config='{}'):
+    # fmt: off
+    # pylint: disable=line-too-long
+    """Helper function that builds a Relay function to run on TVM graph executor.
+
+    Parameters
+    ----------
+    ir_mod : :py:class:`~tvm.IRModule`
+        The IR module to build. Using relay.Function is deprecated.
+
+    target : str, :any:`tvm.target.Target`, or dict of str(i.e. device/context name) to str/tvm.target.Target, optional
+        For heterogeneous compilation, it is a dictionary indicating context to
+        target mapping. For homogeneous compilation, it is a build target.
+
+    target_host : str or :any:`tvm.target.Target`, optional
+        Host compilation target, if target is device.
+        When TVM compiles device specific program such as CUDA,
+        we also need host(CPU) side code to interact with the driver
+        setup the dimensions and parameters correctly.
+        target_host is used to specify the host side codegen target.
+        By default, llvm is used if it is enabled,
+        otherwise a stackvm interpreter is used.
+
+    params : dict of str to NDArray
+        Input parameters to the graph that do not change
+        during inference time. Used for constant folding.
+
+    mod_name: Optional[str]
+        The module name we will build
+
+    Returns
+    -------
+    factory_module : tvm.relay.backend.executor_factory.ExecutorFactoryModule
+            The runtime factory for the TVM graph executor.
+    """
+    # pylint: enable=line-too-long
+    # fmt: on
+
+    if not isinstance(ir_mod, (IRModule, _function.Function)):
+        raise ValueError("Type of input parameter mod must be tvm.IRModule")
+
+    if isinstance(ir_mod, _function.Function):
+        if params:
+            ir_mod = bind_params_by_name(ir_mod, params)
+        ir_mod = IRModule.from_expr(ir_mod)
+        warnings.warn(
+            "Please use input parameter mod (tvm.IRModule) "
+            "instead of deprecated parameter mod (tvm.relay.function.Function)",
+            DeprecationWarning,
+        )
+
+    if target_host is not None:
+        warnings.warn(
+            "target_host parameter is going to be deprecated. "
+            "Please pass in tvm.target.Target(target, host=target_host) instead."
+        )
+
+    target, target_host = Target.check_and_update_host_consist(
+        target, target_host, target_is_dict_key=False
+    )
+
+    target = build_target_by_device_type_map(target)
+    if isinstance(target_host, (str, Target)):
+        target_host = Target(target_host)
+    elif target_host:
+        raise ValueError("target host must be the type of str, " + "tvm.target.Target, or None")
+
+    # Retrieve the executor from the target
+    executor = get_executor_from_target(target, target_host)
+
+    # If current dispatch context is fallback context (the default root context),
+    # then load pre-tuned parameters from TopHub
+    if isinstance(autotvm.DispatchContext.current, autotvm.FallbackContext):
+        tophub_context = autotvm.tophub.context(list(target.values()))
+    else:
+        tophub_context = autotvm.utils.EmptyContext()
+
+    with tophub_context:
+        bld_mod = BuildModule()
+        executor_config, runtime_mod, params = bld_mod.build(
+            mod=ir_mod, target=target, params=params, executor=executor, mod_name=mod_name
+        )
+        func_metadata = bld_mod.get_function_metadata()
+
+        if executor == "aot":
+            executor_factory = _executor_factory.AOTExecutorFactoryModule(
+                ir_mod, target, runtime_mod, mod_name, params, func_metadata
+            )
+        elif executor == "graph":
+            executor_factory = _executor_factory.GraphExecutorFactoryModule(
+                ir_mod, target, graph_config, runtime_mod, mod_name, params, func_metadata
+            )
+        else:
+            assert False, "Executor " + executor + " not supported"
+
+        return executor_factory
 
 def build(ir_mod, target=None, target_host=None, params=None, mod_name="default"):
     # fmt: off
