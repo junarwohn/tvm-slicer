@@ -32,7 +32,7 @@ from . import scope_builder
 
 from . import transform
 from . import analysis
-from .build_module import build, create_executor, optimize
+from .build_module import build, create_executor, optimize, build_graph, partition_graph
 from .transform import build_config
 from . import debug
 from . import param_dict
