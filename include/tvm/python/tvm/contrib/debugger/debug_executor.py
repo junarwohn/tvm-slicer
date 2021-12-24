@@ -244,6 +244,7 @@ class GraphModuleDebug(graph_executor.GraphModule):
             raise RuntimeError(f"Require node index or name only.")
 
         self._debug_get_output(node_index, out)
+        print(out)
 
     def run(self, **input_dict):
         """Run forward execution of the graph with debug
