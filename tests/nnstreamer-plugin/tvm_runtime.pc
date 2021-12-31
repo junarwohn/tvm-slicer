@@ -1,0 +1,28 @@
+# This file placed to /usr/lib/pkgconfig/
+# $ sudo ldconfig
+
+# mkdir -p %{buildroot}{%{_libdir},%{_includedir},%{_libdir}/pkgconfig}
+
+# cp -r build/libtvm_runtime.so %{buildroot}%{_libdir}
+# 
+# cp -r include/tvm/  %{buildroot}%{_includedir}
+# 
+# cp -r 3rdparty/dlpack/include/ %{buildroot}%{_includedir}
+# 
+# cp -r 3rdparty/dmlc-core/include/* %{buildroot}%{_includedir}
+# 
+# cp -r tvm_runtime.pc %{buildroot}%{_libdir}/pkgconfig
+
+libdir=/usr/lib
+
+includedir=/usr/include
+
+Name: tvm-runtime
+
+Description: Apache TVM is a compiler stack for deep learning systems. It is designed to close the gap between the productivity-focused deep learning frameworks, and the performance- and efficiency-focused hardware backends. TVM works with deep learning frameworks to provide end to end compilation to different backends.
+
+Version: 0.7.0
+
+Libs: -L${libdir} -L${libdir}/tvm -ltvm_runtime
+
+Cflags: -I${includedir}

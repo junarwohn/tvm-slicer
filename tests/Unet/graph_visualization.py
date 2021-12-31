@@ -10,6 +10,7 @@ import numpy as np
 from PIL import Image
 import sys
 import os
+from copy import deepcopy
 
 import json
 import pygraphviz as pgv
@@ -36,6 +37,7 @@ model = UNet(in_dim=3, out_dim=1, num_filter=16)
 # Preprocess (data type conversion to float32, NCHW order)
 img_data = np.array(img)[np.newaxis, :].astype("float32")
 img_data = preprocess_input(img_data).transpose([0, 3, 1, 2])
+print("image shape :", img_data.shape)
 
 # Get IRModule and Parameters
 shape_dict = {"input_1": img_data.shape}
@@ -48,21 +50,5 @@ with tvm.transform.PassContext(opt_level=3):
 
 local_dev = tvm.cuda()
 
-# show_graph(lib['get_graph_json'](), file_name='unet_multi')
-
-# print(lib['get_graph_json']())
-
-graph_json = json.loads(lib['get_graph_json']())
-
-graph_json['heads'].append([7,0,0])
-
-with open("graph_json_multi.json", "w") as json_file:
-    json.dump(graph_json, json_file)
-
-build_graph(mod, target=None, target_host=None, params=None, mod_name="default", graph_config='{}')
-
-tvm_model = graph_executor.GraphModule(lib["default"](local_dev))
-
-tvm_model.set_input('input_1', img_data)
-tvm_model.run()
-print(tvm_model.get_output(0).shape, tvm_model.get_output(1).shape)
+# Save json graph
+show_graph(lib['get_graph_json'](), file_name='unet_multi')
