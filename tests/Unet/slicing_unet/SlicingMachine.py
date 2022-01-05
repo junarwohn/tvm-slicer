@@ -115,6 +115,77 @@ class TVMSlicer:
             front_graph_config['heads'].append([front_node_idxs.index(oidx), 0, 0])
 
         self.front_graph_config = front_graph_config
+
+        # Back
+        back_graph_config = {
+            "nodes" : [],
+            "arg_nodes": [],
+            "heads": [],
+            "attrs": { 
+                "dltype": [
+                    "list_str",
+                    []
+                ],
+                "device_index": [
+                    "list_int",
+                    []
+                ],
+                "storage_id": [
+                    "list_int",
+                    []
+                ],
+                "shape": [
+                    "list_shape",
+                    []
+                ],
+            },
+           "node_row_ptr": []
+        }
+
+        for curidx, bidx in enumerate(back_input_node_idxs):
+            node = copy.deepcopy(graph_config['nodes'][bidx]) 
+            dltype = graph_config['attrs']['dltype'][1][bidx]
+            device_index = graph_config['attrs']['device_index'][1][bidx]
+            storage_id = graph_config['attrs']['storage_id'][1][bidx]
+            shape = graph_config['attrs']['shape'][1][bidx]
+            node['op'] = 'null'
+            node['name'] = 'input_{}'.format(curidx + 1)
+            node['inputs'] = []
+            back_graph_config['nodes'].append(node)
+            back_graph_config['attrs']['dltype'][1].append(dltype)
+            back_graph_config['attrs']['device_index'][1].append(device_index)
+            back_graph_config['attrs']['storage_id'][1].append(storage_id)
+            back_graph_config['attrs']['shape'][1].append(shape)
+
+        back_node_idxs = back_input_node_idxs + back_node_idxs
+
+        for curidx, bidx in enumerate(back_node_idxs[len(back_input_node_idxs):]):
+            node = copy.deepcopy(graph_config['nodes'][bidx]) 
+            dltype = graph_config['attrs']['dltype'][1][bidx]
+            device_index = graph_config['attrs']['device_index'][1][bidx]
+            storage_id = graph_config['attrs']['storage_id'][1][bidx]
+            shape = graph_config['attrs']['shape'][1][bidx]
+            if node['op'] != 'null':
+                inputs = [i[0] for i in node['inputs']]
+                inputs = [[back_node_idxs.index(k), 0, 0] for k in inputs]
+                node['inputs'] = inputs
+            back_graph_config['nodes'].append(node)
+            back_graph_config['attrs']['dltype'][1].append(dltype)
+            back_graph_config['attrs']['device_index'][1].append(device_index)
+            back_graph_config['attrs']['storage_id'][1].append(storage_id)
+            back_graph_config['attrs']['shape'][1].append(shape)
+
+        for curidx, fidx in enumerate(back_node_idxs):
+            if back_graph_config['nodes'][curidx]['op'] == 'null':
+                back_graph_config['arg_nodes'].append(curidx)
+            back_graph_config['node_row_ptr'].append(curidx)
+
+        back_graph_config['node_row_ptr'].append(len(back_graph_config['node_row_ptr']))
+
+        back_graph_config['heads'].append([len(back_node_idxs) - 1, 0, 0])
+
+        self.back_graph_config = back_graph_config
+
         # self.group = group
         # self.front_req = front_req
         # self.back_req = back_req
@@ -123,4 +194,4 @@ class TVMSlicer:
         return [[i, g] for i, g in enumerate(zip(self.group, self.front_req, self.back_req))]
 
     def get_graph(self):
-        return self.front_graph_config
+        return self.front_graph_config, self.back_graph_config

@@ -29,10 +29,19 @@ dev = tvm.cuda()
 with tvm.transform.PassContext(opt_level=3):
     lib = relay.build(mod, target, params=params)
 
-graph_json = TVMSlicer(lib['get_graph_json'](), 11).get_graph()
+model_tvm = graph_executor.GraphModule(lib["default"](dev))
+model_tvm.set_input('input_1', input_data)
+model_tvm.run()
+out_tvm = model_tvm.get_output(0).asnumpy()
+
+out_tvm = out_tvm.transpose([0, 2, 3, 1])
+print(out_tvm[0][0][:10].T)
+print(out_tvm.shape)
+
+graph_json_front, graph_json_back = TVMSlicer(lib['get_graph_json'](), 11).get_graph()
 
 with tvm.transform.PassContext(opt_level=3):
-    lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(graph_json))
+    lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(graph_json_front))
 
 model_tvm_front = graph_executor.GraphModule(lib["default"](dev))
 model_tvm_front.set_input('input_1', input_data)
@@ -41,3 +50,19 @@ out_tvm_front_1 = model_tvm_front.get_output(0).asnumpy()
 out_tvm_front_2 = model_tvm_front.get_output(1).asnumpy()
 
 print(out_tvm_front_1.shape, out_tvm_front_2.shape)
+
+with tvm.transform.PassContext(opt_level=3):
+    lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(graph_json_back))
+
+
+model_tvm_back = graph_executor.GraphModule(lib["default"](dev))
+model_tvm_back.set_input('input_1', out_tvm_front_1)
+model_tvm_back.set_input('input_2', out_tvm_front_2)
+model_tvm_back.run()
+out_tvm_back = model_tvm_back.get_output(0).asnumpy()
+
+out_tvm_back = out_tvm_back.transpose([0, 2, 3, 1])
+print(out_tvm_back.shape)
+print(out_tvm_back[0][0][:10].T)
+
+print(np.allclose(out_tvm, out_tvm_back))
