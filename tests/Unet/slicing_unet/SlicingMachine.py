@@ -1,7 +1,8 @@
 import json
 import copy
+from re import M
 from sys import excepthook
-
+from collections import defaultdict
 
 # Graph Json Structure
 #
@@ -26,41 +27,100 @@ class TVMSlicer:
         if slicing_point == 0:
             return json.dumps(graph_config)
 
-        front_graph_json_data = copy.deepcopy(graph_config)
-        back_graph_json_data = copy.deepcopy(graph_config)
+        group = ['front' for i in range(slicing_point)] + ['back' for i in range(len(graph_config['nodes']) - slicing_point)]
 
-        num_node_dep = 0
-        node_arg_dep = []
-        node_input_dep = []
+        # repeat check until no non-front_req && back_req
+        while(True):
+            move_cnt = 0
+            front_req = [False for i in range(len(group))]
+            back_req = [False for i in range(len(group))]
+            for node_idx, node_info in enumerate(graph_config['nodes']):
+                input_nodes = [n[0] for n in node_info['inputs']]
+                if group[node_idx] == 'front':
+                    for input_node in input_nodes:
+                        front_req[input_node] = True
+                else:
+                    for input_node in input_nodes:
+                        back_req[input_node] = True
+            for node_idx, (f, b) in enumerate(zip(front_req, back_req)):
+                if not f and b and graph_config['nodes'][node_idx]['op'] == 'null' and group[node_idx] == 'front': 
+                    group[node_idx] = 'back'
+                    move_cnt += 1
+            if move_cnt == 0:
+                break
 
-        # Traverse and mark
+        front_node_idxs = []
+        front_output_idxs = []
+        back_node_idxs = []
+        back_input_node_idxs = []
+        for node_idx, (f, b) in enumerate(zip(front_req, back_req)):
+            if group[node_idx] == 'front':
+                front_node_idxs.append(node_idx)
+                if b:
+                    front_output_idxs.append(node_idx)
+                    back_input_node_idxs.append(node_idx)
+            else:
+                back_node_idxs.append(node_idx)
 
-        for node_info in graph_config['nodes'][slicing_point:]:
-            node_inputs = [n[0] for n in node_info]
-            for node_input in node_inputs:
-                if node_input < slicing_point:
-                    node_arg_dep.append(node_input)
-        
+        # Front
+        front_graph_config = {
+            "nodes" : [],
+            "arg_nodes": [],
+            "heads": [],
+            "attrs": { 
+                "dltype": [
+                    "list_str",
+                    []
+                ],
+                "device_index": [
+                    "list_int",
+                    []
+                ],
+                "storage_id": [
+                    "list_int",
+                    []
+                ],
+                "shape": [
+                    "list_shape",
+                    []
+                ],
+            },
+           "node_row_ptr": []
+        }
 
-        front_nodes = front_graph_json_data['nodes'][:slicing_point+1]
-        front_arg_idx = 0
-        while front_graph_json_data['arg_nodes'][front_arg_idx] < slicing_point:
-            front_arg_idx += 1
+        for fidx in front_node_idxs:
+            node = copy.deepcopy(graph_config['nodes'][fidx])
+            dltype = graph_config['attrs']['dltype'][1][fidx]
+            device_index = graph_config['attrs']['device_index'][1][fidx]
+            storage_id = graph_config['attrs']['storage_id'][1][fidx]
+            shape = graph_config['attrs']['shape'][1][fidx]
+            if node['op'] != 'null':
+                inputs = [i[0] for i in node['inputs']]
+                inputs = [[front_node_idxs.index(k), 0, 0] for k in inputs]
+                node['inputs'] = inputs
+            front_graph_config['nodes'].append(node)
+            front_graph_config['attrs']['dltype'][1].append(dltype)
+            front_graph_config['attrs']['device_index'][1].append(device_index)
+            front_graph_config['attrs']['storage_id'][1].append(storage_id)
+            front_graph_config['attrs']['shape'][1].append(shape)
 
-        # Front setting
-        front_arg_nodes = front_graph_json_data['arg_nodes'][:front_arg_idx]
-        front_heads = [[slicing_point, 0, 0]]
-        front_row_ptr = front_graph_json_data['node_row_ptr'][:slicing_point + 2]
-        front_attr_dltype = front_graph_json_data['attrs']['dltype'][1][:slicing_point + 1]
-        front_attr_shape = front_graph_json_data['attrs']['shape'][1][:slicing_point + 1]
-        front_attr_storage_id = front_graph_json_data['attrs']['storage_id'][1][:slicing_point + 1]
-        front_graph_json_data['nodes'] = front_nodes
-        front_graph_json_data['arg_nodes'] = front_arg_nodes
-        front_graph_json_data['heads'] = front_heads
-        front_graph_json_data['node_row_ptr'] = front_row_ptr
-        front_graph_json_data['attrs']['dltype'][1] = front_attr_dltype
-        front_graph_json_data['attrs']['shape'][1] = front_attr_shape
-        front_graph_json_data['attrs']['storage_id'][1] = front_attr_storage_id
-        front_graph_config = json.dumps(front_graph_json_data)
+        for curidx, fidx in enumerate(front_node_idxs):
+            if front_graph_config['nodes'][curidx]['op'] == 'null':
+                front_graph_config['arg_nodes'].append(curidx)
+            front_graph_config['node_row_ptr'].append(curidx)
 
-        # Back               
+        front_graph_config['node_row_ptr'].append(len(front_graph_config['node_row_ptr']))
+
+        for oidx in front_output_idxs:
+            front_graph_config['heads'].append([front_node_idxs.index(oidx), 0, 0])
+
+        self.front_graph_config = front_graph_config
+        # self.group = group
+        # self.front_req = front_req
+        # self.back_req = back_req
+
+    def get_inputs(self):
+        return [[i, g] for i, g in enumerate(zip(self.group, self.front_req, self.back_req))]
+
+    def get_graph(self):
+        return self.front_graph_config

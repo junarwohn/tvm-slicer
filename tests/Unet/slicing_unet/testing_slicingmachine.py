@@ -1,5 +1,5 @@
+from SlicingMachine import TVMSlicer
 import tensorflow as tf
-# from tests.Unet.slicing_unet.SlicingMachine import TVMSlicer
 import tvm
 import tvm.relay as relay
 from tvm.contrib import graph_executor
@@ -7,8 +7,6 @@ import numpy as np
 import os
 import json
 
-# Fix CUBLAS_STATUS_NOT_INITIALIZED error.
-#  - failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
 os.environ [ "TF_FORCE_GPU_ALLOW_GROWTH" ] = "true"
 
 np.random.seed(0)
@@ -30,17 +28,8 @@ target = 'cuda'
 dev = tvm.cuda()
 with tvm.transform.PassContext(opt_level=3):
     lib = relay.build(mod, target, params=params)
-model_tvm = graph_executor.GraphModule(lib["default"](dev))
-model_tvm.set_input('input_1', input_data)
-model_tvm.run()
-out_tvm = model_tvm.get_output(0).asnumpy()
 
-out_tvm = out_tvm.transpose([0, 2, 3, 1])
-print(out_tvm[0][0][:10].T)
-print(out_tvm.shape)
-
-with open("graph_json1.json", "r") as json_file:
-    graph_json = json.load(json_file)
+graph_json = TVMSlicer(lib['get_graph_json'](), 11).get_graph()
 
 with tvm.transform.PassContext(opt_level=3):
     lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(graph_json))
@@ -52,20 +41,3 @@ out_tvm_front_1 = model_tvm_front.get_output(0).asnumpy()
 out_tvm_front_2 = model_tvm_front.get_output(1).asnumpy()
 
 print(out_tvm_front_1.shape, out_tvm_front_2.shape)
-
-with open("graph_json2_erase_rest.json", "r") as json_file:
-    graph_json = json.load(json_file)
-
-with tvm.transform.PassContext(opt_level=3):
-    lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(graph_json))
-
-model_tvm_back = graph_executor.GraphModule(lib["default"](dev))
-model_tvm_back.set_input('input_0', out_tvm_front_2)
-model_tvm_back.set_input('input_1', out_tvm_front_1)
-model_tvm_back.run()
-
-out_tvm_back = model_tvm_back.get_output(0).asnumpy()
-
-out_tvm_back = out_tvm_back.transpose([0, 2, 3, 1])
-print(out_tvm_back[0][0][:10].T)
-print(out_tvm_back.shape)
