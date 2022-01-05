@@ -32,7 +32,9 @@ img_url = "https://github.com/dmlc/mxnet.js/blob/main/data/cat.png?raw=true"
 img_path = download_testdata(img_url, "cat.png", module="data")
 img = Image.open(img_path).resize((512, 512))
 
-model = UNet(in_dim=3, out_dim=1, num_filter=16)
+# model = UNet(in_dim=3, out_dim=1, num_filter=16)
+model_path = "./slicing_unet/unet_512_keras.h5"
+model = keras.models.load_model(model_path)
 
 # Preprocess (data type conversion to float32, NCHW order)
 img_data = np.array(img)[np.newaxis, :].astype("float32")
@@ -51,4 +53,4 @@ with tvm.transform.PassContext(opt_level=3):
 local_dev = tvm.cuda()
 
 # Save json graph
-show_graph(lib['get_graph_json'](), file_name='unet_multi')
+show_graph(lib['get_graph_json'](), file_name='unet_512')
