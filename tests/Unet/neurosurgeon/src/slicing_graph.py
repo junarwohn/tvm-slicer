@@ -28,9 +28,9 @@ graph_json_front_info, graph_json_back_info = TVMSlicer(graph_json_raw, [[0,49],
 graph_json_front, input_front, output_front = graph_json_front_info
 graph_json_back, input_back, output_back = graph_json_back_info
 
-with open("graph_json_front.json", "w") as json_file:
+with open("./graph/graph_json_front.json", "w") as json_file:
     json_file.write(graph_json_front)
 
 
-with open("graph_json_back.json", "r") as json_file:
+with open("./graph/graph_json_back.json", "r") as json_file:
     json_file.write(graph_json_back)
