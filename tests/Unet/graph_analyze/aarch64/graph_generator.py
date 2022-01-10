@@ -33,7 +33,7 @@ mod, params = relay.frontend.from_keras(model_keras, shape_dict)
 target = 'cuda'
 #target = 'llvm'
 
-dev = tvm.gpu()
+dev = tvm.cuda()
 #dev = tvm.cpu()
 
 for i in range(3):

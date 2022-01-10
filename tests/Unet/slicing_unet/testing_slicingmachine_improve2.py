@@ -1,4 +1,4 @@
-from SlicingMachine_improve import TVMSlicer
+from SlicingMachine import TVMSlicer
 import tensorflow as tf
 import tvm
 import tvm.relay as relay

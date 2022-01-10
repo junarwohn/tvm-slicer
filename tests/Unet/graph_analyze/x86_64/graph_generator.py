@@ -7,6 +7,8 @@ import os
 import json
 import pygraphviz as pgv
 
+os.environ [ "TF_FORCE_GPU_ALLOW_GROWTH" ] = "true"
+
 def show_graph(json_data, file_name=None):
     if type(json_data) == str:
         json_data = json.loads(json_data)
@@ -17,7 +19,6 @@ def show_graph(json_data, file_name=None):
     if file_name:
         A.draw(file_name + '.png', format='png', prog='dot')
 
-os.environ [ "TF_FORCE_GPU_ALLOW_GROWTH" ] = "true"
 
 np.random.seed(12)
 input_data = np.random.normal(0,1,(1,512,512,3)).astype(np.float32)
@@ -30,13 +31,13 @@ input_data = input_data.transpose([0, 3, 1, 2])
 shape_dict = {"input_1": input_data.shape}
 mod, params = relay.frontend.from_keras(model_keras, shape_dict)
 
-# target = 'cuda'
-target = 'llvm'
+# target = 'llvm'
+target = 'cuda'
 
-# dev = tvm.gpu()
-dev = tvm.cpu()
+# dev = tvm.cpu()
+dev = tvm.cuda()
 
-for i in range(3):
+for i in range(4):
     with tvm.transform.PassContext(opt_level=i):
         lib = relay.build(mod, target, params=params)
 

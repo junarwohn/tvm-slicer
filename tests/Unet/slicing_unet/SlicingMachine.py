@@ -1,8 +1,10 @@
 import json
 import copy
+import numpy as np
 from re import M
 from sys import excepthook
 from collections import defaultdict
+from threading import currentThread
 
 # Graph Json Structure
 #
@@ -17,181 +19,166 @@ from collections import defaultdict
 # node_row_ptr
 
 
+# RULE : return outputs by node number order
+# return output node info and input node info (original node number)
+# [ [graph1, [input node ("{original node},,,")], [output node] "{original node,,,}"], [graph2, [input node], [output node]],,, ]
+# Sliced by range (start, end]
 class TVMSlicer:
-    def __init__(self, graph_config='', slicing_point=0):
+    def __init__(self, graph_config='', slicing_point=[[]]):
         if isinstance(graph_config, str):
             try:
                 graph_config = json.loads(graph_config)  
             except:
                 return
-        if slicing_point == 0:
-            return json.dumps(graph_config)
+        # if len(slicing_point) < 2:
+            # raise Exception("[SlicingMachine] slicing_point should have at least 3 points (model start, model end")
 
-        group = ['front' for i in range(slicing_point)] + ['back' for i in range(len(graph_config['nodes']) - slicing_point)]
+        # for point in slicing_point[1:-1]:
+            # if len(graph_config['nodes'][point]['inputs']) == 0:
+                # raise Exception("[SlicingMachine] Node {} is not Intermediate Node. slicing point should be intermediate point".format(point))
 
-        # repeat check until no non-front_req && back_req
-        while(True):
-            move_cnt = 0
-            front_req = [False for i in range(len(group))]
-            back_req = [False for i in range(len(group))]
-            for node_idx, node_info in enumerate(graph_config['nodes']):
-                input_nodes = [n[0] for n in node_info['inputs']]
-                if group[node_idx] == 'front':
-                    for input_node in input_nodes:
-                        front_req[input_node] = True
-                else:
-                    for input_node in input_nodes:
-                        back_req[input_node] = True
-            for node_idx, (f, b) in enumerate(zip(front_req, back_req)):
-                if not f and b and graph_config['nodes'][node_idx]['op'] == 'null' and group[node_idx] == 'front': 
-                    group[node_idx] = 'back'
-                    move_cnt += 1
-            if move_cnt == 0:
-                break
+        def dfs(cur_node_index, upper_bound, mark_list):
+            # Already visited
+            if cur_node_index in mark_list:
+                return mark_list
 
-        front_node_idxs = []
-        front_output_idxs = []
-        back_node_idxs = []
-        back_input_node_idxs = []
-        for node_idx, (f, b) in enumerate(zip(front_req, back_req)):
-            if group[node_idx] == 'front':
-                front_node_idxs.append(node_idx)
-                if b:
-                    front_output_idxs.append(node_idx)
-                    back_input_node_idxs.append(node_idx)
-            else:
-                back_node_idxs.append(node_idx)
+            # Check upper bound
+            if cur_node_index == upper_bound:
+                mark_list.append(cur_node_index)
+                return mark_list
 
-        # Front
-        front_graph_config = {
-            "nodes" : [],
-            "arg_nodes": [],
-            "heads": [],
-            "attrs": { 
-                "dltype": [
-                    "list_str",
-                    []
-                ],
-                "device_index": [
-                    "list_int",
-                    []
-                ],
-                "storage_id": [
-                    "list_int",
-                    []
-                ],
-                "shape": [
-                    "list_shape",
-                    []
-                ],
-            },
-           "node_row_ptr": []
-        }
+            # Traverse
+            mark_list.append(cur_node_index)
+            input_lists = graph_config['nodes'][cur_node_index]['inputs']
+            for input_node_index in input_lists:
+                mark_list = dfs(input_node_index[0], upper_bound, mark_list)
+            return mark_list
+        self.sliced_graph = []
 
-        for fidx in front_node_idxs:
-            node = copy.deepcopy(graph_config['nodes'][fidx])
-            dltype = graph_config['attrs']['dltype'][1][fidx]
-            device_index = graph_config['attrs']['device_index'][1][fidx]
-            storage_id = graph_config['attrs']['storage_id'][1][fidx]
-            shape = graph_config['attrs']['shape'][1][fidx]
-            if node['op'] != 'null':
-                inputs = [i[0] for i in node['inputs']]
-                inputs = [[front_node_idxs.index(k), 0, 0] for k in inputs]
-                node['inputs'] = inputs
-            front_graph_config['nodes'].append(node)
-            front_graph_config['attrs']['dltype'][1].append(dltype)
-            front_graph_config['attrs']['device_index'][1].append(device_index)
-            front_graph_config['attrs']['storage_id'][1].append(storage_id)
-            front_graph_config['attrs']['shape'][1].append(shape)
+        # self.dfs_list = dfs(11, 0, [])
+        # print(dfs(7, 0, []))
+        # print(dfs(11, 0, []))
+        # print(np.setdiff1d(dfs(11, 0, []),dfs(0, 0, [])))
+        for start_p, end_p in slicing_point:
+            pre_nodes = np.array(sorted(dfs(start_p, 0, [])))
+            target_nodes = np.array(sorted(dfs(end_p, 0, [])))
+            total_nodes = [i for i in range(len(graph_config['nodes']))]
 
-        for curidx, fidx in enumerate(front_node_idxs):
-            if front_graph_config['nodes'][curidx]['op'] == 'null':
-                front_graph_config['arg_nodes'].append(curidx)
-            front_graph_config['node_row_ptr'].append(curidx)
+            # model_nodes = target_nodes - pre_nodes 
+            model_nodes = np.setdiff1d(target_nodes, pre_nodes)
+            np.sort(model_nodes)
 
-        front_graph_config['node_row_ptr'].append(len(front_graph_config['node_row_ptr']))
+            # Check dependency nodes of model nodes - for input nodes in model nodes
+            dep_input_info = defaultdict(list) # dep_node : model_nodes
+            for t_node in model_nodes:
+                for input_node_index in graph_config['nodes'][t_node]['inputs']:
+                    if input_node_index[0] not in model_nodes:
+                        dep_input_info[input_node_index[0]].append(t_node)
+            
+            # ex_nodes = post_nodes - model_nodes 
+            ex_nodes = np.setdiff1d(total_nodes, model_nodes)
+            np.sort(ex_nodes)
 
-        for oidx in front_output_idxs:
-            front_graph_config['heads'].append([front_node_idxs.index(oidx), 0, 0])
+            # Check dependency nodes of ex nodes - for output nodes in model nodes.
+            dep_output_info = defaultdict(list) # model_nodes : ex_dep_node
+            for e_node in ex_nodes:
+                for input_node_index in graph_config['nodes'][e_node]['inputs']:
+                    if input_node_index[0] in model_nodes:
+                        dep_output_info[input_node_index[0]].append(e_node)
+            
 
-        self.front_graph_config = front_graph_config
+            sliced_graph_config = {
+                "nodes" : [],
+                "arg_nodes": [],
+                "heads": [],
+                "attrs": { 
+                    "dltype": [
+                        "list_str",
+                        []
+                    ],
+                    "device_index": [
+                        "list_int",
+                        []
+                    ],
+                    "storage_id": [
+                        "list_int",
+                        []
+                    ],
+                    "shape": [
+                        "list_shape",
+                        []
+                    ],
+                },
+            "node_row_ptr": []
+            }
 
-        # Back
-        back_graph_config = {
-            "nodes" : [],
-            "arg_nodes": [],
-            "heads": [],
-            "attrs": { 
-                "dltype": [
-                    "list_str",
-                    []
-                ],
-                "device_index": [
-                    "list_int",
-                    []
-                ],
-                "storage_id": [
-                    "list_int",
-                    []
-                ],
-                "shape": [
-                    "list_shape",
-                    []
-                ],
-            },
-           "node_row_ptr": []
-        }
 
-        for curidx, bidx in enumerate(back_input_node_idxs):
-            node = copy.deepcopy(graph_config['nodes'][bidx]) 
-            dltype = graph_config['attrs']['dltype'][1][bidx]
-            device_index = graph_config['attrs']['device_index'][1][bidx]
-            storage_id = graph_config['attrs']['storage_id'][1][bidx]
-            shape = graph_config['attrs']['shape'][1][bidx]
-            node['op'] = 'null'
-            node['name'] = 'input_{}'.format(curidx + 1)
-            node['inputs'] = []
-            back_graph_config['nodes'].append(node)
-            back_graph_config['attrs']['dltype'][1].append(dltype)
-            back_graph_config['attrs']['device_index'][1].append(device_index)
-            back_graph_config['attrs']['storage_id'][1].append(storage_id)
-            back_graph_config['attrs']['shape'][1].append(shape)
+            # Add input
+            input_nodes = sorted(dep_input_info.keys())
+            # print(input_nodes)
+            for input_node_index in input_nodes:
+                sliced_graph_config["nodes"].append(copy.deepcopy(graph_config['nodes'][input_node_index]))
+                sliced_graph_config["nodes"][-1]["op"] = "null"
+                sliced_graph_config["nodes"][-1]["name"] = "input_{}".format(input_node_index)
+                sliced_graph_config["nodes"][-1]["inputs"] = [] 
+                sliced_graph_config["arg_nodes"].append(int(input_nodes.index(input_node_index)))
+                sliced_graph_config["attrs"]["dltype"][1].append(graph_config["attrs"]["dltype"][1][input_node_index])
+                sliced_graph_config["attrs"]["device_index"][1].append(graph_config["attrs"]["device_index"][1][input_node_index])
+                sliced_graph_config["attrs"]["storage_id"][1].append(graph_config["attrs"]["storage_id"][1][input_node_index])
+                sliced_graph_config["attrs"]["shape"][1].append(copy.deepcopy(graph_config["attrs"]["shape"][1][input_node_index]))
+                sliced_graph_config["node_row_ptr"].append(int(input_node_index))
 
-        back_node_idxs = back_input_node_idxs + back_node_idxs
+            # Add body
+            model_nodes = sorted(model_nodes)
+            model_nodes = input_nodes + model_nodes
+            # print(model_nodes)
+            for node_index in model_nodes[len(input_nodes):]:
+                sliced_graph_config["nodes"].append(copy.deepcopy(graph_config['nodes'][node_index]))
+                if graph_config["nodes"][node_index]["op"] == "null":
+                    sliced_graph_config["arg_nodes"].append(int(model_nodes.index(node_index)))
+                sliced_graph_config["attrs"]["dltype"][1].append(graph_config["attrs"]["dltype"][1][node_index])
+                sliced_graph_config["attrs"]["device_index"][1].append(graph_config["attrs"]["device_index"][1][node_index])
+                sliced_graph_config["attrs"]["storage_id"][1].append(graph_config["attrs"]["storage_id"][1][node_index])
+                sliced_graph_config["attrs"]["shape"][1].append(copy.deepcopy(graph_config["attrs"]["shape"][1][node_index]))
+                sliced_graph_config["node_row_ptr"].append(int(node_index))
 
-        for curidx, bidx in enumerate(back_node_idxs[len(back_input_node_idxs):]):
-            node = copy.deepcopy(graph_config['nodes'][bidx]) 
-            dltype = graph_config['attrs']['dltype'][1][bidx]
-            device_index = graph_config['attrs']['device_index'][1][bidx]
-            storage_id = graph_config['attrs']['storage_id'][1][bidx]
-            shape = graph_config['attrs']['shape'][1][bidx]
-            if node['op'] != 'null':
-                inputs = [i[0] for i in node['inputs']]
-                inputs = [[back_node_idxs.index(k), 0, 0] for k in inputs]
-                node['inputs'] = inputs
-            back_graph_config['nodes'].append(node)
-            back_graph_config['attrs']['dltype'][1].append(dltype)
-            back_graph_config['attrs']['device_index'][1].append(device_index)
-            back_graph_config['attrs']['storage_id'][1].append(storage_id)
-            back_graph_config['attrs']['shape'][1].append(shape)
+            # print(graph_config)
+            # Set input
+            for node_index, input_index in enumerate(model_nodes):
+                node_input_indexs = sliced_graph_config["nodes"][node_index]['inputs']
+                for i, node in enumerate(node_input_indexs):
+                    sliced_graph_config["nodes"][node_index]['inputs'][i] = [model_nodes.index(node[0]), 0, 0]
 
-        for curidx, fidx in enumerate(back_node_idxs):
-            if back_graph_config['nodes'][curidx]['op'] == 'null':
-                back_graph_config['arg_nodes'].append(curidx)
-            back_graph_config['node_row_ptr'].append(curidx)
+            # for dep_input_index in dep_input_info:
+            #     dep_node_indexs = dep_input_info[dep_input_index]
+            #     for node_index in dep_node_indexs:
+            #         # print(sliced_graph_config["nodes"][model_nodes.index(node_index)]['inputs'])
+            #         node_input_index = sliced_graph_config["nodes"][model_nodes.index(node_index)]['inputs'].index([dep_input_index, 0, 0])
+            #         sliced_graph_config["nodes"][model_nodes.index(node_index)]['inputs'][node_input_index] = [input_nodes.index(dep_input_index), 0, 0]
 
-        back_graph_config['node_row_ptr'].append(len(back_graph_config['node_row_ptr']))
+            # Set output
+            output_nodes = sorted(dep_output_info.keys())
+            if len(output_nodes) == 0:
+                output_nodes = [len(model_nodes) - 1]
 
-        back_graph_config['heads'].append([len(back_node_idxs) - 1, 0, 0])
+            # print(output_nodes)
+            for output_node_index in output_nodes:
+                sliced_graph_config["heads"].append([output_node_index, 0, 0])
 
-        self.back_graph_config = back_graph_config
+            # if len(sliced_graph_config["heads"]) == 0:
+            #     sliced_graph_config["heads"].append([len(model_nodes) - 1, 0, 0])
+            # Set rest : node_row_ptr
+            sliced_graph_config["node_row_ptr"] = [i for i in range(len(sliced_graph_config["nodes"]) + 1)]
 
-        # self.group = group
-        # self.front_req = front_req
-        # self.back_req = back_req
+            self.sliced_graph.append([sliced_graph_config, input_nodes, output_nodes])
+        # LAST sort heads
+
 
     def get_inputs(self):
         return [[i, g] for i, g in enumerate(zip(self.group, self.front_req, self.back_req))]
 
     def get_graph(self):
-        return self.front_graph_config, self.back_graph_config
+        return self.sliced_graph
+
+    def get_mark(self):
+        return self.dfs_list

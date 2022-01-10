@@ -1,0 +1,18 @@
+def @main(%input_1: Tensor[(1, 3, 512, 512), float32], %v_param_1: Tensor[(16, 3, 3, 3), float32], %v_param_2: Tensor[(16), float32], %v_param_3: Tensor[(32, 16, 3, 3), float32], %v_param_4: Tensor[(32), float32], %v_param_5: Tensor[(32, 16, 3, 3), float32], %v_param_6: Tensor[(16), float32], %v_param_7: Tensor[(16, 32, 3, 3), float32], %v_param_8: Tensor[(16), float32], %v_param_9: Tensor[(1, 16, 3, 3), float32], %v_param_10: Tensor[(1), float32]) {
+  %0 = nn.conv2d(%input_1, %v_param_1, padding=[1, 1, 1, 1], channels=16, kernel_size=[3, 3]);
+  %1 = nn.bias_add(%0, %v_param_2);
+  %2 = nn.max_pool2d(%1, pool_size=[2, 2], strides=[2, 2], padding=[0, 0, 0, 0]);
+  %3 = nn.conv2d(%2, %v_param_3, padding=[1, 1, 1, 1], channels=32, kernel_size=[3, 3]);
+  %4 = nn.bias_add(%3, %v_param_4);
+  %5 = nn.conv2d_transpose(%4, %v_param_5, channels=16, kernel_size=[3, 3], strides=[2, 2], padding=[0, 0, 1, 1], kernel_layout="IOHW");
+  %6 = nn.bias_add(%5, %v_param_6);
+  %7 = (%6, %1);
+  %8 = concatenate(%7, axis=1);
+  %9 = nn.conv2d(%8, %v_param_7, padding=[1, 1, 1, 1], channels=16, kernel_size=[3, 3]);
+  %10 = nn.bias_add(%9, %v_param_8);
+  %11 = nn.conv2d(%10, %v_param_9, padding=[1, 1, 1, 1], channels=1, kernel_size=[3, 3]);
+  %12 = nn.bias_add(%11, %v_param_10);
+  %13 = sigmoid(%12);
+  (%13, %4)
+}
+
