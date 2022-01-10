@@ -46,7 +46,7 @@
 # - ON: enable CUDA with cmake's auto search
 # - OFF: disable CUDA
 # - /path/to/cuda: use specific path to cuda toolkit
-set(USE_CUDA OFF)
+set(USE_CUDA ON)
 
 # Whether enable ROCM runtime
 #
@@ -122,7 +122,7 @@ set(USE_MICRO_STANDALONE_RUNTIME OFF)
 # - OFF: disable llvm, note this will disable CPU codegen
 #        which is needed for most cases
 # - /path/to/llvm-config: enable specific LLVM when multiple llvm-dev is available.
-set(USE_LLVM OFF)
+set(USE_LLVM ON)
 
 #---------------------------------------------
 # Contrib libraries
@@ -184,7 +184,7 @@ set(USE_EDGETPU OFF)
 # - ON: enable cuDNN with cmake's auto search in CUDA directory
 # - OFF: disable cuDNN
 # - /path/to/cudnn: use specific path to cuDNN path
-set(USE_CUDNN OFF)
+set(USE_CUDNN ON)
 
 # Whether use cuBLAS
 set(USE_CUBLAS OFF)
@@ -259,7 +259,7 @@ set(USE_VERILATOR OFF)
 set(USE_ANTLR OFF)
 
 # Whether use Relay debug mode
-set(USE_RELAY_DEBUG OFF)
+set(USE_RELAY_DEBUG ON)
 
 # Whether to build fast VTA simulator driver
 set(USE_VTA_FSIM OFF)
