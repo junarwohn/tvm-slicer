@@ -24,13 +24,20 @@ with tvm.transform.PassContext(opt_level=3):
 
 graph_json_raw = lib['get_graph_json']()
 graph_json_front_info, graph_json_back_info = TVMSlicer(graph_json_raw, [[0,49],[49,111]]).get_graph()
+# graph_json_front_info, graph_json_back_info = TVMSlicer(graph_json_raw, [[0,9],[9,111]]).get_graph()
 
 graph_json_front, input_front, output_front = graph_json_front_info
 graph_json_back, input_back, output_back = graph_json_back_info
 
 with open("./graph/graph_json_front.json", "w") as json_file:
-    json_file.write(graph_json_front)
+    graph_json_front['extra'] = {}
+    graph_json_front['extra']['inputs'] = input_front
+    graph_json_front['extra']['outputs'] = output_front
+    json_file.write(json.dumps(graph_json_front))
 
 
-with open("./graph/graph_json_back.json", "r") as json_file:
-    json_file.write(graph_json_back)
+with open("./graph/graph_json_back.json", "w") as json_file:
+    graph_json_back['extra'] = {}
+    graph_json_back['extra']['inputs'] = output_front
+    graph_json_back['extra']['outputs'] = output_back
+    json_file.write(json.dumps(graph_json_back))

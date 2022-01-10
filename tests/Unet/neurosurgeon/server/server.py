@@ -6,109 +6,99 @@ import tvm
 from tvm import te
 import tvm.relay as relay
 from tvm.contrib.download import download_testdata
-from tensorflow import keras
 from tvm.contrib import graph_executor
 import json
 import time
 from PIL import Image
-#import subprocess
+import sys
+import cv2
+import struct
 
-HOST = '192.168.0.4'
-#HOST = 'givenarc.iptime.org'
-PORT = 9999        
+# Model Load
 
-marker = b"Q!W@E#R$"
-end_marker = b"$R#E@W!Q"
-socket_size = 1024 
+target = 'cuda'
+dev = tvm.cuda(0)
+model_path = "../src/model/unet_tvm_back.so"
+back_lib = tvm.runtime.load_module(model_path)
+back_model = graph_executor.GraphModule(back_lib['default'](dev))
+
+model_info_path = "../src/graph/graph_json_back.json"
+with open(model_info_path, "r") as json_file:
+    model_info = json.load(json_file)
+
+input_info = model_info["extra"]["inputs"]
+shape_info = model_info["attrs"]["shape"][1][:len(input_info)]
+output_info = model_info["extra"]["outputs"]
+
+print("Model Loaded")
+
+# Initialize connect
+
+HOST = '192.168.0.184'
+PORT = 9998        
+socket_size = 1024 * 1024 * 1024 
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 server_socket.bind((HOST, PORT))
-target = 'cuda'
-dev = tvm.cuda(0)
-lib_path = '../src/model/'
+
+server_socket.listen()
+client_socket, addr = server_socket.accept()
+
+print("Connection estabilished")
 
 while True:
+    ins = []
     
-    server_socket.listen()
-    
-    client_socket, addr = server_socket.accept()
-    
-    
-    partition_point = int(str(client_socket.recv(socket_size).decode()))
-   
-    print("Run partition point at {}".format(partition_point))
-
-    #full_lib_file = 'local_lib_full_{}.tar'.format(str(partition_point))
-    #full_lib = tvm.runtime.load_module(lib_path + full_lib_file)
-    #full_model = graph_executor.GraphModule(full_lib["default"](dev))
- 
-    back_lib_file = 'local_lib_back_{}.tar'.format(str(partition_point))
-    back_lib = tvm.runtime.load_module(lib_path + back_lib_file)
-    back_model = graph_executor.GraphModule(back_lib["default"](dev))
-    
-    #while True:
-    #    data = []
-    #    while True:
-    #        packet = client_socket.recv(socket_size)
-    #        if marker in packet:
-    #            data.append(packet.split(marker)[0])
-    #            break
-    #        data.append(packet)
-    #    byte_obj = b"".join(data)
-    #    if end_marker in byte_obj:
-    #        break
-    #    front_out = pickle.loads(byte_obj)
-    #    front_out = np.array(front_out)
-    #
-    #    input_data = tvm.nd.array(front_out)
-    #    full_model.set_input('input_1', input_data)
-    #    full_model.run()
-    #    full_out = full_model.get_output(0).asnumpy()
-    #    byte_obj = pickle.dumps(full_out)
-    #    client_socket.sendall(byte_obj)
-    #    client_socket.sendall(marker)
-
-    #print("FULL FINISH")
-    # 
-    #del full_lib
-    #del full_model
-    #del data
-    #del byte_obj
-
-    #usage = []
-    while True:
-        data = []
-        while True:
-            packet = client_socket.recv(socket_size)
-            if marker in packet:
-                data.append(packet.split(marker)[0])
-                break
-            data.append(packet)
-        byte_obj = b"".join(data)
-        if end_marker in byte_obj:
-            break
-        #print(byte_obj)
-        try:
-            front_out = pickle.loads(byte_obj)
-        except:
-            break
-        front_out = np.array(front_out)
-        input_data = tvm.nd.array(front_out)
-        print("error occured")
+    for idx, shape in zip(input_info, shape_info):
+        in_idx = struct.unpack('i', client_socket.recv(4))[0]
+        if idx != in_idx:
+            raise Exception("Input not matched")
+        msg_len = struct.unpack('i', client_socket.recv(4))[0]
+        print("receive", in_idx, msg_len)
         packet = client_socket.recv(socket_size)
+        # packet = client_socket.recv()
+        recv_msg = packet
+        while len(recv_msg) < msg_len:
+            # print(len(recv_msg))
+            packet = client_socket.recv(socket_size)
+            # packet = client_socket.recv()
+            recv_msg += packet
+        client_socket.sendall(struct.pack('i', 1))
+        ins.append([idx, np.frombuffer(recv_msg, np.float32).reshape(shape)])
 
-        back_model.set_input('input_1', input_data)
-        back_model.run()
-        #usage.append(int(subprocess.check_output("nvidia-smi | grep 3019MiB | grep -o -E '[0-9]+%' | tail -1", shell=True).decode().split('%')[0]))
-        out_deploy = back_model.get_output(0).asnumpy()
-        byte_obj = pickle.dumps(np.array(out_deploy))
-        client_socket.sendall(byte_obj)
-        client_socket.sendall(marker)
-    #print(sum(usage) / len(usage), '%')
-    client_socket.close()
-    del back_lib
-    del back_model
-    del byte_obj
+    for idx, indata in ins:
+        back_model.set_input("input_{}".format(idx), indata)
+
+    back_model.run()
+    out = back_model.get_output(0).asnumpy().astype(np.float32)
+
+    cv2.imshow("received - server", 255 * out.transpose([0,2,3,1])[0])
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+    send_obj = out.tobytes()
+    send_obj_len = len(send_obj)
+    send_msg = struct.pack('i', 0) + struct.pack('i', send_obj_len) + send_obj
+    client_socket.sendall(send_msg)
+
+    # msg_len = struct.unpack('i', client_socket.recv(4))[0]
+    # if msg_len == 0:
+    #     break
+    # packet = client_socket.recv(socket_size)
+    # recv_msg = packet
+    # while len(recv_msg)  < msg_len:
+    #     packet = client_socket.recv(socket_size)
+    #     recv_msg += packet
+    # recv_data = np.frombuffer(recv_msg, np.uint8).reshape(1,3,512,512)
+    # cv2.imshow("received - server", recv_data.transpose([0,2,3,1])[0])
+    # if cv2.waitKey(1) & 0xFF == ord('q'):
+    #     break
+    # send_obj = recv_data.tobytes()
+    # send_obj_len = len(send_obj)
+    # send_msg = struct.pack('i', send_obj_len) + send_obj
+    # client_socket.sendall(send_msg)
+
+client_socket.close()
 
 server_socket.close()
