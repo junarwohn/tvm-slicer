@@ -30,11 +30,11 @@ input_data = input_data.transpose([0, 3, 1, 2])
 shape_dict = {"input_1": input_data.shape}
 mod, params = relay.frontend.from_keras(model_keras, shape_dict)
 
-# target = 'cuda'
-target = 'llvm'
+target = 'cuda'
+#target = 'llvm'
 
-# dev = tvm.gpu()
-dev = tvm.cpu()
+dev = tvm.gpu()
+#dev = tvm.cpu()
 
 for i in range(3):
     with tvm.transform.PassContext(opt_level=i):
