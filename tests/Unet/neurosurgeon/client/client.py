@@ -15,8 +15,10 @@ import struct
 
 # Model load
 
-target = 'cuda'
-dev = tvm.cuda(0)
+#target = 'cuda'
+target = 'llvm'
+#dev = tvm.cuda(0)
+dev = tvm.cpu(0)
 model_path = "../src/model/unet_tvm_front.so"
 front_lib = tvm.runtime.load_module(model_path)
 front_model = graph_executor.GraphModule(front_lib['default'](dev))
@@ -34,11 +36,11 @@ print("Model Loaded")
 
 # # Initialize connect
 
-#HOST = '192.168.0.184'  
-HOST = '192.168.0.190'
+HOST = '192.168.0.184'  
+#HOST = '192.168.0.190'
 PORT = 9998       
 #socket_size = 1 * 1024 * 1024
-socket_size = 1024
+socket_size = 4 * 1024
 
 client_socket  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
