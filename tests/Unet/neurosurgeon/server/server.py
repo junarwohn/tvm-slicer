@@ -9,7 +9,6 @@ from tvm.contrib.download import download_testdata
 from tvm.contrib import graph_executor
 import json
 import time
-from PIL import Image
 import sys
 import cv2
 import struct
@@ -34,7 +33,8 @@ print("Model Loaded")
 
 # Initialize connect
 
-HOST = '192.168.0.184'
+#HOST = '192.168.0.184'
+HOST = '192.168.0.190'
 PORT = 9998        
 socket_size = 1024 * 1024 * 1024 
 
@@ -55,7 +55,7 @@ while True:
         if idx != in_idx:
             raise Exception("Input not matched")
         msg_len = struct.unpack('i', client_socket.recv(4))[0]
-        print("receive", in_idx, msg_len)
+        #print("receive", in_idx, msg_len)
         packet = client_socket.recv(socket_size)
         # packet = client_socket.recv()
         recv_msg = packet
