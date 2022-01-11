@@ -9,8 +9,9 @@ import json
 import pygraphviz as pgv
 
 np.random.seed(0)
-input_data = np.random.normal(0,1,(1,512,512,3)).astype(np.float32)
-model_keras = tf.keras.models.load_model('./model/unet.h5')
+img_size = 128
+input_data = np.random.normal(0,1,(1,img_size,img_size,3)).astype(np.float32)
+model_keras = tf.keras.models.load_model('./model/unet_{}.h5'.format(img_size))
 
 ## tvm result
 input_data = input_data.transpose([0, 3, 1, 2])

@@ -46,12 +46,12 @@ client_socket.connect((HOST, PORT))
 print("Connection estabilished")
 
 # Video Load
-
+img_size = 128
 cap = cv2.VideoCapture("../src/data/j_scan.mp4")
 # client_socket.settimeout(1)
 while (cap.isOpened()):
     ret, frame = cap.read()
-    frame = cv2.resize(frame[490:1800, 900:2850], (512,512)) / 255
+    frame = cv2.resize(frame[490:1800, 900:2850], (img_size,img_size)) / 255
     input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
 
     # Execute front
@@ -98,12 +98,12 @@ while (cap.isOpened()):
         # packet = client_socket.recv()
         recv_msg += packet
 
-    recv_data = np.frombuffer(recv_msg, np.float32).reshape(1,1,512,512)
+    recv_data = np.frombuffer(recv_msg, np.float32).reshape(1,1,img_size,img_size)
 
     
     #cv2.imshow("original", frame)
     img_in_rgb = frame
-    th = cv2.resize(cv2.threshold(np.squeeze(recv_data.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (512,512))
+    th = cv2.resize(cv2.threshold(np.squeeze(recv_data.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
     #print(np.unique(th, return_counts=True))
     img_in_rgb[th == 1] = [0, 0, 255]
     cv2.imshow("received - client", img_in_rgb)
