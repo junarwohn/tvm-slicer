@@ -15,10 +15,11 @@ import struct
 
 # Model load
 
-#target = 'cuda'
-target = 'llvm'
-#dev = tvm.cuda(0)
-dev = tvm.cpu(0)
+
+target = 'cuda'
+#target = 'llvm'
+dev = tvm.cuda(0)
+#dev = tvm.cpu(0)
 model_path = "../src/model/unet_tvm_front.so"
 front_lib = tvm.runtime.load_module(model_path)
 front_model = graph_executor.GraphModule(front_lib['default'](dev))
@@ -71,20 +72,31 @@ while (cap.isOpened()):
     
     #print("run finish")
     
+    # total_msg = total_num + total_len + idx + len + __obj__ + idx + len + __obj__ ...
+    total_msg = struct.pack('i', len(outs))
+    objs = []
+
     # Send msg
     for i, out in outs:
         send_obj = out.tobytes()
         send_obj_len = len(send_obj)
         #print("run", i, send_obj_len, out.shape)
         send_msg = struct.pack('i', i) + struct.pack('i', send_obj_len) + send_obj
-        client_socket.sendall(send_msg)
-        # packet = client_socket.recv(socket_size)
-        if struct.unpack('i', client_socket.recv(4))[0] == 1:
-            #print("Received")
-            continue
-        else:
-            raise Exception("Wrong")
-        
+        objs.append(send_msg)
+        # client_socket.sendall(send_msg)
+        # # packet = client_socket.recv(socket_size)
+        # if struct.unpack('i', client_socket.recv(4))[0] == 1:
+        #     #print("Received")
+        #     continue
+        # else:
+        #     raise Exception("Wrong")
+
+    msg_body = b''
+    for o in objs:
+        msg_body += o
+
+    total_msg += struct.pack('i', len(msg_body)) + msg_body
+    client_socket.sendall(total_msg)
 
     # send_obj = input_data.tobytes()
     # send_obj_len = len(send_obj)

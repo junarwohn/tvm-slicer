@@ -37,7 +37,7 @@ HOST = '192.168.0.184'
 #HOST = '192.168.0.190'
 PORT = 9998        
 #socket_size = 1024 * 1024 * 1024 
-socket_size = 4 * 1024 
+socket_size = 1024 * 1024 
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -50,23 +50,39 @@ print("Connection estabilished")
 
 while True:
     ins = []
-    
-    for idx, shape in zip(input_info, shape_info):
-        in_idx = struct.unpack('i', client_socket.recv(4))[0]
-        if idx != in_idx:
-            raise Exception("Input not matched")
-        msg_len = struct.unpack('i', client_socket.recv(4))[0]
-        #print("receive", in_idx, msg_len)
+    num_data = struct.unpack('i', client_socket.recv(4))[0]
+    len_data = struct.unpack('i', client_socket.recv(4))[0]
+    recv_msg = client_socket.recv(socket_size)
+    while len(recv_msg) < len_data:
         packet = client_socket.recv(socket_size)
         # packet = client_socket.recv()
-        recv_msg = packet
-        while len(recv_msg) < msg_len:
-            # print(len(recv_msg))
-            packet = client_socket.recv(socket_size)
-            # packet = client_socket.recv()
-            recv_msg += packet
-        client_socket.sendall(struct.pack('i', 1))
-        ins.append([idx, np.frombuffer(recv_msg, np.float32).reshape(shape)])
+        recv_msg += packet
+    
+    for idx, shape in zip(input_info, shape_info):
+        in_idx = struct.unpack('i', recv_msg[:4])[0]
+        if idx != in_idx:
+            raise Exception("Input not matched")
+        msg_len = struct.unpack('i', recv_msg[4:8])[0]
+        ins.append([idx, np.frombuffer(recv_msg[8:8+msg_len], np.float32).reshape(shape)])
+        recv_msg = recv_msg[8+msg_len:]
+        
+    # ## 
+    # for idx, shape in zip(input_info, shape_info):
+    #     in_idx = struct.unpack('i', client_socket.recv(4))[0]
+    #     if idx != in_idx:
+    #         raise Exception("Input not matched")
+    #     msg_len = struct.unpack('i', client_socket.recv(4))[0]
+    #     #print("receive", in_idx, msg_len)
+    #     packet = client_socket.recv(socket_size)
+    #     # packet = client_socket.recv()
+    #     recv_msg = packet
+    #     while len(recv_msg) < msg_len:
+    #         # print(len(recv_msg))
+    #         packet = client_socket.recv(socket_size)
+    #         # packet = client_socket.recv()
+    #         recv_msg += packet
+    #     client_socket.sendall(struct.pack('i', 1))
+    #     ins.append([idx, np.frombuffer(recv_msg, np.float32).reshape(shape)])
 
     for idx, indata in ins:
         back_model.set_input("input_{}".format(idx), indata)
