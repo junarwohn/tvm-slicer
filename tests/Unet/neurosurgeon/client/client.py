@@ -40,7 +40,7 @@ HOST = '192.168.0.184'
 #HOST = '192.168.0.190'
 PORT = 9998       
 #socket_size = 1 * 1024 * 1024
-socket_size = 4 * 1024
+socket_size = 1024 * 1024
 
 client_socket  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -52,9 +52,13 @@ print("Connection estabilished")
 img_size = 128
 cap = cv2.VideoCapture("../src/data/j_scan.mp4")
 # client_socket.settimeout(1)
+stime = time.time()
 while (cap.isOpened()):
     ret, frame = cap.read()
-    frame = cv2.resize(frame[490:1800, 900:2850], (img_size,img_size)) / 255
+    try:
+        frame = cv2.resize(frame[490:1800, 900:2850], (img_size,img_size)) / 255
+    except:
+        break
     input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
 
     # Execute front
@@ -114,5 +118,6 @@ while (cap.isOpened()):
         break
     ret, frame = cap.read()
 
+print("Total :", time.time() - stime)
 cap.release()
 cv2.destroyAllWindows()
