@@ -33,10 +33,11 @@ print("Model Loaded")
 
 # Initialize connect
 
-HOST = '192.168.0.184'
-#HOST = '192.168.0.190'
+#HOST = '192.168.0.184'
+HOST = '192.168.0.190'
 PORT = 9998        
-socket_size = 1024 * 1024 * 1024 
+#socket_size = 1024 * 1024 * 1024 
+socket_size = 1024 
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
