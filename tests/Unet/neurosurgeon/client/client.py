@@ -16,10 +16,10 @@ import struct
 # Model load
 
 
-target = 'cuda'
-#target = 'llvm'
-dev = tvm.cuda(0)
-#dev = tvm.cpu(0)
+#target = 'cuda'
+target = 'llvm'
+#dev = tvm.cuda(0)
+dev = tvm.cpu(0)
 model_path = "../src/model/unet_tvm_front.so"
 front_lib = tvm.runtime.load_module(model_path)
 front_model = graph_executor.GraphModule(front_lib['default'](dev))
@@ -50,7 +50,7 @@ client_socket.connect((HOST, PORT))
 print("Connection estabilished")
 
 # Video Load
-img_size = 128
+img_size = 512
 cap = cv2.VideoCapture("../src/data/j_scan.mp4")
 # client_socket.settimeout(1)
 stime = time.time()
@@ -78,7 +78,7 @@ while (cap.isOpened()):
 
     # Send msg
     for i, out in outs:
-        send_obj = out.tobytes()
+        send_obj = out.astype(np.float16).tobytes()
         send_obj_len = len(send_obj)
         #print("run", i, send_obj_len, out.shape)
         send_msg = struct.pack('i', i) + struct.pack('i', send_obj_len) + send_obj
@@ -117,7 +117,7 @@ while (cap.isOpened()):
         # packet = client_socket.recv()
         recv_msg += packet
 
-    recv_data = np.frombuffer(recv_msg, np.float32).reshape(1,1,img_size,img_size)
+    recv_data = np.frombuffer(recv_msg, np.float16).astype(np.float32).reshape(1,1,img_size,img_size)
 
     
     #cv2.imshow("original", frame)
