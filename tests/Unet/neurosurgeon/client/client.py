@@ -117,7 +117,7 @@ while (cap.isOpened()):
         # packet = client_socket.recv()
         recv_msg += packet
 
-    recv_data = np.frombuffer(recv_msg, np.float32).reshape(1,1,img_size,img_size)
+    recv_data = np.frxombuffer(recv_msg, np.float32).reshape(1,1,img_size,img_size)
 
     
     #cv2.imshow("original", frame)
