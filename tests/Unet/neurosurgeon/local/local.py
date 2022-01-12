@@ -26,7 +26,7 @@ model = graph_executor.GraphModule(lib['default'](dev))
 
 # Video Load
 
-img_size = 128
+img_size = 512 
 cap = cv2.VideoCapture("../src/data/j_scan.mp4")
 # client_socket.settimeout(1)
 stime = time.time()

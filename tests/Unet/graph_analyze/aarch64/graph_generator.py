@@ -37,6 +37,10 @@ input_data = input_data.transpose([0, 3, 1, 2])
 shape_dict = {"input_1": input_data.shape}
 mod, params = relay.frontend.from_keras(model_keras, shape_dict)
 
+<<<<<<< HEAD
+target = 'cuda'
+#target = 'llvm'
+=======
 target = 'llvm'
 # target = 'cuda'
 
@@ -44,6 +48,7 @@ if target == 'llvm':
     dev = tvm.cpu()
 else:
     dev = tvm.cuda()    
+>>>>>>> 59e12c270a290ff7a8aaac815cd448f0e22a80d1
 
 # # dev = tvm.cpu()
 # dev = tvm.cuda()
