@@ -27,7 +27,7 @@ with tvm.transform.PassContext(opt_level=2):
     lib = relay.build(mod, target, params=params)
 
 graph_json_raw = lib['get_graph_json']()
-graph_json_front_info, graph_json_back_info = TVMSlicer(graph_json_raw, [[0,32],[32,121]]).get_graph()
+graph_json_front_info, graph_json_back_info = TVMSlicer(graph_json_raw, [[0,10],[10,121]]).get_graph()
 # graph_json_front_info, graph_json_back_info = TVMSlicer(graph_json_raw, [[0,9],[9,111]]).get_graph()
 
 graph_json_front, input_front, output_front = graph_json_front_info

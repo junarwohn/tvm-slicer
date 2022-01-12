@@ -63,7 +63,7 @@ while True:
         if idx != in_idx:
             raise Exception("Input not matched")
         msg_len = struct.unpack('i', recv_msg[4:8])[0]
-        ins.append([idx, np.frombuffer(recv_msg[8:8+msg_len], np.float32).reshape(shape)])
+        ins.append([idx, np.frombuffer(recv_msg[8:8+msg_len], np.float16).reshape(shape)])
         recv_msg = recv_msg[8+msg_len:]
         
     # ## 
@@ -94,7 +94,7 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-    send_obj = out.tobytes()
+    send_obj = out.astype(np.float16).tobytes()
     send_obj_len = len(send_obj)
     send_msg = struct.pack('i', 0) + struct.pack('i', send_obj_len) + send_obj
     client_socket.sendall(send_msg)

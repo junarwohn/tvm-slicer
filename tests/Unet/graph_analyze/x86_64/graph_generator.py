@@ -40,8 +40,13 @@ mod, params = relay.frontend.from_keras(model_keras, shape_dict)
 # target = 'llvm'
 target = 'cuda'
 
-# dev = tvm.cpu()
-dev = tvm.cuda()
+if target == 'llvm':
+    dev = tvm.cpu()
+else:
+    dev = tvm.cuda()    
+
+# # dev = tvm.cpu()
+# dev = tvm.cuda()
 
 for i in range(4):
     with tvm.transform.PassContext(opt_level=i):
