@@ -7,17 +7,24 @@ import os
 import json
 import pygraphviz as pgv
 
+os.environ [ "TF_FORCE_GPU_ALLOW_GROWTH" ] = "true"
+
+def shape_size(shape_list):
+    result = 1
+    for i in shape_list:
+        result *= i
+    return result
+
 def show_graph(json_data, file_name=None):
     if type(json_data) == str:
         json_data = json.loads(json_data)
     A = pgv.AGraph(directed=True)
     for node_idx, node in enumerate(json_data['nodes']):
         for src in node['inputs']:
-            A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]), node['name'] + '[{}]'.format(node_idx))
+            A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]) + '{}'.format(shape_size(json_data['attrs']['shape'][1][src[0]])), node['name'] + '[{}]'.format(node_idx) + '{}'.format(shape_size(json_data['attrs']['shape'][1][node_idx])))
     if file_name:
         A.draw(file_name + '.png', format='png', prog='dot')
 
-os.environ [ "TF_FORCE_GPU_ALLOW_GROWTH" ] = "true"
 
 np.random.seed(12)
 input_data = np.random.normal(0,1,(1,512,512,3)).astype(np.float32)
@@ -30,11 +37,21 @@ input_data = input_data.transpose([0, 3, 1, 2])
 shape_dict = {"input_1": input_data.shape}
 mod, params = relay.frontend.from_keras(model_keras, shape_dict)
 
+<<<<<<< HEAD
 target = 'cuda'
 #target = 'llvm'
+=======
+target = 'llvm'
+# target = 'cuda'
 
-#dev = tvm.cuda()
-dev = tvm.cpu()
+if target == 'llvm':
+    dev = tvm.cpu()
+else:
+    dev = tvm.cuda()    
+>>>>>>> 59e12c270a290ff7a8aaac815cd448f0e22a80d1
+
+# # dev = tvm.cpu()
+# dev = tvm.cuda()
 
 for i in range(4):
     with tvm.transform.PassContext(opt_level=i):

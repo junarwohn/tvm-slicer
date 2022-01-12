@@ -50,7 +50,11 @@ client_socket.connect((HOST, PORT))
 print("Connection estabilished")
 
 # Video Load
+<<<<<<< HEAD
 img_size = 512
+=======
+img_size = 512 
+>>>>>>> 59e12c270a290ff7a8aaac815cd448f0e22a80d1
 cap = cv2.VideoCapture("../src/data/j_scan.mp4")
 # client_socket.settimeout(1)
 stime = time.time()
