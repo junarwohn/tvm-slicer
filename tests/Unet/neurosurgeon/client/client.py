@@ -13,6 +13,11 @@ import sys
 import cv2
 import struct
 from argparse import ArgumentParser
+import ntplib 
+
+ntp_time_server = 'time.windows.com'               # NTP Server Domain Or IP 
+c = ntplib.NTPClient() 
+#response = c.request(ntp_time_server, version=3) 
 
 
 parser = ArgumentParser()
@@ -58,6 +63,10 @@ client_socket  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 client_socket.connect((HOST_IP, PORT))
 
+#client_socket.sendall(struct.pack('?', True))
+#base_time = time.time()
+#print(base_time)
+
 print("Connection estabilished")
 
 # Video Load
@@ -75,7 +84,7 @@ while (cap.isOpened()):
         frame = cv2.resize(frame[490:1800, 900:2850], (img_size,img_size)) / 255
     except:
         print("Transmission End")
-        time_sent = struct.pack('d', time.time())
+        time_sent = struct.pack('d', c.request(ntp_time_server, version=3).tx_time)
         total_msg = struct.pack('i', 0)
         client_socket.sendall(time_sent + total_msg)
         break
@@ -91,7 +100,8 @@ while (cap.isOpened()):
         outs.append([out_idx, front_model.get_output(i).asnumpy().astype(np.float32)])
     inference_time += time.time() - inference_time_start
     
-    time_sent = struct.pack('d', time.time())
+    time_sent = struct.pack('d', c.request(ntp_time_server, version=3).tx_time)
+    #time_sent = struct.pack('d', time.time() - base_time)
     # total_msg = total_num + total_len + idx + len + __obj__ + idx + len + __obj__ ...
     total_msg = struct.pack('i', len(outs))
     objs = []
@@ -128,7 +138,8 @@ while (cap.isOpened()):
         recv_msg += packet
 
     recv_data = np.frombuffer(recv_msg, np.float16).astype(np.float32).reshape(1,1,img_size,img_size)
-    network_time += time.time() - time_sent 
+    network_time += c.request(ntp_time_server, version=3).tx_time - time_sent 
+    #network_time += time_sent 
 
     
     img_in_rgb = frame

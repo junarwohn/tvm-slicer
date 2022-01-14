@@ -12,14 +12,18 @@ import time
 import sys
 import cv2
 import struct
+import ntplib
 from argparse import ArgumentParser
+import ntplib 
 
+ntp_time_server = 'time.windows.com'               # NTP Server Domain Or IP 
+c = ntplib.NTPClient() 
+#response = c.eequest(timeServer, version=3) 
 
 parser = ArgumentParser()
 parser.add_argument('--ip', type=str, default='192.168.0.184', help='input ip of host')
 parser.add_argument('--device', type=str, default='cuda', help='type of devices [llvm, cuda]')
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
-
 args = parser.parse_args()
 
 # Model Load
@@ -60,6 +64,9 @@ server_socket.bind((HOST_IP, PORT))
 
 server_socket.listen()
 client_socket, addr = server_socket.accept()
+#struct.unpack('?', client_socket.recv(1))[0]
+base_time = time.time()
+print(base_time)
 
 print("Connection estabilished")
 total_time_start = time.time()
@@ -92,7 +99,7 @@ while True:
         recv_msg = recv_msg[8+msg_len:]
     
     # Measuring time : Data Transmission end
-    network_time += time.time() - time_sent
+    network_time += c.request(ntp_time_server, version=3).tx_time - time_sent 
 
     inference_time_start = time.time()
     for idx, indata in ins:
@@ -103,7 +110,7 @@ while True:
     inference_time += time.time() - inference_time_start
    
     # Time start
-    time_sent = struct.pack('d', time.time())
+    time_sent = struct.pack('d', c.request(ntp_time_server, version=3).tx_time)
     send_obj = out.astype(np.float16).tobytes()
     send_obj_len = len(send_obj)
     send_msg = time_sent + struct.pack('i', 0) + struct.pack('i', send_obj_len) + send_obj
@@ -132,5 +139,4 @@ print("inference time :", inference_time)
 print("network time :", network_time)
 
 client_socket.close()
-
 server_socket.close()
