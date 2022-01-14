@@ -15,10 +15,10 @@ import struct
 
 # Model load
 
-#target = 'cuda'
-target = 'llvm'
-#dev = tvm.cuda(0)
-dev = tvm.cpu(0)
+target = 'cuda'
+#target = 'llvm'
+dev = tvm.cuda(0)
+#dev = tvm.cpu(0)
 
 model_path = "../src/model/unet_tvm.so"
 lib = tvm.runtime.load_module(model_path)
@@ -46,7 +46,6 @@ while (cap.isOpened()):
 
     img_in_rgb = frame
     th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
-    print(np.unique(th, return_counts=True))
     img_in_rgb[th == 1] = [0, 0, 255]
     cv2.imshow("received - client", img_in_rgb)
     if cv2.waitKey(1) & 0xFF == ord('q'):

@@ -16,10 +16,10 @@ import struct
 # Model load
 
 
-#target = 'cuda'
-target = 'llvm'
-#dev = tvm.cuda(0)
-dev = tvm.cpu(0)
+target = 'cuda'
+#target = 'llvm'
+dev = tvm.cuda(0)
+#dev = tvm.cpu(0)
 model_path = "../src/model/unet_tvm_front.so"
 front_lib = tvm.runtime.load_module(model_path)
 front_model = graph_executor.GraphModule(front_lib['default'](dev))
@@ -41,7 +41,7 @@ HOST = '192.168.0.184'
 #HOST = '192.168.0.190'
 PORT = 9998       
 #socket_size = 1 * 1024 * 1024
-socket_size = 1024 * 1024
+socket_size = 16 * 1024 * 1024
 
 client_socket  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -50,14 +50,14 @@ client_socket.connect((HOST, PORT))
 print("Connection estabilished")
 
 # Video Load
-<<<<<<< HEAD
-img_size = 512
-=======
 img_size = 512 
->>>>>>> 59e12c270a290ff7a8aaac815cd448f0e22a80d1
 cap = cv2.VideoCapture("../src/data/j_scan.mp4")
 # client_socket.settimeout(1)
-stime = time.time()
+total_time = 0
+total_time_start = time.time()
+inference_time = 0
+network_time = 0
+
 while (cap.isOpened()):
     ret, frame = cap.read()
     try:
@@ -66,6 +66,7 @@ while (cap.isOpened()):
         break
     input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
 
+    inference_time_start = time.time()
     # Execute front
     front_model.set_input("input_0", input_data)
     front_model.run()
@@ -73,9 +74,10 @@ while (cap.isOpened()):
     outs = []
     for i, out_idx in enumerate(output_info):
         outs.append([out_idx, front_model.get_output(i).asnumpy().astype(np.float32)])
-    
+    inference_time += time.time() - inference_time_start
     #print("run finish")
     
+    network_time_start = time.time()
     # total_msg = total_num + total_len + idx + len + __obj__ + idx + len + __obj__ ...
     total_msg = struct.pack('i', len(outs))
     objs = []
@@ -99,6 +101,7 @@ while (cap.isOpened()):
     for o in objs:
         msg_body += o
 
+    print(len(msg_body))
     total_msg += struct.pack('i', len(msg_body)) + msg_body
     client_socket.sendall(total_msg)
 
@@ -122,18 +125,22 @@ while (cap.isOpened()):
         recv_msg += packet
 
     recv_data = np.frombuffer(recv_msg, np.float16).astype(np.float32).reshape(1,1,img_size,img_size)
+    network_time += time.time() - network_time_start
 
     
     #cv2.imshow("original", frame)
     img_in_rgb = frame
     th = cv2.resize(cv2.threshold(np.squeeze(recv_data.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
     #print(np.unique(th, return_counts=True))
-    img_in_rgb[th == 1] = [0, 0, 255]
-    cv2.imshow("received - client", img_in_rgb)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-    ret, frame = cap.read()
+    #img_in_rgb[th == 1] = [0, 0, 255]
+    #cv2.imshow("received - client", img_in_rgb)
+    #if cv2.waitKey(1) & 0xFF == ord('q'):
+    #    break
+    #ret, frame = cap.read()
 
-print("Total :", time.time() - stime)
+total_time = time.time() - total_time_start
+print("total time :", total_time)
+print("inference time :", inference_time)
+print("network time :", network_time)
 cap.release()
 cv2.destroyAllWindows()

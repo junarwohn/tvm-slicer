@@ -9,11 +9,7 @@ import json
 import pygraphviz as pgv
 
 np.random.seed(0)
-<<<<<<< HEAD
-img_size = 512 
-=======
 img_size = 512
->>>>>>> 59e12c270a290ff7a8aaac815cd448f0e22a80d1
 input_data = np.random.normal(0,1,(1,img_size,img_size,3)).astype(np.float32)
 model_keras = tf.keras.models.load_model('./model/unet_{}.h5'.format(img_size))
 

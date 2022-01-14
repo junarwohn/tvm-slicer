@@ -18,11 +18,11 @@ model_keras = tf.keras.models.load_model('./model/unet_{}.h5'.format(img_size))
 input_data = input_data.transpose([0, 3, 1, 2])
 shape_dict = {"input_1": input_data.shape}
 mod, params = relay.frontend.from_keras(model_keras, shape_dict)
-#target = 'cuda'
-target = 'llvm'
+target = 'cuda'
+#target = 'llvm'
 
-#dev = tvm.cuda()
-dev = tvm.cpu()
+dev = tvm.cuda()
+#dev = tvm.cpu()
 with tvm.transform.PassContext(opt_level=2):
     lib = relay.build(mod, target, params=params)
 
