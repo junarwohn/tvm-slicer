@@ -182,3 +182,6 @@ class TVMSlicer:
 
     def get_mark(self):
         return self.dfs_list
+
+    def get_all_intermediate_node(self):
+
