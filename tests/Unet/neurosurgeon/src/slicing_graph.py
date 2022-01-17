@@ -7,23 +7,37 @@ import numpy as np
 import os
 import json
 import pygraphviz as pgv
+from argparse import ArgumentParser
+
+parser = ArgumentParser()
+parser.add_argument('--device', type=str, default='cuda', help='type of devices [llvm, cuda]')
+parser.add_argument('--partition_point', type=int, default=0, help='set partition point')
+parser.add_argument('--img_size', type=int, default=512, help='set image size')
+parser.add_argument('--model', type=str, default='unet', help='name of model')
+parser.add_argument('--target', type=str, default='llvm', help='name of taget')
+parser.add_argument('--opt_level', type=int, default=2, help='set opt_level')
+args = parser.parse_args()
 
 np.random.seed(0)
-#img_size = 128
-img_size = 512 
+img_size = args.img_size
 input_data = np.random.normal(0,1,(1,img_size,img_size,3)).astype(np.float32)
-model_keras = tf.keras.models.load_model('./model/unet_{}.h5'.format(img_size))
+model_keras = tf.keras.models.load_model('./model/{}_{}.h5'.format(args.model, img_size))
 
 ## tvm result
 input_data = input_data.transpose([0, 3, 1, 2])
 shape_dict = {"input_1": input_data.shape}
 mod, params = relay.frontend.from_keras(model_keras, shape_dict)
-target = 'cuda'
-#target = 'llvm'
+if args.target == 'llvm':
+    target = 'llvm'
+    dev = tvm.cpu()
+elif args.target == 'cuda':
+    target = 'cuda'
+    dev = tvm.cuda()
+elif args.target == 'opencl':
+    target = 'opencl'
+    dev = tvm.opencl()
 
-dev = tvm.cuda()
-#dev = tvm.cpu()
-with tvm.transform.PassContext(opt_level=2):
+with tvm.transform.PassContext(opt_level=args.opt_level):
     lib = relay.build(mod, target, params=params)
 
 graph_json_raw = lib['get_graph_json']()
@@ -33,14 +47,14 @@ graph_json_front_info, graph_json_back_info = TVMSlicer(graph_json_raw, [[0,10],
 graph_json_front, input_front, output_front = graph_json_front_info
 graph_json_back, input_back, output_back = graph_json_back_info
 
-with open("./graph/graph_json_front.json", "w") as json_file:
+with open("./graph/{}_{}_front_{}_{}.json".format(args.model, args.target, img_size, args.partition_point), "w") as json_file:
     graph_json_front['extra'] = {}
     graph_json_front['extra']['inputs'] = input_front
     graph_json_front['extra']['outputs'] = output_front
     json_file.write(json.dumps(graph_json_front))
 
 
-with open("./graph/graph_json_back.json", "w") as json_file:
+with open("./graph/{}_{}_back_{}_{}.json".format(args.model, args.target, img_size, args.partition_point), "w") as json_file:
     graph_json_back['extra'] = {}
     graph_json_back['extra']['inputs'] = output_front
     graph_json_back['extra']['outputs'] = output_back
