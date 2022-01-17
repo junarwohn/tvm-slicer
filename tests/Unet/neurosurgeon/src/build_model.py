@@ -7,6 +7,12 @@ import numpy as np
 import os
 import json
 import pygraphviz as pgv
+from argparse import ArgumentParser
+
+parser = ArgumentParser()
+parser.add_argument('--device', type=str, default='cuda', help='type of devices [llvm, cuda]')
+parser.add_argument('--partition_point', type=int, default=0, help='set partition point')
+args = parser.parse_args()
 
 np.random.seed(0)
 img_size = 512
