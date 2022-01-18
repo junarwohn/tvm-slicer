@@ -38,20 +38,13 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-with tvm.transform.PassContext(opt_level=2):
+with tvm.transform.PassContext(opt_level=args.opt_level):
     lib = relay.build(mod, target, params=params)
-    lib.export_library("./model/unet_{}.so".format(img_size))
 
-with open("./graph/{}_{}_front_{}_{}.json".format(args.model, args.target, img_size, args.partition_point), "r") as json_graph_front:
-    json_graph_front = json.load(json_graph_front)
-    del json_graph_front['extra']
-    with tvm.transform.PassContext(opt_level=args.opt_level):
-        lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_front))
-    lib.export_library("./model/{}_{}_front_{}_{}.so".format(args.model, args.target, img_size, args.partition_point))
+graph_json_raw = lib['get_graph_json']()
+tvm_slicer = TVMSlicer(graph_json_raw)
+#graph_json_front_info = tvm_slicer.slice_graph(0, 10)
+#graph_json_back_info = tvm_slicer.slice_graph(10, 121)
 
-with open("./graph/{}_{}_back_{}_{}.json".format(args.model, args.target, img_size, args.partition_point), "r") as json_graph_back:
-    json_graph_back = json.load(json_graph_back)
-    del json_graph_back['extra']
-    with tvm.transform.PassContext(opt_level=args.opt_level):
-        lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_back))
-    lib.export_library("./model/{}_{}_back_{}_{}.so".format(args.model, args.target, img_size, args.partition_point))
+print(*tvm_slicer.get_all_intermediate_node())
+

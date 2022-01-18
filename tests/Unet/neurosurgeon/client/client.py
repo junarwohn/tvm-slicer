@@ -22,10 +22,18 @@ g_ntp_client = ntplib.NTPClient()
 
 
 parser = ArgumentParser()
+parser.add_argument('--start_point', type=int, default=0)
+parser.add_argument('--end_point', type=int, default=-1)
+parser.add_argument('--partition_point', type=int, default=0, help='set partition point')
+parser.add_argument('--img_size', type=int, default=512, help='set image size')
+parser.add_argument('--model', type=str, default='unet', help='name of model')
+parser.add_argument('--target', type=str, default='llvm', help='name of taget')
+parser.add_argument('--opt_level', type=int, default=2, help='set opt_level')
 parser.add_argument('--ip', type=str, default='192.168.0.184', help='input ip of host')
 parser.add_argument('--device', type=str, default='cuda', help='type of devices [llvm, cuda]')
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
 parser.add_argument('--ntp_enable', type=int, default=1, help='ntp support')
+
 args = parser.parse_args()
 
 def get_time(is_enabled):
@@ -37,20 +45,20 @@ def get_time(is_enabled):
         return 0
 
 # Model load
-if args.device == 'cuda':
+if args.target == 'cuda':
     target = 'cuda'
     dev = tvm.cuda()
-elif args.device == 'llvm':
+elif args.target == 'llvm':
     target = 'llvm'
     dev = tvm.cpu()
 else:
     raise Exception("Wrong device")
 
-model_path = "../src/model/unet_tvm_front.so"
+model_path = "../src/model/{}_{}_front_{}_{}.so".format(args.model, args.target, args.img_size, args.partition_point)
 front_lib = tvm.runtime.load_module(model_path)
 front_model = graph_executor.GraphModule(front_lib['default'](dev))
 
-model_info_path = "../src/graph/graph_json_front.json"
+model_info_path = "../src/graph/{}_{}_front_{}_{}.json".format(args.model, args.target, args.img_size, args.partition_point)
 with open(model_info_path, "r") as json_file:
     model_info = json.load(json_file)
 

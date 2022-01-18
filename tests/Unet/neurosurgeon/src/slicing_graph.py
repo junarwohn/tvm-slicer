@@ -10,7 +10,8 @@ import pygraphviz as pgv
 from argparse import ArgumentParser
 
 parser = ArgumentParser()
-parser.add_argument('--device', type=str, default='cuda', help='type of devices [llvm, cuda]')
+parser.add_argument('--start_point', type=int, default=0)
+parser.add_argument('--end_point', type=int, default=-1)
 parser.add_argument('--partition_point', type=int, default=0, help='set partition point')
 parser.add_argument('--img_size', type=int, default=512, help='set image size')
 parser.add_argument('--model', type=str, default='unet', help='name of model')
@@ -41,8 +42,17 @@ with tvm.transform.PassContext(opt_level=args.opt_level):
     lib = relay.build(mod, target, params=params)
 
 graph_json_raw = lib['get_graph_json']()
-graph_json_front_info, graph_json_back_info = TVMSlicer(graph_json_raw, [[0,10],[10,121]]).get_graph()
-# graph_json_front_info, graph_json_back_info = TVMSlicer(graph_json_raw, [[0,9],[9,111]]).get_graph()
+
+tvm_slicer = TVMSlicer(graph_json_raw)
+#parser.add_argument('--start_point', type=int, default=0)
+#parser.add_argument('--end_point', type=int, default=-1)
+#parser.add_argument('--partition_point', type=int, default=0, help='set partition point')
+
+graph_json_front_info = tvm_slicer.slice_graph(args.start_point, args.partition_point)
+graph_json_back_info = tvm_slicer.slice_graph(args.partition_point, args.end_point)
+
+#graph_json_back_info = TVMSlicer(graph_json_raw, [[0,10],[10,121]]).get_graph()
+#graph_json_front_info, graph_json_back_info = TVMSlicer(graph_json_raw, [[0,9],[9,111]]).get_graph()
 
 graph_json_front, input_front, output_front = graph_json_front_info
 graph_json_back, input_back, output_back = graph_json_back_info
