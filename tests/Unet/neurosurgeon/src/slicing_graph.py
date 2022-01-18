@@ -57,14 +57,14 @@ graph_json_back_info = tvm_slicer.slice_graph(args.partition_point, args.end_poi
 graph_json_front, input_front, output_front = graph_json_front_info
 graph_json_back, input_back, output_back = graph_json_back_info
 
-with open("./graph/{}_{}_front_{}_{}.json".format(args.model, args.target, img_size, args.partition_point), "w") as json_file:
+with open("./graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "w") as json_file:
     graph_json_front['extra'] = {}
     graph_json_front['extra']['inputs'] = input_front
     graph_json_front['extra']['outputs'] = output_front
     json_file.write(json.dumps(graph_json_front))
 
 
-with open("./graph/{}_{}_back_{}_{}.json".format(args.model, args.target, img_size, args.partition_point), "w") as json_file:
+with open("./graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "w") as json_file:
     graph_json_back['extra'] = {}
     graph_json_back['extra']['inputs'] = output_front
     graph_json_back['extra']['outputs'] = output_back
