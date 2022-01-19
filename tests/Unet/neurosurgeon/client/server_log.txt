@@ -1,0 +1,171 @@
+server unet cuda 4 3
+total time : 11.756345987319946
+inference time : 1.0637311935424805
+network time : 0.03937101364135742
+number of input : 1
+index of input : 0
+number of output : 1
+index of output : 4
+data input size : 6291456
+data receive size : 1048576
+data send size : 16777216
+READ : 1.900559663772583
+SET_INPUT : 0.2868685722351074
+RUN_MODEL : 0.006686210632324219
+GET_OUTPUT : 0.7698125839233398
+PACK : 1.3070647716522217
+UNPACK : 0.0014870166778564453
+VISUALIZE : 1.786205530166626
+total_time_checker : 6.058684349060059
+server unet cuda 9 3
+total time : 11.85957646369934
+inference time : 1.1059949398040771
+network time : 0.043642520904541016
+number of input : 1
+index of input : 0
+number of output : 1
+index of output : 9
+data input size : 6291456
+data receive size : 1048576
+data send size : 16777216
+READ : 1.853670597076416
+SET_INPUT : 0.3003413677215576
+RUN_MODEL : 0.007635593414306641
+GET_OUTPUT : 0.7975974082946777
+PACK : 1.3685426712036133
+UNPACK : 0.0016176700592041016
+VISUALIZE : 1.7697200775146484
+total_time_checker : 6.099125385284424
+server unet cuda 10 3
+total time : 16.177751064300537
+inference time : 1.14951491355896
+network time : 0.044423818588256836
+number of input : 1
+index of input : 0
+number of output : 2
+index of output : 9
+data input size : 6291456
+data receive size : 1048576
+data send size : 4194304
+READ : 1.9350128173828125
+SET_INPUT : 0.2876260280609131
+RUN_MODEL : 0.007714033126831055
+GET_OUTPUT : 0.8537826538085938
+PACK : 3.3352267742156982
+UNPACK : 0.0016613006591796875
+VISUALIZE : 1.7737617492675781
+total_time_checker : 8.194785356521606
+server unet cuda 14 3
+total time : 16.090803623199463
+inference time : 1.3475358486175537
+network time : 0.0447845458984375
+number of input : 1
+index of input : 0
+number of output : 2
+index of output : 9
+data input size : 6291456
+data receive size : 1048576
+data send size : 8388608
+READ : 1.5145907402038574
+SET_INPUT : 0.2886807918548584
+RUN_MODEL : 0.007955074310302734
+GET_OUTPUT : 1.0504562854766846
+PACK : 1.8965198993682861
+UNPACK : 0.0014698505401611328
+VISUALIZE : 1.6893186569213867
+total_time_checker : 6.448991298675537
+server unet cuda 19 3
+total time : 17.87899923324585
+inference time : 1.3761253356933594
+network time : 0.04657435417175293
+number of input : 1
+index of input : 0
+number of output : 2
+index of output : 9
+data input size : 6291456
+data receive size : 1048576
+data send size : 8388608
+READ : 1.5996768474578857
+SET_INPUT : 0.2895967960357666
+RUN_MODEL : 0.008779764175415039
+GET_OUTPUT : 1.0772745609283447
+PACK : 2.8513569831848145
+UNPACK : 0.0015246868133544922
+VISUALIZE : 1.7104084491729736
+total_time_checker : 7.538618087768555
+server unet cuda 20 3
+total time : 19.590761184692383
+inference time : 1.4649064540863037
+network time : 0.04473757743835449
+number of input : 1
+index of input : 0
+number of output : 3
+index of output : 9
+data input size : 6291456
+data receive size : 1048576
+data send size : 2097152
+READ : 1.5865912437438965
+SET_INPUT : 0.2889723777770996
+RUN_MODEL : 0.008254528045654297
+GET_OUTPUT : 1.167222499847412
+PACK : 3.379758596420288
+UNPACK : 0.0016312599182128906
+VISUALIZE : 1.7193243503570557
+total_time_checker : 8.15175485610962
+server unet cuda 24 3
+total time : 21.884406805038452
+inference time : 1.5398890972137451
+network time : 0.04504895210266113
+number of input : 1
+index of input : 0
+number of output : 3
+index of output : 9
+data input size : 6291456
+data receive size : 1048576
+data send size : 4194304
+READ : 1.6163837909698486
+SET_INPUT : 0.283383846282959
+RUN_MODEL : 0.00881338119506836
+GET_OUTPUT : 1.2472515106201172
+PACK : 4.426205635070801
+UNPACK : 0.0014729499816894531
+VISUALIZE : 1.6937918663024902
+total_time_checker : 9.277302980422974
+server unet cuda 29 3
+total time : 22.108877897262573
+inference time : 1.5542731285095215
+network time : 0.04816889762878418
+number of input : 1
+index of input : 0
+number of output : 3
+index of output : 9
+data input size : 6291456
+data receive size : 1048576
+data send size : 4194304
+READ : 1.7060856819152832
+SET_INPUT : 0.2839365005493164
+RUN_MODEL : 0.008892297744750977
+GET_OUTPUT : 1.2609655857086182
+PACK : 4.330329418182373
+UNPACK : 0.0014712810516357422
+VISUALIZE : 1.7085857391357422
+total_time_checker : 9.30026650428772
+server unet cuda 30 3
+total time : 23.58804416656494
+inference time : 1.6191508769989014
+network time : 0.04607725143432617
+number of input : 1
+index of input : 0
+number of output : 4
+index of output : 9
+data input size : 6291456
+data receive size : 1048576
+data send size : 1048576
+READ : 1.5042989253997803
+SET_INPUT : 0.2865486145019531
+RUN_MODEL : 0.009793281555175781
+GET_OUTPUT : 1.322359561920166
+PACK : 5.4426047801971436
+UNPACK : 0.0015759468078613281
+VISUALIZE : 1.6934583187103271
+total_time_checker : 10.260639429092407
