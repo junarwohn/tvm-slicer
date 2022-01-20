@@ -108,9 +108,11 @@ while (cap.isOpened()):
 
     ### TIME_CHECK : GET_OUTPUT
     time_get_output_start = get_time(args.ntp_enable)
-    out = model.get_output(0).asnumpy().astype(np.float32)
+    #out = model.get_output(0).asnumpy().astype(np.float32)
+    out = model.get_output(0)
     ### TIME_CHECK : GET_OUTPUT
     time_checker['GET_OUTPUT'] += get_time(args.ntp_enable) - time_get_output_start
+    out = out.asnumpy().astype(np.float32)
 
     ### TIME_CHECK : VISUALIZE 
     time_visualize_start = get_time(args.ntp_enable)
