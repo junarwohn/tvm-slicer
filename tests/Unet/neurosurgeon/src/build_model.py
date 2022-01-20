@@ -38,10 +38,11 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-with tvm.transform.PassContext(opt_level=2):
+with tvm.transform.PassContext(opt_level=args.opt_level):
     lib = relay.build(mod, target, params=params)
     lib.export_library("./model/unet_{}.so".format(img_size))
 
+"""
 with open("./graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_front:
     json_graph_front = json.load(json_graph_front)
     del json_graph_front['extra']
@@ -55,3 +56,4 @@ with open("./graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img
     with tvm.transform.PassContext(opt_level=args.opt_level):
         lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_back))
     lib.export_library("./model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
+"""

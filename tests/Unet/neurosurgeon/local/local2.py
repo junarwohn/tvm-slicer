@@ -52,7 +52,7 @@ target = 'cuda'
 dev = tvm.cuda(0)
 #dev = tvm.cpu(0)
 
-model_path = "../src/model/unet_512.so"
+model_path = "../src/model/unet_tvm.so"
 lib = tvm.runtime.load_module(model_path)
 model = graph_executor.GraphModule(lib['default'](dev))
 
