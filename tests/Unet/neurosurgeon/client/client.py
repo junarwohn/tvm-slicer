@@ -208,7 +208,6 @@ while (cap.isOpened()):
     cv2.imshow("received - client", img_in_rgb)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-    ret, frame = cap.read()
     ### TIME_CHECK : VISUALIZE END
     time_checker['VISUALIZE'] += get_time(args.ntp_enable) - time_visualize_start
 
