@@ -59,7 +59,7 @@ elif args.target == 'opencl':
 
 img_size = args.img_size
 
-model_path = "../src/model/{}_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level)
+model_path = "../src/model/{}_{}_{}_{}_test.so".format(args.model, args.target, img_size, args.opt_level)
 lib = tvm.runtime.load_module(model_path)
 model = graph_executor.GraphModule(lib['default'](dev))
 
@@ -98,8 +98,8 @@ for i in range(100):
     dev.sync()
     model.run()
     dev.sync()
-    outd = model.get_output(0)
-    dev.sync()
+    # outd = model.get_output(0)
+    # dev.sync()
 ##
 
 while (cap.isOpened()):
@@ -120,7 +120,6 @@ while (cap.isOpened()):
     timer_start = time.time()
     # Execute front
     model.set_input("input_1", input_data)
-    # dev.sync()
     ### timer : SET_INPUT end 
     timer_SET_INPUT += time.time() - timer_start 
 
@@ -128,25 +127,36 @@ while (cap.isOpened()):
     ### timer : RUN_MODEL start
     timer_start = time.time()
     model.run()
-    dev.sync()
+    # Synchronize inference
+    # dev.sync()
     ### timer : RUN_MODEL end 
     timer_RUN_MODEL += time.time() - timer_start
 
+    aa = []
+
+    range_list = np.array(range(7))
+    # range_list = np.array(range(6, -1, -1))
+    np.random.shuffle(range_list)
 
     ### timer : GET_OUTPUT start
     timer_start= time.time()
-    outd = model.get_output(0)
-    # dev.sync()
+    # for i in range(7):
+    for i in range_list:
+        tmp = model.get_output(i).numpy()
+        aa.append(tmp.shape)
+        # if i == 6:
+        #     out = tmp
     #outd = model.get_output(0, outd)
+    # tmp = model.get_output(6).numpy()
 
     ### timer : GET_OUTPUT end
     timer_GET_OUTPUT += time.time() - timer_start
 
 
-    ### timer : ASNUMPY start
-    timer_start = time.time()
-    out = outd.asnumpy()
-    timer_ASNUMPY += time.time() - timer_start
+    # ### timer : ASNUMPY start
+    # timer_start = time.time()
+    # out = outd.asnumpy()
+    # timer_ASNUMPY += time.time() - timer_start
     # dev.sync()
 
 
@@ -177,7 +187,10 @@ print("Total time :", time.time() - stime)
 print('SET_INPUT per frame (ms)', ':', timer_SET_INPUT / total_frames * 1000)
 print('RUN_MODEL per frame (ms)', ':', timer_RUN_MODEL / total_frames * 1000)
 print('GET_OUTPUT per frame (ms)', ':', timer_GET_OUTPUT / total_frames * 1000)
+print('Total inference time (ms)', ':', (timer_SET_INPUT + timer_RUN_MODEL + timer_GET_OUTPUT) / total_frames * 1000)
 print('ASNUMPY per frame (ms)', ':', timer_ASNUMPY / total_frames * 1000)
 print('VISUALIZE', ':', timer_VISUALIZE)
 
 cap.release()
+
+print(aa)

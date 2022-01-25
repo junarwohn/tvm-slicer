@@ -22,13 +22,13 @@ g_ntp_client = ntplib.NTPClient()
 #response = c.eequest(timeServer, version=3) 
 
 parser = ArgumentParser()
-parser.add_argument('--start_point', type=int, default=0)
-parser.add_argument('--end_point', type=int, default=-1)
-parser.add_argument('--partition_point', type=int, default=0, help='set partition point')
-parser.add_argument('--img_size', type=int, default=512, help='set image size')
-parser.add_argument('--model', type=str, default='unet', help='name of model')
-parser.add_argument('--target', type=str, default='llvm', help='name of taget')
-parser.add_argument('--opt_level', type=int, default=2, help='set opt_level')
+parser.add_argument('--start_point', '-s', type=int, default=0)
+parser.add_argument('--end_point', '-e', type=int, default=-1)
+parser.add_argument('--partition_point', '-p', type=int, default=0, help='set partition point')
+parser.add_argument('--img_size', '-i', type=int, default=512, help='set image size')
+parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
+parser.add_argument('--target', '-t', type=str, default='llvm', help='name of taget')
+parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_level')
 parser.add_argument('--ip', type=str, default='192.168.0.184', help='input ip of host')
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
 parser.add_argument('--ntp_enable', type=int, default=1, help='ntp support')
@@ -41,15 +41,17 @@ def get_time(is_enabled):
     else:
         return time.time()
 
-# Model Load
-if args.target == 'cuda':
-    target = 'cuda'
-    dev = tvm.cuda()
-elif args.target == 'llvm':
+# Model load
+
+if args.target == 'llvm':
     target = 'llvm'
     dev = tvm.cpu()
-else:
-    raise Exception("Wrong device")
+elif args.target == 'cuda':
+    target = 'cuda'
+    dev = tvm.cuda()
+elif args.target == 'opencl':
+    target = 'opencl'
+    dev = tvm.opencl()
 
 
 model_path = "../src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
@@ -91,15 +93,24 @@ data_transmission_time = 0
 
 # TIME_CHECK INIT
 
-time_checker = {
-        'READ' : 0,
-        'SET_INPUT' : 0,
-        'RUN_MODEL': 0,
-        'GET_OUTPUT' : 0,
-        'PACK' : 0,
-        'UNPACK' : 0,
-        'VISUALIZE' : 0
-}
+#time_checker = {
+#        'READ' : 0,
+#        'SET_INPUT' : 0,
+#        'RUN_MODEL': 0,
+#        'GET_OUTPUT' : 0,
+#        'PACK' : 0,
+#        'UNPACK' : 0,
+#        'VISUALIZE' : 0
+#}
+
+# timer INIT
+timer_READ = 0
+timer_SET_INPUT = 0
+timer_RUN_MODEL = 0
+timer_GET_OUTPUT = 0
+timer_ASNUMPY = 0
+timer_VISUALIZE = 0
+
 
 while True:
     ins = []
