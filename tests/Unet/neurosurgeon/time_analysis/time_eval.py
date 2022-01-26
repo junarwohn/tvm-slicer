@@ -126,9 +126,9 @@ model = graph_executor.GraphModule(lib['default'](dev))
 
 time_set_input = 0
 
-for shape_info in shape_info_front:
+for input_idx, shape_info in zip(input_info_front, shape_info_front):
     indata = tvm.nd.array(np.random.normal(0,1,tuple(shape_info)).astype('float32'), device=dev)
-    time_set_input += 1000 * model.module.time_evaluator(func_name='set_input', dev=dev, number=total_frames)('input_1', indata).results[0]
+    time_set_input += 1000 * model.module.time_evaluator(func_name='set_input', dev=dev, number=total_frames)('input_{}'.format(input_idx), indata).results[0]
 
 time_run = 1000 * model.module.time_evaluator(func_name='run', dev=dev, number=total_frames)().results[0]
 
@@ -159,9 +159,9 @@ model = graph_executor.GraphModule(lib['default'](dev))
 
 time_set_input = 0
 
-for shape_info in shape_info_back:
+for input_idx, shape_info in zip(input_info_back, shape_info_back):
     indata = tvm.nd.array(np.random.normal(0,1,tuple(shape_info)).astype('float32'), device=dev)
-    time_set_input += 1000 * model.module.time_evaluator(func_name='set_input', dev=dev, number=total_frames)('input_1', indata).results[0]
+    time_set_input += 1000 * model.module.time_evaluator(func_name='set_input', dev=dev, number=total_frames)('input_{}'.format(input_idx), indata).results[0]
 
 time_run = 1000 * model.module.time_evaluator(func_name='run', dev=dev, number=total_frames)().results[0]
 
