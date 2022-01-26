@@ -80,6 +80,8 @@ time_checker = {
         'VISUALIZE' : 0
 }
 
+out = np.zeros((1,1,512,512))
+
 while (cap.isOpened()):
     ### TIME_CHECK : READ
     time_read_start = get_time(args.ntp_enable)
@@ -103,16 +105,9 @@ while (cap.isOpened()):
     ### TIME_CHECK : RUN_MODEL
     time_run_model_start = get_time(args.ntp_enable)
     model.run()
+    outd = model.get_output(0)
     ### TIME_CHECK : RUN_MODEL DONE
     time_checker['RUN_MODEL'] += get_time(args.ntp_enable) - time_run_model_start 
-
-    ### TIME_CHECK : GET_OUTPUT
-    time_get_output_start = get_time(args.ntp_enable)
-    #out = model.get_output(0).asnumpy().astype(np.float32)
-    out = model.get_output(0)
-    ### TIME_CHECK : GET_OUTPUT
-    time_checker['GET_OUTPUT'] += get_time(args.ntp_enable) - time_get_output_start
-    out = out.numpy().astype(np.float32)
 
     ### TIME_CHECK : VISUALIZE 
     time_visualize_start = get_time(args.ntp_enable)
@@ -122,17 +117,43 @@ while (cap.isOpened()):
     cv2.imshow("received - client", img_in_rgb)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-    ret, frame = cap.read()
+    #ret, frame = cap.read()
     ### TIME_CHECK : VISUALIZE END
     time_checker['VISUALIZE'] += get_time(args.ntp_enable) - time_visualize_start
+
+
+    ### TIME_CHECK : GET_OUTPUT
+    time_get_output_start = get_time(args.ntp_enable)
+    #out = model.get_output(0).asnumpy().astype(np.float32)
+    #out = model.get_output(0)
+    out = outd.numpy().astype(np.float32)
+    ### TIME_CHECK : GET_OUTPUT
+    time_checker['GET_OUTPUT'] += get_time(args.ntp_enable) - time_get_output_start
+    #out = out.numpy().astype(np.float32)
+
+    #### TIME_CHECK : VISUALIZE 
+    #time_visualize_start = get_time(args.ntp_enable)
+    #img_in_rgb = frame
+    #th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
+    #img_in_rgb[th == 1] = [0, 0, 255]
+    #cv2.imshow("received - client", img_in_rgb)
+    #if cv2.waitKey(1) & 0xFF == ord('q'):
+    #    break
+    ##ret, frame = cap.read()
+    #### TIME_CHECK : VISUALIZE END
+    #time_checker['VISUALIZE'] += get_time(args.ntp_enable) - time_visualize_start
 
 print("Total time :", time.time() - stime)
 
 total_time_checker = 0
+total_inferenece_checker = 0
 for key in time_checker:
-    print(key, ':', time_checker[key])
+    print(key, ':', time_checker[key] / 352 * 1000)
     total_time_checker += time_checker[key]
+    if key == 'SET_INPUT' or key == 'RUN' or key == 'GET_OUTPUT':
+        total_inferenece_checker += time_checker[key]
 print("total_time_checker :", total_time_checker)
+print("total_inferenece_checker :", total_inferenece_checker / 352 * 1000)
 
 
 cap.release()
