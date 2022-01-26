@@ -64,7 +64,7 @@ img_size = args.img_size
 
 model_path = "../src/model/{}_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level)
 model_path_front = "../src/model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
-model_path_back = "../src/model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
+model_path_back = "../src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
 
 
 model_info_path_front = "../src/graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
@@ -82,15 +82,14 @@ input_info_front = model_info_front["extra"]["inputs"]
 shape_info_front = model_info_front["attrs"]["shape"][1][:len(input_info_front)]
 output_info_front = model_info_front["extra"]["outputs"]
 
-print(shape_info_front, output_info_front)
+print(input_info_front, shape_info_front, output_info_front)
 
 input_info_back = model_info_back["extra"]["inputs"]
 shape_info_back = model_info_back["attrs"]["shape"][1][:len(input_info_back)]
 output_info_back = model_info_back["extra"]["outputs"]
 
-print(shape_info_back, output_info_back)
+print(input_info_back, shape_info_back, output_info_back)
 
-"""
 cap = cv2.VideoCapture("../src/data/j_scan.mp4")
 total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 print("Total frame", total_frames)
@@ -118,19 +117,27 @@ print(
     'get_output (ms) :', time_get_output
     )
 
+del lib
+del model
 
 lib = tvm.runtime.load_module(model_path_front)
 model = graph_executor.GraphModule(lib['default'](dev))
 
-indata = tvm.nd.array(np.random.normal(0,1,(1,3,img_size, img_size)).astype('float32'), device=dev)
 
-time_set_input = 1000 * model.module.time_evaluator(func_name='set_input', dev=dev, number=total_frames)('input_1', indata).results[0]
+time_set_input = 0
+
+for shape_info in shape_info_front:
+    indata = tvm.nd.array(np.random.normal(0,1,tuple(shape_info)).astype('float32'), device=dev)
+    time_set_input += 1000 * model.module.time_evaluator(func_name='set_input', dev=dev, number=total_frames)('input_1', indata).results[0]
 
 time_run = 1000 * model.module.time_evaluator(func_name='run', dev=dev, number=total_frames)().results[0]
 
-time_get_output = 1000 * model.module.time_evaluator(func_name='get_output', dev=dev, number=total_frames)(0).results[0]
+time_get_output = 0
 
-print('whole model')
+for i in range(len(output_info_back)):
+    time_get_output += 1000 * model.module.time_evaluator(func_name='get_output', dev=dev, number=total_frames)(i).results[0]
+
+print('front model')
 print(
     'set_input (ms) :', time_set_input
     )
@@ -140,5 +147,41 @@ print(
 print(
     'get_output (ms) :', time_get_output
     )
-"""
+
+del lib
+del model
+
+
+
+lib = tvm.runtime.load_module(model_path_back)
+model = graph_executor.GraphModule(lib['default'](dev))
+
+
+time_set_input = 0
+
+for shape_info in shape_info_back:
+    indata = tvm.nd.array(np.random.normal(0,1,tuple(shape_info)).astype('float32'), device=dev)
+    time_set_input += 1000 * model.module.time_evaluator(func_name='set_input', dev=dev, number=total_frames)('input_1', indata).results[0]
+
+time_run = 1000 * model.module.time_evaluator(func_name='run', dev=dev, number=total_frames)().results[0]
+
+time_get_output = 0
+
+for i in range(len(output_info_back)):
+    time_get_output += 1000 * model.module.time_evaluator(func_name='get_output', dev=dev, number=total_frames)(i).results[0]
+
+print('back model')
+print(
+    'set_input (ms) :', time_set_input
+    )
+print(
+    'run (ms) :', time_run
+    )
+print(
+    'get_output (ms) :', time_get_output
+    )
+
+del lib
+del model
+
 
