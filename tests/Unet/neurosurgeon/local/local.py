@@ -148,7 +148,7 @@ print("Total time :", time.time() - stime)
 total_time_checker = 0
 total_inferenece_checker = 0
 for key in time_checker:
-    print(key, ':', time_checker[key] / 352 * 1000)
+    print(key, ':', time_checker[key] / 253 * 1000)
     total_time_checker += time_checker[key]
     if key == 'SET_INPUT' or key == 'RUN' or key == 'GET_OUTPUT':
         total_inferenece_checker += time_checker[key]
