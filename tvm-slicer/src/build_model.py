@@ -18,8 +18,8 @@ parser.add_argument('--img_size', '-i', type=int, default=512, help='set image s
 parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
 parser.add_argument('--target', '-t', type=str, default='llvm', help='name of taget')
 parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_level')
-parser.add_argument('--model_build', type=int, default=1, help='build model only')
-parser.add_argument('--slice_build', type=int, default=1, help='slice model only')
+parser.add_argument('--model_build', type=int, default=0, help='build model only')
+parser.add_argument('--slice_build', type=int, default=0, help='slice model only')
 args = parser.parse_args()
 
 np.random.seed(0)

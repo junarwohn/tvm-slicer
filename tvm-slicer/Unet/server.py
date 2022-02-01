@@ -54,11 +54,11 @@ elif args.target == 'opencl':
     dev = tvm.opencl()
 
 
-model_path = "../src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
+model_path = "./src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
 back_lib = tvm.runtime.load_module(model_path)
 back_model = graph_executor.GraphModule(back_lib['default'](dev))
 
-model_info_path = "../src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
+model_info_path = "./src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
 
 with open(model_info_path, "r") as json_file:
     model_info = json.load(json_file)

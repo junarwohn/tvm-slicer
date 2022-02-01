@@ -52,14 +52,14 @@ target = 'cuda'
 dev = tvm.cuda(0)
 #dev = tvm.cpu(0)
 
-model_path = "../src/model/unet_512.so"
+model_path = "./src/model/unet_512.so"
 lib = tvm.runtime.load_module(model_path)
 model = graph_executor.GraphModule(lib['default'](dev))
 
 # Video Load
 
 img_size = 512 
-cap = cv2.VideoCapture("../src/data/j_scan.mp4")
+cap = cv2.VideoCapture("./src/data/j_scan.mp4")
 # client_socket.settimeout(1)
 stime = time.time()
 

@@ -54,11 +54,11 @@ elif args.target == 'llvm':
 else:
     raise Exception("Wrong device")
 
-model_path = "../src/model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
+model_path = "./src/model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
 front_lib = tvm.runtime.load_module(model_path)
 front_model = graph_executor.GraphModule(front_lib['default'](dev))
 
-model_info_path = "../src/graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
+model_info_path = "./src/graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
 with open(model_info_path, "r") as json_file:
     model_info = json.load(json_file)
 
@@ -88,7 +88,7 @@ client_socket.connect((HOST_IP, PORT))
 
 # Video Load
 img_size = 512 
-cap = cv2.VideoCapture("../src/data/j_scan.mp4")
+cap = cv2.VideoCapture("./src/data/j_scan.mp4")
 # client_socket.settimeout(1)
 total_time = 0
 total_time_start = time.time()
