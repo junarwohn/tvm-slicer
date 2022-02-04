@@ -1,6 +1,5 @@
 import socket
 import pickle
-# import cloudpickle as pickle
 import numpy as np
 import tvm
 from tvm import te
@@ -22,14 +21,14 @@ g_ntp_client = ntplib.NTPClient()
 
 
 parser = ArgumentParser()
-parser.add_argument('--start_point', type=int, default=0)
-parser.add_argument('--end_point', type=int, default=-1)
-parser.add_argument('--partition_point', type=int, default=0, help='set partition point')
-parser.add_argument('--img_size', type=int, default=512, help='set image size')
-parser.add_argument('--model', type=str, default='unet', help='name of model')
-parser.add_argument('--target', type=str, default='llvm', help='name of taget')
-parser.add_argument('--opt_level', type=int, default=2, help='set opt_level')
-parser.add_argument('--ip', type=str, default='192.168.0.184', help='input ip of host')
+parser.add_argument('--start_point', '-s', type=int, default=0)
+parser.add_argument('--end_point', '-e', type=int, default=-1)
+parser.add_argument('--partition_point', '-p', type=int, default=0, help='set partition point')
+parser.add_argument('--img_size', '-i', type=int, default=512, help='set image size')
+parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
+parser.add_argument('--target', '-t', type=str, default='llvm', help='name of taget')
+parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_level')
+parser.add_argument('--ip', type=str, default='127.0.0.1', help='input ip of host')
 parser.add_argument('--device', type=str, default='cuda', help='type of devices [llvm, cuda]')
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
 parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
@@ -44,6 +43,17 @@ def get_time(is_enabled):
     else:
         return 0
 
+def make_preprocess(model, im_sz):
+    if model == 'unet':
+        def preprocess(img):
+            return cv2.resize(img[490:1800, 900:2850], (im_sz,im_sz)) / 255
+        return preprocess
+    elif model == 'resnet152':
+        def preprocess(img):
+            return cv2.resize(img, (im_sz, im_sz))
+        return preprocess
+
+preprocess = make_preprocess(args.model, args.img_size)
 
 # Model load
 
@@ -52,108 +62,61 @@ target = 'cuda'
 dev = tvm.cuda(0)
 #dev = tvm.cpu(0)
 
-model_path = "./src/model/unet_512.so"
+model_path = "../src/model/unet_512.so"
 lib = tvm.runtime.load_module(model_path)
 model = graph_executor.GraphModule(lib['default'](dev))
 
 # Video Load
 
 img_size = 512 
-cap = cv2.VideoCapture("./src/data/j_scan.mp4")
+cap = cv2.VideoCapture("../src/data/j_scan.mp4")
 # client_socket.settimeout(1)
 stime = time.time()
 
-total_time = 0
-total_time_start = time.time()
-inference_time = 0
-network_time = 0
+# timer INIT
+timer_inference = 0
+timer_total = 0
+timer_exclude_network = 0
+total_recv_msg_size = 0
+total_send_msg_size = 0
 
-# TIME_CHECK INIT
-
-time_checker = {
-        'READ' : 0,
-        'SET_INPUT' : 0,
-        'RUN_MODEL': 0,
-        'GET_OUTPUT' : 0,
-        'PACK' : 0,
-        'UNPACK' : 0,
-        'VISUALIZE' : 0
-}
-
-out = np.zeros((1,1,512,512))
+timer_toal_start = time.time()
 
 while (cap.isOpened()):
-    ### TIME_CHECK : READ
     time_read_start = get_time(args.ntp_enable)
     ret, frame = cap.read()
     try:
-        frame = cv2.resize(frame[490:1800, 900:2850], (img_size, img_size)) / 255
+        frame = preprocess(frame)    
     except:
         break
     input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
-    ### TIME_CHECK : READ END
-    time_checker['READ'] += get_time(args.ntp_enable) - time_read_start
 
-    ### TIME_CHECK : SET_INPUT
-    time_set_input_start = get_time(args.ntp_enable)
- 
-    # Execute front
+    timer_inference_start = time.time()
+
     model.set_input("input_1", input_data)
-    ### TIME_CHECK : SET_INPUT DONE
-    time_checker['SET_INPUT'] += get_time(args.ntp_enable) - time_set_input_start 
-
-    ### TIME_CHECK : RUN_MODEL
-    time_run_model_start = get_time(args.ntp_enable)
     model.run()
     outd = model.get_output(0)
-    ### TIME_CHECK : RUN_MODEL DONE
-    time_checker['RUN_MODEL'] += get_time(args.ntp_enable) - time_run_model_start 
+    out = outd.numpy().astype(np.float32)
+    
+    timer_inference += time.time() - timer_inference_start
 
-    ### TIME_CHECK : VISUALIZE 
-    time_visualize_start = get_time(args.ntp_enable)
     img_in_rgb = frame
     th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
     img_in_rgb[th == 1] = [0, 0, 255]
     cv2.imshow("received - client", img_in_rgb)
     if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-    #ret, frame = cap.read()
-    ### TIME_CHECK : VISUALIZE END
-    time_checker['VISUALIZE'] += get_time(args.ntp_enable) - time_visualize_start
+       break
+
+timer_total = time.time() - timer_toal_start
+timer_network = timer_total - timer_exclude_network
 
 
-    ### TIME_CHECK : GET_OUTPUT
-    time_get_output_start = get_time(args.ntp_enable)
-    #out = model.get_output(0).asnumpy().astype(np.float32)
-    #out = model.get_output(0)
-    out = outd.numpy().astype(np.float32)
-    ### TIME_CHECK : GET_OUTPUT
-    time_checker['GET_OUTPUT'] += get_time(args.ntp_enable) - time_get_output_start
-    #out = out.numpy().astype(np.float32)
+print("total time :", timer_total)
+print("inference time :", timer_inference)
+# print("exclude network time :", timer_exclude_network)
+# print("network time :", timer_network)
 
-    #### TIME_CHECK : VISUALIZE 
-    #time_visualize_start = get_time(args.ntp_enable)
-    #img_in_rgb = frame
-    #th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
-    #img_in_rgb[th == 1] = [0, 0, 255]
-    #cv2.imshow("received - client", img_in_rgb)
-    #if cv2.waitKey(1) & 0xFF == ord('q'):
-    #    break
-    ##ret, frame = cap.read()
-    #### TIME_CHECK : VISUALIZE END
-    #time_checker['VISUALIZE'] += get_time(args.ntp_enable) - time_visualize_start
-
-print("Total time :", time.time() - stime)
-
-total_time_checker = 0
-total_inferenece_checker = 0
-for key in time_checker:
-    print(key, ':', time_checker[key] / 253 * 1000)
-    total_time_checker += time_checker[key]
-    if key == 'SET_INPUT' or key == 'RUN' or key == 'GET_OUTPUT':
-        total_inferenece_checker += time_checker[key]
-print("total_time_checker :", total_time_checker)
-print("total_inferenece_checker :", total_inferenece_checker / 352 * 1000)
-
+print("data receive size :", total_recv_msg_size)
+print("data send size :", total_send_msg_size)
 
 cap.release()

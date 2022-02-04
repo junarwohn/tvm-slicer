@@ -166,8 +166,8 @@ while (cap.isOpened()):
     # th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
     # img_in_rgb[th == 1] = [0, 0, 255]
     point = 30, 30 + 40
-    img_in_rgb = cv2.resize(img_in_rgb, (1024, 1024))
-    cv2.putText(img_in_rgb, out, point, fonts[0], 1, green_color, 2, cv2.LINE_AA)
+    img_in_rgb = cv2.resize(img_in_rgb, (512, 512))
+    cv2.putText(img_in_rgb, out, point, fonts[0], 2, green_color, 2, cv2.LINE_AA)
     cv2.imshow("received - client", img_in_rgb)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

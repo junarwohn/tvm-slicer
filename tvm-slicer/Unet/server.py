@@ -1,3 +1,5 @@
+from http import client
+import re
 import socket
 import pickle
 # import cloudpickle as pickle
@@ -12,7 +14,6 @@ import time
 import sys
 import cv2
 import struct
-import ntplib
 from argparse import ArgumentParser
 import ntplib 
 
@@ -29,9 +30,9 @@ parser.add_argument('--img_size', '-i', type=int, default=512, help='set image s
 parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
 parser.add_argument('--target', '-t', type=str, default='llvm', help='name of taget')
 parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_level')
-parser.add_argument('--ip', type=str, default='192.168.0.184', help='input ip of host')
+parser.add_argument('--ip', type=str, default='127.0.0.1', help='input ip of host')
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
-parser.add_argument('--ntp_enable', type=int, default=1, help='ntp support')
+parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
 
 args = parser.parse_args()
 
@@ -54,11 +55,11 @@ elif args.target == 'opencl':
     dev = tvm.opencl()
 
 
-model_path = "./src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
+model_path = "../src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
 back_lib = tvm.runtime.load_module(model_path)
 back_model = graph_executor.GraphModule(back_lib['default'](dev))
 
-model_info_path = "./src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
+model_info_path = "../src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
 
 with open(model_info_path, "r") as json_file:
     model_info = json.load(json_file)
@@ -82,131 +83,77 @@ server_socket.bind((HOST_IP, PORT))
 
 server_socket.listen()
 client_socket, addr = server_socket.accept()
-base_time = time.time()
-#print(base_time)
 
-#print("Connection estabilished")
-total_time_start = time.time()
-inference_time = 0
-network_time = 0
-data_transmission_time = 0
+# TODO check output size and send
+# shape = (4,)
+total_output_num = len(model_info['heads'])
+output_shapes = b''
+for idxs in model_info['heads']:
+    print(model_info["attrs"]["shape"][1][idxs[0]])
+    output_shapes += np.array(model_info["attrs"]["shape"][1][idxs[0]]).tobytes()
 
-# TIME_CHECK INIT
-
-time_checker = {
-        'READ' : 0,
-        'SET_INPUT' : 0,
-        'RUN_MODEL': 0,
-        'GET_OUTPUT' : 0,
-        'PACK' : 0,
-        'UNPACK' : 0,
-        'VISUALIZE' : 0
-}
+send_bytes = struct.pack('i', len(output_shapes)) + output_shapes
+client_socket.sendall(send_bytes)
+##
 
 # timer INIT
-timer_READ = 0
-timer_SET_INPUT = 0
-timer_RUN_MODEL = 0
-timer_GET_OUTPUT = 0
-timer_ASNUMPY = 0
-timer_VISUALIZE = 0
+timer_inference = 0
+timer_total = 0
+timer_exclude_network = 0
 
+timer_toal_start = time.time()
 
 while True:
-    ins = []
-
-    # Measuring time : Data Transmission
-    time_sent = struct.unpack('d', client_socket.recv(8))[0]
-
     try:
-        num_data = struct.unpack('i', client_socket.recv(4))[0]
-        if num_data == 0:
+        total_recv_msg_size = struct.unpack('i', client_socket.recv(4))[0]
+        if total_recv_msg_size == 0:
             break
     except:
         break
-    len_data = struct.unpack('i', client_socket.recv(4))[0]
-    recv_msg = client_socket.recv(socket_size)
-    while len(recv_msg) < len_data:
-        packet = client_socket.recv(socket_size)
-        recv_msg += packet
+    total_recv_msg = client_socket.recv(total_recv_msg_size)
+    while len(total_recv_msg) < total_recv_msg_size:
+        # packet = client_socket.recvall()
+        packet = client_socket.recv(total_recv_msg_size)
+        total_recv_msg += packet
     
     ### TIME_CHECK : UNPACK 
-    time_unpack_start = get_time(args.ntp_enable)
-
+    ins = []
     for idx, shape in zip(input_info, shape_info):
-        in_idx = struct.unpack('i', recv_msg[:4])[0]
-        if idx != in_idx:
-            raise Exception("Input not matched")
-        msg_len = struct.unpack('i', recv_msg[4:8])[0]
-        ins.append([idx, np.frombuffer(recv_msg[8:8+msg_len], np.float32).reshape(shape)])
-        recv_msg = recv_msg[8+msg_len:]
+        n,c,h,w = shape 
+        msg_len = 4 * n * c * h * w
+        ins.append([idx, np.frombuffer(total_recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
+        total_recv_msg = total_recv_msg[msg_len:]
 
-    ### TIME_CHECK : UNPACK END
-    time_checker['UNPACK'] += get_time(args.ntp_enable) - time_unpack_start
+    timer_exclude_network_start = time.time()
 
- 
-    # Measuring time : Data Transmission end
-    network_time += get_time(args.ntp_enable) - time_sent 
-
-    inference_time_start = time.time()
-
-    ### TIME_CHECK : SET_INPUT
-    time_set_input_start = get_time(args.ntp_enable)
+    timer_inference_start = time.time()
 
     for idx, indata in ins:
         back_model.set_input("input_{}".format(idx), indata)
-
-    ### TIME_CHECK : SET_INPUT DONE
-    time_checker['SET_INPUT'] += get_time(args.ntp_enable) - time_set_input_start 
-
-
-    ### TIME_CHECK : RUN_MODEL
-    time_run_model_start = get_time(args.ntp_enable)
     back_model.run()
-
-    ### TIME_CHECK : RUN_MODEL DONE
-    time_checker['RUN_MODEL'] += get_time(args.ntp_enable) - time_run_model_start 
-
-
-    ### TIME_CHECK : GET_OUTPUT
-    time_get_output_start = get_time(args.ntp_enable)
-
     out = back_model.get_output(0).asnumpy().astype(np.float32)
 
-    ### TIME_CHECK : GET_OUTPUT
-    time_checker['GET_OUTPUT'] += get_time(args.ntp_enable) - time_get_output_start
+    timer_inference += time.time() - timer_inference_start
 
-    inference_time += time.time() - inference_time_start
-   
-    # Time start
-    ### TIME_CHECK : PACK
-    time_pack_start = get_time(args.ntp_enable)
+    timer_exclude_network += time.time() - timer_exclude_network_start
 
-    time_sent = struct.pack('d', get_time(args.ntp_enable))
     send_obj = out.tobytes()
-    send_obj_len = len(send_obj)
-    send_msg = time_sent + struct.pack('i', 0) + struct.pack('i', send_obj_len) + send_obj
-    ### TIME_CHECK : PACK DONE
-    time_checker['PACK'] += get_time(args.ntp_enable) - time_pack_start
+    total_send_msg_size = len(send_obj)
+    send_msg = struct.pack('i', total_send_msg_size) + send_obj
 
     client_socket.sendall(send_msg)
 
-total_time = time.time() - total_time_start
-print("total time :", total_time)
-print("inference time :", inference_time)
-print("network time :", network_time)
-print("number of input :", len(input_info))
-print("index of input :", input_info[0])
-print("number of output :", len(output_info))
-print("index of output :", output_info[0])
-print("data input size :", len_data)
-print("data receive size :", len_data)
-print("data send size :", send_obj_len)
-total_time_checker = 0
-for key in time_checker:
-    print(key, ':', time_checker[key])
-    total_time_checker += time_checker[key]
-print("total_time_checker :", total_time_checker)
+timer_total = time.time() - timer_toal_start
+timer_network = timer_total - timer_exclude_network
+
+
+print("total time :", timer_total)
+print("inference time :", timer_inference)
+print("exclude network time :", timer_exclude_network)
+print("network time :", timer_network)
+
+print("data receive size :", total_recv_msg_size)
+print("data send size :", total_send_msg_size)
 
 client_socket.close()
 server_socket.close()
