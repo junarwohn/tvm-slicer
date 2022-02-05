@@ -43,6 +43,20 @@ def get_time(is_enabled):
     else:
         return 0
 
+def make_preprocess(model, im_sz):
+    if model == 'unet':
+        def preprocess(img):
+            return cv2.resize(img[490:1800, 900:2850], (im_sz,im_sz)) / 255
+        return preprocess
+    elif model == 'resnet152':
+        def preprocess(img):
+            return cv2.resize(img, (im_sz, im_sz))
+        return preprocess
+
+preprocess = make_preprocess(args.model, args.img_size)
+
+
+
 # color 설정
 
 blue_color = (255, 0, 0)
@@ -66,10 +80,15 @@ cv2.FONT_ITALIC]
 
 # Model load
 
-target = 'cuda'
-#target = 'llvm'
-dev = tvm.cuda(0)
-#dev = tvm.cpu(0)
+if args.target == 'llvm':
+    target = 'llvm'
+    dev = tvm.cpu()
+elif args.target == 'cuda':
+    target = 'cuda'
+    dev = tvm.cuda()
+elif args.target == 'opencl':
+    target = 'opencl'
+    dev = tvm.opencl()
 
 model_path = "../src/model/{}_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
 lib = tvm.runtime.load_module(model_path)
@@ -78,29 +97,14 @@ model = graph_executor.GraphModule(lib['default'](dev))
 # Video Load
 
 img_size = args.img_size 
-#cap = cv2.VideoCapture("../src/data/j_scan.mp4")
 cap = cv2.VideoCapture("../src/data/frames/output.mp4")
-# client_socket.settimeout(1)
-stime = time.time()
 
-total_time = 0
-total_time_start = time.time()
-inference_time = 0
-network_time = 0
+# timer INIT
+timer_inference = 0
+timer_total = 0
+timer_exclude_network = 0
 
-# TIME_CHECK INIT
 
-time_checker = {
-        'READ' : 0,
-        'SET_INPUT' : 0,
-        'RUN_MODEL': 0,
-        'GET_OUTPUT' : 0,
-        'PACK' : 0,
-        'UNPACK' : 0,
-        'VISUALIZE' : 0
-}
-
-out = ""
 
 synset_url = "".join(
     [
@@ -114,90 +118,43 @@ synset_name = "imagenet1000_clsid_to_human.txt"
 synset_path = download_testdata(synset_url, synset_name, module="data")
 with open(synset_path) as f:
     synset = eval(f.read())
-# confirm correctness with keras output
-# top1_keras = np.argmax(keras_out)
-# print("Keras top-1 id: {}, class name: {}".format(top1_keras, synset[top1_keras]))
 
-
+timer_toal_start = time.time()
 while (cap.isOpened()):
-    ### TIME_CHECK : READ
-    time_read_start = get_time(args.ntp_enable)
+    timer_exclude_network_start = time.time()
     ret, frame = cap.read()
     try:
-        # frame = cv2.resize(frame[490:1800, 900:2850], (img_size, img_size)) / 255
-        frame = cv2.resize(frame, (img_size, img_size)) 
+        frame = preprocess(frame)
     except:
         break
     input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
-    ### TIME_CHECK : READ END
-    time_checker['READ'] += get_time(args.ntp_enable) - time_read_start
 
-    ### TIME_CHECK : SET_INPUT
-    time_set_input_start = get_time(args.ntp_enable)
- 
-    # Execute front
+    timer_inference_start = time.time()
     model.set_input("input_1", input_data)
-    ### TIME_CHECK : SET_INPUT DONE
-    time_checker['SET_INPUT'] += get_time(args.ntp_enable) - time_set_input_start 
-
-    ### TIME_CHECK : RUN_MODEL
-    time_run_model_start = get_time(args.ntp_enable)
     model.run()
     outd = model.get_output(0)
-    ### TIME_CHECK : RUN_MODEL DONE
-    time_checker['RUN_MODEL'] += get_time(args.ntp_enable) - time_run_model_start 
-
- 
-
-    ### TIME_CHECK : GET_OUTPUT
-    time_get_output_start = get_time(args.ntp_enable)
-    #out = model.get_output(0).asnumpy().astype(np.float32)
-    #out = model.get_output(0)
     out = outd.numpy().astype(np.float32)
     top1_keras = np.argmax(out)
     out = synset[top1_keras]
-    ### TIME_CHECK : GET_OUTPUT
-    time_checker['GET_OUTPUT'] += get_time(args.ntp_enable) - time_get_output_start
-    #out = out.numpy().astype(np.float32)
+    timer_inference += time.time() - timer_inference_start
 
-    ### TIME_CHECK : VISUALIZE 
-    time_visualize_start = get_time(args.ntp_enable)
     img_in_rgb = frame
-    # th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
-    # img_in_rgb[th == 1] = [0, 0, 255]
     point = 30, 30 + 40
     img_in_rgb = cv2.resize(img_in_rgb, (512, 512))
     cv2.putText(img_in_rgb, out, point, fonts[0], 2, green_color, 2, cv2.LINE_AA)
     cv2.imshow("received - client", img_in_rgb)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-    #ret, frame = cap.read()
-    ### TIME_CHECK : VISUALIZE END
-    time_checker['VISUALIZE'] += get_time(args.ntp_enable) - time_visualize_start
 
-    #### TIME_CHECK : VISUALIZE 
-    #time_visualize_start = get_time(args.ntp_enable)
-    #img_in_rgb = frame
-    #th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
-    #img_in_rgb[th == 1] = [0, 0, 255]
-    #cv2.imshow("received - client", img_in_rgb)
-    #if cv2.waitKey(1) & 0xFF == ord('q'):
-    #    break
-    ##ret, frame = cap.read()
-    #### TIME_CHECK : VISUALIZE END
-    #time_checker['VISUALIZE'] += get_time(args.ntp_enable) - time_visualize_start
+timer_total = time.time() - timer_toal_start
+timer_network = timer_total - timer_exclude_network
 
-print("Total time :", time.time() - stime)
+print("total time :", timer_total)
+print("inference time :", timer_inference)
+print("exclude network time :", timer_exclude_network)
+print("network time :", timer_network)
 
-total_time_checker = 0
-total_inferenece_checker = 0
-for key in time_checker:
-    print(key, ':', time_checker[key] / 253 * 1000)
-    total_time_checker += time_checker[key]
-    if key == 'SET_INPUT' or key == 'RUN' or key == 'GET_OUTPUT':
-        total_inferenece_checker += time_checker[key]
-print("total_time_checker :", total_time_checker)
-print("total_inferenece_checker :", total_inferenece_checker / 352 * 1000)
-
+#print("data receive size :", total_recv_msg_size)
+#print("data send size :", total_send_msg_size)
 
 cap.release()

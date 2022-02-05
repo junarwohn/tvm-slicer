@@ -110,18 +110,6 @@ total_time_start = time.time()
 inference_time = 0
 network_time = 0
 
-# # TIME_CHECK INIT
-
-time_checker = {
-        'READ' : 0,
-        'SET_INPUT' : 0,
-        'RUN_MODEL': 0,
-        'GET_OUTPUT' : 0,
-        'PACK' : 0,
-        'UNPACK' : 0,
-        'VISUALIZE' : 0
-}
-
 # timer INIT
 timer_inference = 0
 timer_total = 0

@@ -57,10 +57,15 @@ preprocess = make_preprocess(args.model, args.img_size)
 
 # Model load
 
-target = 'cuda'
-#target = 'llvm'
-dev = tvm.cuda(0)
-#dev = tvm.cpu(0)
+if args.target == 'llvm':
+    target = 'llvm'
+    dev = tvm.cpu()
+elif args.target == 'cuda':
+    target = 'cuda'
+    dev = tvm.cuda()
+elif args.target == 'opencl':
+    target = 'opencl'
+    dev = tvm.opencl()
 
 model_path = "../src/model/unet_512.so"
 lib = tvm.runtime.load_module(model_path)
