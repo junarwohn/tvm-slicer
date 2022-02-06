@@ -1,5 +1,6 @@
 import socket
 import pickle
+# import cloudpickle as pickle
 import numpy as np
 import tvm
 from tvm import te
@@ -28,8 +29,7 @@ parser.add_argument('--img_size', '-i', type=int, default=512, help='set image s
 parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
 parser.add_argument('--target', '-t', type=str, default='llvm', help='name of taget')
 parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_level')
-parser.add_argument('--ip', type=str, default='127.0.0.1', help='input ip of host')
-parser.add_argument('--device', type=str, default='cuda', help='type of devices [llvm, cuda]')
+parser.add_argument('--ip', type=str, default='192.168.0.184', help='input ip of host')
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
 parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
 
@@ -55,6 +55,29 @@ def make_preprocess(model, im_sz):
 
 preprocess = make_preprocess(args.model, args.img_size)
 
+
+
+# color 설정
+
+blue_color = (255, 0, 0)
+green_color = (0, 255, 0)
+red_color = (0, 0, 255)
+white_color = (255, 255, 255)
+
+# Font 종류
+
+fonts = [cv2.FONT_HERSHEY_SIMPLEX,
+cv2.FONT_HERSHEY_PLAIN,
+cv2.FONT_HERSHEY_DUPLEX,
+cv2.FONT_HERSHEY_COMPLEX,
+cv2.FONT_HERSHEY_TRIPLEX,
+cv2.FONT_HERSHEY_COMPLEX_SMALL,
+cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,
+cv2.FONT_HERSHEY_SCRIPT_COMPLEX,
+cv2.FONT_ITALIC]
+
+
+
 # Model load
 
 if args.target == 'llvm':
@@ -67,61 +90,71 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-model_path = "../src/model/unet_512.so"
+model_path = "../src/model/{}_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
 lib = tvm.runtime.load_module(model_path)
 model = graph_executor.GraphModule(lib['default'](dev))
 
 # Video Load
 
-img_size = 512 
-cap = cv2.VideoCapture("../src/data/j_scan.mp4")
-# client_socket.settimeout(1)
-stime = time.time()
+img_size = args.img_size 
+cap = cv2.VideoCapture("../src/data/frames/output.mp4")
 
 # timer INIT
 timer_inference = 0
 timer_total = 0
 timer_exclude_network = 0
-total_recv_msg_size = 0
-total_send_msg_size = 0
+
+
+
+synset_url = "".join(
+    [
+        "https://gist.githubusercontent.com/zhreshold/",
+        "4d0b62f3d01426887599d4f7ede23ee5/raw/",
+        "596b27d23537e5a1b5751d2b0481ef172f58b539/",
+        "imagenet1000_clsid_to_human.txt",
+    ]
+)
+synset_name = "imagenet1000_clsid_to_human.txt"
+synset_path = download_testdata(synset_url, synset_name, module="data")
+with open(synset_path) as f:
+    synset = eval(f.read())
 
 timer_toal_start = time.time()
-
 while (cap.isOpened()):
-    time_read_start = get_time(args.ntp_enable)
+    timer_exclude_network_start = time.time()
     ret, frame = cap.read()
     try:
-        frame = preprocess(frame)    
+        frame = preprocess(frame)
     except:
         break
     input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
 
     timer_inference_start = time.time()
-
     model.set_input("input_1", input_data)
     model.run()
     outd = model.get_output(0)
     out = outd.numpy().astype(np.float32)
-    
+    top1_keras = np.argmax(out)
+    out = synset[top1_keras]
     timer_inference += time.time() - timer_inference_start
 
     img_in_rgb = frame
-    th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
-    img_in_rgb[th == 1] = [0, 0, 255]
+    point = 30, 30 + 40
+    img_in_rgb = cv2.resize(img_in_rgb, (512, 512))
+    cv2.putText(img_in_rgb, out, point, fonts[0], 2, green_color, 2, cv2.LINE_AA)
     cv2.imshow("received - client", img_in_rgb)
     if cv2.waitKey(1) & 0xFF == ord('q'):
-       break
+        break
 
 timer_total = time.time() - timer_toal_start
 timer_network = timer_total - timer_exclude_network
 
-
 print("total time :", timer_total)
 print("inference time :", timer_inference)
-# print("exclude network time :", timer_exclude_network)
-# print("network time :", timer_network)
+print("exclude network time :", timer_exclude_network)
+print("network time :", timer_network)
 
-print("data receive size :", total_recv_msg_size)
-print("data send size :", total_send_msg_size)
+#print("data receive size :", total_recv_msg_size)
+#print("data send size :", total_send_msg_size)
 
 cap.release()

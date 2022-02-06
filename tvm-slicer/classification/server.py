@@ -86,11 +86,11 @@ client_socket, addr = server_socket.accept()
 
 # TODO check output size and send
 # shape = (4,)
-total_output_num = len(model_info['heads'])
+# total_output_num = len(model_info['heads'])
 output_shapes = b''
 for idxs in model_info['heads']:
     print(model_info["attrs"]["shape"][1][idxs[0]])
-    output_shapes += np.array(model_info["attrs"]["shape"][1][idxs[0]]).tobytes()
+    output_shapes += struct.pack('i', len(model_info["attrs"]["shape"][1][idxs[0]])) + np.array(model_info["attrs"]["shape"][1][idxs[0]]).tobytes()
 
 send_bytes = struct.pack('i', len(output_shapes)) + output_shapes
 client_socket.sendall(send_bytes)

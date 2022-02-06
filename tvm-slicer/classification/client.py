@@ -96,14 +96,21 @@ recv_msg = client_socket.recv(total_recv_bytes)
 while len(recv_msg) < total_recv_bytes:
     recv_msg += client_socket.recv(total_recv_bytes)
 
-final_output_shape = np.frombuffer(recv_msg, np.int).reshape((4,))
+#final_output_shape = np.frombuffer(recv_msg, np.int).reshape((4,))
+final_output_shape_len = struct.unpack('i', recv_msg[:4])[0]
+recv_msg = recv_msg[4:]
+final_output_shape = np.frombuffer(recv_msg, np.int).reshape((final_output_shape_len,))
+final_output_byte = 4
+for i in final_output_shape:
+    final_output_byte *= i
 ##
 print(final_output_shape)
 
 
 # Video Load
 img_size = 512 
-cap = cv2.VideoCapture("../src/data/j_scan.mp4")
+#cap = cv2.VideoCapture("../src/data/j_scan.mp4")
+cap = cv2.VideoCapture("../src/data/frames/output.mp4")
 # client_socket.settimeout(1)
 total_time = 0
 total_time_start = time.time()
@@ -114,6 +121,41 @@ network_time = 0
 timer_inference = 0
 timer_total = 0
 timer_exclude_network = 0
+
+# color 설정
+
+blue_color = (255, 0, 0)
+green_color = (0, 255, 0)
+red_color = (0, 0, 255)
+white_color = (255, 255, 255)
+
+# Font 종류
+
+fonts = [cv2.FONT_HERSHEY_SIMPLEX,
+cv2.FONT_HERSHEY_PLAIN,
+cv2.FONT_HERSHEY_DUPLEX,
+cv2.FONT_HERSHEY_COMPLEX,
+cv2.FONT_HERSHEY_TRIPLEX,
+cv2.FONT_HERSHEY_COMPLEX_SMALL,
+cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,
+cv2.FONT_HERSHEY_SCRIPT_COMPLEX,
+cv2.FONT_ITALIC]
+
+
+synset_url = "".join(
+    [
+        "https://gist.githubusercontent.com/zhreshold/",
+        "4d0b62f3d01426887599d4f7ede23ee5/raw/",
+        "596b27d23537e5a1b5751d2b0481ef172f58b539/",
+        "imagenet1000_clsid_to_human.txt",
+    ]
+)
+synset_name = "imagenet1000_clsid_to_human.txt"
+synset_path = download_testdata(synset_url, synset_name, module="data")
+with open(synset_path) as f:
+    synset = eval(f.read())
+
+
 
 timer_toal_start = time.time()
 
@@ -161,17 +203,25 @@ while (cap.isOpened()):
         recv_msg += client_socket.recv(total_recv_msg_size)
 
     recv_outs = []
-    b,c,h,w = final_output_shape
+    #b,c,h,w = final_output_shape
+    #b,c = final_output_shape
     ## TODO : get output and parse 
-    out = np.frombuffer(recv_msg[:4*b*c*h*w], np.float32).reshape(tuple(final_output_shape))
+    #out = np.frombuffer(recv_msg[:4*b*c*h*w], np.float32).reshape(tuple(final_output_shape))
+    #out = np.frombuffer(recv_msg[:4*b*c], np.float32).reshape(tuple(final_output_shape))
+    out = np.frombuffer(recv_msg[:final_output_byte], np.float32).reshape(tuple(final_output_shape))
+    top1_keras = np.argmax(out)
+    out = synset[top1_keras]
 
     timer_exclude_network_start = time.time()
+
     img_in_rgb = frame
-    th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
-    img_in_rgb[th == 1] = [0, 0, 255]
+    point = 30, 30 + 40
+    img_in_rgb = cv2.resize(img_in_rgb, (512, 512))
+    cv2.putText(img_in_rgb, out, point, fonts[0], 2, green_color, 2, cv2.LINE_AA)
     cv2.imshow("received - client", img_in_rgb)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
     timer_exclude_network += time.time() - timer_exclude_network_start 
 
 timer_total = time.time() - timer_toal_start
