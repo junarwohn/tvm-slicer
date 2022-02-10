@@ -1,1 +1,7 @@
 *.h5 filter=lfs diff=lfs merge=lfs -text
+tvm-slicer/src/model/darknet/yolov2.cfg filter=lfs diff=lfs merge=lfs -text
+tvm-slicer/src/model/darknet/yolov2.weights filter=lfs diff=lfs merge=lfs -text
+tvm-slicer/src/model/darknet/yolov3.cfg filter=lfs diff=lfs merge=lfs -text
+tvm-slicer/src/model/darknet/yolov3.weights filter=lfs diff=lfs merge=lfs -text
+tvm-slicer/src/model/darknet/libdarknet2.0.so filter=lfs diff=lfs merge=lfs -text
+tvm-slicer/src/data/walk.mp4 filter=lfs diff=lfs merge=lfs -text

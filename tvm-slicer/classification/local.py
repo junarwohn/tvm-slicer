@@ -134,6 +134,7 @@ while (cap.isOpened()):
     model.run()
     outd = model.get_output(0)
     out = outd.numpy().astype(np.float32)
+    print(out.shape)
     top1_keras = np.argmax(out)
     out = synset[top1_keras]
     timer_inference += time.time() - timer_inference_start
@@ -158,3 +159,29 @@ print("network time :", timer_network)
 #print("data send size :", total_send_msg_size)
 
 cap.release()
+
+import json
+import pygraphviz as pgv
+
+# os.environ [ "TF_FORCE_GPU_ALLOW_GROWTH" ] = "true"
+
+def shape_size(shape_list):
+    result = 1
+    for i in shape_list:
+        result *= i
+    return result
+
+# def show_graph(json_data, file_name=None):
+#     if type(json_data) == str:
+#         json_data = json.loads(json_data)
+#     A = pgv.AGraph(directed=True)
+#     for node_idx, node in enumerate(json_data['nodes']):
+#         for src in node['inputs']:
+#             A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]) + '{}'.format(shape_size(json_data['attrs']['shape'][1][src[0]])), node['name'] + '[{}]'.format(node_idx) + '{}'.format(shape_size(json_data['attrs']['shape'][1][node_idx])))
+#     if file_name:
+#         A.draw(file_name + '.png', format='png', prog='dot')
+
+# show_graph(lib['get_graph_json'](), "resnet_{}_lv_{}".format(target, 3))
+
+# with open("resnet_{}_lv_{}".format(target, 3), "w") as json_file:
+#     json_file.write(lib['get_graph_json']())
