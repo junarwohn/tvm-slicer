@@ -156,8 +156,10 @@ coco_name = "coco.names"
 coco_url = "../src/" + "data/" + coco_name
 font_name = "arial.ttf"
 font_url = "../src/" + "data/" + font_name
-coco_path = download_testdata(coco_url, coco_name, module="data")
-font_path = download_testdata(font_url, font_name, module="data")
+#coco_path = download_testdata(coco_url, coco_name, module="data")
+coco_path = coco_url
+#font_path = download_testdata(font_url, font_name, module="data")
+font_path = font_url
 
 with open(coco_path) as f:
     content = f.readlines()
