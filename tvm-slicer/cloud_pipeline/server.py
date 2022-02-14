@@ -159,6 +159,7 @@ while True:
 timer_total = time.time() - timer_toal_start
 timer_network = timer_total - timer_exclude_network
 
+total_frames = 253
 
 print("total time :", timer_total)
 print("inference time :", timer_inference)

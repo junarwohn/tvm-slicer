@@ -68,15 +68,6 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-
-# model_info_path = "../src/graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
-# with open(model_info_path, "r") as json_file:
-#     model_info = json.load(json_file)
-
-# input_info = model_info["extra"]["inputs"]
-# shape_info = model_info["attrs"]["shape"][1][:len(input_info)]
-# output_info = model_info["extra"]["outputs"]
-
 # Video Load
 img_size = 512 
 
@@ -105,7 +96,9 @@ font=cv2.FONT_HERSHEY_SIMPLEX
 
 def generate_img():
     cap = cv2.VideoCapture("../src/data/j_scan.mp4")
+    timer_exclude_network = 0
     while (cap.isOpened()):
+        timer_exclude_network_start = time.time()
         ret, frame = cap.read()
         try:
             frame = preprocess(frame)
@@ -114,13 +107,9 @@ def generate_img():
             client_socket.sendall(total_msg)
             client_socket.close()
             break
-        # print("imread")
+        timer_exclude_network += time.time() - timer_exclude_network_start
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
         msg_body = input_data.tobytes()
-        # Send msg
-        # for out in outs:
-        #     out_byte = out.tobytes()
-        #     msg_body += out_byte
 
         total_send_msg_size = len(msg_body)
         send_msg = struct.pack('i', total_send_msg_size) + msg_body
@@ -128,6 +117,7 @@ def generate_img():
         client_socket.sendall(send_msg)
         # print("send")
     client_socket.close()
+    print("Exclude network time :", timer_exclude_network)
 
     
 def recv_img():
@@ -140,21 +130,18 @@ def recv_img():
         recv_msg = recv_msg[4:]
         if total_recv_msg_size == 0:
             break 
-        # print("total_recv_msg_size", total_recv_msg_size)
-        # recv_msg += client_socket.recv(total_recv_msg_size)
+
         while len(recv_msg) < total_recv_msg_size:
             # print(len(recv_msg))
             recv_msg += client_socket.recv(total_recv_msg_size)
-        # img = np.frombuffer(recv_msg[:4*512*512*3], np.float32).reshape((512,512,3))
 
         b,c,h,w = final_output_shape
         ## TODO : get output and parse 
         out = np.frombuffer(recv_msg[:4*b*c*h*w], np.float32).reshape(tuple(final_output_shape))
-        # img_in_rgb = frame
         th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
-        cv2.imshow("received - client", 255 * th)
-        # print(th)
-        cv2.waitKey(1)
+        # img_in_rgb = frame
+        # cv2.imshow("received - client", 255 * th)
+        # cv2.waitKey(1)
         # if cv2.waitKey(1) & 0xFF == ord('q'):
             # break
         recv_msg = recv_msg[4*b*c*h*w:]
@@ -162,9 +149,11 @@ def recv_img():
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':
+    timer_total_time = time.time()
     p1 = Process(target=generate_img)
     p2 = Process(target=recv_img)
     p1.start(); 
     p2.start(); 
     p1.join(); p2.join()
+    print("Total time : ", time.time() - timer_total_time)
 
