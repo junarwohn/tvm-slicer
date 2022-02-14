@@ -103,26 +103,30 @@ timer_exclude_network = 0
 
 timer_toal_start = time.time()
 
+recv_msg = b''
 while True:
     try:
-        total_recv_msg_size = struct.unpack('i', client_socket.recv(4))[0]
+        while len(recv_msg) < 4:
+            recv_msg += client_socket.recv(4)
+        total_recv_msg_size = struct.unpack('i', recv_msg[:4])[0]
+        recv_msg = recv_msg[4:]
+        # total_recv_msg_size = struct.unpack('i', client_socket.recv(4))[0]
         if total_recv_msg_size == 0:
+            client_socket.sendall(struct.pack('i', 0))
             break
     except:
         break
-    total_recv_msg = client_socket.recv(total_recv_msg_size)
-    while len(total_recv_msg) < total_recv_msg_size:
+    while len(recv_msg) < total_recv_msg_size:
         # packet = client_socket.recvall()
-        packet = client_socket.recv(total_recv_msg_size)
-        total_recv_msg += packet
+        recv_msg += client_socket.recv(total_recv_msg_size)
     
     ### TIME_CHECK : UNPACK 
     ins = []
     for idx, shape in zip(input_info, shape_info):
         n,c,h,w = shape 
         msg_len = 4 * n * c * h * w
-        ins.append([idx, np.frombuffer(total_recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
-        total_recv_msg = total_recv_msg[msg_len:]
+        ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
+        recv_msg = recv_msg[msg_len:]
 
     timer_exclude_network_start = time.time()
 

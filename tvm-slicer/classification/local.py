@@ -143,9 +143,10 @@ while (cap.isOpened()):
     point = 30, 30 + 40
     img_in_rgb = cv2.resize(img_in_rgb, (512, 512))
     cv2.putText(img_in_rgb, out, point, fonts[0], 2, green_color, 2, cv2.LINE_AA)
-    cv2.imshow("received - client", img_in_rgb)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    # cv2.imshow("received - client", img_in_rgb)
+    # cv2.waitKey(1)
+    # #if cv2.waitKey(1) & 0xFF == ord('q'):
+    #    break
 
 timer_total = time.time() - timer_toal_start
 timer_network = timer_total - timer_exclude_network
