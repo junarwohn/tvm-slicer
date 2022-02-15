@@ -15,7 +15,7 @@ import cv2
 import struct
 from argparse import ArgumentParser
 import ntplib 
-from multiprocessing import Process
+from multiprocessing import Process, Queue
 
 ntp_time_server = 'time.windows.com'               # NTP Server Domain Or IP 
 ntp_time_server = 'time.google.com'               # NTP Server Domain Or IP 
@@ -94,7 +94,7 @@ org=(50,100)
 font=cv2.FONT_HERSHEY_SIMPLEX
 
 
-def generate_img():
+def generate_img(q):
     cap = cv2.VideoCapture("../src/data/j_scan.mp4")
     timer_exclude_network = 0
     while (cap.isOpened()):
@@ -110,7 +110,7 @@ def generate_img():
         timer_exclude_network += time.time() - timer_exclude_network_start
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
         msg_body = input_data.tobytes()
-
+        q.put(frame)
         total_send_msg_size = len(msg_body)
         send_msg = struct.pack('i', total_send_msg_size) + msg_body
         # Send object
@@ -120,7 +120,7 @@ def generate_img():
     print("Exclude network time :", timer_exclude_network)
 
     
-def recv_img():
+def recv_img(q):
     recv_msg = b''
     while True:
         while len(recv_msg) < 4:
@@ -140,18 +140,22 @@ def recv_img():
         out = np.frombuffer(recv_msg[:4*b*c*h*w], np.float32).reshape(tuple(final_output_shape))
         th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
         # img_in_rgb = frame
+        img_in_rgb = q.get()
+        img_in_rgb[th == 1] = [0, 0, 255]
+        cv2.imshow("received - client", img_in_rgb)
         # cv2.imshow("received - client", 255 * th)
         # cv2.waitKey(1)
-        # if cv2.waitKey(1) & 0xFF == ord('q'):
-            # break
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
         recv_msg = recv_msg[4*b*c*h*w:]
 
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     timer_total_time = time.time()
-    p1 = Process(target=generate_img)
-    p2 = Process(target=recv_img)
+    q = Queue()
+    p1 = Process(target=generate_img, args=(q,))
+    p2 = Process(target=recv_img, args=(q,))
     p1.start(); 
     p2.start(); 
     p1.join(); p2.join()
