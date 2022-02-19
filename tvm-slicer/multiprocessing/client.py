@@ -150,7 +150,8 @@ def send_data(send_queue, send_lock):
     # Send msg
     output_num = len(output_info)
     while True:
-        if send_queue.qsize() != 0:
+        #if send_queue.qsize() != 0:
+        if True:
             # outs = []
             # # send_lock.acquire()
             # for i in range(output_num):
@@ -214,7 +215,8 @@ def recv_data(result_queue, result_lock):
 def visualize(visual_queue, visual_lock, result_queue, result_lock):
     cnt = 0
     while True:
-        if result_queue.qsize() != 0:
+        #if result_queue.qsize() != 0:
+        if True:
             # result_lock.acquire()
             th = result_queue.get()
             # result_lock.release()
@@ -228,11 +230,11 @@ def visualize(visual_queue, visual_lock, result_queue, result_lock):
                     visual_queue.get()
                 print("visualize end")
                 break
-            img_in_rgb[th == 1] = [0, 0, 255]
-            cv2.imshow("received - client", img_in_rgb)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
-            # print("visualize")
+            #img_in_rgb[th == 1] = [0, 0, 255]
+            #cv2.imshow("received - client", img_in_rgb)
+            #if cv2.waitKey(1) & 0xFF == ord('q'):
+            #    break
+            #print("visualize")
         else:
             time.sleep(0)
     # visual_queue.close()

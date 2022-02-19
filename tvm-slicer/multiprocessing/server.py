@@ -141,7 +141,8 @@ def inference(recv_queue, recv_lock, send_queue, send_lock):
     back_lib = tvm.runtime.load_module(model_path)
     back_model = graph_executor.GraphModule(back_lib['default'](dev))
     while True:
-        if recv_queue.qsize() != 0:
+        #if recv_queue.qsize() != 0:
+        if True:
             # recv_lock.acquire()
             # outs = []
             # for i in range(len(shape_info)):
@@ -171,7 +172,8 @@ def inference(recv_queue, recv_lock, send_queue, send_lock):
             
 def send_data(send_queue, send_lock):
     while True:
-        if send_queue.qsize() != 0:
+        #if send_queue.qsize() != 0:
+        if True:
             # send_lock.acquire()
             out = send_queue.get()
             # send_lock.release()

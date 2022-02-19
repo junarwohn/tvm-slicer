@@ -67,7 +67,7 @@ with open(model_info_path, "r") as json_file:
 input_info = model_info["extra"]["inputs"]
 shape_info = model_info["attrs"]["shape"][1][:len(input_info)]
 output_info = model_info["extra"]["outputs"]
-
+print(shape_info)
 #print("Model Loaded")
 
 # Initialize connect
