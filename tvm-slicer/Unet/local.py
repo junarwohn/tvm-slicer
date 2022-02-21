@@ -108,9 +108,10 @@ while (cap.isOpened()):
     img_in_rgb = frame
     th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
     img_in_rgb[th == 1] = [0, 0, 255]
-    cv2.imshow("received - client", img_in_rgb)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-       break
+    print(11)
+    #cv2.imshow("received - client", img_in_rgb)
+    #if cv2.waitKey(1) & 0xFF == ord('q'):
+    #   break
 
 timer_total = time.time() - timer_toal_start
 timer_network = timer_total - timer_exclude_network
