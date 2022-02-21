@@ -109,40 +109,43 @@ def read_and_infernece(visual_queue, visual_lock, send_queue, send_lock):
 
     cap = cv2.VideoCapture("../src/data/j_scan.mp4")
     while (cap.isOpened()):
-        ret, frame = cap.read()
-        try:
-            frame = preprocess(frame)
-        # no more frame to read
-        except:
-            # visual_lock.acquire()
-            visual_queue.put([])
-            # visual_lock.release()
-            # send_lock.acquire()
-            send_queue.put([])
-            # send_lock.release()
-            print('read_and_infernece end')
-            break
+        if visual_queue.qsize() < 5:
+            ret, frame = cap.read()
+            try:
+                frame = preprocess(frame)
+            # no more frame to read
+            except:
+                # visual_lock.acquire()
+                visual_queue.put([])
+                # visual_lock.release()
+                # send_lock.acquire()
+                send_queue.put([])
+                # send_lock.release()
+                print('read_and_infernece end')
+                break
 
-        # visual_lock.acquire()
-        visual_queue.put(frame)
-        # visual_lock.release()
-        input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
-        front_model.set_input("input_0", input_data)
-        front_model.run()
-        # send_lock.acquire()
-        
-        outs = []
-        for i, out_idx in enumerate(output_info):
-            out = front_model.get_output(i).asnumpy().astype(np.float32)
-            outs.append(out)
-        
-        # outs = []
-        # for i, out_idx in enumerate(output_info):
-        #     out = front_model.get_output(i).asnumpy().astype(np.float32)
-        
-        send_queue.put(outs)
-        # send_lock.release()
-        # print("read_and_infernece")
+            # visual_lock.acquire()
+            visual_queue.put(frame)
+            # visual_lock.release()
+            input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
+            front_model.set_input("input_0", input_data)
+            front_model.run()
+            # send_lock.acquire()
+            
+            outs = []
+            for i, out_idx in enumerate(output_info):
+                out = front_model.get_output(i).asnumpy().astype(np.float32)
+                outs.append(out)
+            
+            # outs = []
+            # for i, out_idx in enumerate(output_info):
+            #     out = front_model.get_output(i).asnumpy().astype(np.float32)
+            
+            send_queue.put(outs)
+            # send_lock.release()
+            # print("read_and_infernece")
+        else:
+            time.sleep(0) 
     cap.release()
 
 

@@ -154,7 +154,11 @@ with open(synset_path) as f:
     synset = eval(f.read())
 
 
-
+# model_path = "../src/model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
+# front_lib = tvm.runtime.load_module(model_path)
+# front_model = graph_executor.GraphModule(front_lib['default'](dev))
+# # Video Load
+# cap = cv2.VideoCapture("../src/data/frames/output.mp4")
 # timer_toal_start = time.time()
 
 # while (cap.isOpened()):
@@ -216,8 +220,8 @@ with open(synset_path) as f:
 #     point = 30, 30 + 40
 #     img_in_rgb = cv2.resize(img_in_rgb, (512, 512))
 #     cv2.putText(img_in_rgb, out, point, fonts[0], 2, green_color, 2, cv2.LINE_AA)
-#     cv2.imshow("received - client", img_in_rgb)
-#     cv2.waitKey(1)
+#     # cv2.imshow("received - client", img_in_rgb)
+#     # cv2.waitKey(1)
 #     # if cv2.waitKey(1) & 0xFF == ord('q'):
 #         # break
 
@@ -278,7 +282,6 @@ def generate_img():
         # print("send")
     client_socket.close()
 
-    
 def recv_img():
     recv_msg = b''
     while True:
@@ -309,15 +312,15 @@ def recv_img():
         out = np.frombuffer(recv_msg[:final_output_byte], np.float32).reshape(tuple(final_output_shape))
         top1_keras = np.argmax(out)
         out = synset[top1_keras]
-        print(out)
         recv_msg = recv_msg[4*b*c:]
-        # print("recv")
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     p1 = Process(target=generate_img)
     p2 = Process(target=recv_img)
+    timer_toal_start = time.time()
     p1.start(); 
     p2.start(); 
     p1.join(); p2.join()
-
+    timer_total = time.time() - timer_toal_start
+    print("total time :", timer_total)

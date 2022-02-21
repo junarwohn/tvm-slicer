@@ -16,6 +16,7 @@ import cv2
 import struct
 from argparse import ArgumentParser
 import ntplib 
+from multiprocessing import Process, Queue, Lock
 
 ntp_time_server = 'time.windows.com'               # NTP Server Domain Or IP 
 ntp_time_server = 'time.google.com'               # NTP Server Domain Or IP 
@@ -161,3 +162,95 @@ print("data send size :", total_send_msg_size)
 
 client_socket.close()
 server_socket.close()
+
+# def recv_data(recv_queue, recv_lock):
+#     recv_msg = b''
+#     while True:
+#         try:
+#             while len(recv_msg) < 4:
+#                 recv_msg += client_socket.recv(4)
+#             total_recv_msg_size = struct.unpack('i', recv_msg[:4])[0]
+#             recv_msg = recv_msg[4:]
+#             if total_recv_msg_size == 0:
+#                 recv_queue.put([])
+#                 break
+#         except:
+#             break
+#         while len(recv_msg) < total_recv_msg_size:
+#             recv_msg += client_socket.recv(total_recv_msg_size)
+        
+#         ### TIME_CHECK : UNPACK 
+#         # recv_lock.acquire()
+#         ins = []
+#         for idx, shape in zip(input_info, shape_info):
+#             n,c,h,w = shape 
+#             msg_len = 4 * n * c * h * w
+#             ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
+#             # recv_queue.put(idx)
+#             # recv_queue.put(np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape)))
+#             recv_msg = recv_msg[msg_len:]
+#         recv_queue.put(ins)
+#         # recv_lock.release()
+
+# def inference(recv_queue, recv_lock, send_queue, send_lock):
+#     model_path = "../src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
+#     back_lib = tvm.runtime.load_module(model_path)
+#     back_model = graph_executor.GraphModule(back_lib['default'](dev))
+#     while True:
+#         if True:
+#             ins = recv_queue.get()
+#             if len(ins) == 0:
+#                 send_queue.put([])
+#                 break
+#             for idx, indata in ins:
+#                 back_model.set_input("input_{}".format(idx), indata)
+#             back_model.run()
+#             out = back_model.get_output(0).asnumpy().astype(np.float32)
+#             send_queue.put(out)
+            
+# def send_data(send_queue, send_lock):
+#     while True:
+#         # if send_queue.qsize() != 0:
+#         if True:
+#             out = send_queue.get()
+
+#             if len(out) == 0:
+#                 # if send_queue.qsize() != 0:
+#                 #     send_queue.get()
+#                 send_msg = struct.pack('i', 0)
+#                 client_socket.sendall(send_msg)
+#                 break
+            
+#             send_obj = out.tobytes()
+#             total_send_msg_size = len(send_obj)
+#             send_msg = struct.pack('i', total_send_msg_size) + send_obj
+#             client_socket.sendall(send_msg)
+
+
+
+# if __name__ == '__main__':
+#     recv_queue = Queue()
+#     recv_lock = Lock()
+#     send_queue = Queue()
+#     send_lock = Lock() 
+
+#     p_recv_data = Process(target=recv_data, args=(recv_queue, recv_lock))
+#     p_inference = Process(target=inference, args=(recv_queue, recv_lock, send_queue, send_lock))
+#     p_send_data = Process(target=send_data, args=(send_queue, send_lock))
+#     timer_toal_start = time.time()
+
+#     p_recv_data.start()
+#     p_inference.start()
+#     p_send_data.start()
+    
+#     p_recv_data.join()
+#     print("join p_recv_data")
+#     p_inference.join()
+#     print("join p_inference")
+#     p_send_data.join()
+#     print("join p_send_data")
+
+#     timer_total = time.time() - timer_toal_start
+#     print("total time :", timer_total)
+#     client_socket.close()
+#     server_socket.close()
