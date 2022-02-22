@@ -134,7 +134,7 @@ while (cap.isOpened()):
     model.run()
     outd = model.get_output(0)
     out = outd.numpy().astype(np.float32)
-    print(out.shape)
+    #print(out.shape)
     top1_keras = np.argmax(out)
     out = synset[top1_keras]
     timer_inference += time.time() - timer_inference_start

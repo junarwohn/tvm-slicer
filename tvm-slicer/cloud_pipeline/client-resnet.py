@@ -81,21 +81,21 @@ client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 client_socket.connect((HOST_IP, PORT))
 
 # initialize final output size
-total_recv_bytes = struct.unpack('i', client_socket.recv(4))[0]
-recv_msg = client_socket.recv(total_recv_bytes)
-while len(recv_msg) < total_recv_bytes:
-    recv_msg += client_socket.recv(total_recv_bytes)
+# total_recv_bytes = struct.unpack('i', client_socket.recv(4))[0]
+# recv_msg = client_socket.recv(total_recv_bytes)
+# while len(recv_msg) < total_recv_bytes:
+#     recv_msg += client_socket.recv(total_recv_bytes)
 
-final_output_shape = np.frombuffer(recv_msg, np.int).reshape((4,))
+# final_output_shape = np.frombuffer(recv_msg, np.int).reshape((4,))
 
-print(final_output_shape)
+# print(final_output_shape)
 
 org=(50,100)
 font=cv2.FONT_HERSHEY_SIMPLEX
 
 
 def generate_img(q):
-    cap = cv2.VideoCapture("../src/data/j_scan.mp4")
+    cap = cv2.VideoCapture("../src/data/frames/output.mp4")
     timer_exclude_network = 0
     while (cap.isOpened()):
         timer_exclude_network_start = time.time()
@@ -124,7 +124,6 @@ def recv_img(q):
     recv_msg = b''
     while True:
         while len(recv_msg) < 4:
-            # print("recv")
             recv_msg += client_socket.recv(4)
         total_recv_msg_size = struct.unpack('i', recv_msg[:4])[0]
         recv_msg = recv_msg[4:]
@@ -135,13 +134,13 @@ def recv_img(q):
             # print(len(recv_msg))
             recv_msg += client_socket.recv(total_recv_msg_size)
 
-        b,c,h,w = final_output_shape
+        b,c,h,w = (1,1000,1,1)
         ## TODO : get output and parse 
-        out = np.frombuffer(recv_msg[:4*b*c*h*w], np.float32).reshape(tuple(final_output_shape))
-        th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
+        out = np.frombuffer(recv_msg[:4*b*c*h*w], np.float32).reshape(tuple([1,1000]))
+        # th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
         # img_in_rgb = frame
         img_in_rgb = q.get()
-        img_in_rgb[th == 1] = [0, 0, 255]
+        # img_in_rgb[th == 1] = [0, 0, 255]
         #cv2.imshow("received - client", img_in_rgb)
         # cv2.imshow("received - client", 255 * th)
         # cv2.waitKey(1)
