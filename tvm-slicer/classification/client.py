@@ -76,7 +76,7 @@ with open(model_info_path, "r") as json_file:
 input_info = model_info["extra"]["inputs"]
 shape_info = model_info["attrs"]["shape"][1][:len(input_info)]
 output_info = model_info["extra"]["outputs"]
-
+print(shape_info, output_info)
 # # Initialize connect
 
 HOST_IP = args.ip
@@ -248,24 +248,28 @@ def generate_img():
     front_lib = tvm.runtime.load_module(model_path)
     front_model = graph_executor.GraphModule(front_lib['default'](dev))
     # Video Load
+    print("load complete")
     cap = cv2.VideoCapture("../src/data/frames/output.mp4")
+    print("load video complete")
     # cap = cv2.VideoCapture("../src/data/j_scan.mp4")
     while (cap.isOpened()):
         ret, frame = cap.read()
+        print("imread")
         try:
             frame = preprocess(frame)
         except:
             total_msg = struct.pack('i', 0)
             client_socket.sendall(total_msg)
             client_socket.close()
+            print("ee")
             break
-        # print("imread")
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
         front_model.set_input("input_0", input_data)
         front_model.run()
         outs = []
         for i, out_idx in enumerate(output_info):
             out = front_model.get_output(i).asnumpy().astype(np.float32)
+            print(out.shape)
             outs.append(out)
         # print("model run")
         
@@ -317,10 +321,13 @@ def recv_img():
 
 if __name__ == '__main__':
     p1 = Process(target=generate_img)
-    p2 = Process(target=recv_img)
+    # p2 = Process(target=recv_img)
     timer_toal_start = time.time()
+    time.sleep(1)
     p1.start(); 
-    p2.start(); 
-    p1.join(); p2.join()
+
+    # p2.start(); 
+    p1.join()
+    # p2.join()
     timer_total = time.time() - timer_toal_start
     print("total time :", timer_total)

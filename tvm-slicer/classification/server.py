@@ -123,6 +123,7 @@ while True:
     
     ### TIME_CHECK : UNPACK 
     ins = []
+    print(input_info, shape_info)
     for idx, shape in zip(input_info, shape_info):
         n,c,h,w = shape 
         msg_len = 4 * n * c * h * w

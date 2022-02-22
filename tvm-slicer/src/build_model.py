@@ -18,8 +18,9 @@ parser.add_argument('--img_size', '-i', type=int, default=512, help='set image s
 parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
 parser.add_argument('--target', '-t', type=str, default='llvm', help='name of taget')
 parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_level')
-parser.add_argument('--model_build', type=int, default=0, help='build model only')
-parser.add_argument('--slice_build', type=int, default=0, help='slice model only')
+parser.add_argument('--whole_build', '-w', type=int, default=0, help='whole model only')
+parser.add_argument('--front_build', '-f', type=int, default=0, help='front model only')
+parser.add_argument('--back_build', '-b', type=int, default=0, help='back model only')
 args = parser.parse_args()
 
 np.random.seed(0)
@@ -41,22 +42,25 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-if args.model_build == 1:
+if args.whole_build == 1:
     with tvm.transform.PassContext(opt_level=args.opt_level):
         lib = relay.build(mod, target, params=params)
         lib.export_library("./model/{}_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
 
-if args.slice_build == 1:
-    with open("./graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_front:
-        json_graph_front = json.load(json_graph_front)
-        del json_graph_front['extra']
-        with tvm.transform.PassContext(opt_level=args.opt_level):
-            lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_front))
-        lib.export_library("./model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
+if args.front_build == 1:
+    if not os.path.isfile("./model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
+        with open("./graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_front:
+            json_graph_front = json.load(json_graph_front)
+            del json_graph_front['extra']
+            with tvm.transform.PassContext(opt_level=args.opt_level):
+                lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_front))
+            lib.export_library("./model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
 
-    with open("./graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_back:
-        json_graph_back = json.load(json_graph_back)
-        del json_graph_back['extra']
-        with tvm.transform.PassContext(opt_level=args.opt_level):
-            lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_back))
-        lib.export_library("./model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
+if args.back_build == 1:
+    if not os.path.isfile("./model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
+        with open("./graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_back:
+            json_graph_back = json.load(json_graph_back)
+            del json_graph_back['extra']
+            with tvm.transform.PassContext(opt_level=args.opt_level):
+                lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_back))
+            lib.export_library("./model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
