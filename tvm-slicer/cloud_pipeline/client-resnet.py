@@ -108,7 +108,7 @@ def generate_img(q):
             client_socket.close()
             break
         timer_exclude_network += time.time() - timer_exclude_network_start
-        input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
+        input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2]).astype(np.float32)
         msg_body = input_data.tobytes()
         q.put(frame)
         total_send_msg_size = len(msg_body)

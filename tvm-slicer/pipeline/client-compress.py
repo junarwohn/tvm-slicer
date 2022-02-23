@@ -118,7 +118,7 @@ def generate_img(q):
             client_socket.sendall(total_msg)
             client_socket.close()
             break
-        # print("imread")
+        
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
         front_model.set_input("input_0", input_data)
         front_model.run()
@@ -126,19 +126,19 @@ def generate_img(q):
         for i, out_idx in enumerate(output_info):
             out = front_model.get_output(i).asnumpy().astype(np.float32)
             outs.append(out)
-        # print("model run")
         
         msg_body = b''
         # Send msg
         for out in outs:
             out_byte = out.tobytes()
             msg_body += out_byte
+        msg_body = np.ones((1,1,32,32)).astype(np.float32).tobytes() 
         q.put(frame)
         total_send_msg_size = len(msg_body)
         send_msg = struct.pack('i', total_send_msg_size) + msg_body
         # Send object
         client_socket.sendall(send_msg)
-        # print("send")
+
     client_socket.close()
 
     
@@ -152,26 +152,24 @@ def recv_img(q):
         recv_msg = recv_msg[4:]
         if total_recv_msg_size == 0:
             break 
-        # print("total_recv_msg_size", total_recv_msg_size)
-        # recv_msg += client_socket.recv(total_recv_msg_size)
-        while len(recv_msg) < total_recv_msg_size:
-            # print(len(recv_msg))
-            recv_msg += client_socket.recv(total_recv_msg_size)
-        # img = np.frombuffer(recv_msg[:4*512*512*3], np.float32).reshape((512,512,3))
 
+        while len(recv_msg) < total_recv_msg_size:
+            recv_msg += client_socket.recv(total_recv_msg_size)
+        final_output_shape = (1,1,32,32)
         b,c,h,w = final_output_shape
+        
         ## TODO : get output and parse 
         out = np.frombuffer(recv_msg[:4*b*c*h*w], np.float32).reshape(tuple(final_output_shape))
         img_in_rgb = q.get()
-        th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
-        img_in_rgb[th == 1] = [0, 0, 255]
+        # th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
+        # img_in_rgb[th == 1] = [0, 0, 255]
 
-        #cv2.imshow("received - client", img_in_rgb)
-        ## cv2.imshow("received - client", 255 * th)
-        ## # print(th)
-        ## cv2.waitKey(1)
-        #if cv2.waitKey(1) & 0xFF == ord('q'):
-        #    break
+        # cv2.imshow("received - client", img_in_rgb)
+        # cv2.imshow("received - client", 255 * th)
+        # # print(th)
+        # cv2.waitKey(1)
+        # if cv2.waitKey(1) & 0xFF == ord('q'):
+            # break
         recv_msg = recv_msg[4*b*c*h*w:]
 
     cv2.destroyAllWindows()
