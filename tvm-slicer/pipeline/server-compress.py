@@ -2,6 +2,7 @@ from http import client
 import re
 import socket
 import pickle
+# import cloudpickle as pickle
 import numpy as np
 import tvm
 from tvm import te
@@ -53,28 +54,19 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-model_path = "../src/model/resnet152_cuda_224_3.so"
-# model_path = "../src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
+
+model_path = "../src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
 back_lib = tvm.runtime.load_module(model_path)
 back_model = graph_executor.GraphModule(back_lib['default'](dev))
 
-# model_info_path = "../src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
+model_info_path = "../src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
 
-# with open(model_info_path, "r") as json_file:
-#     model_info = json.load(json_file)
+with open(model_info_path, "r") as json_file:
+    model_info = json.load(json_file)
 
-# input_info = model_info["extra"]["inputs"]
-# shape_info = model_info["attrs"]["shape"][1][:len(input_info)]
-shape_info = [[
-    1,
-    3,
-    224,
-    224
-]]
-output_info = [[
-    1,
-    1000
-]]
+input_info = model_info["extra"]["inputs"]
+shape_info = model_info["attrs"]["shape"][1][:len(input_info)]
+output_info = model_info["extra"]["outputs"]
 
 #print("Model Loaded")
 
@@ -94,12 +86,14 @@ client_socket, addr = server_socket.accept()
 
 # TODO check output size and send
 # shape = (4,)
-total_output_num = 1
+total_output_num = len(model_info['heads'])
 output_shapes = b''
-output_shapes += np.array(output_info[0]).tobytes()
+for idxs in model_info['heads']:
+    print(model_info["attrs"]["shape"][1][idxs[0]])
+    output_shapes += np.array(model_info["attrs"]["shape"][1][idxs[0]]).tobytes()
 
-# send_bytes = struct.pack('i', len(output_shapes)) + output_shapes
-# client_socket.sendall(send_bytes)
+send_bytes = struct.pack('i', len(output_shapes)) + output_shapes
+client_socket.sendall(send_bytes)
 ##
 
 # timer INIT
@@ -121,16 +115,17 @@ while True:
     except:
         break
     while len(recv_msg) < total_recv_msg_size:
-        # packet = client_socket.recvall()
         recv_msg += client_socket.recv(total_recv_msg_size)
     
+    recv_msg = recv_msg[4*1*1*32*32:]
+
     ### TIME_CHECK : UNPACK 
     ins = []
-    shape = shape_info[0]
-    n,c,h,w = shape 
-    msg_len = 4 * n * c * h * w
-    ins.append([1, np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
-    recv_msg = recv_msg[msg_len:]
+    for idx, shape in zip(input_info, shape_info):
+        n,c,h,w = shape 
+        msg_len = 4 * n * c * h * w
+        ins.append([idx, np.ones(tuple(shape))])
+        # recv_msg = recv_msg[msg_len:]
 
     timer_exclude_network_start = time.time()
 
@@ -138,25 +133,26 @@ while True:
 
     for idx, indata in ins:
         back_model.set_input("input_{}".format(idx), indata)
-    # back_model.set_input("input_1", ins[0])
     back_model.run()
     out = back_model.get_output(0).asnumpy().astype(np.float32)
+
     timer_inference += time.time() - timer_inference_start
 
     timer_exclude_network += time.time() - timer_exclude_network_start
 
+
+    ### DUMMY SEND
+    out = np.ones((1,1,32,32)).astype(np.float32)
+    ###
     send_obj = out.tobytes()
     total_send_msg_size = len(send_obj)
-    # print("total_send_msg_size",total_send_msg_size)
     send_msg = struct.pack('i', total_send_msg_size) + send_obj
 
     client_socket.sendall(send_msg)
-    # print("send")
 
 timer_total = time.time() - timer_toal_start
 timer_network = timer_total - timer_exclude_network
 
-total_frames = 253
 
 print("total time :", timer_total)
 print("inference time :", timer_inference)
