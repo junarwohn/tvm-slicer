@@ -42,6 +42,15 @@ def get_time(is_enabled):
     else:
         return time.time()
 
+def to_8bit(num):
+    float16 = num.astype(np.float16) # Here's some data in an array
+    float8s = float16.tobytes()[1::2]
+    return float8s
+
+def from_8bit(num):
+    float16 = np.frombuffer(np.array(np.frombuffer(num, dtype='u1'), dtype='>u2').tobytes(), dtype='f2')
+    return float16.astype(np.float32)
+
 # Model load
 
 if args.target == 'llvm':
