@@ -54,6 +54,15 @@ def make_preprocess(model, im_sz):
             return cv2.resize(img, (im_sz, im_sz))
         return preprocess
 
+def to_8bit(num):
+    float16 = num.astype(np.float16) # Here's some data in an array
+    float8s = float16.tobytes()[1::2]
+    return float8s
+
+def from_8bit(num):
+    float16 = np.frombuffer(np.array(np.frombuffer(num, dtype='u1'), dtype='>u2').tobytes(), dtype='f2')
+    return float16.astype(np.float32)
+
 preprocess = make_preprocess(args.model, args.img_size)
 
 # Model load
