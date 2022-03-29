@@ -37,6 +37,15 @@ parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
 
 args = parser.parse_args()
 
+def to_8bit(num):
+    float16 = num.astype(np.float16) # Here's some data in an array
+    float8s = float16.tobytes()[1::2]
+    return float8s
+
+def from_8bit(num):
+    float16 = np.frombuffer(np.array(np.frombuffer(num, dtype='u1'), dtype='>u2').tobytes(), dtype='f2')
+    return float16.astype(np.float32)
+
 def get_time(is_enabled):
     if is_enabled == 1:
         return g_ntp_client.request(ntp_time_server, version=3).tx_time
@@ -105,6 +114,9 @@ timer_exclude_network = 0
 timer_toal_start = time.time()
 
 recv_msg = b''
+
+total_result = []
+
 while True:
     try:
         while len(recv_msg) < 4:
@@ -123,11 +135,14 @@ while True:
     
     ### TIME_CHECK : UNPACK 
     ins = []
-    print(input_info, shape_info)
     for idx, shape in zip(input_info, shape_info):
         n,c,h,w = shape 
-        msg_len = 4 * n * c * h * w
-        ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
+        msg_len = n * c * h * w
+        #msg_len = 4 * n * c * h * w
+
+        ins.append([idx, from_8bit(recv_msg[:msg_len]).reshape(tuple(shape))])
+        #ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float16).reshape(tuple(shape)).astype(np.float32)])
+        #ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
         recv_msg = recv_msg[msg_len:]
 
     timer_exclude_network_start = time.time()
@@ -143,6 +158,8 @@ while True:
 
     timer_exclude_network += time.time() - timer_exclude_network_start
 
+    total_result.append(np.argmax(out))
+    
     send_obj = out.tobytes()
     total_send_msg_size = len(send_obj)
     send_msg = struct.pack('i', total_send_msg_size) + send_obj
@@ -163,6 +180,8 @@ print("data send size :", total_send_msg_size)
 
 client_socket.close()
 server_socket.close()
+
+np.save("./result_quarter_{}.npy".format(args.partition_point), np.array(total_result))
 
 # def recv_data(recv_queue, recv_lock):
 #     recv_msg = b''

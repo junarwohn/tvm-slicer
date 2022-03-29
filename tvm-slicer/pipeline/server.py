@@ -112,6 +112,9 @@ timer_exclude_network = 0
 
 timer_toal_start = time.time()
 recv_msg = b''
+
+total_result = []
+
 while True:
     try:
         while len(recv_msg) < 4:
@@ -131,8 +134,11 @@ while True:
     ins = []
     for idx, shape in zip(input_info, shape_info):
         n,c,h,w = shape 
-        msg_len = 4 * n * c * h * w
-        ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
+        msg_len = 2 * n * c * h * w
+        #msg_len = 4 * n * c * h * w
+        #ins.append([idx, from_8bit(recv_msg[:msg_len]).reshape(tuple(shape))])
+        ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float16).reshape(tuple(shape)).astype(np.float32)])
+        #ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
         recv_msg = recv_msg[msg_len:]
 
     timer_exclude_network_start = time.time()
@@ -144,6 +150,7 @@ while True:
     back_model.run()
     out = back_model.get_output(0).asnumpy().astype(np.float32)
 
+    total_result.append(out)
     timer_inference += time.time() - timer_inference_start
 
     timer_exclude_network += time.time() - timer_exclude_network_start
@@ -168,5 +175,4 @@ print("network time :", timer_network)
 print("data receive size :", total_recv_msg_size)
 print("data send size :", total_send_msg_size)
 
-client_socket.close()
-server_socket.close()
+np.save("./result_half_{}.npy".format(args.partition_point), np.array(total_result))

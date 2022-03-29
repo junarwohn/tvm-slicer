@@ -1,0 +1,155 @@
+server resnet152 cuda 26 3
+total time : 1.8608388900756836
+inference time : 1.6760401725769043
+exclude network time : 1.6761679649353027
+network time : 0.18467092514038086
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 40 3
+total time : 1.8419880867004395
+inference time : 1.654820203781128
+exclude network time : 1.6549475193023682
+network time : 0.1870405673980713
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 54 3
+total time : 1.8570115566253662
+inference time : 1.6656925678253174
+exclude network time : 1.6658079624176025
+network time : 0.19120359420776367
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 72 3
+server resnet152 cuda 26 3
+total time : 1.8359005451202393
+inference time : 1.6461215019226074
+exclude network time : 1.6462397575378418
+network time : 0.18966078758239746
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 40 3
+total time : 1.8344073295593262
+inference time : 1.6390063762664795
+exclude network time : 1.6391258239746094
+network time : 0.1952815055847168
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 54 3
+total time : 1.832838773727417
+inference time : 1.6543123722076416
+exclude network time : 1.654432773590088
+network time : 0.1784060001373291
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 72 3
+total time : 1.8506278991699219
+inference time : 1.658454418182373
+exclude network time : 1.6585779190063477
+network time : 0.19204998016357422
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 86 3
+total time : 1.8533415794372559
+inference time : 1.6541383266448975
+exclude network time : 1.6542785167694092
+network time : 0.19906306266784668
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 100 3
+total time : 1.8481237888336182
+inference time : 1.65993332862854
+exclude network time : 1.6600558757781982
+network time : 0.18806791305541992
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 114 3
+total time : 1.8587021827697754
+inference time : 1.67348051071167
+exclude network time : 1.6736173629760742
+network time : 0.18508481979370117
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 128 3
+total time : 1.8392317295074463
+inference time : 1.6482808589935303
+exclude network time : 1.6484034061431885
+network time : 0.1908283233642578
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 142 3
+total time : 1.8306841850280762
+inference time : 1.651658058166504
+exclude network time : 1.6517770290374756
+network time : 0.17890715599060059
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 156 3
+total time : 1.84169340133667
+inference time : 1.666306734085083
+exclude network time : 1.6664402484893799
+network time : 0.17525315284729004
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 170 3
+total time : 1.866081714630127
+inference time : 1.6778008937835693
+exclude network time : 1.6779255867004395
+network time : 0.1881561279296875
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 188 3
+total time : 1.8633754253387451
+inference time : 1.6803855895996094
+exclude network time : 1.680513858795166
+network time : 0.1828615665435791
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 202 3
+total time : 1.8531224727630615
+inference time : 1.6641175746917725
+exclude network time : 1.6642417907714844
+network time : 0.18888068199157715
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 216 3
+total time : 1.8430182933807373
+inference time : 1.663815975189209
+exclude network time : 1.6639480590820312
+network time : 0.17907023429870605
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 230 3
+total time : 1.8495347499847412
+inference time : 1.658287763595581
+exclude network time : 1.6584041118621826
+network time : 0.1911306381225586
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 244 3
+total time : 1.8243951797485352
+inference time : 1.647207498550415
+exclude network time : 1.6473281383514404
+network time : 0.17706704139709473
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 258 3
+total time : 1.8498656749725342
+inference time : 1.6569485664367676
+exclude network time : 1.6570703983306885
+network time : 0.1927952766418457
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 272 3
+total time : 1.8463850021362305
+inference time : 1.6667671203613281
+exclude network time : 1.6668872833251953
+network time : 0.17949771881103516
+data receive size : 0
+data send size : 4000
+server resnet152 cuda 286 3
+total time : 1.8606562614440918
+inference time : 1.6712360382080078
+exclude network time : 1.6713550090789795
+network time : 0.1893012523651123
+data receive size : 0
+data send size : 4000

@@ -1,0 +1,96 @@
+server unet cuda 4 3
+[1, 1, 512, 512]
+total time : 181.69314074516296
+inference time : 4.673889636993408
+exclude network time : 4.674373149871826
+network time : 177.01876759529114
+data receive size : 0
+data send size : 524288
+server unet cuda 9 3
+[1, 1, 512, 512]
+total time : 181.62669324874878
+inference time : 4.733356714248657
+exclude network time : 4.733828067779541
+network time : 176.89286518096924
+data receive size : 0
+data send size : 524288
+server unet cuda 10 3
+[1, 1, 512, 512]
+total time : 226.65539073944092
+inference time : 5.114950656890869
+exclude network time : 5.115424156188965
+network time : 221.53996658325195
+data receive size : 0
+data send size : 524288
+server unet cuda 14 3
+[1, 1, 512, 512]
+total time : 271.7497515678406
+inference time : 5.5055251121521
+exclude network time : 5.506030321121216
+network time : 266.24372124671936
+data receive size : 0
+data send size : 524288
+server unet cuda 19 3
+[1, 1, 512, 512]
+total time : 271.83468294143677
+inference time : 5.442886829376221
+exclude network time : 5.44338583946228
+network time : 266.3912971019745
+data receive size : 0
+data send size : 524288
+server unet cuda 20 3
+[1, 1, 512, 512]
+total time : 294.22176718711853
+inference time : 5.445549488067627
+exclude network time : 5.446006536483765
+network time : 288.77576065063477
+data receive size : 0
+data send size : 524288
+server unet cuda 24 3
+[1, 1, 512, 512]
+total time : 316.9681222438812
+inference time : 5.758734703063965
+exclude network time : 5.759209871292114
+network time : 311.2089123725891
+data receive size : 0
+data send size : 524288
+server unet cuda 29 3
+[1, 1, 512, 512]
+total time : 316.8814024925232
+inference time : 5.6634202003479
+exclude network time : 5.663874626159668
+network time : 311.2175278663635
+data receive size : 0
+data send size : 524288
+server unet cuda 30 3
+[1, 1, 512, 512]
+total time : 328.0681326389313
+inference time : 5.732805967330933
+exclude network time : 5.7332868576049805
+network time : 322.3348457813263
+data receive size : 0
+data send size : 524288
+server unet cuda 34 3
+[1, 1, 512, 512]
+total time : 339.52151799201965
+inference time : 5.810961484909058
+exclude network time : 5.811479806900024
+network time : 333.71003818511963
+data receive size : 0
+data send size : 524288
+server unet cuda 39 3
+[1, 1, 512, 512]
+total time : 339.6238877773285
+inference time : 5.804339647293091
+exclude network time : 5.804912328720093
+network time : 333.8189754486084
+data receive size : 0
+data send size : 524288
+server unet cuda 40 3
+[1, 1, 512, 512]
+total time : 345.1682834625244
+inference time : 5.837773084640503
+exclude network time : 5.838303327560425
+network time : 339.329980134964
+data receive size : 0
+data send size : 524288
