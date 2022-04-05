@@ -21,7 +21,8 @@ def show_graph(json_data, file_name=None):
     A = pgv.AGraph(directed=True)
     for node_idx, node in enumerate(json_data['nodes']):
         for src in node['inputs']:
-            A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]) + '{}'.format(shape_size(json_data['attrs']['shape'][1][src[0]])), node['name'] + '[{}]'.format(node_idx) + '{}'.format(shape_size(json_data['attrs']['shape'][1][node_idx])))
+            A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]) + '{}'.format(json_data['attrs']['dltype'][1][src[0]]), node['name'] + '[{}]'.format(node_idx) + '{}'.format(json_data['attrs']['dltype'][1][node_idx]))
+            #A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]) + '{}'.format(shape_size(json_data['attrs']['shape'][1][src[0]])) + '{}'.format(json_data['attrs']['dltype'][1][src[0]]), node['name'] + '[{}]'.format(node_idx) + '{}'.format(shape_size(json_data['attrs']['shape'][1][node_idx])) + '{}'.format(json_data['attrs']['dltype'][1][src[0]]))
     if file_name:
         A.draw(file_name + '.png', format='png', prog='dot')
 
@@ -48,10 +49,17 @@ else:
 # # dev = tvm.cpu()
 # dev = tvm.cuda()
 
-for i in range(4):
-    with tvm.transform.PassContext(opt_level=i):
+#for i in range(4):
+for i in range(1):
+    with tvm.transform.PassContext(opt_level=3):
         lib = relay.build(mod, target, params=params)
 
+    with relay.quantize.qconfig(calibrate_mode="global_scale", global_scale=8.0):
+        mod = relay.quantize.quantize(mod, params)
+    
+    with tvm.transform.PassContext(opt_level=3):
+        lib = relay.build(mod, target, params=params)
+    
     show_graph(lib['get_graph_json'](), "unet_{}_lv_{}".format(target, i))
     with open("unet_{}_lv_{}.json".format(target, i), "w") as json_file:
         json_file.write(lib['get_graph_json']())

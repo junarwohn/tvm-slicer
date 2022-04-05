@@ -94,6 +94,8 @@ server_socket.bind((HOST_IP, PORT))
 server_socket.listen()
 client_socket, addr = server_socket.accept()
 
+print("start")
+
 # TODO check output size and send
 # shape = (4,)
 # total_output_num = len(model_info['heads'])

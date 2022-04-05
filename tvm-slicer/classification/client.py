@@ -326,8 +326,8 @@ if __name__ == '__main__':
     time.sleep(1)
     p1.start(); 
 
-    # p2.start(); 
+    p2.start(); 
     p1.join()
-    # p2.join()
+    p2.join()
     timer_total = time.time() - timer_toal_start
     print("total time :", timer_total)

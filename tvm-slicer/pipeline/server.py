@@ -75,6 +75,8 @@ with open(model_info_path, "r") as json_file:
 
 input_info = model_info["extra"]["inputs"]
 shape_info = model_info["attrs"]["shape"][1][:len(input_info)]
+dtype_info = model_info["attrs"]["dltype"][1][:len(input_info)]
+print(dtype_info)
 output_info = model_info["extra"]["outputs"]
 
 #print("Model Loaded")
@@ -98,6 +100,7 @@ client_socket, addr = server_socket.accept()
 total_output_num = len(model_info['heads'])
 output_shapes = b''
 for idxs in model_info['heads']:
+    print(idxs[0])
     print(model_info["attrs"]["shape"][1][idxs[0]])
     output_shapes += np.array(model_info["attrs"]["shape"][1][idxs[0]]).tobytes()
 
@@ -132,12 +135,18 @@ while True:
     
     ### TIME_CHECK : UNPACK 
     ins = []
-    for idx, shape in zip(input_info, shape_info):
+    for idx, shape, dltype in zip(input_info, shape_info, dtype_info):
         n,c,h,w = shape 
-        msg_len = 2 * n * c * h * w
+        #['float32', 'int8']
+        if dltype == 'float32':
+            msg_len = 4 * n * c * h * w
+            ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
+        elif dltype == 'int8':
+            msg_len = n * c * h * w
+            ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.int8).reshape(tuple(shape))])
         #msg_len = 4 * n * c * h * w
         #ins.append([idx, from_8bit(recv_msg[:msg_len]).reshape(tuple(shape))])
-        ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float16).reshape(tuple(shape)).astype(np.float32)])
+        ##ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float16).reshape(tuple(shape)).astype(np.float32)])
         #ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
         recv_msg = recv_msg[msg_len:]
 

@@ -85,7 +85,10 @@ with open(model_info_path, "r") as json_file:
 input_info = model_info["extra"]["inputs"]
 shape_info = model_info["attrs"]["shape"][1][:len(input_info)]
 output_info = model_info["extra"]["outputs"]
+dltype_info = [model_info["attrs"]["dltype"][1][output_idx] for output_idx in output_info]
+print(input_info)
 print(shape_info)
+print(dltype_info)
 # Video Load
 img_size = 512 
 
@@ -132,8 +135,11 @@ def generate_img(q):
         front_model.set_input("input_0", input_data)
         front_model.run()
         outs = []
-        for i, out_idx in enumerate(output_info):
-            out = front_model.get_output(i).asnumpy().astype(np.float32)
+        for (i, out_idx), dltype in zip(enumerate(output_info), dltype_info):
+            if dltype == 'float32':
+                out = front_model.get_output(i).asnumpy().astype(np.float32)
+            elif dltype == 'int8':
+                out = front_model.get_output(i).asnumpy().astype(np.int8)
             outs.append(out)
         # print("model run")
         
@@ -147,7 +153,7 @@ def generate_img(q):
         send_msg = struct.pack('i', total_send_msg_size) + msg_body
         # Send object
         client_socket.sendall(send_msg)
-        # print("send")
+        print("send")
     client_socket.close()
 
     
@@ -175,9 +181,10 @@ def recv_img(q):
         th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
         img_in_rgb[th == 1] = [0, 0, 255]
 
+        print("recv")
         #cv2.imshow("received - client", img_in_rgb)
         ## cv2.imshow("received - client", 255 * th)
-        ## # print(th)
+        # # print(th)
         ## cv2.waitKey(1)
         #if cv2.waitKey(1) & 0xFF == ord('q'):
         #    break
