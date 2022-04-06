@@ -67,8 +67,10 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-#model_path = "../src/model/unet_cuda_512_3.so"
-model_path = "../src/model/unet_llvm_512_3.so"
+# model_path = "../src/model/unet_cuda_512_3.so"
+# model_path = "../src/model/unet_llvm_512_3.so"
+model_path = "../src/model/unet_llvm_512_3_q.so"
+# model_path = "../src/model/unet_cuda_512_3_q.so"
 lib = tvm.runtime.load_module(model_path)
 model = graph_executor.GraphModule(lib['default'](dev))
 

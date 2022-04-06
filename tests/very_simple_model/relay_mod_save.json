@@ -1,0 +1,1007 @@
+{
+  "root": 1, 
+  "nodes": [
+    {
+      "type_key": ""
+    }, 
+    {
+      "type_key": "IRModule", 
+      "attrs": {
+        "attrs": "0", 
+        "functions": "2", 
+        "global_type_var_map_": "153", 
+        "global_var_map_": "152", 
+        "source_map": "154", 
+        "type_definitions": "151"
+      }
+    }, 
+    {
+      "type_key": "Map", 
+      "data": [3, 21]
+    }, 
+    {
+      "type_key": "GlobalVar", 
+      "attrs": {
+        "_checked_type_": "5", 
+        "name_hint": "4", 
+        "span": "0"
+      }
+    }, 
+    {
+      "type_key": "runtime.String", 
+      "repr_str": "main"
+    }, 
+    {
+      "type_key": "FuncType", 
+      "attrs": {
+        "arg_types": "6", 
+        "ret_type": "13", 
+        "span": "0", 
+        "type_constraints": "20", 
+        "type_params": "19"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [7]
+    }, 
+    {
+      "type_key": "relay.TensorType", 
+      "attrs": {
+        "dtype": "float32", 
+        "shape": "8", 
+        "span": "0"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [9, 10, 11, 12]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "3"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "256"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "256"
+      }
+    }, 
+    {
+      "type_key": "relay.TensorType", 
+      "attrs": {
+        "dtype": "float32", 
+        "shape": "14", 
+        "span": "0"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [15, 16, 17, 18]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "32"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "64"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "64"
+      }
+    }, 
+    {
+      "type_key": "Array"
+    }, 
+    {
+      "type_key": "Array"
+    }, 
+    {
+      "type_key": "relay.Function", 
+      "attrs": {
+        "_checked_type_": "0", 
+        "attrs": "0", 
+        "body": "56", 
+        "params": "22", 
+        "ret_type": "0", 
+        "span": "0", 
+        "type_params": "150"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [23, 26, 35, 41, 50]
+    }, 
+    {
+      "type_key": "relay.Var", 
+      "attrs": {
+        "_checked_type_": "0", 
+        "span": "0", 
+        "type_annotation": "7", 
+        "vid": "24"
+      }
+    }, 
+    {
+      "type_key": "relay.Id", 
+      "attrs": {"name_hint": "25"}
+    }, 
+    {
+      "type_key": "runtime.String", 
+      "repr_str": "input_1"
+    }, 
+    {
+      "type_key": "relay.Var", 
+      "attrs": {
+        "_checked_type_": "0", 
+        "span": "0", 
+        "type_annotation": "29", 
+        "vid": "27"
+      }
+    }, 
+    {
+      "type_key": "relay.Id", 
+      "attrs": {"name_hint": "28"}
+    }, 
+    {
+      "type_key": "runtime.String", 
+      "repr_str": "_param_1"
+    }, 
+    {
+      "type_key": "relay.TensorType", 
+      "attrs": {
+        "dtype": "float32", 
+        "shape": "30", 
+        "span": "0"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [31, 32, 33, 34]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "16"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "3"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "3"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "3"
+      }
+    }, 
+    {
+      "type_key": "relay.Var", 
+      "attrs": {
+        "_checked_type_": "0", 
+        "span": "0", 
+        "type_annotation": "38", 
+        "vid": "36"
+      }
+    }, 
+    {
+      "type_key": "relay.Id", 
+      "attrs": {"name_hint": "37"}
+    }, 
+    {
+      "type_key": "runtime.String", 
+      "repr_str": "_param_2"
+    }, 
+    {
+      "type_key": "relay.TensorType", 
+      "attrs": {
+        "dtype": "float32", 
+        "shape": "39", 
+        "span": "0"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [40]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "16"
+      }
+    }, 
+    {
+      "type_key": "relay.Var", 
+      "attrs": {
+        "_checked_type_": "0", 
+        "span": "0", 
+        "type_annotation": "44", 
+        "vid": "42"
+      }
+    }, 
+    {
+      "type_key": "relay.Id", 
+      "attrs": {"name_hint": "43"}
+    }, 
+    {
+      "type_key": "runtime.String", 
+      "repr_str": "_param_3"
+    }, 
+    {
+      "type_key": "relay.TensorType", 
+      "attrs": {
+        "dtype": "float32", 
+        "shape": "45", 
+        "span": "0"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [46, 47, 48, 49]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "32"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "16"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "3"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "3"
+      }
+    }, 
+    {
+      "type_key": "relay.Var", 
+      "attrs": {
+        "_checked_type_": "0", 
+        "span": "0", 
+        "type_annotation": "53", 
+        "vid": "51"
+      }
+    }, 
+    {
+      "type_key": "relay.Id", 
+      "attrs": {"name_hint": "52"}
+    }, 
+    {
+      "type_key": "runtime.String", 
+      "repr_str": "_param_4"
+    }, 
+    {
+      "type_key": "relay.TensorType", 
+      "attrs": {
+        "dtype": "float32", 
+        "shape": "54", 
+        "span": "0"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [55]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "32"
+      }
+    }, 
+    {
+      "type_key": "relay.Call", 
+      "attrs": {
+        "_checked_type_": "0", 
+        "args": "58", 
+        "attrs": "132", 
+        "op": "57", 
+        "span": "0", 
+        "type_args": "149"
+      }
+    }, 
+    {
+      "type_key": "Op", 
+      "repr_str": "nn.max_pool2d"
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [59]
+    }, 
+    {
+      "type_key": "relay.Call", 
+      "attrs": {
+        "_checked_type_": "0", 
+        "args": "61", 
+        "attrs": "130", 
+        "op": "60", 
+        "span": "0", 
+        "type_args": "131"
+      }
+    }, 
+    {
+      "type_key": "Op", 
+      "repr_str": "nn.bias_add"
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [62, 50]
+    }, 
+    {
+      "type_key": "relay.Call", 
+      "attrs": {
+        "_checked_type_": "0", 
+        "args": "64", 
+        "attrs": "111", 
+        "op": "63", 
+        "span": "0", 
+        "type_args": "129"
+      }
+    }, 
+    {
+      "type_key": "Op", 
+      "repr_str": "nn.conv2d"
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [65, 41]
+    }, 
+    {
+      "type_key": "relay.Call", 
+      "attrs": {
+        "_checked_type_": "0", 
+        "args": "66", 
+        "attrs": "93", 
+        "op": "57", 
+        "span": "0", 
+        "type_args": "110"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [67]
+    }, 
+    {
+      "type_key": "relay.Call", 
+      "attrs": {
+        "_checked_type_": "0", 
+        "args": "68", 
+        "attrs": "91", 
+        "op": "60", 
+        "span": "0", 
+        "type_args": "92"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [69, 35]
+    }, 
+    {
+      "type_key": "relay.Call", 
+      "attrs": {
+        "_checked_type_": "0", 
+        "args": "70", 
+        "attrs": "71", 
+        "op": "63", 
+        "span": "0", 
+        "type_args": "90"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [23, 26]
+    }, 
+    {
+      "type_key": "relay.attrs.Conv2DAttrs", 
+      "attrs": {
+        "channels": "83", 
+        "data_layout": "87", 
+        "dilation": "80", 
+        "groups": "1", 
+        "kernel_layout": "88", 
+        "kernel_size": "84", 
+        "out_dtype": "", 
+        "out_layout": "89", 
+        "padding": "75", 
+        "strides": "72"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [73, 74]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [76, 77, 78, 79]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [81, 82]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "16"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [85, 86]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "3"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "3"
+      }
+    }, 
+    {
+      "type_key": "runtime.String", 
+      "repr_str": "NCHW"
+    }, 
+    {
+      "type_key": "runtime.String", 
+      "repr_str": "OIHW"
+    }, 
+    {
+      "type_key": "runtime.String"
+    }, 
+    {
+      "type_key": "Array"
+    }, 
+    {
+      "type_key": "relay.attrs.BiasAddAttrs", 
+      "attrs": {"axis": "1"}
+    }, 
+    {
+      "type_key": "Array"
+    }, 
+    {
+      "type_key": "relay.attrs.MaxPool2DAttrs", 
+      "attrs": {
+        "ceil_mode": "0", 
+        "dilation": "100", 
+        "layout": "108", 
+        "out_layout": "109", 
+        "padding": "103", 
+        "pool_size": "94", 
+        "strides": "97"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [95, 96]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "2"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "2"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [98, 99]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "2"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "2"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [101, 102]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [104, 105, 106, 107]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "0"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "0"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "0"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "0"
+      }
+    }, 
+    {
+      "type_key": "runtime.String", 
+      "repr_str": "NCHW"
+    }, 
+    {
+      "type_key": "runtime.String"
+    }, 
+    {
+      "type_key": "Array"
+    }, 
+    {
+      "type_key": "relay.attrs.Conv2DAttrs", 
+      "attrs": {
+        "channels": "16", 
+        "data_layout": "126", 
+        "dilation": "120", 
+        "groups": "1", 
+        "kernel_layout": "127", 
+        "kernel_size": "123", 
+        "out_dtype": "", 
+        "out_layout": "128", 
+        "padding": "115", 
+        "strides": "112"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [113, 114]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [116, 117, 118, 119]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [121, 122]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [124, 125]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "3"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "3"
+      }
+    }, 
+    {
+      "type_key": "runtime.String", 
+      "repr_str": "NCHW"
+    }, 
+    {
+      "type_key": "runtime.String", 
+      "repr_str": "OIHW"
+    }, 
+    {
+      "type_key": "runtime.String"
+    }, 
+    {
+      "type_key": "Array"
+    }, 
+    {
+      "type_key": "relay.attrs.BiasAddAttrs", 
+      "attrs": {"axis": "1"}
+    }, 
+    {
+      "type_key": "Array"
+    }, 
+    {
+      "type_key": "relay.attrs.MaxPool2DAttrs", 
+      "attrs": {
+        "ceil_mode": "0", 
+        "dilation": "139", 
+        "layout": "147", 
+        "out_layout": "148", 
+        "padding": "142", 
+        "pool_size": "133", 
+        "strides": "136"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [134, 135]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "2"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "2"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [137, 138]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "2"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "2"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [140, 141]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int32", 
+        "span": "0", 
+        "value": "1"
+      }
+    }, 
+    {
+      "type_key": "Array", 
+      "data": [143, 144, 145, 146]
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "0"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "0"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "0"
+      }
+    }, 
+    {
+      "type_key": "IntImm", 
+      "attrs": {
+        "dtype": "int64", 
+        "span": "0", 
+        "value": "0"
+      }
+    }, 
+    {
+      "type_key": "runtime.String", 
+      "repr_str": "NCHW"
+    }, 
+    {
+      "type_key": "runtime.String"
+    }, 
+    {
+      "type_key": "Array"
+    }, 
+    {
+      "type_key": "Array"
+    }, 
+    {
+      "type_key": "Map"
+    }, 
+    {
+      "type_key": "Map", 
+      "keys": [
+        "main"
+      ], 
+      "data": [3]
+    }, 
+    {
+      "type_key": "Map"
+    }, 
+    {
+      "type_key": "SourceMap", 
+      "attrs": {"source_map": "155"}
+    }, 
+    {
+      "type_key": "Map"
+    }
+  ], 
+  "b64ndarrays": [], 
+  "attrs": {"tvm_version": "0.8.0"}
+}

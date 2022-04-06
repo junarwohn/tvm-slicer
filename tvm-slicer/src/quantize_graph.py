@@ -44,7 +44,8 @@ elif args.target == 'opencl':
 with tvm.transform.PassContext(opt_level=args.opt_level):
     lib = relay.build(mod, target, params=params)
 
-with relay.quantize.qconfig(calibrate_mode="global_scale", global_scale=8.0):
+with relay.quantize.qconfig(calibrate_mode='kl_divergence', weight_scale='max'):
+# with relay.quantize.qconfig(calibrate_mode="global_scale", global_scale=8.0):
     mod = relay.quantize.quantize(mod, params)
 
 

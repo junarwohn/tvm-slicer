@@ -117,6 +117,8 @@ timer_toal_start = time.time()
 recv_msg = b''
 
 total_result = []
+    
+timer_model = 0
 
 while True:
     try:
@@ -138,11 +140,18 @@ while True:
     for idx, shape, dltype in zip(input_info, shape_info, dtype_info):
         n,c,h,w = shape 
         #['float32', 'int8']
+        # if dltype == 'float32':
+        #     msg_len = 4 * n * c * h * w
+        # elif dltype == 'int8':
+        #     msg_len = n * c * h * w
+        # ins.append([idx, np.frombuffer(recv_msg[:msg_len], dltype).reshape(tuple(shape))])
         if dltype == 'float32':
             msg_len = 4 * n * c * h * w
+            print(msg_len)
             ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
         elif dltype == 'int8':
             msg_len = n * c * h * w
+            print(msg_len)
             ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.int8).reshape(tuple(shape))])
         #msg_len = 4 * n * c * h * w
         #ins.append([idx, from_8bit(recv_msg[:msg_len]).reshape(tuple(shape))])
@@ -156,7 +165,10 @@ while True:
 
     for idx, indata in ins:
         back_model.set_input("input_{}".format(idx), indata)
+    time_start = time.time()
     back_model.run()
+    timer_model += time.time() - time_start
+
     out = back_model.get_output(0).asnumpy().astype(np.float32)
 
     total_result.append(out)
@@ -171,7 +183,7 @@ while True:
 
     client_socket.sendall(send_msg)
     # print("send")
-
+print(timer_model)
 timer_total = time.time() - timer_toal_start
 timer_network = timer_total - timer_exclude_network
 

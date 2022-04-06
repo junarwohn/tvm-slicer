@@ -37,7 +37,6 @@ with relay.quantize.qconfig(calibrate_mode="global_scale", global_scale=8.0):
     mod = relay.quantize.quantize(mod, params)
 
 if args.target == 'llvm':
-    print("llvm")
     target = 'llvm'
     dev = tvm.cpu()
 elif args.target == 'cuda':
@@ -50,7 +49,7 @@ elif args.target == 'opencl':
 if args.whole_build == 1:
     with tvm.transform.PassContext(opt_level=args.opt_level):
         lib = relay.build(mod, target, params=params)
-        lib.export_library("./model/{}_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
+        lib.export_library("./model/{}_{}_{}_{}_q.so".format(args.model, args.target, img_size, args.opt_level))
 
 if args.front_build == 1:
     if not os.path.isfile("./model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
@@ -60,6 +59,7 @@ if args.front_build == 1:
             with tvm.transform.PassContext(opt_level=args.opt_level):
                 lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_front))
             lib.export_library("./model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
+            print(lib.ir_mod)
 
 if args.back_build == 1:
     if not os.path.isfile("./model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
@@ -69,3 +69,4 @@ if args.back_build == 1:
             with tvm.transform.PassContext(opt_level=args.opt_level):
                 lib = relay.build_graph(mod, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_back))
             lib.export_library("./model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
+            print(lib.ir_mod)

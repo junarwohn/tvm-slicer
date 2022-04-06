@@ -354,7 +354,6 @@ def quantize(mod, params=None, dataset=None):
         The graph after quantization
     """
     mod = prerequisite_optimize(mod, params)
-
     calibrate_pass = tvm.transform.module_pass(
         calibrate(dataset), opt_level=1, name="QuantizeCalibrate"
     )
@@ -368,7 +367,6 @@ def quantize(mod, params=None, dataset=None):
     ):
         with quantize_context():
             mod = quantize_seq(mod)
-
     q_cfg = current_qconfig()
     assert q_cfg.partition_conversions in ["disabled", "enabled", "fully_integral"]
     if q_cfg.partition_conversions != "disabled":

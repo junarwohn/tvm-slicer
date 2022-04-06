@@ -27,15 +27,26 @@ mod, params = relay.frontend.from_keras(model_keras, shape_dict)
 
 # print(mod)
 
-target = 'cuda'
-dev = tvm.cuda()
-
+# target = 'cuda'
+# dev = tvm.cuda()
+target = 'llvm'
+dev = tvm.cpu()
 with tvm.transform.PassContext(opt_level=3):
     lib = relay.build(mod, target, params=params)
+
+
 print("===before quantize===")
-print(mod.astext(show_meta_data=True))
+print(lib.ir_mod.astext(show_meta_data=False))
 print("===               ===")
-# print(lib['get_graph_json']())
+
+
+# with open("./relay_mod_save.json", "w") as json_file:
+#     json_file.write(tvm.ir.save_json(mod))
+
+# with open("./relay_param_save.json", "wb") as json_file:
+#     json_file.write(tvm.runtime.save_param_dict(params))
+
+# # print(lib['get_graph_json']())
 show_graph(lib['get_graph_json'](), "simple_model_vanila")
 
 with relay.quantize.qconfig(calibrate_mode="global_scale", global_scale=8.0):
@@ -44,26 +55,26 @@ with relay.quantize.qconfig(calibrate_mode="global_scale", global_scale=8.0):
 with tvm.transform.PassContext(opt_level=3):
     lib = relay.build(mod, target, params=params)
 print("===after  quantize===")
-print(mod.astext(show_meta_data=True))
+print(lib.ir_mod.astext(show_meta_data=True))
 print("===               ===")
 show_graph(lib['get_graph_json'](), "simple_model_quant")
 
 
-# with tvm.transform.PassContext(opt_level=3):
-    # lib = relay.build(mod, target, params=params)
-    # print(lib['get_graph_json']())
-# print("===before quantize===")
-# print(mod)
-# print("===               ===")
+# # with tvm.transform.PassContext(opt_level=3):
+#     # lib = relay.build(mod, target, params=params)
+#     # print(lib['get_graph_json']())
+# # print("===before quantize===")
+# # print(mod)
+# # print("===               ===")
 
-# with relay.quantize.qconfig(calibrate_mode="global_scale", global_scale=8.0):
-#     mod = relay.quantize.quantize(mod, params)
+# # with relay.quantize.qconfig(calibrate_mode="global_scale", global_scale=8.0):
+# #     mod = relay.quantize.quantize(mod, params)
     
 
-# with tvm.transform.PassContext(opt_level=0):
-#     lib = relay.build(mod, target, params=params)
+# # with tvm.transform.PassContext(opt_level=0):
+# #     lib = relay.build(mod, target, params=params)
 
-# print("===after  quantize===")
-# print(mod)
-# print("===               ===")
-# print(lib['get_graph_json']())
+# # print("===after  quantize===")
+# # print(mod)
+# # print("===               ===")
+# # print(lib['get_graph_json']())

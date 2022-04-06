@@ -119,7 +119,7 @@ def generate_img(q):
     model_path = "../src/model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
     front_lib = tvm.runtime.load_module(model_path)
     front_model = graph_executor.GraphModule(front_lib['default'](dev))
-
+    timer_model = 0
     cap = cv2.VideoCapture("../src/data/j_scan.mp4")
     while (cap.isOpened()):
         ret, frame = cap.read()
@@ -133,13 +133,17 @@ def generate_img(q):
         # print("imread")
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
         front_model.set_input("input_0", input_data)
+        
+        time_start = time.time()
         front_model.run()
+        timer_model += time.time() - time_start
         outs = []
         for (i, out_idx), dltype in zip(enumerate(output_info), dltype_info):
-            if dltype == 'float32':
-                out = front_model.get_output(i).asnumpy().astype(np.float32)
-            elif dltype == 'int8':
-                out = front_model.get_output(i).asnumpy().astype(np.int8)
+            out = front_model.get_output(i).asnumpy().astype(dltype)
+            # if dltype == 'float32':
+            #     out = front_model.get_output(i).asnumpy().astype(np.float32)
+            # elif dltype == 'int8':
+            #     out = front_model.get_output(i).asnumpy().astype(np.int8)
             outs.append(out)
         # print("model run")
         
@@ -154,6 +158,7 @@ def generate_img(q):
         # Send object
         client_socket.sendall(send_msg)
         print("send")
+    print(timer_model)
     client_socket.close()
 
     
