@@ -277,6 +277,7 @@ def is_op(op_name: str) -> "DFPattern":
         The resulting ExprPattern
     """
     op = get(op_name)
+    # print("aDadASD", op)
     return ExprPattern(op)
 
 
