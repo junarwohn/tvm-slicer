@@ -31,7 +31,7 @@ import copy
 
 from tvm.ir import IRModule
 
-from tvm.ir.transform import PassContext
+from tvm.ir.transform import Pass, PassContext
 from tvm.tir import expr as tvm_expr
 from tvm.target import Target
 from .. import nd as _nd, autotvm, register_func
@@ -169,7 +169,7 @@ class BuildModule(object):
         # Setup the params.
         if params:
             self._set_params(params)
-
+        # PassContext.current().
         # Build the IR module. If auto_scheduler is not enabled,
         # then use the TOPI-defined schedule.
         use_auto_scheduler = PassContext.current().config.get(
@@ -181,7 +181,7 @@ class BuildModule(object):
         autotvm.GLOBAL_SCOPE.silent = use_auto_scheduler
 
         mod_name = mangle_module_name(mod_name)
-
+    
         self._build(mod, target, target_host, executor, mod_name)
         autotvm.GLOBAL_SCOPE.silent = old_autotvm_silent
 

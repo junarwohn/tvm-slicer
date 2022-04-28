@@ -1,3 +1,5 @@
+from faulthandler import disable
+from unittest import result
 from SlicingMachine import TVMSlicer
 import tensorflow as tf
 import tvm
@@ -8,6 +10,8 @@ import os
 import json
 import pygraphviz as pgv
 from argparse import ArgumentParser
+from tvm.relay.build_module import bind_params_by_name
+from tvm.relay.dataflow_pattern import *
 
 class UnetPreProcessCallback(DFPatternCallback):
     # A callback class to rewrite the matched pattern to a batch_norm op.
@@ -36,8 +40,12 @@ class UnetCallback(DFPatternCallback):
         self.tuple_get_item_node = is_tuple_get_item(wildcard(), 0)
         self.pattern_1 = self.tuple_get_item_node
 
-        self.pattern = self.pattern_1
+        self.pattern_2 = is_op("sigmoid")
+
+        self.pattern = self.pattern_1 | self.pattern_2
         self.match_node = match_node
+        self.counter = 0
+        self.tmp = []
 
     def quant(self, node):
         cast_to_int8 = relay.cast(
@@ -49,7 +57,13 @@ class UnetCallback(DFPatternCallback):
             ),
             dtype="int8"
         )
-        return relay.annotation.stop_fusion(cast_to_int8)
+        # total_size = cast_to_int8.s
+        # alloc = relay.op.alloc_storage(total_size, self.alignment, self.device, self.dtype)
+        # v = relay.var("new_node_{}".format(self.counter))
+        # self.counter += 1
+        result_node = relay.annotation.stop_fusion(cast_to_int8)
+        self.tmp.append(result_node)
+        return result_node
 
     def dequant(self, node):
         cast_to_float32 = relay.divide(
@@ -62,6 +76,8 @@ class UnetCallback(DFPatternCallback):
             if pre in self.match_node:
                 print("pat 1")
                 return self.dequant(self.quant(post))
+        # elif self.pattern_2.match(pre):
+        #     return relay.Tuple( self.tmp + [post] )
         return post
 
 parser = ArgumentParser()
@@ -96,21 +112,31 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
+upc = UnetPreProcessCallback()
+rewrite(upc, mod['main'])
+uc = UnetCallback(upc.match_node)
+out = rewrite(uc, mod['main'])
+
+out = relay.Function(out.params, relay.Tuple(uc.tmp + [out.body]), out.ret_type, out.type_params, out.attrs)
+
+
+
+
+# with relay.quantize.qconfig(calibrate_mode='kl_divergence', weight_scale='max'):
+# # with relay.quantize.qconfig(calibrate_mode="global_scale", global_scale=8.0):
+#     mod = relay.quantize.quantize(mod, params)
+
+
 with tvm.transform.PassContext(opt_level=args.opt_level):
-    lib = relay.build(mod, target, params=params)
+    # print(tvm.transform.PassContext.current().list_configs())
+    # lib = tvm.build(out, target, params=params)
+    # tvm.transform.PassContext.current()
+    lib = relay.build(out, target, params=params)
+    # lib = relay.build(mod, target, params=params)
 
-with relay.quantize.qconfig(calibrate_mode='kl_divergence', weight_scale='max'):
-# with relay.quantize.qconfig(calibrate_mode="global_scale", global_scale=8.0):
-    mod = relay.quantize.quantize(mod, params)
-
-
-with tvm.transform.PassContext(opt_level=args.opt_level):
-    lib = relay.build(mod, target, params=params)
-
-print(mod.astext())
+# print(mod.astext())
 graph_json_raw = lib['get_graph_json']()
-
-print(graph_json_raw)
+# print(graph_json_raw)
 
 
 tvm_slicer = TVMSlicer(graph_json_raw)
@@ -118,8 +144,8 @@ tvm_slicer = TVMSlicer(graph_json_raw)
 #parser.add_argument('--end_point', type=int, default=-1)
 #parser.add_argument('--partition_point', type=int, default=0, help='set partition point')
 
-graph_json_front_info = tvm_slicer.slice_graph(args.start_point, args.partition_point)
-graph_json_back_info = tvm_slicer.slice_graph(args.partition_point, args.end_point)
+graph_json_front_info = tvm_slicer.slice_graph(args.start_point, args.partition_point, is_quantize_sliced=True)
+graph_json_back_info = tvm_slicer.slice_graph(args.partition_point, args.end_point, is_quantize_sliced=True)
 
 #graph_json_back_info = TVMSlicer(graph_json_raw, [[0,10],[10,121]]).get_graph()
 #graph_json_front_info, graph_json_back_info = TVMSlicer(graph_json_raw, [[0,9],[9,111]]).get_graph()

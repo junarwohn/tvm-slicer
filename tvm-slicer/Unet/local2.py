@@ -67,11 +67,11 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-#model_path = "../src/model/unet_cuda_512_3.so"
+model_path = "../src/model/unet_cuda_512_3.so"
 # model_path = "../src/model/unet_llvm_512_3.so"
 #model_path = "../src/model/unet_llvm_512_3_q.so"
 #model_path = "../../tests/very_simple_model/unet_3_q.so"
-model_path = "../src/model/unet_cuda_full_512_3_42.so"
+#model_path = "../src/model/unet_cuda_full_512_3.so"
 lib = tvm.runtime.load_module(model_path)
 model = graph_executor.GraphModule(lib['default'](dev))
 
@@ -104,13 +104,7 @@ while (cap.isOpened()):
 
     model.set_input("input_1", input_data)
     model.run()
-    for i in range(2):
-        outd = model.get_output(i)
-        out = outd.numpy()
-        # if i < 4:
-        print(i, out.flatten()[256:256 + 100])
-    #outd = model.get_output(4)
-    outd = model.get_output(4)
+    outd = model.get_output(0)
     out = outd.numpy().astype(np.float32)
     
     timer_inference += time.time() - timer_inference_start
@@ -120,7 +114,7 @@ while (cap.isOpened()):
     img_in_rgb[th == 1] = [0, 0, 255]
     cv2.imshow("received - client", img_in_rgb)
     if cv2.waitKey(1) & 0xFF == ord('q'):
-      break
+       break
 
 timer_total = time.time() - timer_toal_start
 timer_network = timer_total - timer_exclude_network

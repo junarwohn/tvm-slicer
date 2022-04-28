@@ -184,7 +184,7 @@ class TVMSlicer:
     def get_mark(self):
         return self.dfs_list
 
-    def slice_graph(self, start_node, end_node):
+    def slice_graph(self, start_node, end_node, is_quantize_sliced=False):
 
         graph_config = copy.deepcopy(self.graph_config)
         #print(len(graph_config['nodes']))
@@ -206,11 +206,6 @@ class TVMSlicer:
             return mark_list
         self.sliced_graph = []
 
-        # self.dfs_list = dfs(11, 0, [])
-        # print(dfs(7, 0, []))
-        # print(dfs(11, 0, []))
-        # print(np.setdiff1d(dfs(11, 0, []),dfs(0, 0, [])))
-        #for start_p, end_p in slicing_point:
         start_p = start_node
         end_p = end_node
 
@@ -222,6 +217,42 @@ class TVMSlicer:
         model_nodes = np.setdiff1d(target_nodes, pre_nodes)
         np.sort(model_nodes)
 
+        
+        # If the model is quantized to reduce data transmission overhead at sliced node,
+        # parent of the sliced node should be added to model_nodes  
+        
+        dequant_nodes = []
+        if is_quantize_sliced:
+            # Traverse
+            for t_node in model_nodes:
+                for input_node_index in graph_config['nodes'][t_node]['inputs']:
+                    if input_node_index[0] not in model_nodes:
+                        try:
+                            # Check if the parent of node has int8 type input
+                            parent_node_index = input_node_index[0]
+                            # print("parent_node_index", parent_node_index)
+                            parent_node_input_index = graph_config['nodes'][parent_node_index]['inputs'][0][0]
+                            # print("parent_node_input_index", parent_node_input_index)
+                            parent_node_input_dtype = graph_config["attrs"]["dltype"][1][parent_node_input_index]
+                            # print(parent_node_index, parent_node_input_index)
+                            if parent_node_input_dtype == 'int8':
+                                dequant_nodes.append(input_node_index[0])
+                                # # dequant args
+                                # dequant_input_arg_nodes = graph_config['nodes'][parent_node_input_index]['inputs']
+                                # for dequant_input_arg_node in dequant_input_arg_nodes:
+                                #     arg_index = dequant_input_arg_node[0]
+                                #     if graph_config['nodes'][arg_index]['op'] == 'null':
+                                #         dequant_nodes.append(arg_index)
+                                # print("int8 added", input_node_index[0])
+                            else:
+                                raise Exception("No int8")                             
+                        except:
+                            pass
+            if len(dequant_nodes) != 0:
+                # print(dequant_nodes)
+                model_nodes = np.concatenate([model_nodes, np.array(dequant_nodes)])
+                np.sort(model_nodes)
+
         # Check dependency nodes of model nodes - for input nodes in model nodes
         dep_input_info = defaultdict(list) # dep_node : model_nodes
         for t_node in model_nodes:
@@ -232,14 +263,29 @@ class TVMSlicer:
         # ex_nodes = post_nodes - model_nodes 
         ex_nodes = np.setdiff1d(total_nodes, model_nodes)
         np.sort(ex_nodes)
-
         # Check dependency nodes of ex nodes - for output nodes in model nodes.
         dep_output_info = defaultdict(list) # model_nodes : ex_dep_node
         for e_node in ex_nodes:
             for input_node_index in graph_config['nodes'][e_node]['inputs']:
-                if input_node_index[0] in model_nodes:
-                    dep_output_info[input_node_index[0]].append(e_node)
+                if input_node_index[0] in model_nodes and len(dequant_nodes) == 0:
+                    if is_quantize_sliced:
+                        cur_output_node = input_node_index[0]
+                        parent_output_node_index = graph_config['nodes'][cur_output_node]['inputs'][0][0]
+                        parent_output_node_dtype = graph_config["attrs"]["dltype"][1][parent_output_node_index]
+                        if parent_output_node_dtype == 'int8':
+                            print("haha")
+                            dep_output_info[parent_output_node_index].append(e_node)
+                        else:
+                            dep_output_info[input_node_index[0]].append(e_node)
+                    else:
+                        dep_output_info[input_node_index[0]].append(e_node)
         
+        # # Check dependency nodes of ex nodes - for output nodes in model nodes.
+        # dep_output_info = defaultdict(list) # model_nodes : ex_dep_node
+        # for e_node in ex_nodes:
+        #     for input_node_index in graph_config['nodes'][e_node]['inputs']:
+        #         if input_node_index[0] in model_nodes:
+        #             dep_output_info[input_node_index[0]].append(e_node)
 
         sliced_graph_config = {
             "nodes" : [],

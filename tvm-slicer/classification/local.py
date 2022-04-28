@@ -90,7 +90,11 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-model_path = "../src/model/{}_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
+#model_path = "../src/model/{}_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
+#model_path = "../src/model/resnet152_cuda_224_3.so"
+# model_path = "../src/model/resnet152_cuda_midout.so"
+model_path = "../src/model/resnet152_cuda_try_quant.so"
+# model_path = "../../tests/very_simple_model/resnet_3_q.so"
 lib = tvm.runtime.load_module(model_path)
 model = graph_executor.GraphModule(lib['default'](dev))
 
@@ -98,6 +102,7 @@ model = graph_executor.GraphModule(lib['default'](dev))
 
 img_size = args.img_size 
 cap = cv2.VideoCapture("../src/data/frames/output.mp4")
+# cap = cv2.VideoCapture("../src/data/walk.mp4")
 
 # timer INIT
 timer_inference = 0
@@ -119,6 +124,9 @@ synset_path = download_testdata(synset_url, synset_name, module="data")
 with open(synset_path) as f:
     synset = eval(f.read())
 
+min_arr = []
+max_arr = []
+
 timer_toal_start = time.time()
 while (cap.isOpened()):
     timer_exclude_network_start = time.time()
@@ -133,6 +141,9 @@ while (cap.isOpened()):
     model.set_input("input_1", input_data)
     model.run()
     outd = model.get_output(0)
+    # outmid = model.get_output(1)
+    # max_arr.append(outmid.numpy().flatten())
+    # min_arr.append(outmid.numpy().flatten())
     out = outd.numpy().astype(np.float32)
     #print(out.shape)
     top1_keras = np.argmax(out)
@@ -143,6 +154,7 @@ while (cap.isOpened()):
     point = 30, 30 + 40
     img_in_rgb = cv2.resize(img_in_rgb, (512, 512))
     cv2.putText(img_in_rgb, out, point, fonts[0], 2, green_color, 2, cv2.LINE_AA)
+    print(out)
     # cv2.imshow("received - client", img_in_rgb)
     # cv2.waitKey(1)
     # #if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -186,3 +198,8 @@ def shape_size(shape_list):
 
 # with open("resnet_{}_lv_{}".format(target, 3), "w") as json_file:
 #     json_file.write(lib['get_graph_json']())
+# max_arr = np.array(max_arr).flatten()
+# min_arr = np.array(min_arr).flatten()
+# print(max_arr.shape)
+# print(max(max_arr), min(min_arr))
+# print(max_arr.mean() - 6 * max_arr.std(), max_arr.mean() + 6 * max_arr.std())

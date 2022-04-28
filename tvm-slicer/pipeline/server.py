@@ -67,7 +67,7 @@ elif args.target == 'opencl':
 model_path = "../src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
 back_lib = tvm.runtime.load_module(model_path)
 back_model = graph_executor.GraphModule(back_lib['default'](dev))
-
+print("num of inputs ;", back_model.get_num_inputs())
 model_info_path = "../src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
 
 with open(model_info_path, "r") as json_file:
@@ -76,9 +76,8 @@ with open(model_info_path, "r") as json_file:
 input_info = model_info["extra"]["inputs"]
 shape_info = model_info["attrs"]["shape"][1][:len(input_info)]
 dtype_info = model_info["attrs"]["dltype"][1][:len(input_info)]
-print(dtype_info)
 output_info = model_info["extra"]["outputs"]
-
+print(input_info, shape_info, dtype_info, output_info)
 #print("Model Loaded")
 
 # Initialize connect
@@ -137,6 +136,7 @@ while True:
     
     ### TIME_CHECK : UNPACK 
     ins = []
+    # print("start")
     for idx, shape, dltype in zip(input_info, shape_info, dtype_info):
         n,c,h,w = shape 
         #['float32', 'int8']
@@ -146,13 +146,20 @@ while True:
         #     msg_len = n * c * h * w
         # ins.append([idx, np.frombuffer(recv_msg[:msg_len], dltype).reshape(tuple(shape))])
         if dltype == 'float32':
+            # print("[float32]")
             msg_len = 4 * n * c * h * w
-            print(msg_len)
+            # print(msg_len)
             ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
         elif dltype == 'int8':
+            # print("[int8]")
             msg_len = n * c * h * w
-            print(msg_len)
+            # msg_len = 4 * n * c * h * w
+            # print(msg_len)
             ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.int8).reshape(tuple(shape))])
+            # ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float32).reshape(tuple(shape))])
+            # print(ins[-1][1].flatten()[:10])
+            # print(i, out.flatten()[512*256:512*256 + 100])
+
         #msg_len = 4 * n * c * h * w
         #ins.append([idx, from_8bit(recv_msg[:msg_len]).reshape(tuple(shape))])
         ##ins.append([idx, np.frombuffer(recv_msg[:msg_len], np.float16).reshape(tuple(shape)).astype(np.float32)])
@@ -164,6 +171,7 @@ while True:
     timer_inference_start = time.time()
 
     for idx, indata in ins:
+        print("input_{}".format(idx))
         back_model.set_input("input_{}".format(idx), indata)
     time_start = time.time()
     back_model.run()
@@ -172,6 +180,7 @@ while True:
     out = back_model.get_output(0).asnumpy().astype(np.float32)
 
     total_result.append(out)
+    print(out.flatten()[:10])
     timer_inference += time.time() - timer_inference_start
 
     timer_exclude_network += time.time() - timer_exclude_network_start

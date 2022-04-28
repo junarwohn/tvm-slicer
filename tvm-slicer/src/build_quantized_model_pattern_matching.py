@@ -1,3 +1,4 @@
+from email.policy import default
 from SlicingMachine import TVMSlicer
 import tensorflow as tf
 import tvm
@@ -8,6 +9,8 @@ import os
 import json
 import pygraphviz as pgv
 from argparse import ArgumentParser
+from tvm.relay.build_module import bind_params_by_name
+from tvm.relay.dataflow_pattern import *
 
 class UnetPreProcessCallback(DFPatternCallback):
     # A callback class to rewrite the matched pattern to a batch_norm op.
@@ -86,6 +89,8 @@ model_keras = tf.keras.models.load_model('./model/{}_{}.h5'.format(args.model, i
 input_data = input_data.transpose([0, 3, 1, 2])
 shape_dict = {"input_1": input_data.shape}
 mod, params = relay.frontend.from_keras(model_keras, shape_dict)
+
+
 if args.target == 'llvm':
     target = 'llvm'
     dev = tvm.cpu()
@@ -96,53 +101,41 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-with tvm.transform.PassContext(opt_level=args.opt_level):
-    lib = relay.build(mod, target, params=params)
+upc = UnetPreProcessCallback()
+rewrite(upc, mod['main'])
+uc = UnetCallback(upc.match_node)
+out = rewrite(uc, mod['main'])
 
-with relay.quantize.qconfig(calibrate_mode='kl_divergence', weight_scale='max'):
-# with relay.quantize.qconfig(calibrate_mode="global_scale", global_scale=8.0):
-    mod = relay.quantize.quantize(mod, params)
+if args.whole_build == 1:
+    # if not os.path.isfile("./model/{}_{}_full_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
+    if True:
+        with open("./graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_full:
+            json_graph_full = json.load(json_graph_full)
+            # del json_graph_front['extra']
+            with tvm.transform.PassContext(opt_level=args.opt_level):
+                lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_full))
+            lib.export_library("./model/{}_{}_full_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
 
+    # with tvm.transform.PassContext(opt_level=args.opt_level):
+    #     lib = relay.build(out, target, params=params)
+    #     lib.export_library("./model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
 
-with tvm.transform.PassContext(opt_level=args.opt_level):
-    lib = relay.build(mod, target, params=params)
+if args.front_build == 1:
+    # if not os.path.isfile("./model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
+    if True:
+        with open("./graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_front:
+            json_graph_front = json.load(json_graph_front)
+            del json_graph_front['extra']
+            with tvm.transform.PassContext(opt_level=args.opt_level):
+                lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_front))
+            lib.export_library("./model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
 
-print(mod.astext())
-graph_json_raw = lib['get_graph_json']()
-
-print(graph_json_raw)
-
-
-tvm_slicer = TVMSlicer(graph_json_raw)
-#parser.add_argument('--start_point', type=int, default=0)
-#parser.add_argument('--end_point', type=int, default=-1)
-#parser.add_argument('--partition_point', type=int, default=0, help='set partition point')
-
-graph_json_front_info = tvm_slicer.slice_graph(args.start_point, args.partition_point)
-graph_json_back_info = tvm_slicer.slice_graph(args.partition_point, args.end_point)
-
-#graph_json_back_info = TVMSlicer(graph_json_raw, [[0,10],[10,121]]).get_graph()
-#graph_json_front_info, graph_json_back_info = TVMSlicer(graph_json_raw, [[0,9],[9,111]]).get_graph()
-
-graph_json_front, input_front, output_front = graph_json_front_info
-graph_json_back, input_back, output_back = graph_json_back_info
-
-# TODO adding final_shape 
-# do 'extra' job to 
-
-
-with open("./graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "w") as json_file:
-    json_file.write(graph_json_raw)
-
-with open("./graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "w") as json_file:
-    graph_json_front['extra'] = {}
-    graph_json_front['extra']['inputs'] = input_front
-    graph_json_front['extra']['outputs'] = output_front
-    json_file.write(json.dumps(graph_json_front))
-
-
-with open("./graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "w") as json_file:
-    graph_json_back['extra'] = {}
-    graph_json_back['extra']['inputs'] = output_front
-    graph_json_back['extra']['outputs'] = output_back
-    json_file.write(json.dumps(graph_json_back))
+if args.back_build == 1:
+    # if not os.path.isfile("./model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
+    if True:
+        with open("./graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_back:
+            json_graph_back = json.load(json_graph_back)
+            del json_graph_back['extra']
+            with tvm.transform.PassContext(opt_level=args.opt_level):
+                lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_back))
+            lib.export_library("./model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
