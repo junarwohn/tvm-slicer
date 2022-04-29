@@ -83,7 +83,7 @@ print(input_info, shape_info, dtype_info, output_info)
 # Initialize connect
 
 HOST_IP = args.ip
-PORT = 9998        
+PORT = 9998
 #socket_size = 16 * 1024 * 1024 
 socket_size = args.socket_size
 
@@ -171,7 +171,7 @@ while True:
     timer_inference_start = time.time()
 
     for idx, indata in ins:
-        print("input_{}".format(idx))
+        #print("input_{}".format(idx))
         back_model.set_input("input_{}".format(idx), indata)
     time_start = time.time()
     back_model.run()
@@ -180,7 +180,7 @@ while True:
     out = back_model.get_output(0).asnumpy().astype(np.float32)
 
     total_result.append(out)
-    print(out.flatten()[:10])
+    #print(out.flatten()[:10])
     timer_inference += time.time() - timer_inference_start
 
     timer_exclude_network += time.time() - timer_exclude_network_start

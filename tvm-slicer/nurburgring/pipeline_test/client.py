@@ -147,7 +147,7 @@ def generate_img(q):
                 # print(type(front_model.get_output(i).asnumpy().flatten()[0]))
                 # out = front_model.get_output(i).asnumpy().astype(np.int8)
                 out = front_model.get_output(i).asnumpy()
-                print(i, out.flatten()[256:256 + 100])
+                #print(i, out.flatten()[256:256 + 100])
                 # print(i, out.shape)
             outs.append(out)
         # print("model run")

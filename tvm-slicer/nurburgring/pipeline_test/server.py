@@ -171,7 +171,7 @@ while True:
     timer_inference_start = time.time()
 
     for idx, indata in ins:
-        print("input_{}".format(idx))
+        #print("input_{}".format(idx))
         back_model.set_input("input_{}".format(idx), indata)
     time_start = time.time()
     back_model.run()
@@ -180,7 +180,7 @@ while True:
     out = back_model.get_output(0).asnumpy().astype(np.float32)
 
     total_result.append(out)
-    print(out.flatten()[:10])
+    #print(out.flatten()[:10])
     timer_inference += time.time() - timer_inference_start
 
     timer_exclude_network += time.time() - timer_exclude_network_start
