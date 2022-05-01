@@ -33,7 +33,7 @@ parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_leve
 parser.add_argument('--ip', type=str, default='127.0.0.1', help='input ip of host')
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
 parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
-
+parser.add_argument('--visualize', '-v', type=int, default=0, help='visualize option')
 args = parser.parse_args()
 
 def get_time(is_enabled):
@@ -192,13 +192,14 @@ def recv_img(q):
         th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
         img_in_rgb[th == 1] = [0, 0, 255]
 
-        # print("recv")
-        cv2.imshow("received - client", img_in_rgb)
-        # # cv2.imshow("received - client", 255 * th)
-        # # # print(th)
-        # ## cv2.waitKey(1)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-           break
+        if args.visualize:
+            # print("recv")
+            cv2.imshow("received - client", img_in_rgb)
+            # # cv2.imshow("received - client", 255 * th)
+            # # # print(th)
+            # ## cv2.waitKey(1)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
         recv_msg = recv_msg[4*b*c*h*w:]
 
     cv2.destroyAllWindows()
@@ -212,4 +213,3 @@ if __name__ == '__main__':
     stime = time.time()
     p1.join(); p2.join()
     print(time.time() - stime)
-

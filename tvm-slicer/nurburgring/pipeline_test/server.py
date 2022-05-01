@@ -179,8 +179,8 @@ while True:
 
     out = back_model.get_output(0).asnumpy().astype(np.float32)
 
-    total_result.append(out)
-    #print(out.flatten()[:10])
+    # total_result.append(out)
+    # print(out.flatten()[:10])
     timer_inference += time.time() - timer_inference_start
 
     timer_exclude_network += time.time() - timer_exclude_network_start
@@ -205,4 +205,4 @@ print("network time :", timer_network)
 print("data receive size :", total_recv_msg_size)
 print("data send size :", total_send_msg_size)
 
-np.save("./result_half_{}.npy".format(args.partition_point), np.array(total_result))
+# np.save("./result_half_{}.npy".format(args.partition_point), np.array(total_result))
