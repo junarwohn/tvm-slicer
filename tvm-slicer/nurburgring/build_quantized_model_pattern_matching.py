@@ -80,10 +80,12 @@ parser.add_argument('--front_build', '-f', type=int, default=0, help='front mode
 parser.add_argument('--back_build', '-b', type=int, default=0, help='back model only')
 args = parser.parse_args()
 
+current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
+
 np.random.seed(0)
 img_size = args.img_size
 input_data = np.random.normal(0,1,(1,img_size,img_size,3)).astype(np.float32)
-model_keras = tf.keras.models.load_model('../src/model/{}_{}.h5'.format(args.model, img_size))
+model_keras = tf.keras.models.load_model(current_file_path + '../src/model/{}_{}.h5'.format(args.model, img_size))
 
 ## tvm result
 input_data = input_data.transpose([0, 3, 1, 2])
@@ -109,12 +111,12 @@ out = rewrite(uc, mod['main'])
 if args.whole_build == 1:
     # if not os.path.isfile("./model/{}_{}_full_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
     if True:
-        with open("./src/graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_full:
+        with open(current_file_path + "./src/graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_full:
             json_graph_full = json.load(json_graph_full)
             # del json_graph_front['extra']
             with tvm.transform.PassContext(opt_level=args.opt_level):
                 lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_full))
-            lib.export_library("./src/model/{}_{}_full_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
+            lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
 
     # with tvm.transform.PassContext(opt_level=args.opt_level):
     #     lib = relay.build(out, target, params=params)
@@ -123,19 +125,19 @@ if args.whole_build == 1:
 if args.front_build == 1:
     # if not os.path.isfile("./model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
     if True:
-        with open("./src/graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_front:
+        with open(current_file_path + "./src/graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_front:
             json_graph_front = json.load(json_graph_front)
             del json_graph_front['extra']
             with tvm.transform.PassContext(opt_level=args.opt_level):
                 lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_front))
-            lib.export_library("./src/model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
+            lib.export_library(current_file_path + "./src/model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
 
 if args.back_build == 1:
     # if not os.path.isfile("./model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
     if True:
-        with open("./src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_back:
+        with open(current_file_path + "./src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_back:
             json_graph_back = json.load(json_graph_back)
             del json_graph_back['extra']
             with tvm.transform.PassContext(opt_level=args.opt_level):
                 lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_back))
-            lib.export_library("./src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
+            lib.export_library(current_file_path + "./src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))

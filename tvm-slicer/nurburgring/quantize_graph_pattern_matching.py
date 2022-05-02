@@ -85,10 +85,12 @@ parser.add_argument('--back_build', '-b', type=int, default=0, help='back model 
 parser.add_argument('--add_quantize_layer', '-q', type=int, default=0, help='add int8 quantize layer at sliced edge')
 args = parser.parse_args()
 
+current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
+
 np.random.seed(0)
 img_size = args.img_size
 input_data = np.random.normal(0,1,(1,img_size,img_size,3)).astype(np.float32)
-model_keras = tf.keras.models.load_model('../src/model/{}_{}.h5'.format(args.model, img_size))
+model_keras = tf.keras.models.load_model(current_file_path + '../src/model/{}_{}.h5'.format(args.model, img_size))
 
 ## tvm result
 input_data = input_data.transpose([0, 3, 1, 2])
@@ -127,16 +129,16 @@ graph_json_back, input_back, output_back = graph_json_back_info
 # TODO adding final_shape 
 # do 'extra' job to 
 
-with open("./src/graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "w") as json_file:
+with open(current_file_path + "./src/graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "w") as json_file:
     json_file.write(graph_json_raw)
 
-with open("./src/graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "w") as json_file:
+with open(current_file_path + "./src/graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "w") as json_file:
     graph_json_front['extra'] = {}
     graph_json_front['extra']['inputs'] = input_front
     graph_json_front['extra']['outputs'] = output_front
     json_file.write(json.dumps(graph_json_front))
 
-with open("./src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "w") as json_file:
+with open(current_file_path + "./src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "w") as json_file:
     graph_json_back['extra'] = {}
     graph_json_back['extra']['inputs'] = output_front
     graph_json_back['extra']['outputs'] = output_back

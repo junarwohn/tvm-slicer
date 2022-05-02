@@ -1,0 +1,71 @@
+server unet cuda 10 3
+num of inputs ; 74
+[9] [[1, 16, 512, 512]] ['int8'] [107]
+server unet cuda 10 3
+server unet cuda 10 3
+[0] [[1, 3, 512, 512]] [9] ['int8']
+[  1   1 512 512]
+num of inputs ; 74
+[9] [[1, 16, 512, 512]] ['int8'] [107]
+107
+[1, 1, 512, 512]
+0.0660860538482666
+total time : 8.209620475769043
+inference time : 3.0028984546661377
+exclude network time : 3.0040552616119385
+network time : 5.2055652141571045
+data receive size : 0
+data send size : 1048576
+0.017629623413085938
+8.23581337928772
+server unet cuda 21 3
+server unet cuda 21 3
+[0] [[1, 3, 512, 512]] [9, 20] ['int8', 'int8']
+[  1   1 512 512]
+num of inputs ; 68
+[9, 20] [[1, 16, 512, 512], [1, 32, 256, 256]] ['int8', 'int8'] [98]
+98
+[1, 1, 512, 512]
+0.05326414108276367
+total time : 7.32121729850769
+inference time : 3.084864854812622
+exclude network time : 3.085844039916992
+network time : 4.235373258590698
+data receive size : 0
+data send size : 1048576
+0.017863035202026367
+7.355061292648315
+server unet cuda 32 3
+server unet cuda 32 3
+[0] [[1, 3, 512, 512]] [9, 20, 31] ['int8', 'int8', 'int8']
+[  1   1 512 512]
+num of inputs ; 62
+[9, 20, 31] [[1, 16, 512, 512], [1, 32, 256, 256], [1, 64, 128, 128]] ['int8', 'int8', 'int8'] [89]
+89
+[1, 1, 512, 512]
+0.03836774826049805
+total time : 7.976069450378418
+inference time : 3.0449700355529785
+exclude network time : 3.046139717102051
+network time : 4.929929733276367
+data receive size : 0
+data send size : 1048576
+0.023511886596679688
+8.01335859298706
+server unet cuda 42 3
+server unet cuda 42 3
+[0] [[1, 3, 512, 512]] [9, 20, 31, 42] ['int8', 'int8', 'int8', 'int8']
+[  1   1 512 512]
+num of inputs ; 56
+[9, 20, 31, 42] [[1, 16, 512, 512], [1, 32, 256, 256], [1, 64, 128, 128], [1, 128, 64, 64]] ['int8', 'int8', 'int8', 'int8'] [79]
+79
+[1, 1, 512, 512]
+0.040297746658325195
+total time : 8.562930822372437
+inference time : 3.547532081604004
+exclude network time : 3.5484886169433594
+network time : 5.014442205429077
+data receive size : 0
+data send size : 1048576
+0.020977020263671875
+8.592309474945068
