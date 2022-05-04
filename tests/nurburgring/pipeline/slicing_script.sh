@@ -57,12 +57,12 @@ upper_bound=$((len_nodes * ratio / 100))
 for i in ${nodes[@]:0:$upper_bound}
 #for i in ${nodes[@]:0:1}
 do
-	# cmd="python3 slicing_graph.py --start_point=0 --partition_point=${i} --end_point=${nodes[-1]} --img_size=${img_size} --model=${model} --target=${target} --opt_level=${opt_level}"
-	cmd="python3 ../../quantize_graph_pattern_matching.py --start_point=0 --partition_point=${i} --end_point=${nodes[-1]} --img_size=${img_size} --model=${model} --target=${target} --opt_level=${opt_level}"
+	cmd="python3 ../../slicing_graph.py --start_point=0 --partition_point=${i} --end_point=${nodes[-1]} --img_size=${img_size} --model=${model} --target=${target} --opt_level=${opt_level}"
+	# cmd="python3 ../../quantize_graph_pattern_matching.py --start_point=0 --partition_point=${i} --end_point=${nodes[-1]} --img_size=${img_size} --model=${model} --target=${target} --opt_level=${opt_level}"
 	echo $cmd
 	$cmd
-	# cmd="python3 build_model.py --start_point=0 --partition_point=${i} --end_point=${nodes[-1]} --img_size=${img_size} --model=${model} --target=${target} --opt_level=${opt_level}"
-	cmd="python3 ../../build_quantized_model_pattern_matching.py --start_point=0 --partition_point=${i} --end_point=${nodes[-1]} --img_size=${img_size} --model=${model} --target=${target} --opt_level=${opt_level} -w 1 -f 1 -b 1"
+	cmd="python3 ../../build_graph.py --start_point=0 --partition_point=${i} --end_point=${nodes[-1]} --img_size=${img_size} --model=${model} --target=${target} --opt_level=${opt_level} -w 1 -f 1 -b 1"
+	# cmd="python3 ../../build_quantized_model_pattern_matching.py --start_point=0 --partition_point=${i} --end_point=${nodes[-1]} --img_size=${img_size} --model=${model} --target=${target} --opt_level=${opt_level} -w 1 -f 1 -b 1"
 	echo $cmd
 	$cmd
 

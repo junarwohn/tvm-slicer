@@ -14,12 +14,14 @@ import struct
 from argparse import ArgumentParser
 import ntplib 
 
+""" Test local tvm execution and measure the performance. """
+
 ntp_time_server = 'time.windows.com'               # NTP Server Domain Or IP 
 ntp_time_server = 'time.google.com'               # NTP Server Domain Or IP 
 g_ntp_client = ntplib.NTPClient() 
 #response = c.request(ntp_time_server, version=3) 
 
-
+# Argument Parser
 parser = ArgumentParser()
 parser.add_argument('--start_point', '-s', type=int, default=0)
 parser.add_argument('--end_point', '-e', type=int, default=-1)
@@ -67,19 +69,13 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-#model_path = "../src/model/unet_cuda_512_3.so"
-# model_path = "../src/model/unet_llvm_512_3.so"
-#model_path = "../src/model/unet_llvm_512_3_q.so"
-#model_path = "../../tests/very_simple_model/unet_3_q.so"
-model_path = "../src/model/unet_cuda_full_512_3_42.so"
+model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
 lib = tvm.runtime.load_module(model_path)
 model = graph_executor.GraphModule(lib['default'](dev))
 
 # Video Load
-
 img_size = 512 
-cap = cv2.VideoCapture("../../src/data/j_scan.mp4")
-# client_socket.settimeout(1)
+cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
 stime = time.time()
 
 # timer INIT
@@ -89,10 +85,11 @@ timer_exclude_network = 0
 total_recv_msg_size = 0
 total_send_msg_size = 0
 
+# # Loop starts
 timer_toal_start = time.time()
 
 while (cap.isOpened()):
-    time_read_start = get_time(args.ntp_enable)
+    
     ret, frame = cap.read()
     try:
         frame = preprocess(frame)    
@@ -100,21 +97,22 @@ while (cap.isOpened()):
         break
     input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
 
-    timer_inference_start = time.time()
 
+    timer_inference_start = time.time()
+    # ----------------------------
+    # # Inference Part
+    # ----------------------------
     model.set_input("input_1", input_data)
     model.run()
-    for i in range(2):
-        outd = model.get_output(i)
-        out = outd.numpy()
-        # if i < 4:
-        # print(i, out.flatten()[256:256 + 100])
-    #outd = model.get_output(4)
-    outd = model.get_output(4)
+    outd = model.get_output(0)
     out = outd.numpy().astype(np.float32)
-    
+    # ----------------------------
     timer_inference += time.time() - timer_inference_start
 
+
+    # ----------------------------
+    # # Visualize Part
+    # ----------------------------
     img_in_rgb = frame
     th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
     img_in_rgb[th == 1] = [0, 0, 255]
@@ -122,17 +120,16 @@ while (cap.isOpened()):
         cv2.imshow("received - client", img_in_rgb)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+    # ----------------------------
 
 timer_total = time.time() - timer_toal_start
 timer_network = timer_total - timer_exclude_network
 
-
+print("----------------------------")
+print("Execution Result ")
+print("model:[{}], target:[{}], img_size:[{}], opt_level:[{}]".format(args.model, args.target, args.img_size, args.opt_level))
 print("total time :", timer_total)
 print("inference time :", timer_inference)
-# print("exclude network time :", timer_exclude_network)
-# print("network time :", timer_network)
-
-print("data receive size :", total_recv_msg_size)
-print("data send size :", total_send_msg_size)
+print("----------------------------")
 
 cap.release()

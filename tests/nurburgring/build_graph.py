@@ -116,7 +116,7 @@ if args.whole_build == 1:
             # del json_graph_front['extra']
             with tvm.transform.PassContext(opt_level=args.opt_level):
                 lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_full))
-            lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
+            lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
 
     # with tvm.transform.PassContext(opt_level=args.opt_level):
     #     lib = relay.build(out, target, params=params)

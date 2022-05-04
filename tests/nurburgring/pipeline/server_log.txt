@@ -332,3 +332,79 @@ exclude network time : 3.0608222484588623
 network time : 30.464881658554077
 data receive size : 0
 data send size : 1048576
+server unet cuda 10 3
+num of inputs ; 74
+[9] [[1, 16, 512, 512]] ['int8'] [107]
+107
+[1, 1, 512, 512]
+0
+total time : 14.71786642074585
+inference time : 0
+exclude network time : 0
+network time : 14.71786642074585
+server unet cuda 21 3
+num of inputs ; 68
+[9, 20] [[1, 16, 512, 512], [1, 32, 256, 256]] ['int8', 'int8'] [98]
+server unet cuda 10 3
+num of inputs ; 74
+[9] [[1, 16, 512, 512]] ['int8'] [107]
+107
+[1, 1, 512, 512]
+0.024361133575439453
+total time : 3.4297566413879395
+inference time : 0.39625048637390137
+exclude network time : 0.39632582664489746
+network time : 3.033430814743042
+data receive size : 4194304
+data send size : 1048576
+server unet cuda 21 3
+num of inputs ; 68
+[9, 20] [[1, 16, 512, 512], [1, 32, 256, 256]] ['int8', 'int8'] [98]
+server unet cuda 10 3
+num of inputs ; 74
+[9] [[1, 16, 512, 512]] ['int8'] [107]
+107
+[1, 1, 512, 512]
+0.052156686782836914
+total time : 23.372594594955444
+inference time : 3.1641292572021484
+exclude network time : 3.164649248123169
+network time : 20.207945346832275
+data receive size : 0
+data send size : 1048576
+server unet cuda 21 3
+num of inputs ; 68
+[9, 20] [[1, 16, 512, 512], [1, 32, 256, 256]] ['int8', 'int8'] [98]
+98
+[1, 1, 512, 512]
+0.037946462631225586
+total time : 26.325125694274902
+inference time : 3.1523447036743164
+exclude network time : 3.1527228355407715
+network time : 23.17240285873413
+data receive size : 0
+data send size : 1048576
+server unet cuda 32 3
+num of inputs ; 62
+[9, 20, 31] [[1, 16, 512, 512], [1, 32, 256, 256], [1, 64, 128, 128]] ['int8', 'int8', 'int8'] [89]
+89
+[1, 1, 512, 512]
+0.0336458683013916
+total time : 30.060823917388916
+inference time : 3.1240146160125732
+exclude network time : 3.124394178390503
+network time : 26.936429738998413
+data receive size : 0
+data send size : 1048576
+server unet cuda 42 3
+num of inputs ; 56
+[9, 20, 31, 42] [[1, 16, 512, 512], [1, 32, 256, 256], [1, 64, 128, 128], [1, 128, 64, 64]] ['int8', 'int8', 'int8', 'int8'] [79]
+79
+[1, 1, 512, 512]
+0.029500246047973633
+total time : 33.81933236122131
+inference time : 3.0738067626953125
+exclude network time : 3.074169158935547
+network time : 30.745163202285767
+data receive size : 0
+data send size : 1048576
