@@ -129,14 +129,13 @@ def generate_img(q):
             client_socket.sendall(total_msg)
             client_socket.close()
             break
+        time_start = time.time()
         # print("imread")
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
         # front_model.set_input("input_0", input_data)
         front_model.set_input("input_0", input_data)
         
-        time_start = time.time()
         front_model.run()
-        timer_model += time.time() - time_start
         outs = []
         for (i, out_idx), dltype in zip(enumerate(output_info), dltype_info):
             # out = front_model.get_output(i).asnumpy().astype(dltype)
@@ -151,6 +150,7 @@ def generate_img(q):
                 # print(i, out.shape)
             outs.append(out)
         # print("model run")
+        timer_model += time.time() - time_start
         
         msg_body = b''
         # Send msg
