@@ -78,6 +78,7 @@ parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_leve
 parser.add_argument('--whole_build', '-w', type=int, default=0, help='whole model only')
 parser.add_argument('--front_build', '-f', type=int, default=0, help='front model only')
 parser.add_argument('--back_build', '-b', type=int, default=0, help='back model only')
+parser.add_argument('--quantize', '-q', type=)
 args = parser.parse_args()
 
 current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
@@ -117,11 +118,7 @@ if args.whole_build == 1:
             with tvm.transform.PassContext(opt_level=args.opt_level):
                 lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_full))
             lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
-
-    # with tvm.transform.PassContext(opt_level=args.opt_level):
-    #     lib = relay.build(out, target, params=params)
-    #     lib.export_library("./model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
-
+            
 if args.front_build == 1:
     # if not os.path.isfile("./model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
     if True:
