@@ -408,3 +408,97 @@ exclude network time : 3.074169158935547
 network time : 30.745163202285767
 data receive size : 0
 data send size : 1048576
+server unet cuda 10 3
+num of inputs ; 74
+[9] [[1, 16, 512, 512]] ['int8'] [107]
+107
+[1, 1, 512, 512]
+0
+total time : 48.01876902580261
+inference time : 0
+exclude network time : 0
+network time : 48.01876902580261
+server unet cuda 21 3
+num of inputs ; 68
+[9, 20] [[1, 16, 512, 512], [1, 32, 256, 256]] ['int8', 'int8'] [98]
+server unet cuda 10 3
+num of inputs ; 74
+[9] [[1, 16, 512, 512]] ['int8'] [107]
+107
+[1, 1, 512, 512]
+0
+total time : 7.222252607345581
+inference time : 0
+exclude network time : 0
+network time : 7.222252607345581
+server unet cuda 21 3
+server unet cuda 10 3
+num of inputs ; 74
+[9] [[1, 16, 512, 512]] ['int8'] [107]
+107
+[1, 1, 512, 512]
+0
+total time : 4.248791456222534
+inference time : 0
+exclude network time : 0
+network time : 4.248791456222534
+server unet cuda 21 3
+server unet cuda 10 3
+num of inputs ; 74
+[9] [[1, 16, 512, 512]] ['int8'] [107]
+107
+[1, 1, 512, 512]
+0
+total time : 4.689250230789185
+inference time : 0
+exclude network time : 0
+network time : 4.689250230789185
+server unet cuda 21 3
+server unet cuda 10 3
+num of inputs ; 74
+[9] [[1, 16, 512, 512]] ['int8'] [107]
+107
+[1, 1, 512, 512]
+0.05411791801452637
+total time : 27.38666319847107
+inference time : 3.1782658100128174
+exclude network time : 3.1787989139556885
+network time : 24.20786428451538
+data receive size : 0
+data send size : 1048576
+server unet cuda 21 3
+num of inputs ; 68
+[9, 20] [[1, 16, 512, 512], [1, 32, 256, 256]] ['int8', 'int8'] [98]
+98
+[1, 1, 512, 512]
+0.029415130615234375
+total time : 27.17720103263855
+inference time : 3.136098623275757
+exclude network time : 3.1364808082580566
+network time : 24.040720224380493
+data receive size : 0
+data send size : 1048576
+server unet cuda 32 3
+num of inputs ; 62
+[9, 20, 31] [[1, 16, 512, 512], [1, 32, 256, 256], [1, 64, 128, 128]] ['int8', 'int8', 'int8'] [89]
+89
+[1, 1, 512, 512]
+0.024567127227783203
+total time : 31.750454664230347
+inference time : 3.115478038787842
+exclude network time : 3.115884304046631
+network time : 28.634570360183716
+data receive size : 0
+data send size : 1048576
+server unet cuda 42 3
+num of inputs ; 56
+[9, 20, 31, 42] [[1, 16, 512, 512], [1, 32, 256, 256], [1, 64, 128, 128], [1, 128, 64, 64]] ['int8', 'int8', 'int8', 'int8'] [79]
+79
+[1, 1, 512, 512]
+0.021604537963867188
+total time : 33.080509424209595
+inference time : 3.059731960296631
+exclude network time : 3.0601305961608887
+network time : 30.020378828048706
+data receive size : 0
+data send size : 1048576

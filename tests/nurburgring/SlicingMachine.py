@@ -274,11 +274,14 @@ class TVMSlicer:
                         parent_output_node_dtype = graph_config["attrs"]["dltype"][1][parent_output_node_index]
                         if parent_output_node_dtype == 'int8':
                             print("haha")
-                            dep_output_info[parent_output_node_index].append(e_node)
+                            # dep_output_info[parent_output_node_index].append(e_node)
+                            dep_output_info[int(np.where(model_nodes == parent_output_node_index)[0])].append(e_node)
                         else:
-                            dep_output_info[input_node_index[0]].append(e_node)
+                            # dep_output_info[input_node_index[0]].append(e_node)
+                            dep_output_info[int(np.where(model_nodes == input_node_index[0])[0])].append(e_node)
                     else:
-                        dep_output_info[input_node_index[0]].append(e_node)
+                        # dep_output_info[input_node_index[0]].append(e_node)
+                        dep_output_info[int(np.where(model_nodes == input_node_index[0])[0])].append(e_node)
         
         # # Check dependency nodes of ex nodes - for output nodes in model nodes.
         # dep_output_info = defaultdict(list) # model_nodes : ex_dep_node
@@ -359,11 +362,11 @@ class TVMSlicer:
         # Set output
         output_nodes = sorted(dep_output_info.keys())
         if len(output_nodes) == 0:
-            output_nodes = [len(model_nodes) - 1]
+            output_nodes = [len(model_nodes) - 1 - len(input_nodes)]
 
         # print(output_nodes)
         for output_node_index in output_nodes:
-            sliced_graph_config["heads"].append([output_node_index, 0, 0])
+            sliced_graph_config["heads"].append([output_node_index + len(input_nodes), 0, 0])
 
         # if len(sliced_graph_config["heads"]) == 0:
         #     sliced_graph_config["heads"].append([len(model_nodes) - 1, 0, 0])
