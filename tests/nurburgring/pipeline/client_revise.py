@@ -175,6 +175,9 @@ def generate_img(frame_queue):
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
 
         in_data[0] = input_data
+
+        # loop = asyncio.get_event_loop()
+        pre_outputs = []
         for in_indexs, out_indexs, model in zip(model_input_indexs, model_output_indexs, models):
             # set input
             # print(in_indexs)
@@ -183,29 +186,16 @@ def generate_img(frame_queue):
             # run model
             model.run()
 
+            if len(pre_outputs) != 0:
+                sync_send_img({k : in_data[k] for k in pre_outputs})
+                # sync_send_img({k : in_data[k] for k in out_indexs})
+
             # get output
             for i, output_index in enumerate(out_indexs):
                 in_data[output_index] = model.get_output(i).numpy()
+            pre_outputs = out_indexs
 
-            # sync_send_img({k : in_data[k] for k in out_indexs})
-            # asyncio.run(async_send_img({k : in_data[k] for k in out_indexs}))
-            loop = asyncio.get_event_loop()
-            loop.run_until_complete(async_send_img({k : in_data[k] for k in out_indexs}))
-            loop.close()
-
-        # if len(model_output_indexs[-1]) == 1:
-        #     out = in_data[model_output_indexs[-1][0]].numpy()
-        #     # print(out)
-        # else:
-        #     print("Wrong output of last model")
-
-        
-        # outs = dict()
-        
-        # # Get outputs
-        # for i, out_idx in enumerate(output_indexs):
-        #     out = model.get_output(i).numpy()
-        #     outs[out_idx] = out
+        sync_send_img({k : in_data[k] for k in pre_outputs})
 
         # Timer stop
         timer_model += time.time() - time_start
