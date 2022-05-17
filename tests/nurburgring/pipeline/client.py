@@ -119,7 +119,7 @@ def generate_img(q):
     front_lib = tvm.runtime.load_module(model_path)
     front_model = graph_executor.GraphModule(front_lib['default'](dev))
     timer_model = 0
-    cap = cv2.VideoCapture("../../src/data/j_scan.mp4")
+    cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
     while (cap.isOpened()):
         ret, frame = cap.read()
         try:

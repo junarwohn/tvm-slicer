@@ -13,6 +13,7 @@ import cv2
 import struct
 from argparse import ArgumentParser
 import ntplib 
+import os
 
 """ Test local tvm execution and measure the performance. """
 
@@ -23,17 +24,13 @@ g_ntp_client = ntplib.NTPClient()
 
 # Argument Parser
 parser = ArgumentParser()
-parser.add_argument('--start_point', '-s', type=int, default=0)
-parser.add_argument('--end_point', '-e', type=int, default=-1)
-parser.add_argument('--partition_point', '-p', type=int, default=0, help='set partition point')
+parser.add_argument('--partition_points', '-p', nargs='+', type=int, default=[], help='set partition points')
 parser.add_argument('--img_size', '-i', type=int, default=512, help='set image size')
 parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
 parser.add_argument('--target', '-t', type=str, default='llvm', help='name of taget')
 parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_level')
-parser.add_argument('--ip', type=str, default='127.0.0.1', help='input ip of host')
-parser.add_argument('--device', type=str, default='cuda', help='type of devices [llvm, cuda]')
-parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
-parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
+parser.add_argument('--build', '-b', type=int, default=0, help='build model')
+parser.add_argument('--add_quantize_layer', '-q', type=int, default=0, help='add int8 quantize layer at sliced edge')
 parser.add_argument('--visualize', '-v', type=int, default=0, help='visualize option')
 args = parser.parse_args()
 
@@ -69,22 +66,39 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
+# Load models
 model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
 lib = tvm.runtime.load_module(model_path)
-# model = graph_executor.GraphModule(lib['default'](dev))
+partition_points = args.partition_points
+current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
 
-model_info_path = "../src/graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
-with open(model_info_path, "r") as json_file:
-    model_info = json.load(json_file)
+model_input_indexs = []
+model_output_indexs = []
+model_graph_json_strs = []
+
+for i in range(len(partition_points) - 1):
+    start_point = partition_points[i]
+    end_point = partition_points[i + 1]
+    with open(current_file_path + "../src/graph/{}_{}_{}_{}_{}-{}.json".format(args.model, args.target, args.img_size, args.opt_level, start_point, end_point), "r") as json_file:
+        graph_json = json.load(json_file)
+    input_indexs = graph_json['extra']["inputs"]
+    output_indexs = graph_json['extra']["outputs"]
+    
+    model_input_indexs.append(input_indexs)
+    model_output_indexs.append(output_indexs)
+    del graph_json['extra']
+    model_graph_json_strs.append(json.dumps(graph_json))
+
 
 param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
 with open(param_path, "rb") as fi:
     loaded_params = bytearray(fi.read())
 
-# with tvm.transform.PassContext(opt_level=3):
-model = graph_executor.create(json.dumps(model_info), lib, dev)
-params = tvm.runtime.load_param_dict(loaded_params)
-model.load_params(loaded_params)
+models = []
+for graph_json_str in model_graph_json_strs:
+    model = graph_executor.create(graph_json_str, lib, dev)
+    model.load_params(loaded_params)
+    models.append(model)
 
 # Video Load
 img_size = 512 
@@ -98,8 +112,10 @@ timer_exclude_network = 0
 total_recv_msg_size = 0
 total_send_msg_size = 0
 
-# # Loop starts
+# Loop starts
 timer_toal_start = time.time()
+
+in_data = {0 : 0}
 
 while (cap.isOpened()):
     
@@ -110,19 +126,27 @@ while (cap.isOpened()):
         break
     input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
 
+    in_data[0] = input_data
+    out_data = []
+    for in_indexs, out_indexs, model in zip(model_input_indexs, model_output_indexs, models):
+        # set input
+        for input_index in in_indexs:
+            model.set_input("input_{}".format(input_index), in_data[input_index])
+        
+        # run model
+        model.run()
 
-    timer_inference_start = time.time()
-    # ----------------------------
-    # # Inference Part
-    # ----------------------------
-    model.set_input("input_1", input_data)
-    model.run()
-    outd = model.get_output(0)
-    # outd = model.get_output(4)
-    out = outd.numpy().astype(np.float32)
-    # ----------------------------
-    timer_inference += time.time() - timer_inference_start
-    print(out)
+        # get output
+        for i, output_index in enumerate(out_indexs):
+            in_data[output_index] = model.get_output(i)
+
+    # Check last output index of model     
+    if len(model_output_indexs[-1]) == 1:
+        out = in_data[model_output_indexs[-1][0]].numpy()
+        # print(out)
+    else:
+        print("Wrong output of last model")
+
     # ----------------------------
     # # Visualize Part
     # ----------------------------

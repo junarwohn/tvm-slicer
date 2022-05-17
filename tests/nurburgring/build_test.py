@@ -118,35 +118,11 @@ with tvm.transform.PassContext(opt_level=args.opt_level):
 
 graph_json_raw = lib['get_graph_json']()
 
-tvm_slicer = TVMSlicer(graph_json_raw)
+with open(current_file_path + "./src/graph/test.json", "w") as json_file:
+    # json_file.write(tvm.ir.save_json(mod))
+    json_file.write(graph_json_raw)
 
-#print(1)
-#graph_json_1 = tvm_slicer.slice_graph(0, 9, is_quantize_sliced=True)
-#print(2)
-#graph_json_2 = tvm_slicer.slice_graph(10, 20, is_quantize_sliced=True)
-#print(3)
-#graph_json_3 = tvm_slicer.slice_graph(21, 31, is_quantize_sliced=True)
-#print(4)
-#graph_json_4 = tvm_slicer.slice_graph(32, 42, is_quantize_sliced=True)
-print(5)
-graph_json_back_info = tvm_slicer.slice_graph(32, 115, is_quantize_sliced=True)
-
-#for i, graph_json in enumerate([graph_json_1, graph_json_2, graph_json_3, graph_json_4]):
-#    with open(current_file_path + "./src/graph/{}_{}_front_{}.json".format(args.model, args.target, i), "w") as json_file:
-#        graph_json_front, input_front, output_front = graph_json
-#        graph_json_front['extra'] = {}
-#        graph_json_front['extra']['inputs'] = input_front
-#        graph_json_front['extra']['outputs'] = output_front
-#        json_file.write(json.dumps(graph_json_front))
-#
-
-graph_json_back, input_back, output_back = graph_json_back_info
-
-# TODO adding final_shape 
-# do 'extra' job to 
-
-with open(current_file_path + "./src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "w") as json_file:
-    graph_json_back['extra'] = {}
-    graph_json_back['extra']['inputs'] = input_back
-    graph_json_back['extra']['outputs'] = output_back
-    json_file.write(json.dumps(graph_json_back))
+# with open(current_file_path + "./src/graph/test.json", "r") as json_graph_full:
+#     json_graph_full = json.load(json_graph_full)
+#     lib.graph_json = json_graph_full
+#     lib.export_library(current_file_path + "./src/model/test.so")

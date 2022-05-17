@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 """Minimum graph executor that executes graph containing TVM PackedFunc."""
+from imp import NullImporter
 import numpy as np
 import tvm._ffi
 
@@ -57,7 +58,6 @@ def create(graph_json_str, libmod, device):
     assert isinstance(graph_json_str, string_types)
 
     dev, num_rpc_dev, device_type_id = get_device(libmod, device)
-
     if num_rpc_dev == len(dev):
         fcreate = dev[0]._rpc_sess.get_function("tvm.graph_executor.create")
     else:
