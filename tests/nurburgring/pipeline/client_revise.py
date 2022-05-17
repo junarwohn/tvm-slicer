@@ -188,7 +188,10 @@ def generate_img(frame_queue):
                 in_data[output_index] = model.get_output(i).numpy()
 
             # sync_send_img({k : in_data[k] for k in out_indexs})
-            asyncio.run(async_send_img({k : in_data[k] for k in out_indexs}))
+            # asyncio.run(async_send_img({k : in_data[k] for k in out_indexs}))
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(async_send_img({k : in_data[k] for k in out_indexs}))
+            loop.close()
 
         # if len(model_output_indexs[-1]) == 1:
         #     out = in_data[model_output_indexs[-1][0]].numpy()
