@@ -179,6 +179,8 @@ def generate_img(frame_queue, send_queue):
 
         # loop = asyncio.get_event_loop()
         pre_outputs = []
+        if len(models) == 0:
+            pre_outputs = [0]
         for in_indexs, out_indexs, model in zip(model_input_indexs, model_output_indexs, models):
             # set input
             # print(in_indexs)
