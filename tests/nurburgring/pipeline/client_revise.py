@@ -92,7 +92,7 @@ img_size = 512
 org=(50,100)
 font=cv2.FONT_HERSHEY_SIMPLEX
 
-def generate_img(frame_queue):
+def generate_img(frame_queue, send_queue):
 
     # Load models
     model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
@@ -167,8 +167,9 @@ def generate_img(frame_queue):
         try:
             frame = preprocess(frame)
         except:
-            send_msg = struct.pack('i', 0)
-            client_socket.sendall(send_msg)
+            # send_msg = struct.pack('i', 0)
+            # client_socket.sendall(send_msg)
+            send_queue.put({-1 : -1})
             break
         # TIMER MODEL - start
         time_start = time.time()
@@ -187,15 +188,16 @@ def generate_img(frame_queue):
             model.run()
 
             if len(pre_outputs) != 0:
-                sync_send_img({k : in_data[k] for k in pre_outputs})
-                # sync_send_img({k : in_data[k] for k in out_indexs})
+                # sync_send_img({k : in_data[k] for k in pre_outputs})
+                send_queue.put({k : in_data[k] for k in pre_outputs})
 
             # get output
             for i, output_index in enumerate(out_indexs):
                 in_data[output_index] = model.get_output(i).numpy()
             pre_outputs = out_indexs
 
-        sync_send_img({k : in_data[k] for k in pre_outputs})
+        # sync_send_img({k : in_data[k] for k in pre_outputs})
+        send_queue.put({k : in_data[k] for k in pre_outputs})
 
         # Timer stop
         timer_model += time.time() - time_start
@@ -255,7 +257,7 @@ def send_img(send_queue):
             client_socket.sendall(send_msg)
         
     # Exit
-    client_socket.close()
+    # client_socket.close()
     print('send_img End')
 
 def recv_img(frame_queue):
@@ -300,15 +302,15 @@ def recv_img(frame_queue):
 
 if __name__ == '__main__':
     frame_queue = Queue()
-    # send_queue = Queue()
-    p1 = Process(target=generate_img, args=(frame_queue, ))
-    # p2 = Process(target=send_img, args=(send_queue,))
+    send_queue = Queue()
+    p1 = Process(target=generate_img, args=(frame_queue, send_queue))
+    p2 = Process(target=send_img, args=(send_queue,))
     p3 = Process(target=recv_img, args=(frame_queue,))
     p1.start() 
-    # p2.start()
+    p2.start()
     p3.start() 
     stime = time.time()
     p1.join(); 
-    # p2.join(); 
+    p2.join(); 
     p3.join()
     print(time.time() - stime)
