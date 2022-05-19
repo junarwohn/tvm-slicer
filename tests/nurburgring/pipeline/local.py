@@ -73,7 +73,7 @@ model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, 
 lib = tvm.runtime.load_module(model_path)
 # model = graph_executor.GraphModule(lib['default'](dev))
 
-model_info_path = "../src/graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point)
+model_info_path = "../src/graph/{}_{}_full_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level)
 with open(model_info_path, "r") as json_file:
     model_info = json.load(json_file)
 
@@ -87,7 +87,7 @@ params = tvm.runtime.load_param_dict(loaded_params)
 model.load_params(loaded_params)
 
 # Video Load
-img_size = 512 
+img_size = args.img_size 
 cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
 stime = time.time()
 
