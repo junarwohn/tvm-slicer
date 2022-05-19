@@ -87,7 +87,7 @@ elif args.target == 'opencl':
     dev = tvm.opencl()
 
 # Video Load
-img_size = 512 
+img_size = args.img_size 
 
 org=(50,100)
 font=cv2.FONT_HERSHEY_SIMPLEX
