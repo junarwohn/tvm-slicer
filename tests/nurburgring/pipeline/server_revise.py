@@ -75,94 +75,36 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-# # Load lib
-# lib_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
-# lib = tvm.runtime.load_module(lib_path)
 
-# # Load params
-# params_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
-# with open(params_path, "rb") as fi:
-#     loaded_params = bytearray(fi.read())
+def recv_data(recv_queue):
+    recv_msg = b''
+    while True:
+        try:
+            while len(recv_msg) < 4:
+                recv_msg += client_socket.recv(4)
+            msg_size_bytes = recv_msg[:4]
+            recv_msg = recv_msg[4:]
+            total_recv_msg_size = struct.unpack('i', msg_size_bytes)[0]
+            if total_recv_msg_size == 0:
+                recv_queue.put({-1 : -1})
+                break
+        except:
+            break
+ 
+        if total_recv_msg_size == 0:
+            break
 
-# # load graph_json
-# graph_json_path = "../src/graph/{}_{}_{}_{}_{}-{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_points[0], args.partition_points[1])
-# with open(graph_json_path, "r") as json_file:
-#     graph_json = json.load(json_file)
-
-# # get input and output index
-# input_indexs = graph_json['extra']["inputs"]
-# output_indexs = graph_json['extra']["outputs"]
-# del graph_json['extra'] 
-
-# # create graph_executor
-# graph_json_str = json.dumps(graph_json)
-# model = graph_executor.create(graph_json_str, lib, dev)
-# model.load_params(loaded_params)
-
-
-# # timer INIT
-# timer_inference = 0
-# timer_total = 0
-# timer_exclude_network = 0
-
-# timer_toal_start = time.time()
-# recv_msg = b''
-
-# total_result = []
-    
-
-# timer_model = 0
-# total_inputs = len(input_indexs)
-# recv_input_cnt = 0
-
-# while True:
-#     recv_input_cnt = 0
-#     while recv_input_cnt < total_inputs:
-#         try:
-#             while len(recv_msg) < 4:
-#                 recv_msg += client_socket.recv(4)
-#             msg_size_bytes = recv_msg[:4]
-#             recv_msg = recv_msg[4:]
-#             total_recv_msg_size = struct.unpack('i', msg_size_bytes)[0]
-#             if total_recv_msg_size == 0:
-#                 client_socket.sendall(struct.pack('i', 0))
-#                 break
-#         except:
-#             break
-
-#         while len(recv_msg) < total_recv_msg_size:
-#             recv_msg += client_socket.recv(total_recv_msg_size)
+        # Format : {index : data, ...}
+        while len(recv_msg) < total_recv_msg_size:
+            recv_msg += client_socket.recv(total_recv_msg_size)
         
-#         msg_data_bytes = recv_msg[:total_recv_msg_size]
-#         recv_msg = recv_msg[total_recv_msg_size:]
-#         data = pickle.loads(msg_data_bytes)
+        msg_data_bytes = recv_msg[:total_recv_msg_size]
+        recv_msg = recv_msg[total_recv_msg_size:]
+        data = pickle.loads(msg_data_bytes)
+        recv_queue.put(data)
 
-#         for key in data.keys():
-#             # print('input_{}'.format(key))
-#             model.set_input('input_{}'.format(key), data[key])
-#             recv_input_cnt += 1
 
-#     if total_recv_msg_size == 0:
-#         break
-
-#     timer_exclude_network_start = time.time()
-
-#     timer_inference_start = time.time()
-
-#     time_start = time.time()
-#     model.run()
-#     timer_model += time.time() - time_start
-
-#     out = model.get_output(0).numpy()
-
-#     timer_inference += time.time() - timer_inference_start
-#     timer_exclude_network += time.time() - timer_exclude_network_start
-#     send_obj = pickle.dumps({0 : out})
-#     total_send_msg_size = len(send_obj)
-#     send_msg = struct.pack('i', total_send_msg_size) + send_obj
-#     client_socket.sendall(send_msg)
-
-def recv_and_run(send_queue):
+def inference(recv_queue, send_queue):
     # Load lib
     lib_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
     lib = tvm.runtime.load_module(lib_path)
@@ -202,60 +144,129 @@ def recv_and_run(send_queue):
     total_inputs = len(input_indexs)
     recv_input_cnt = 0
     print("All Loaded")
+    end_flag = False
     while True:
-        recv_input_cnt = 0
-        while recv_input_cnt < total_inputs:
-            try:
-                while len(recv_msg) < 4:
-                    recv_msg += client_socket.recv(4)
-                msg_size_bytes = recv_msg[:4]
-                recv_msg = recv_msg[4:]
-                total_recv_msg_size = struct.unpack('i', msg_size_bytes)[0]
-                if total_recv_msg_size == 0:
+        if not recv_queue.empty():
+            # Get data
+            data = recv_queue.get()
+
+            recv_input_cnt = 0
+            # exit codition : {-1 : -1}
+            while recv_input_cnt < total_inputs:
+                if -1 in data.keys():
+                    while recv_queue.qsize() != 0:
+                        print("End inference")
+                        # Clean recv_queue
+                        recv_queue.get()
                     send_queue.put({-1 : -1})
+                    end_flag = True
                     break
-            except:
+
+                for key in data.keys():
+                    # print('input_{}'.format(key))
+                    model.set_input('input_{}'.format(key), data[key])
+                    recv_input_cnt += 1
+
+            if end_flag:
                 break
 
-            while len(recv_msg) < total_recv_msg_size:
-                recv_msg += client_socket.recv(total_recv_msg_size)
+            time_start = time.time()
+            model.run()
+            timer_model += time.time() - time_start
+
+            out = model.get_output(0).numpy()
+
+            send_queue.put({0 : out})
+
+
+# def recv_data_and_inference(recv_queue, send_queue):
+#     # Load lib
+#     lib_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
+#     lib = tvm.runtime.load_module(lib_path)
+
+#     # Load params
+#     params_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
+#     with open(params_path, "rb") as fi:
+#         loaded_params = bytearray(fi.read())
+
+#     # load graph_json
+#     graph_json_path = "../src/graph/{}_{}_{}_{}_{}-{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_points[0], args.partition_points[1])
+#     with open(graph_json_path, "r") as json_file:
+#         graph_json = json.load(json_file)
+
+#     # get input and output index
+#     input_indexs = graph_json['extra']["inputs"]
+#     output_indexs = graph_json['extra']["outputs"]
+#     del graph_json['extra'] 
+
+#     # create graph_executor
+#     graph_json_str = json.dumps(graph_json)
+#     model = graph_executor.create(graph_json_str, lib, dev)
+#     model.load_params(loaded_params)
+
+#     # timer INIT
+#     timer_inference = 0
+#     timer_total = 0
+#     timer_exclude_network = 0
+
+#     timer_toal_start = time.time()
+#     recv_msg = b''
+
+#     total_result = []
+        
+
+#     timer_model = 0
+#     total_inputs = len(input_indexs)
+#     recv_input_cnt = 0
+#     print("All Loaded")
+#     while True:
+#         recv_input_cnt = 0
+#         while recv_input_cnt < total_inputs:
+#             try:
+#                 while len(recv_msg) < 4:
+#                     recv_msg += client_socket.recv(4)
+#                 msg_size_bytes = recv_msg[:4]
+#                 recv_msg = recv_msg[4:]
+#                 total_recv_msg_size = struct.unpack('i', msg_size_bytes)[0]
+#                 if total_recv_msg_size == 0:
+#                     send_queue.put({-1 : -1})
+#                     break
+#             except:
+#                 break
+
+#             while len(recv_msg) < total_recv_msg_size:
+#                 recv_msg += client_socket.recv(total_recv_msg_size)
             
-            msg_data_bytes = recv_msg[:total_recv_msg_size]
-            recv_msg = recv_msg[total_recv_msg_size:]
-            data = pickle.loads(msg_data_bytes)
+#             msg_data_bytes = recv_msg[:total_recv_msg_size]
+#             recv_msg = recv_msg[total_recv_msg_size:]
+#             data = pickle.loads(msg_data_bytes)
 
-            for key in data.keys():
-                # print('input_{}'.format(key))
-                model.set_input('input_{}'.format(key), data[key])
-                recv_input_cnt += 1
+#             for key in data.keys():
+#                 # print('input_{}'.format(key))
+#                 model.set_input('input_{}'.format(key), data[key])
+#                 recv_input_cnt += 1
 
-        if total_recv_msg_size == 0:
-            break
+#         if total_recv_msg_size == 0:
+#             break
 
-        timer_exclude_network_start = time.time()
+#         timer_exclude_network_start = time.time()
 
-        timer_inference_start = time.time()
+#         timer_inference_start = time.time()
 
-        time_start = time.time()
-        model.run()
-        timer_model += time.time() - time_start
+#         time_start = time.time()
+#         model.run()
+#         timer_model += time.time() - time_start
 
-        out = model.get_output(0).numpy()
+#         out = model.get_output(0).numpy()
 
-        send_queue.put({0 : out})
+#         send_queue.put({0 : out})
 
-        # timer_inference += time.time() - timer_inference_start
-        # timer_exclude_network += time.time() - timer_exclude_network_start
-        # send_obj = pickle.dumps({0 : out})
-        # total_send_msg_size = len(send_obj)
-        # send_msg = struct.pack('i', total_send_msg_size) + send_obj
-        # client_socket.sendall(send_msg)
 
-def send_img(send_queue):
+def send_data(send_queue):
     while True:
         if not send_queue.empty():
             # Get data
-            data = send_queue.get_nowait()
+            data = send_queue.get()
 
             # exit codition : {-1 : -1}
             if -1 in data.keys():
@@ -280,14 +291,18 @@ def send_img(send_queue):
     print('send_img End')
 
 if __name__ == '__main__':
+    recv_queue = Queue()
     send_queue = Queue()
-    p1 = Process(target=recv_and_run, args=(send_queue,))
-    p2 = Process(target=send_img, args=(send_queue,))
+    p0 = Process(target=recv_data, args=(recv_queue, ))
+    p1 = Process(target=inference, args=(recv_queue, send_queue))
+    p2 = Process(target=send_data, args=(send_queue,))
     # p3 = Process(target=recv_img, args=(frame_queue,))
+    p0.start()
     p1.start() 
     p2.start()
     # p3.start() 
     stime = time.time()
+    p0.join()
     p1.join(); 
     p2.join(); 
     # p3.join()

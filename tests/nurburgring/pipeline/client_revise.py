@@ -16,7 +16,6 @@ from argparse import ArgumentParser
 import ntplib 
 from multiprocessing import Process, Queue
 import os
-import asyncio
 
 ntp_time_server = 'time.windows.com'               # NTP Server Domain Or IP 
 ntp_time_server = 'time.google.com'               # NTP Server Domain Or IP 
@@ -91,7 +90,7 @@ img_size = args.img_size
 org=(50,100)
 font=cv2.FONT_HERSHEY_SIMPLEX
 
-def generate_img(frame_queue, send_queue):
+def read_and_inference(frame_queue, send_queue):
 
     # Load models
     model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
@@ -127,30 +126,6 @@ def generate_img(frame_queue, send_queue):
         model.load_params(loaded_params)
         models.append(model)
 
-    # # Load lib
-    # lib_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
-    # lib = tvm.runtime.load_module(lib_path)
-    
-    # # Load params
-    # params_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
-    # with open(params_path, "rb") as fi:
-    #     loaded_params = bytearray(fi.read())
-
-    # # load graph_json
-    # graph_json_path = "../src/graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_point[0])
-    # with open(graph_json_path, "r") as json_file:
-    #     graph_json = json.load(json_file)
-
-    # # get input and output index
-    # input_indexs = graph_json['extra']["inputs"]
-    # output_indexs = graph_json['extra']["outputs"]
-    # del graph_json['extra'] 
-
-    # # create graph_executor
-    # graph_json_str = json.dumps(graph_json)
-    # model = graph_executor.create(graph_json_str, lib, dev)
-    # model.load_params(loaded_params)
-
     timer_model = 0
 
     # Load video file
@@ -171,8 +146,6 @@ def generate_img(frame_queue, send_queue):
         try:
             frame = preprocess(frame)
         except:
-            # send_msg = struct.pack('i', 0)
-            # client_socket.sendall(send_msg)
             send_queue.put({-1 : -1})
             break
         # TIMER MODEL - start
@@ -181,7 +154,6 @@ def generate_img(frame_queue, send_queue):
 
         in_data[0] = input_data
 
-        # loop = asyncio.get_event_loop()
         pre_outputs = []
         if len(models) == 0:
             pre_outputs = [0]
@@ -212,48 +184,12 @@ def generate_img(frame_queue, send_queue):
         # send_queue.put(outs)
         frame_queue.put(frame)
 
-
-        # # Receive Mesg
-        # while len(recv_msg) < 4:
-        #     recv_msg += client_socket.recv(4)
-
-        # msg_size_bytes = recv_msg[:4]
-        # recv_msg = recv_msg[4:]
-        # total_recv_msg_size = struct.unpack('i', msg_size_bytes)[0]
-
-        # # Exit condition
-        # if total_recv_msg_size == 0:
-        #     break 
-
-        # # Receive data object
-        # while len(recv_msg) < total_recv_msg_size:
-        #     recv_msg += client_socket.recv(total_recv_msg_size)
-
-        # ## TODO : get output and parse 
-        # msg_data_bytes = recv_msg[:total_recv_msg_size]
-        # data = pickle.loads(msg_data_bytes)
-        # recv_msg = recv_msg[total_recv_msg_size:]
-
-        # outs = []
-        # for key in data.keys():
-        #     outs.append(data[key])
-        
-        # img_in_rgb = frame_queue.get()
-        # # print(out.flatten()[:10])
-        # th = cv2.resize(cv2.threshold(np.squeeze(outs[0].transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
-        # img_in_rgb[th == 1] = [0, 0, 255]
-
-        # if args.visualize:
-        #     cv2.imshow("received - client", img_in_rgb)
-        #     if cv2.waitKey(1) & 0xFF == ord('q'):
-        #         break
-        
-        # print(1/(time.time() - s_start))
         fpss.append(1/(time.time() - s_start))
     print("Mean FPS :", np.mean(fpss))
     print(timer_model)
     print('generate_img End')
     client_socket.close()
+
 
 def sync_send_img(data):
     # Packing data
@@ -281,7 +217,7 @@ def send_img(send_queue):
     while True:
         if not send_queue.empty():
             # Get data
-            data = send_queue.get_nowait()
+            data = send_queue.get()
 
             # exit codition : {-1 : -1}
             if -1 in data.keys():
@@ -304,6 +240,7 @@ def send_img(send_queue):
     # Exit
     # client_socket.close()
     print('send_img End')
+
 
 def recv_img(frame_queue):
     recv_msg = b''
@@ -334,7 +271,6 @@ def recv_img(frame_queue):
             outs.append(data[key])
         
         img_in_rgb = frame_queue.get()
-        # print(out.flatten()[:10])
         th = cv2.resize(cv2.threshold(np.squeeze(outs[0].transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
         img_in_rgb[th == 1] = [0, 0, 255]
 
@@ -348,7 +284,7 @@ def recv_img(frame_queue):
 if __name__ == '__main__':
     frame_queue = Queue()
     send_queue = Queue()
-    p1 = Process(target=generate_img, args=(frame_queue, send_queue))
+    p1 = Process(target=read_and_inference, args=(frame_queue, send_queue))
     p2 = Process(target=send_img, args=(send_queue,))
     p3 = Process(target=recv_img, args=(frame_queue,))
     p1.start() 
