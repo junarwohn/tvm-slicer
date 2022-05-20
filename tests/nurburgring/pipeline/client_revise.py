@@ -181,8 +181,7 @@ def read_and_inference(frame_queue, send_queue):
 
         fpss.append(1/(time.time() - s_start))
     print("Mean FPS :", np.mean(fpss))
-    print(timer_model)
-    print('generate_img End')
+    # print(timer_model)
     client_socket.close()
 
 
@@ -217,7 +216,7 @@ def send_img(send_queue):
             # exit codition : {-1 : -1}
             if -1 in data.keys():
                 while send_queue.qsize() != 0:
-                    print("Exit Condition")
+                    # print("Exit Condition")
                     # Clean send_queue
                     send_queue.get()
                 send_msg = struct.pack('i', 0)
@@ -234,7 +233,7 @@ def send_img(send_queue):
         
     # Exit
     # client_socket.close()
-    print('send_img End')
+    # print('send_img End')
 
 
 def recv_img(frame_queue):
@@ -273,10 +272,12 @@ def recv_img(frame_queue):
             cv2.imshow("received - client", img_in_rgb)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
-    print('recv_img End')
+    # print('recv_img End')
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':
+    print("------------------------")
+    print(args.model, ", ", args.target, ", ", args.img_size, ", ", args.opt_level, ", ", 'partition points :', args.partition_points, sep='')
     frame_queue = Queue()
     send_queue = Queue()
     p1 = Process(target=read_and_inference, args=(frame_queue, send_queue))
@@ -289,4 +290,5 @@ if __name__ == '__main__':
     p1.join(); 
     p2.join(); 
     p3.join()
-    print(time.time() - stime)
+    print("Total Time :", time.time() - stime)
+    print("------------------------")
