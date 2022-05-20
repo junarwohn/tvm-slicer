@@ -9,7 +9,7 @@ parser.add_argument('--img_size', '-i', type=int, default=512, help='set image s
 parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
 parser.add_argument('--target', '-t', type=str, default='llvm', help='name of taget')
 parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_level')
-parser.add_argument('--ip', type=str, default='127.0.0.1', help='input ip of host')
+parser.add_argument('--ip', type=str, default='192.168.0.184', help='input ip of host')
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
 parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
 parser.add_argument('--visualize', '-v', type=int, default=0, help='visualize option')
@@ -33,13 +33,14 @@ def combination(l):
 
 combi = combination(partition_points[1:-1])
 # for com in combi:
-#     print("python3 client_revise.py -m {} -o {} -i {} -t {} -v 1 -p".format(args.model, args.opt_level, args.img_size, args.target), *([first_index] + com))
-#     # print("python3 client_revise.py -m {} -o {} -i {} -t {} -p".format(args.model, args.opt_level, args.img_size, args.target), *([first_index] + com))
+#     # print("python3 client_revise.py -m {} -o {} -i {} -t {} -v 1 -p".format(args.model, args.opt_level, args.img_size, args.target), *([first_index] + com))
+#     print("python3 client_revise.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), *([first_index] + com))
 #     print("sleep 5")
-#     print("python3 client_revise.py -m {} -o {} -i {} -t {} -v 1 -p".format(args.model, args.opt_level, args.img_size, args.target), *([first_index] + com), ">> client_log.txt")
+# #     print("python3 client_revise.py -m {} -o {} -i {} -t {} -v 1 -p".format(args.model, args.opt_level, args.img_size, args.target), *([first_index] + com), ">> client_log.txt")
+#     print("python3 client_revise.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), *([first_index] + com), ">> client_log.txt")
 #     # print("python3 client_revise.py -m {} -o {} -i {} -t {} -p".format(args.model, args.opt_level, args.img_size, args.target), *([first_index] + com), ">> client_log.txt")
 #     print("sleep 5")
 
 for com in combi:
-    print("python3 server_revise.py -m {} -o {} -i {} -t {} -p".format(args.model, args.opt_level, args.img_size, args.target), com[-1], last_index)
-    print("python3 server_revise.py -m {} -o {} -i {} -t {} -p".format(args.model, args.opt_level, args.img_size, args.target), com[-1], last_index, ">> client_log.txt")
+    print("python3 server_revise.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), com[-1], last_index)
+    print("python3 server_revise.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), com[-1], last_index, ">> client_log.txt")
