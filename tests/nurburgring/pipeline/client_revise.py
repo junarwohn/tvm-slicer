@@ -91,7 +91,6 @@ org=(50,100)
 font=cv2.FONT_HERSHEY_SIMPLEX
 
 def read_and_inference(frame_queue, send_queue):
-
     # Load models
     model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
     lib = tvm.runtime.load_module(model_path)
@@ -132,9 +131,6 @@ def read_and_inference(frame_queue, send_queue):
     cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
     
     in_data = {0 : 0}
-    out_queue = []
-    # Recv msg
-    recv_msg = b''
 
     # Start loop
     # TODO : get_data fuction to make modulize getting frames
@@ -159,7 +155,6 @@ def read_and_inference(frame_queue, send_queue):
             pre_outputs = [0]
         for in_indexs, out_indexs, model in zip(model_input_indexs, model_output_indexs, models):
             # set input
-            # print(in_indexs)
             for input_index in in_indexs:
                 model.set_input("input_{}".format(input_index), in_data[input_index])
             # run model

@@ -2,7 +2,131 @@
     "nodes": [
         {
             "op": "null",
-            "name": "input_31",
+            "name": "input_20",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "5",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_multiply_round_clip_cast_1",
+                "out_layout": "",
+                "kernel_layout": "OIHW",
+                "data_layout": "NCHW",
+                "hash": "cbf82f11f3177c85"
+            },
+            "inputs": []
+        },
+        {
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_cast_divide_1",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "1",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_cast_divide_1",
+                "hash": "636a5321792fc858"
+            },
+            "inputs": [
+                [
+                    0,
+                    0,
+                    0
+                ]
+            ]
+        },
+        {
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_nn_max_pool2d_1",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "1",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_nn_max_pool2d_1",
+                "out_layout": "",
+                "layout": "NCHW",
+                "hash": "4ed73dc5cd3319f1"
+            },
+            "inputs": [
+                [
+                    1,
+                    0,
+                    0
+                ]
+            ]
+        },
+        {
+            "op": "null",
+            "name": "p14",
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "p15",
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "p16",
+            "inputs": []
+        },
+        {
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_2",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "4",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_2",
+                "out_layout": "",
+                "kernel_layout": "OIHW",
+                "data_layout": "NCHW",
+                "hash": "4a7612bf260c4695"
+            },
+            "inputs": [
+                [
+                    2,
+                    0,
+                    0
+                ],
+                [
+                    3,
+                    0,
+                    0
+                ],
+                [
+                    4,
+                    0,
+                    0
+                ],
+                [
+                    5,
+                    0,
+                    0
+                ]
+            ]
+        },
+        {
+            "op": "null",
+            "name": "p17",
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "p18",
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "p19",
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "p20",
+            "inputs": []
+        },
+        {
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_multiply_round_clip_cast_2",
             "attrs": {
                 "num_outputs": "1",
                 "num_inputs": "5",
@@ -13,7 +137,33 @@
                 "data_layout": "NCHW",
                 "hash": "0fc1d36e3a42d9cc"
             },
-            "inputs": []
+            "inputs": [
+                [
+                    6,
+                    0,
+                    0
+                ],
+                [
+                    7,
+                    0,
+                    0
+                ],
+                [
+                    8,
+                    0,
+                    0
+                ],
+                [
+                    9,
+                    0,
+                    0
+                ],
+                [
+                    10,
+                    0,
+                    0
+                ]
+            ]
         },
         {
             "op": "tvm_op",
@@ -27,7 +177,7 @@
             },
             "inputs": [
                 [
-                    0,
+                    11,
                     0,
                     0
                 ]
@@ -47,7 +197,7 @@
             },
             "inputs": [
                 [
-                    1,
+                    12,
                     0,
                     0
                 ]
@@ -83,22 +233,22 @@
             },
             "inputs": [
                 [
-                    2,
+                    13,
                     0,
                     0
                 ],
                 [
-                    3,
+                    14,
                     0,
                     0
                 ],
                 [
-                    4,
+                    15,
                     0,
                     0
                 ],
                 [
-                    5,
+                    16,
                     0,
                     0
                 ]
@@ -139,27 +289,27 @@
             },
             "inputs": [
                 [
-                    6,
+                    17,
                     0,
                     0
                 ],
                 [
-                    7,
+                    18,
                     0,
                     0
                 ],
                 [
-                    8,
+                    19,
                     0,
                     0
                 ],
                 [
-                    9,
+                    20,
                     0,
                     0
                 ],
                 [
-                    10,
+                    21,
                     0,
                     0
                 ]
@@ -174,11 +324,23 @@
         7,
         8,
         9,
-        10
+        10,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21
     ],
     "heads": [
-        [
+        [            
             11,
+            0,
+            0
+        ],
+        [
+            22,
             0,
             0
         ]
@@ -187,6 +349,17 @@
         "dltype": [
             "list_str",
             [
+                "int8",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
                 "int8",
                 "float32",
                 "float32",
@@ -215,12 +388,34 @@
                 2,
                 2,
                 2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
                 2
             ]
         ],
         "storage_id": [
             "list_int",
             [
+                10,
+                14,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
                 19,
                 23,
                 28,
@@ -238,6 +433,72 @@
         "shape": [
             "list_shape",
             [
+                [
+                    1,
+                    32,
+                    256,
+                    256
+                ],
+                [
+                    1,
+                    32,
+                    256,
+                    256
+                ],
+                [
+                    1,
+                    32,
+                    128,
+                    128
+                ],
+                [
+                    64,
+                    32,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    64,
+                    128,
+                    128
+                ],
+                [
+                    64,
+                    64,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
                 [
                     1,
                     64,
@@ -326,13 +587,25 @@
         9,
         10,
         11,
-        12
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
     ],
     "extra": {
         "inputs": [
-            31
+            20
         ],
         "outputs": [
+            31,
             42
         ]
     }

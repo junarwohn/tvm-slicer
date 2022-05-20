@@ -21,7 +21,6 @@ from multiprocessing import Process, Queue
 ntp_time_server = 'time.windows.com'               # NTP Server Domain Or IP 
 ntp_time_server = 'time.google.com'               # NTP Server Domain Or IP 
 g_ntp_client = ntplib.NTPClient() 
-#response = c.eequest(timeServer, version=3) 
 
 parser = ArgumentParser()
 parser.add_argument('--start_point', '-s', type=int, default=0)
@@ -147,12 +146,11 @@ def inference(recv_queue, send_queue):
     end_flag = False
     while True:
         if not recv_queue.empty():
-            # Get data
-            data = recv_queue.get()
-
             recv_input_cnt = 0
             # exit codition : {-1 : -1}
             while recv_input_cnt < total_inputs:
+                # Get data
+                data = recv_queue.get()
                 if -1 in data.keys():
                     while recv_queue.qsize() != 0:
                         print("End inference")

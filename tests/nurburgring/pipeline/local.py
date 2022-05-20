@@ -122,7 +122,6 @@ while (cap.isOpened()):
     out = outd.numpy().astype(np.float32)
     # ----------------------------
     timer_inference += time.time() - timer_inference_start
-    print(out)
     # ----------------------------
     # # Visualize Part
     # ----------------------------
