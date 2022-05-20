@@ -159,6 +159,9 @@ def generate_img(frame_queue, send_queue):
     
     in_data = {0 : 0}
     out_queue = []
+    # Recv msg
+    recv_msg = b''
+
     # Start loop
     # TODO : get_data fuction to make modulize getting frames
     # TODO : This version sends all intermediate output, should be changed afterwards
@@ -207,6 +210,42 @@ def generate_img(frame_queue, send_queue):
         # Put data to send msg process
         # send_queue.put(outs)
         frame_queue.put(frame)
+
+
+        # Receive Mesg
+        while len(recv_msg) < 4:
+            recv_msg += client_socket.recv(4)
+
+        msg_size_bytes = recv_msg[:4]
+        recv_msg = recv_msg[4:]
+        total_recv_msg_size = struct.unpack('i', msg_size_bytes)[0]
+
+        # Exit condition
+        if total_recv_msg_size == 0:
+            break 
+
+        # Receive data object
+        while len(recv_msg) < total_recv_msg_size:
+            recv_msg += client_socket.recv(total_recv_msg_size)
+
+        ## TODO : get output and parse 
+        msg_data_bytes = recv_msg[:total_recv_msg_size]
+        data = pickle.loads(msg_data_bytes)
+        recv_msg = recv_msg[total_recv_msg_size:]
+
+        outs = []
+        for key in data.keys():
+            outs.append(data[key])
+        
+        img_in_rgb = frame_queue.get()
+        # print(out.flatten()[:10])
+        th = cv2.resize(cv2.threshold(np.squeeze(outs[0].transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
+        img_in_rgb[th == 1] = [0, 0, 255]
+
+        if args.visualize:
+            cv2.imshow("received - client", img_in_rgb)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
     print(timer_model)
     print('generate_img End')
@@ -307,12 +346,12 @@ if __name__ == '__main__':
     send_queue = Queue()
     p1 = Process(target=generate_img, args=(frame_queue, send_queue))
     p2 = Process(target=send_img, args=(send_queue,))
-    p3 = Process(target=recv_img, args=(frame_queue,))
+    # p3 = Process(target=recv_img, args=(frame_queue,))
     p1.start() 
     p2.start()
-    p3.start() 
+    # p3.start() 
     stime = time.time()
     p1.join(); 
     p2.join(); 
-    p3.join()
+    # p3.join()
     print(time.time() - stime)
