@@ -166,6 +166,7 @@ def generate_img(frame_queue, send_queue):
     # TODO : get_data fuction to make modulize getting frames
     # TODO : This version sends all intermediate output, should be changed afterwards
     while (cap.isOpened()):
+        s_start = time.time()
         ret, frame = cap.read()
         try:
             frame = preprocess(frame)
@@ -246,7 +247,8 @@ def generate_img(frame_queue, send_queue):
             cv2.imshow("received - client", img_in_rgb)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
-
+        
+        print(1/(time.time() - s_start))
     print(timer_model)
     print('generate_img End')
     client_socket.close()
