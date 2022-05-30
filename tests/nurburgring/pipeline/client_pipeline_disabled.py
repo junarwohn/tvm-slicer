@@ -211,8 +211,8 @@ def read_and_inference():
             
             # run model
             model.run()
-            # SYNC
-            dev.sync()
+            # # SYNC
+            # dev.sync()
 
             # TIMER
             timer_client_network_start = time.time()
