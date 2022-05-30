@@ -37,13 +37,13 @@ print("rm server_log.txt")
 combi = combination(partition_points[1:-1])
 
 print("echo $(date) >> client_log.txt")
-for com in combi:
-    print("python3 client_pipeline_disabled.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), *([first_index] + com))
-    print("sleep 5")
-    print("python3 client_pipeline_disabled.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), *([first_index] + com), ">> client_log.txt")
-    print("sleep 5")
-
-# print("echo $(date) >> server_log.txt")
 # for com in combi:
-#     print("python3 server_pipeline_disabled.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), com[-1], last_index)
-#     print("python3 server_pipeline_disabled.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), com[-1], last_index, ">> server_log.txt")
+#     print("python3 client_pipeline_enabled.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), *([first_index] + com))
+#     print("sleep 5")
+#     print("python3 client_pipeline_enabled.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), *([first_index] + com), ">> client_log.txt")
+#     print("sleep 5")
+
+print("echo $(date) >> server_log.txt")
+for com in combi:
+    print("python3 server_pipeline_enabled.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), com[-1], last_index)
+    print("python3 server_pipeline_enabled.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), com[-1], last_index, ">> server_log.txt")

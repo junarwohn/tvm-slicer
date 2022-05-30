@@ -1,0 +1,76 @@
+2022. 05. 30. (월) 14:47:42 KST
+========================
+timer_server_total 20.537333965301514
+timer_server_network 19.687243461608887
+timer_server_exclude network 0.850090503692627
+========================
+========================
+timer_server_total 23.715099334716797
+timer_server_network 22.82013249397278
+timer_server_exclude network 0.8949668407440186
+========================
+========================
+timer_server_total 25.558463096618652
+timer_server_network 24.65320587158203
+timer_server_exclude network 0.9052572250366211
+========================
+========================
+timer_server_total 25.726082801818848
+timer_server_network 24.649577617645264
+timer_server_exclude network 1.076505184173584
+========================
+========================
+timer_server_total 26.612421989440918
+timer_server_network 25.701197624206543
+timer_server_exclude network 0.911224365234375
+========================
+========================
+timer_server_total 27.96083688735962
+timer_server_network 26.996134042739868
+timer_server_exclude network 0.964702844619751
+========================
+========================
+timer_server_total 26.296883821487427
+timer_server_network 25.304166555404663
+timer_server_exclude network 0.9927172660827637
+========================
+========================
+timer_server_total 26.074353218078613
+timer_server_network 25.146698713302612
+timer_server_exclude network 0.927654504776001
+========================
+========================
+timer_server_total 24.585055112838745
+timer_server_network 23.644352197647095
+timer_server_exclude network 0.9407029151916504
+========================
+========================
+timer_server_total 26.190678119659424
+timer_server_network 25.262940645217896
+timer_server_exclude network 0.9277374744415283
+========================
+========================
+timer_server_total 26.622595071792603
+timer_server_network 25.663467407226562
+timer_server_exclude network 0.95912766456604
+========================
+========================
+timer_server_total 26.680440187454224
+timer_server_network 25.73289442062378
+timer_server_exclude network 0.9475457668304443
+========================
+========================
+timer_server_total 26.78929829597473
+timer_server_network 25.88842463493347
+timer_server_exclude network 0.9008736610412598
+========================
+========================
+timer_server_total 27.05052638053894
+timer_server_network 26.103912353515625
+timer_server_exclude network 0.9466140270233154
+========================
+========================
+timer_server_total 28.79603099822998
+timer_server_network 27.930362939834595
+timer_server_exclude network 0.8656680583953857
+========================
