@@ -32,12 +32,10 @@ def combination(l):
         return result
 
 combi = combination(partition_points[1:-1])
-# for com in combi:
-    # print("python3 client_pipeline_diasbled.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), *([first_index] + com))
-    # print("sleep 5")
-    # print("python3 client_pipeline_diasbled.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), *([first_index] + com), ">> client_log.txt")
-    # print("sleep 5")
+
 
 for com in combi:
-    print("python3 server_pipeline_diasbled.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), com[-1], last_index)
-    print("python3 server_pipeline_diasbled.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), com[-1], last_index, ">> server_log.txt")
+    print("python3 local_split_exec.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), *([first_index] + com), last_index)
+    print("sleep 5")
+    print("python3 local_split_exec.py -m {} -o {} -i {} -t {} --ip {} -p".format(args.model, args.opt_level, args.img_size, args.target, args.ip), *([first_index] + com), last_index, ">> local_log.txt")
+    print("sleep 5")

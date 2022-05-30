@@ -25,7 +25,7 @@ g_ntp_client = ntplib.NTPClient()
 parser = ArgumentParser()
 parser.add_argument('--start_point', '-s', type=int, default=0)
 parser.add_argument('--end_point', '-e', type=int, default=-1)
-parser.add_argument('--partition_point', '-p', type=int, default=0, help='set partition point')
+parser.add_argument('--partition_points', '-p', nargs='+', type=int, default=0, help='set partition point')
 parser.add_argument('--img_size', '-i', type=int, default=512, help='set image size')
 parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
 parser.add_argument('--target', '-t', type=str, default='llvm', help='name of taget')
@@ -73,7 +73,7 @@ model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, 
 lib = tvm.runtime.load_module(model_path)
 # model = graph_executor.GraphModule(lib['default'](dev))
 
-model_info_path = "../src/graph/{}_{}_full_{}_{}.json".format(args.model, args.target, args.img_size, args.opt_level)
+model_info_path = "../src/graph/{}_{}_{}_{}_{}-{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_points[0], args.partition_points[1])
 with open(model_info_path, "r") as json_file:
     model_info = json.load(json_file)
 
@@ -82,6 +82,7 @@ with open(param_path, "rb") as fi:
     loaded_params = bytearray(fi.read())
 
 # with tvm.transform.PassContext(opt_level=3):
+del model_info['extra'] 
 model = graph_executor.create(json.dumps(model_info), lib, dev)
 params = tvm.runtime.load_param_dict(loaded_params)
 model.load_params(loaded_params)
@@ -115,7 +116,7 @@ while (cap.isOpened()):
     # ----------------------------
     # # Inference Part
     # ----------------------------
-    model.set_input("input_1", input_data)
+    model.set_input("input_0", input_data)
     model.run()
     outd = model.get_output(0)
     # outd = model.get_output(4)

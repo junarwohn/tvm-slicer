@@ -24,6 +24,7 @@ parser.add_argument('--target', '-t', type=str, default='llvm', help='name of ta
 parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_level')
 parser.add_argument('--build', '-b', type=int, default=0, help='build model')
 parser.add_argument('--add_quantize_layer', '-q', type=int, default=0, help='add int8 quantize layer at sliced edge')
+parser.add_argument('--show_size', '-s', type=int, default=0, help='show size')
 args = parser.parse_args()
 
 def show_graph(json_data, file_name=None):
@@ -32,7 +33,11 @@ def show_graph(json_data, file_name=None):
     A = pgv.AGraph(directed=True)
     for node_idx, node in enumerate(json_data['nodes']):
         for src in node['inputs']:
-            A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]) + '{}'.format(json_data['attrs']['dltype'][1][src[0]]), node['name'] + '[{}]'.format(node_idx) + '{}'.format(json_data['attrs']['dltype'][1][node_idx]))
+            if args.show_size == 1:
+                print(src[0], json_data['attrs']['dltype'][1][src[0]], json_data['attrs']['shape'][1][src[0]])
+                A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]) + '{}'.format(json_data['attrs']['dltype'][1][src[0]]), node['name'] + '[{}]'.format(node_idx) + '{}'.format(json_data['attrs']['dltype'][1][node_idx]))
+            else:
+                A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]) + '{}'.format(json_data['attrs']['dltype'][1][src[0]]), node['name'] + '[{}]'.format(node_idx) + '{}'.format(json_data['attrs']['dltype'][1][node_idx]))
     if file_name:
         A.draw(file_name + '.png', format='png', prog='dot')
 
