@@ -1,0 +1,12 @@
+unet, cuda, 128, 3, partition points :[0, 9]
+========================
+timer_client_total 3.520651340484619
+timer_client_network 0.9355416297912598
+timer_client_exclude network 2.5851097106933594
+========================
+unet, cuda, 128, 3, partition points :[0, 9]
+========================
+timer_client_total 4.275198459625244
+timer_client_network 0.966228723526001
+timer_client_exclude network 3.308969736099243
+========================

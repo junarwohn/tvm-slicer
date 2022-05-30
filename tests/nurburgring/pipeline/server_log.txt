@@ -502,3 +502,13 @@ exclude network time : 3.0601305961608887
 network time : 30.020378828048706
 data receive size : 0
 data send size : 1048576
+========================
+timer_server_total 3.535242795944214
+timer_server_network 2.7151296138763428
+timer_server_exclude network 0.8201131820678711
+========================
+========================
+timer_server_total 4.289947271347046
+timer_server_network 3.4439990520477295
+timer_server_exclude network 0.8459482192993164
+========================
