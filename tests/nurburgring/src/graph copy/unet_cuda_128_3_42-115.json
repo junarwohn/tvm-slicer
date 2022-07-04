@@ -11,7 +11,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "c35c41a655f8a1a2"
+                "hash": "dac424a5efaeb7f7"
             },
             "inputs": []
         },
@@ -26,7 +26,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "cbf82f11f3177c85"
+                "hash": "d1cbc5cea5a46bd8"
             },
             "inputs": []
         },
@@ -41,7 +41,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "0fc1d36e3a42d9cc"
+                "hash": "4505bfd8c02dd1ab"
             },
             "inputs": []
         },
@@ -56,7 +56,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "0cf191d346f9c157"
+                "hash": "e3e90d4e9e7229a0"
             },
             "inputs": []
         },
@@ -68,7 +68,7 @@
                 "num_inputs": "1",
                 "flatten_data": "0",
                 "func_name": "tvmgen_default_fused_cast_divide",
-                "hash": "85165d63e18469f5"
+                "hash": "56af2c0c86bd559b"
             },
             "inputs": [
                 [
@@ -86,7 +86,7 @@
                 "num_inputs": "1",
                 "flatten_data": "0",
                 "func_name": "tvmgen_default_fused_cast_divide_1",
-                "hash": "636a5321792fc858"
+                "hash": "fb6f82e2d6857769"
             },
             "inputs": [
                 [
@@ -104,7 +104,7 @@
                 "num_inputs": "1",
                 "flatten_data": "0",
                 "func_name": "tvmgen_default_fused_cast_divide_2",
-                "hash": "264e358d1dbf32bc"
+                "hash": "b453805ab30bcbb7"
             },
             "inputs": [
                 [
@@ -122,7 +122,7 @@
                 "num_inputs": "1",
                 "flatten_data": "0",
                 "func_name": "tvmgen_default_fused_cast_divide_3",
-                "hash": "6bd59b3449230bf3"
+                "hash": "c129c06a6c572c9e"
             },
             "inputs": [
                 [
@@ -142,7 +142,7 @@
                 "func_name": "tvmgen_default_fused_nn_max_pool2d_3",
                 "out_layout": "",
                 "layout": "NCHW",
-                "hash": "8f41a8f1878e35e5"
+                "hash": "6e4252d40047a216"
             },
             "inputs": [
                 [
@@ -178,7 +178,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "507c2c1b845a6d33"
+                "hash": "d98f0c66b2ef4957"
             },
             "inputs": [
                 [
@@ -234,7 +234,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "8f709a2d2851a3c9"
+                "hash": "a03d52ea08fb1fca"
             },
             "inputs": [
                 [
@@ -295,7 +295,7 @@
                 "out_layout": "",
                 "kernel_layout": "IOHW",
                 "data_layout": "NCHW",
-                "hash": "2b546a346317a518"
+                "hash": "1dc68057403c9abe"
             },
             "inputs": [
                 [
@@ -333,7 +333,7 @@
                 "num_inputs": "2",
                 "flatten_data": "0",
                 "func_name": "tvmgen_default_fused_concatenate",
-                "hash": "a0cd721541e9f7e5"
+                "hash": "1ff8628806a7f050"
             },
             "inputs": [
                 [
@@ -374,7 +374,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "02e6e84308b7771f"
+                "hash": "b16d85a78219fd1e"
             },
             "inputs": [
                 [
@@ -430,7 +430,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "eef4cb8b0b95c0f6"
+                "hash": "fb7b7c4088293773"
             },
             "inputs": [
                 [
@@ -491,7 +491,7 @@
                 "out_layout": "",
                 "kernel_layout": "IOHW",
                 "data_layout": "NCHW",
-                "hash": "7c3bb1d0f4348302"
+                "hash": "15d704f51d333372"
             },
             "inputs": [
                 [
@@ -529,7 +529,7 @@
                 "num_inputs": "2",
                 "flatten_data": "0",
                 "func_name": "tvmgen_default_fused_concatenate_1",
-                "hash": "3a8a880cc13869bd"
+                "hash": "9abf971321be5871"
             },
             "inputs": [
                 [
@@ -570,7 +570,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "7be6ecb9f8d28f4d"
+                "hash": "092b3586ec7dbeca"
             },
             "inputs": [
                 [
@@ -626,7 +626,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "8cb240c20c9a61e5"
+                "hash": "0b5132345bbf9775"
             },
             "inputs": [
                 [
@@ -687,7 +687,7 @@
                 "out_layout": "",
                 "kernel_layout": "IOHW",
                 "data_layout": "NCHW",
-                "hash": "a19d4dacf72f18f3"
+                "hash": "2cca60bb8cd54817"
             },
             "inputs": [
                 [
@@ -725,7 +725,7 @@
                 "num_inputs": "2",
                 "flatten_data": "0",
                 "func_name": "tvmgen_default_fused_concatenate_2",
-                "hash": "0d688a8f5e75b65e"
+                "hash": "158fcbd77c2deccc"
             },
             "inputs": [
                 [
@@ -766,7 +766,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "f81b264d19b9a6be"
+                "hash": "0b7aef9e9e15e1c7"
             },
             "inputs": [
                 [
@@ -822,7 +822,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "afcc3e3243b199b7"
+                "hash": "0e505f02fbbc64e4"
             },
             "inputs": [
                 [
@@ -883,7 +883,7 @@
                 "out_layout": "",
                 "kernel_layout": "IOHW",
                 "data_layout": "NCHW",
-                "hash": "e2fccacfae4878e3"
+                "hash": "e2c69340c6f5e75e"
             },
             "inputs": [
                 [
@@ -921,7 +921,7 @@
                 "num_inputs": "2",
                 "flatten_data": "0",
                 "func_name": "tvmgen_default_fused_concatenate_3",
-                "hash": "88c150325a68c3fc"
+                "hash": "2db2f889e8344782"
             },
             "inputs": [
                 [
@@ -962,7 +962,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "0258e262c093a80d"
+                "hash": "d88580fb71e80ce6"
             },
             "inputs": [
                 [
@@ -1013,7 +1013,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "b83cfcda2b3569ee"
+                "hash": "697d7aa276bf8a9d"
             },
             "inputs": [
                 [
@@ -1059,7 +1059,7 @@
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "61cdf1c6242552b1"
+                "hash": "c3233e0e4820aef0"
             },
             "inputs": [
                 [
@@ -1407,50 +1407,230 @@
                 [
                     1,
                     16,
-                    512,
-                    512
-                ],
-                [
-                    1,
-                    32,
-                    256,
-                    256
-                ],
-                [
-                    1,
-                    64,
                     128,
                     128
                 ],
                 [
                     1,
-                    128,
+                    32,
                     64,
                     64
+                ],
+                [
+                    1,
+                    64,
+                    32,
+                    32
+                ],
+                [
+                    1,
+                    128,
+                    16,
+                    16
                 ],
                 [
                     1,
                     16,
-                    512,
-                    512
-                ],
-                [
-                    1,
-                    32,
-                    256,
-                    256
-                ],
-                [
-                    1,
-                    64,
                     128,
                     128
                 ],
                 [
                     1,
-                    128,
+                    32,
                     64,
                     64
+                ],
+                [
+                    1,
+                    64,
+                    32,
+                    32
+                ],
+                [
+                    1,
+                    128,
+                    16,
+                    16
+                ],
+                [
+                    1,
+                    128,
+                    8,
+                    8
+                ],
+                [
+                    256,
+                    128,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    256,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    256,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    256,
+                    8,
+                    8
+                ],
+                [
+                    256,
+                    256,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    256,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    256,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    256,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    256,
+                    8,
+                    8
+                ],
+                [
+                    256,
+                    128,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    128,
+                    16,
+                    16
+                ],
+                [
+                    1,
+                    256,
+                    16,
+                    16
+                ],
+                [
+                    128,
+                    256,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    128,
+                    16,
+                    16
+                ],
+                [
+                    128,
+                    128,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    128,
+                    16,
+                    16
+                ],
+                [
+                    128,
+                    64,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    64,
+                    32,
+                    32
                 ],
                 [
                     1,
@@ -1459,429 +1639,249 @@
                     32
                 ],
                 [
-                    256,
+                    64,
                     128,
                     3,
                     3
                 ],
                 [
                     1,
-                    256,
+                    64,
                     1,
                     1
                 ],
                 [
                     1,
-                    256,
+                    64,
                     1,
                     1
                 ],
                 [
                     1,
-                    256,
+                    64,
                     32,
                     32
                 ],
                 [
-                    256,
-                    256,
+                    64,
+                    64,
                     3,
                     3
                 ],
                 [
                     1,
-                    256,
+                    64,
                     1,
                     1
                 ],
                 [
                     1,
-                    256,
+                    64,
                     1,
                     1
                 ],
                 [
                     1,
-                    256,
+                    64,
                     1,
                     1
                 ],
                 [
                     1,
-                    256,
+                    64,
                     32,
                     32
                 ],
                 [
-                    256,
-                    128,
+                    64,
+                    32,
                     3,
                     3
                 ],
                 [
                     1,
-                    128,
+                    32,
                     1,
                     1
                 ],
                 [
                     1,
-                    128,
+                    32,
                     1,
                     1
                 ],
                 [
                     1,
-                    128,
+                    32,
                     1,
                     1
                 ],
                 [
                     1,
-                    128,
+                    32,
                     64,
                     64
                 ],
                 [
                     1,
-                    256,
+                    64,
                     64,
                     64
                 ],
                 [
-                    128,
-                    256,
+                    32,
+                    64,
                     3,
                     3
                 ],
                 [
                     1,
-                    128,
+                    32,
                     1,
                     1
                 ],
                 [
                     1,
-                    128,
+                    32,
                     1,
                     1
                 ],
                 [
                     1,
-                    128,
+                    32,
                     64,
                     64
                 ],
                 [
-                    128,
-                    128,
+                    32,
+                    32,
                     3,
                     3
                 ],
                 [
                     1,
-                    128,
+                    32,
                     1,
                     1
                 ],
                 [
                     1,
-                    128,
+                    32,
                     1,
                     1
                 ],
                 [
                     1,
-                    128,
+                    32,
                     1,
                     1
                 ],
                 [
                     1,
-                    128,
+                    32,
                     64,
                     64
                 ],
                 [
-                    128,
-                    64,
+                    32,
+                    16,
                     3,
                     3
                 ],
                 [
                     1,
-                    64,
+                    16,
                     1,
                     1
                 ],
                 [
                     1,
-                    64,
+                    16,
                     1,
                     1
                 ],
                 [
                     1,
-                    64,
+                    16,
                     1,
                     1
                 ],
                 [
                     1,
-                    64,
+                    16,
+                    128,
+                    128
+                ],
+                [
+                    1,
+                    32,
+                    128,
+                    128
+                ],
+                [
+                    16,
+                    32,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    16,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    16,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    16,
+                    128,
+                    128
+                ],
+                [
+                    16,
+                    16,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    16,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    16,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    16,
                     128,
                     128
                 ],
                 [
                     1,
-                    128,
-                    128,
-                    128
-                ],
-                [
-                    64,
-                    128,
+                    16,
                     3,
                     3
                 ],
                 [
                     1,
-                    64,
                     1,
                     1
                 ],
                 [
                     1,
-                    64,
                     1,
-                    1
-                ],
-                [
-                    1,
-                    64,
                     128,
                     128
-                ],
-                [
-                    64,
-                    64,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    64,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    64,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    64,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    64,
-                    128,
-                    128
-                ],
-                [
-                    64,
-                    32,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    256,
-                    256
-                ],
-                [
-                    1,
-                    64,
-                    256,
-                    256
-                ],
-                [
-                    32,
-                    64,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    256,
-                    256
-                ],
-                [
-                    32,
-                    32,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    256,
-                    256
-                ],
-                [
-                    32,
-                    16,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    512,
-                    512
-                ],
-                [
-                    1,
-                    32,
-                    512,
-                    512
-                ],
-                [
-                    16,
-                    32,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    512,
-                    512
-                ],
-                [
-                    16,
-                    16,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    512,
-                    512
-                ],
-                [
-                    1,
-                    16,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    1,
-                    512,
-                    512
                 ]
             ]
         ]
@@ -1977,7 +1977,7 @@
             42
         ],
         "outputs": [
-            115
+            79
         ]
     }
 }

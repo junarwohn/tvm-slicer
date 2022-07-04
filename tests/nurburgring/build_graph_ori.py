@@ -106,34 +106,17 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-upc = UnetPreProcessCallback()
-rewrite(upc, mod['main'])
-uc = UnetCallback(upc.match_node)
-out = rewrite(uc, mod['main'])
+# upc = UnetPreProcessCallback()
+# rewrite(upc, mod['main'])
+# uc = UnetCallback(upc.match_node)
+# out = rewrite(uc, mod['main'])
 
-out = relay.Function(out.params, relay.Tuple(uc.tmp + [out.body]), out.ret_type, out.type_params, out.attrs)
+# out = relay.Function(out.params, relay.Tuple(uc.tmp + [out.body]), out.ret_type, out.type_params, out.attrs)
 
-# out = mod
-
-print(out)
+out = mod
 
 with tvm.transform.PassContext(opt_level=args.opt_level):
     lib = relay.build(out, target, params=params)
-
-# if args.whole_build == 1:
-#     # if not os.path.isfile("./model/{}_{}_full_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
-#     if True:
-#         # with open(current_file_path + "./src/graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_full:
-#         #     json_graph_full = json.load(json_graph_full)
-#         #     # del json_graph_front['extra']
-#         with tvm.transform.PassContext(opt_level=args.opt_level):
-#             lib = relay.build(out, target, params=params)
-#             # lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_full))
-#         # lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
-#         lib.export_library(current_file_path + "./src/model/{}_{}_ori_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
-#         param_bytes = tvm.runtime.save_param_dict(lib.get_params())
-#         with open(current_file_path + "./src/model/{}_{}_ori_{}_{}.params".format(args.model, args.target, img_size, args.opt_level), "wb") as f:
-#             f.write(param_bytes)
 
 if args.whole_build == 1:
     # if not os.path.isfile("./model/{}_{}_full_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
@@ -145,27 +128,42 @@ if args.whole_build == 1:
             lib = relay.build(out, target, params=params)
             # lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_full))
         # lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
-        lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
+        lib.export_library(current_file_path + "./src/model/{}_{}_ori_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
         param_bytes = tvm.runtime.save_param_dict(lib.get_params())
-        with open(current_file_path + "./src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, img_size, args.opt_level), "wb") as f:
+        with open(current_file_path + "./src/model/{}_{}_ori_{}_{}.params".format(args.model, args.target, img_size, args.opt_level), "wb") as f:
             f.write(param_bytes)
 
-if args.front_build == 1:
-    # if not os.path.isfile("./model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
-    if True:
-        with open(current_file_path + "./src/graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_front:
-            json_graph_front = json.load(json_graph_front)
-            del json_graph_front['extra']
-            with tvm.transform.PassContext(opt_level=args.opt_level):
-                lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_front))
-            lib.export_library(current_file_path + "./src/model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
+# if args.whole_build == 1:
+#     # if not os.path.isfile("./model/{}_{}_full_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
+#     if True:
+#         # with open(current_file_path + "./src/graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_full:
+#         #     json_graph_full = json.load(json_graph_full)
+#         #     # del json_graph_front['extra']
+#         with tvm.transform.PassContext(opt_level=args.opt_level):
+#             lib = relay.build(out, target, params=params)
+#             # lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_full))
+#         # lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
+#         lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
+#         param_bytes = tvm.runtime.save_param_dict(lib.get_params())
+#         with open(current_file_path + "./src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, img_size, args.opt_level), "wb") as f:
+#             f.write(param_bytes)
 
-if args.back_build == 1:
-    # if not os.path.isfile("./model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
-    if True:
-        with open(current_file_path + "./src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_back:
-            json_graph_back = json.load(json_graph_back)
-            del json_graph_back['extra']
-            with tvm.transform.PassContext(opt_level=args.opt_level):
-                lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_back))
-            lib.export_library(current_file_path + "./src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
+# if args.front_build == 1:
+#     # if not os.path.isfile("./model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
+#     if True:
+#         with open(current_file_path + "./src/graph/{}_{}_front_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_front:
+#             json_graph_front = json.load(json_graph_front)
+#             del json_graph_front['extra']
+#             with tvm.transform.PassContext(opt_level=args.opt_level):
+#                 lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_front))
+#             lib.export_library(current_file_path + "./src/model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))
+
+# if args.back_build == 1:
+#     # if not os.path.isfile("./model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
+#     if True:
+#         with open(current_file_path + "./src/graph/{}_{}_back_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_back:
+#             json_graph_back = json.load(json_graph_back)
+#             del json_graph_back['extra']
+#             with tvm.transform.PassContext(opt_level=args.opt_level):
+#                 lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_back))
+#             lib.export_library(current_file_path + "./src/model/{}_{}_back_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point))

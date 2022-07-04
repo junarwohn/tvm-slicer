@@ -74,9 +74,23 @@ elif args.target == 'opencl':
 
 img_size = args.img_size 
 
-
-def read_and_inference(frame_queue, result_queue):
+def load_data():
     cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
+    data_queue = []
+    while (cap.isOpened()):
+        ret, frame = cap.read()
+        try:
+            frame = preprocess(frame)    
+        except:
+            data_queue.append([])
+            # frame_queue.put({-1:-1})
+            # result_queue.put({-1:-1})
+            break
+        data_queue.append(frame)
+    cap.release()
+    return data_queue
+
+def read_and_inference(data_queue, frame_queue, result_queue):
     model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
     lib = tvm.runtime.load_module(model_path)
 
@@ -93,14 +107,14 @@ def read_and_inference(frame_queue, result_queue):
     model = graph_executor.create(json.dumps(model_info), lib, dev)
     model.load_params(loaded_params)
 
-    while (cap.isOpened()):
-
-        ret, frame = cap.read()
+    while True:
         try:
-            frame = preprocess(frame)    
+            frame = data_queue.pop(0)
+            if len(frame) == 0:
+                frame_queue.put({-1:-1})
+                result_queue.put({-1:-1})
+                break
         except:
-            frame_queue.put({-1:-1})
-            result_queue.put({-1:-1})
             break
 
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
@@ -116,7 +130,49 @@ def read_and_inference(frame_queue, result_queue):
         result_queue.put(out)
         # ----------------------------
 
-    cap.release()
+
+# def read_and_inference(frame_queue, result_queue):
+#     cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
+#     model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
+#     lib = tvm.runtime.load_module(model_path)
+
+#     model_info_path = "../src/graph/{}_{}_{}_{}_{}-{}.json".format(args.model, args.target, args.img_size, args.opt_level, args.partition_points[0], args.partition_points[1])
+#     with open(model_info_path, "r") as json_file:
+#         model_info = json.load(json_file)
+
+#     param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
+#     with open(param_path, "rb") as fi:
+#         loaded_params = bytearray(fi.read())
+    
+#     del model_info['extra'] 
+
+#     model = graph_executor.create(json.dumps(model_info), lib, dev)
+#     model.load_params(loaded_params)
+
+#     while (cap.isOpened()):
+
+#         ret, frame = cap.read()
+#         try:
+#             frame = preprocess(frame)    
+#         except:
+#             frame_queue.put({-1:-1})
+#             result_queue.put({-1:-1})
+#             break
+
+#         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
+
+#         # ----------------------------
+#         # # Inference Part
+#         # ----------------------------
+#         model.set_input("input_0", input_data)
+#         model.run()
+#         outd = model.get_output(0)
+#         out = outd.numpy().astype(np.float32)
+#         frame_queue.put({0:frame})
+#         result_queue.put(out)
+#         # ----------------------------
+
+#     cap.release()
 
 def process_img(frame_queue,result_queue):
         while True:
@@ -134,7 +190,7 @@ def process_img(frame_queue,result_queue):
             th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
             img_in_rgb = img_in_rgb[0]
             img_in_rgb[th == 1] = [0, 0, 255]
-            print(img_in_rgb.flatten()[:10])
+            # print(img_in_rgb.flatten()[:10])
             if args.visualize:
                 cv2.imshow("received - client", img_in_rgb)
                 if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -144,11 +200,16 @@ def process_img(frame_queue,result_queue):
 if __name__ == '__main__':
     print("------------------------")
     print(args.model, ", ", args.target, ", ", args.img_size, ", ", args.opt_level, ", ", 'partition points :', args.partition_points, sep='')
+    # data_queue = Queue()
     frame_queue = Queue()
     result_queue = Queue()
-    p1 = Process(target=read_and_inference, args=(frame_queue, result_queue))
-    p2 = Process(target=process_img, args=(frame_queue,result_queue))
+    # p0 = Process(target=load_data, args=(data_queue,))
+    data_queue = load_data()
+    p1 = Process(target=read_and_inference, args=(data_queue, frame_queue, result_queue))
+    p2 = Process(target=process_img, args=(frame_queue, result_queue))
 
+    # p0.start()
+    # p0.join()
     p1.start() 
     p2.start()
     stime = time.time()

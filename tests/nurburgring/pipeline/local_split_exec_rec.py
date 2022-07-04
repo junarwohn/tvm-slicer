@@ -77,6 +77,7 @@ img_size = args.img_size
 
 
 def read_and_inference():
+    result = []
     # ----------------------------
     # # load data
     # ----------------------------
@@ -132,17 +133,19 @@ def read_and_inference():
     for graph_json_str in model_graph_json_strs:
         # unique_storage_id = np.unique(json.loads(graph_json_str)['attrs']['storage_id'][1])
         # print(len(unique_storage_id))
-        # print("Before create executor")
-        # for i in range(5):
-        #     print("Wait....", i)
-        #     time.sleep(1)
+        print("Before create executor")
+        for i in range(5):
+            print("Wait....", i)
+            time.sleep(1)
         model = graph_executor.create(graph_json_str, lib, dev)
+        print("Load params....")
+        time.sleep(5)
         model.load_params(loaded_params)
         models.append(model)
         
     in_data = {0 : 0}
     # ----------------------------
-
+    time.sleep(5)
     timer_set_input = {
         model_index : {
             input_index : 0 for input_index in model_info 
@@ -208,9 +211,9 @@ def read_and_inference():
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
         # ----------------------------
-
+        result.append(th)
     cap.release()
-
+    np.save("./split.npy", np.array(result))
     # ----------------------------
     # # Print infos
     # ----------------------------

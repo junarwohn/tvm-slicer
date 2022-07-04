@@ -1,11 +1,11 @@
 rm client_log.txt
 rm server_log.txt
 echo $(date) >> client_log.txt
-python3 client_pipeline_enabled.py -m unet -o 3 -i 128 -t cuda --ip 192.168.0.184 -p 0 9
+python3 client_pipeline_enabled.py -m unet -o 3 -i 128 -t cuda --ip 192.168.0.184 -p 0 9 -v 1
 sleep 5
 python3 client_pipeline_enabled.py -m unet -o 3 -i 128 -t cuda --ip 192.168.0.184 -p 0 9 >> client_log.txt
 sleep 5
-python3 client_pipeline_enabled.py -m unet -o 3 -i 128 -t cuda --ip 192.168.0.184 -p 0 9 20
+python3 client_pipeline_enabled.py -m unet -o 3 -i 128 -t cuda --ip 192.168.0.184 -p 0 9 20 -v 1
 sleep 5
 python3 client_pipeline_enabled.py -m unet -o 3 -i 128 -t cuda --ip 192.168.0.184 -p 0 9 20 >> client_log.txt
 sleep 5
