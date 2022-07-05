@@ -1,10 +1,1 @@
-2022. 07. 05. (화) 18:58:15 KST
-send_img End
-All Loaded
-19.594974994659424
-send_img End
-All Loaded
-19.99313974380493
-send_img End
-All Loaded
-20.17081356048584
+2022. 07. 05. (화) 19:42:20 KST

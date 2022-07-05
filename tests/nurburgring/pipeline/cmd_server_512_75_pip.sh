@@ -7,3 +7,5 @@ python3 server_pipeline_enabled.py -m unet -o 3 -i 512 -t cuda --ip 192.168.0.18
 python3 server_pipeline_enabled.py -m unet -o 3 -i 512 -t cuda --ip 192.168.0.184 -p 75 119 >> server_log.txt
 python3 server_pipeline_enabled.py -m unet -o 3 -i 512 -t cuda --ip 192.168.0.184 -p 75 119
 python3 server_pipeline_enabled.py -m unet -o 3 -i 512 -t cuda --ip 192.168.0.184 -p 75 119 >> server_log.txt
+python3 server_pipeline_enabled.py -m unet -o 3 -i 512 -t cuda --ip 192.168.0.184 -p 75 119
+python3 server_pipeline_enabled.py -m unet -o 3 -i 512 -t cuda --ip 192.168.0.184 -p 75 119 >> server_log.txt
