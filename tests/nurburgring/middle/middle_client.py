@@ -318,7 +318,8 @@ def inference_back(pass_queue, recv_queue, frame_queue):
         in_data = {}
         pass_flag = True
         recv_flag = True
-        while len(pass_data) != len(pass_queue_idxs) or pass_data != pass_queue_idxs:
+        while len(pass_data) != len(pass_queue_idxs):
+        # while len(pass_data) != len(pass_queue_idxs) or pass_data != pass_queue_idxs:
             if not pass_queue.empty():
                 pdata = pass_queue.get()
                 if len(pdata) == 0:
@@ -328,7 +329,8 @@ def inference_back(pass_queue, recv_queue, frame_queue):
                     pass_data.append(k)
                     in_data[k] = pdata[k]
 
-        while len(recv_data) != len(recv_queue_idxs) or recv_data != recv_queue_idxs:
+        while len(recv_data) != len(recv_queue_idxs):
+        # while len(recv_data) != len(recv_queue_idxs) or recv_data != recv_queue_idxs:
             if not recv_queue.empty():
                 rdata = recv_queue.get()
                 if len(rdata) == 0:
