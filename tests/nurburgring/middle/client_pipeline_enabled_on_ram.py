@@ -90,14 +90,6 @@ img_size = args.img_size
 org=(50,100)
 font=cv2.FONT_HERSHEY_SIMPLEX
 
-# Load models
-model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
-lib = tvm.runtime.load_module(model_path)
-
-param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
-with open(param_path, "rb") as fi:
-    loaded_params = bytearray(fi.read())
-
 def load_data():
     cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
     data_queue = []
@@ -115,9 +107,9 @@ def load_data():
     return data_queue
 
 def read_and_inference(data_queue, frame_queue, send_queue):
-    # # Load models
-    # model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
-    # lib = tvm.runtime.load_module(model_path)
+    # Load models
+    model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
+    lib = tvm.runtime.load_module(model_path)
     partition_points = args.partition_points
     current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
 
@@ -139,9 +131,9 @@ def read_and_inference(data_queue, frame_queue, send_queue):
         model_graph_json_strs.append(json.dumps(graph_json))
 
 
-    # param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
-    # with open(param_path, "rb") as fi:
-    #     loaded_params = bytearray(fi.read())
+    param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
+    with open(param_path, "rb") as fi:
+        loaded_params = bytearray(fi.read())
 
     models = []
     for graph_json_str in model_graph_json_strs:

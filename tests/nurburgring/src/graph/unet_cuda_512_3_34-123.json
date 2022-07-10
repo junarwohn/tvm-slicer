@@ -2,113 +2,71 @@
     "nodes": [
         {
             "op": "null",
-            "name": "input_9",
+            "name": "input_11",
             "attrs": {
                 "num_outputs": "1",
-                "num_inputs": "5",
+                "num_inputs": "1",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_multiply_round_clip_cast",
+                "func_name": "tvmgen_default_fused_nn_max_pool2d",
                 "out_layout": "",
-                "kernel_layout": "OIHW",
-                "data_layout": "NCHW",
-                "hash": "c35c41a655f8a1a2"
+                "layout": "NCHW",
+                "hash": "c1a2714972f6995c"
             },
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "input_12",
             "inputs": []
         },
         {
             "op": "null",
             "name": "input_20",
-            "attrs": {
-                "num_outputs": "1",
-                "num_inputs": "5",
-                "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_multiply_round_clip_cast_1",
-                "out_layout": "",
-                "kernel_layout": "OIHW",
-                "data_layout": "NCHW",
-                "hash": "cbf82f11f3177c85"
-            },
             "inputs": []
         },
         {
             "op": "null",
-            "name": "input_31",
-            "attrs": {
-                "num_outputs": "1",
-                "num_inputs": "5",
-                "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_multiply_round_clip_cast_2",
-                "out_layout": "",
-                "kernel_layout": "OIHW",
-                "data_layout": "NCHW",
-                "hash": "0fc1d36e3a42d9cc"
-            },
+            "name": "input_22",
             "inputs": []
         },
         {
             "op": "null",
-            "name": "input_42",
-            "attrs": {
-                "num_outputs": "1",
-                "num_inputs": "5",
-                "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_multiply_round_clip_cast_3",
-                "out_layout": "",
-                "kernel_layout": "OIHW",
-                "data_layout": "NCHW",
-                "hash": "0cf191d346f9c157"
-            },
+            "name": "input_25",
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "input_33",
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "p24",
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "p25",
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "p32",
             "inputs": []
         },
         {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_cast_divide",
+            "name": "tvmgen_default_fused_multiply_round_clip_cast",
             "attrs": {
                 "num_outputs": "1",
                 "num_inputs": "1",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_cast_divide",
-                "hash": "85165d63e18469f5"
+                "func_name": "tvmgen_default_fused_multiply_round_clip_cast",
+                "hash": "12c66bb15056e693"
             },
             "inputs": [
                 [
                     0,
-                    0,
-                    0
-                ]
-            ]
-        },
-        {
-            "op": "tvm_op",
-            "name": "tvmgen_default_fused_cast_divide_1",
-            "attrs": {
-                "num_outputs": "1",
-                "num_inputs": "1",
-                "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_cast_divide_1",
-                "hash": "636a5321792fc858"
-            },
-            "inputs": [
-                [
-                    1,
-                    0,
-                    0
-                ]
-            ]
-        },
-        {
-            "op": "tvm_op",
-            "name": "tvmgen_default_fused_cast_divide_2",
-            "attrs": {
-                "num_outputs": "1",
-                "num_inputs": "1",
-                "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_cast_divide_2",
-                "hash": "264e358d1dbf32bc"
-            },
-            "inputs": [
-                [
-                    2,
                     0,
                     0
                 ]
@@ -122,96 +80,15 @@
                 "num_inputs": "1",
                 "flatten_data": "0",
                 "func_name": "tvmgen_default_fused_cast_divide_3",
-                "hash": "6bd59b3449230bf3"
+                "hash": "db38370063b8e991"
             },
             "inputs": [
-                [
-                    3,
-                    0,
-                    0
-                ]
-            ]
-        },
-        {
-            "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_max_pool2d_3",
-            "attrs": {
-                "num_outputs": "1",
-                "num_inputs": "1",
-                "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_max_pool2d_3",
-                "out_layout": "",
-                "layout": "NCHW",
-                "hash": "8f41a8f1878e35e5"
-            },
-            "inputs": [
-                [
-                    7,
-                    0,
-                    0
-                ]
-            ]
-        },
-        {
-            "op": "null",
-            "name": "p28",
-            "inputs": []
-        },
-        {
-            "op": "null",
-            "name": "p29",
-            "inputs": []
-        },
-        {
-            "op": "null",
-            "name": "p30",
-            "inputs": []
-        },
-        {
-            "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_4",
-            "attrs": {
-                "num_outputs": "1",
-                "num_inputs": "4",
-                "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_4",
-                "out_layout": "",
-                "kernel_layout": "OIHW",
-                "data_layout": "NCHW",
-                "hash": "507c2c1b845a6d33"
-            },
-            "inputs": [
-                [
-                    8,
-                    0,
-                    0
-                ],
                 [
                     9,
                     0,
                     0
-                ],
-                [
-                    10,
-                    0,
-                    0
-                ],
-                [
-                    11,
-                    0,
-                    0
                 ]
             ]
-        },
-        {
-            "op": "null",
-            "name": "p31",
-            "inputs": []
-        },
-        {
-            "op": "null",
-            "name": "p32",
-            "inputs": []
         },
         {
             "op": "null",
@@ -225,40 +102,35 @@
         },
         {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_add_multiply_add",
+            "name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_11",
             "attrs": {
                 "num_outputs": "1",
-                "num_inputs": "5",
+                "num_inputs": "4",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_1",
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "8f709a2d2851a3c9"
+                "hash": "402a583eab6e9d86"
             },
             "inputs": [
                 [
+                    10,
+                    0,
+                    0
+                ],
+                [
+                    1,
+                    0,
+                    0
+                ],
+                [
+                    11,
+                    0,
+                    0
+                ],
+                [
                     12,
-                    0,
-                    0
-                ],
-                [
-                    13,
-                    0,
-                    0
-                ],
-                [
-                    14,
-                    0,
-                    0
-                ],
-                [
-                    15,
-                    0,
-                    0
-                ],
-                [
-                    16,
                     0,
                     0
                 ]
@@ -286,40 +158,45 @@
         },
         {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_transpose_add_multiply_add_nn_leaky_relu",
+            "name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_multiply_round_clip_cast_11",
             "attrs": {
                 "num_outputs": "1",
-                "num_inputs": "5",
+                "num_inputs": "6",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_transpose_add_multiply_add_nn_leaky_relu",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_multiply_round_clip_cast_1",
                 "out_layout": "",
-                "kernel_layout": "IOHW",
+                "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "2b546a346317a518"
+                "hash": "3f8696c5ed092a4d"
             },
             "inputs": [
+                [
+                    13,
+                    0,
+                    0
+                ],
+                [
+                    14,
+                    0,
+                    0
+                ],
+                [
+                    15,
+                    0,
+                    0
+                ],
+                [
+                    16,
+                    0,
+                    0
+                ],
                 [
                     17,
                     0,
                     0
                 ],
                 [
-                    18,
-                    0,
-                    0
-                ],
-                [
-                    19,
-                    0,
-                    0
-                ],
-                [
-                    20,
-                    0,
-                    0
-                ],
-                [
-                    21,
+                    2,
                     0,
                     0
                 ]
@@ -327,22 +204,42 @@
         },
         {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_concatenate_multiply_round_clip_cast",
+            "name": "tvmgen_default_fused_cast_divide_11",
             "attrs": {
                 "num_outputs": "1",
                 "num_inputs": "2",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_concatenate_multiply_round_clip_cast",
-                "hash": "740d1a0b8b6bbef4"
+                "func_name": "tvmgen_default_fused_cast_divide_1",
+                "hash": "5d694b0edc37ed16"
             },
             "inputs": [
                 [
-                    22,
+                    18,
                     0,
                     0
                 ],
                 [
-                    7,
+                    3,
+                    0,
+                    0
+                ]
+            ]
+        },
+        {
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_nn_max_pool2d_multiply_round_clip_cast",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "1",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_nn_max_pool2d_multiply_round_clip_cast",
+                "out_layout": "",
+                "layout": "NCHW",
+                "hash": "f95473e579929258"
+            },
+            "inputs": [
+                [
+                    19,
                     0,
                     0
                 ]
@@ -356,11 +253,11 @@
                 "num_inputs": "1",
                 "flatten_data": "0",
                 "func_name": "tvmgen_default_fused_cast_divide_4",
-                "hash": "67262316d98e1e1f"
+                "hash": "8d9857381559bffe"
             },
             "inputs": [
                 [
-                    23,
+                    20,
                     0,
                     0
                 ]
@@ -377,22 +274,73 @@
             "inputs": []
         },
         {
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_21",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "4",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_2",
+                "out_layout": "",
+                "kernel_layout": "OIHW",
+                "data_layout": "NCHW",
+                "hash": "4a7612bf260c4695"
+            },
+            "inputs": [
+                [
+                    21,
+                    0,
+                    0
+                ],
+                [
+                    4,
+                    0,
+                    0
+                ],
+                [
+                    22,
+                    0,
+                    0
+                ],
+                [
+                    23,
+                    0,
+                    0
+                ]
+            ]
+        },
+        {
             "op": "null",
             "name": "p41",
             "inputs": []
         },
         {
+            "op": "null",
+            "name": "p42",
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "p43",
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "p44",
+            "inputs": []
+        },
+        {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_5",
+            "name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_multiply_round_clip_cast_21",
             "attrs": {
                 "num_outputs": "1",
-                "num_inputs": "4",
+                "num_inputs": "6",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_5",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_multiply_round_clip_cast_2",
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "02e6e84308b7771f"
+                "hash": "1903b7f9a0e574bf"
             },
             "inputs": [
                 [
@@ -414,23 +362,79 @@
                     27,
                     0,
                     0
+                ],
+                [
+                    28,
+                    0,
+                    0
+                ],
+                [
+                    5,
+                    0,
+                    0
                 ]
             ]
         },
         {
-            "op": "null",
-            "name": "p42",
-            "inputs": []
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_cast_divide_21",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "2",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_cast_divide_2",
+                "hash": "9c12c3b219903d40"
+            },
+            "inputs": [
+                [
+                    29,
+                    0,
+                    0
+                ],
+                [
+                    6,
+                    0,
+                    0
+                ]
+            ]
         },
         {
-            "op": "null",
-            "name": "p43",
-            "inputs": []
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_nn_max_pool2d_multiply_round_clip_cast_1",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "1",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_nn_max_pool2d_multiply_round_clip_cast_1",
+                "out_layout": "",
+                "layout": "NCHW",
+                "hash": "4d28db8d44201a17"
+            },
+            "inputs": [
+                [
+                    30,
+                    0,
+                    0
+                ]
+            ]
         },
         {
-            "op": "null",
-            "name": "p44",
-            "inputs": []
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_cast_divide_5",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "1",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_cast_divide_5",
+                "hash": "2671da4b32d0b376"
+            },
+            "inputs": [
+                [
+                    31,
+                    0,
+                    0
+                ]
+            ]
         },
         {
             "op": "null",
@@ -438,50 +442,45 @@
             "inputs": []
         },
         {
+            "op": "null",
+            "name": "p46",
+            "inputs": []
+        },
+        {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_1",
+            "name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_31",
             "attrs": {
                 "num_outputs": "1",
-                "num_inputs": "5",
+                "num_inputs": "4",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_1",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_3",
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "eef4cb8b0b95c0f6"
+                "hash": "28c22030fbad6c26"
             },
             "inputs": [
-                [
-                    28,
-                    0,
-                    0
-                ],
-                [
-                    29,
-                    0,
-                    0
-                ],
-                [
-                    30,
-                    0,
-                    0
-                ],
-                [
-                    31,
-                    0,
-                    0
-                ],
                 [
                     32,
                     0,
                     0
+                ],
+                [
+                    7,
+                    0,
+                    0
+                ],
+                [
+                    33,
+                    0,
+                    0
+                ],
+                [
+                    34,
+                    0,
+                    0
                 ]
             ]
-        },
-        {
-            "op": "null",
-            "name": "p46",
-            "inputs": []
         },
         {
             "op": "null",
@@ -499,29 +498,24 @@
             "inputs": []
         },
         {
+            "op": "null",
+            "name": "p50",
+            "inputs": []
+        },
+        {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_transpose_add_multiply_add_nn_leaky_relu_1",
+            "name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_multiply_round_clip_cast_31",
             "attrs": {
                 "num_outputs": "1",
-                "num_inputs": "5",
+                "num_inputs": "6",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_transpose_add_multiply_add_nn_leaky_relu_1",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_multiply_round_clip_cast_3",
                 "out_layout": "",
-                "kernel_layout": "IOHW",
+                "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "7c3bb1d0f4348302"
+                "hash": "3cb0263cd5beba6f"
             },
             "inputs": [
-                [
-                    33,
-                    0,
-                    0
-                ],
-                [
-                    34,
-                    0,
-                    0
-                ],
                 [
                     35,
                     0,
@@ -536,27 +530,19 @@
                     37,
                     0,
                     0
-                ]
-            ]
-        },
-        {
-            "op": "tvm_op",
-            "name": "tvmgen_default_fused_concatenate_multiply_round_clip_cast_1",
-            "attrs": {
-                "num_outputs": "1",
-                "num_inputs": "2",
-                "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_concatenate_multiply_round_clip_cast_1",
-                "hash": "c1ea77ee130118b4"
-            },
-            "inputs": [
+                ],
                 [
                     38,
                     0,
                     0
                 ],
                 [
-                    6,
+                    39,
+                    0,
+                    0
+                ],
+                [
+                    8,
                     0,
                     0
                 ]
@@ -564,26 +550,59 @@
         },
         {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_cast_divide_5",
+            "name": "tvmgen_default_fused_cast_divide_6",
             "attrs": {
                 "num_outputs": "1",
                 "num_inputs": "1",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_cast_divide_5",
-                "hash": "124e1fbf92ab5a82"
+                "func_name": "tvmgen_default_fused_cast_divide_6",
+                "hash": "6bd59b3449230bf3"
             },
             "inputs": [
                 [
-                    39,
+                    40,
                     0,
                     0
                 ]
             ]
         },
         {
-            "op": "null",
-            "name": "p50",
-            "inputs": []
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_nn_max_pool2d_multiply_round_clip_cast_2",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "1",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_nn_max_pool2d_multiply_round_clip_cast_2",
+                "out_layout": "",
+                "layout": "NCHW",
+                "hash": "7372b946bc54379f"
+            },
+            "inputs": [
+                [
+                    41,
+                    0,
+                    0
+                ]
+            ]
+        },
+        {
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_cast_divide_7",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "1",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_cast_divide_7",
+                "hash": "61936ac1605612d0"
+            },
+            "inputs": [
+                [
+                    42,
+                    0,
+                    0
+                ]
+            ]
         },
         {
             "op": "null",
@@ -596,45 +615,45 @@
             "inputs": []
         },
         {
+            "op": "null",
+            "name": "p53",
+            "inputs": []
+        },
+        {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_6",
+            "name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_4",
             "attrs": {
                 "num_outputs": "1",
                 "num_inputs": "4",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_6",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_4",
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "7be6ecb9f8d28f4d"
+                "hash": "507c2c1b845a6d33"
             },
             "inputs": [
-                [
-                    40,
-                    0,
-                    0
-                ],
-                [
-                    41,
-                    0,
-                    0
-                ],
-                [
-                    42,
-                    0,
-                    0
-                ],
                 [
                     43,
                     0,
                     0
+                ],
+                [
+                    44,
+                    0,
+                    0
+                ],
+                [
+                    45,
+                    0,
+                    0
+                ],
+                [
+                    46,
+                    0,
+                    0
                 ]
             ]
-        },
-        {
-            "op": "null",
-            "name": "p53",
-            "inputs": []
         },
         {
             "op": "null",
@@ -652,34 +671,24 @@
             "inputs": []
         },
         {
+            "op": "null",
+            "name": "p57",
+            "inputs": []
+        },
+        {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_2",
+            "name": "tvmgen_default_fused_nn_conv2d_add_multiply_add",
             "attrs": {
                 "num_outputs": "1",
                 "num_inputs": "5",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_2",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add",
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "8cb240c20c9a61e5"
+                "hash": "8f709a2d2851a3c9"
             },
             "inputs": [
-                [
-                    44,
-                    0,
-                    0
-                ],
-                [
-                    45,
-                    0,
-                    0
-                ],
-                [
-                    46,
-                    0,
-                    0
-                ],
                 [
                     47,
                     0,
@@ -689,13 +698,23 @@
                     48,
                     0,
                     0
+                ],
+                [
+                    49,
+                    0,
+                    0
+                ],
+                [
+                    50,
+                    0,
+                    0
+                ],
+                [
+                    51,
+                    0,
+                    0
                 ]
             ]
-        },
-        {
-            "op": "null",
-            "name": "p57",
-            "inputs": []
         },
         {
             "op": "null",
@@ -713,34 +732,24 @@
             "inputs": []
         },
         {
+            "op": "null",
+            "name": "p61",
+            "inputs": []
+        },
+        {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_transpose_add_multiply_add_nn_leaky_relu_2",
+            "name": "tvmgen_default_fused_nn_conv2d_transpose_add_multiply_add_nn_leaky_relu",
             "attrs": {
                 "num_outputs": "1",
                 "num_inputs": "5",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_transpose_add_multiply_add_nn_leaky_relu_2",
+                "func_name": "tvmgen_default_fused_nn_conv2d_transpose_add_multiply_add_nn_leaky_relu",
                 "out_layout": "",
                 "kernel_layout": "IOHW",
                 "data_layout": "NCHW",
-                "hash": "a19d4dacf72f18f3"
+                "hash": "2b546a346317a518"
             },
             "inputs": [
-                [
-                    49,
-                    0,
-                    0
-                ],
-                [
-                    50,
-                    0,
-                    0
-                ],
-                [
-                    51,
-                    0,
-                    0
-                ],
                 [
                     52,
                     0,
@@ -750,27 +759,19 @@
                     53,
                     0,
                     0
-                ]
-            ]
-        },
-        {
-            "op": "tvm_op",
-            "name": "tvmgen_default_fused_concatenate_multiply_round_clip_cast_2",
-            "attrs": {
-                "num_outputs": "1",
-                "num_inputs": "2",
-                "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_concatenate_multiply_round_clip_cast_2",
-                "hash": "9e940466005aa1f3"
-            },
-            "inputs": [
+                ],
                 [
                     54,
                     0,
                     0
                 ],
                 [
-                    5,
+                    55,
+                    0,
+                    0
+                ],
+                [
+                    56,
                     0,
                     0
                 ]
@@ -778,26 +779,44 @@
         },
         {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_cast_divide_6",
+            "name": "tvmgen_default_fused_concatenate_multiply_round_clip_cast",
             "attrs": {
                 "num_outputs": "1",
-                "num_inputs": "1",
+                "num_inputs": "2",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_cast_divide_6",
-                "hash": "fa27adaace0bfe80"
+                "func_name": "tvmgen_default_fused_concatenate_multiply_round_clip_cast",
+                "hash": "740d1a0b8b6bbef4"
             },
             "inputs": [
                 [
-                    55,
+                    57,
+                    0,
+                    0
+                ],
+                [
+                    41,
                     0,
                     0
                 ]
             ]
         },
         {
-            "op": "null",
-            "name": "p61",
-            "inputs": []
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_cast_divide_8",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "1",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_cast_divide_8",
+                "hash": "67262316d98e1e1f"
+            },
+            "inputs": [
+                [
+                    58,
+                    0,
+                    0
+                ]
+            ]
         },
         {
             "op": "null",
@@ -810,45 +829,45 @@
             "inputs": []
         },
         {
+            "op": "null",
+            "name": "p64",
+            "inputs": []
+        },
+        {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_7",
+            "name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_5",
             "attrs": {
                 "num_outputs": "1",
                 "num_inputs": "4",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_7",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_5",
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "f81b264d19b9a6be"
+                "hash": "02e6e84308b7771f"
             },
             "inputs": [
-                [
-                    56,
-                    0,
-                    0
-                ],
-                [
-                    57,
-                    0,
-                    0
-                ],
-                [
-                    58,
-                    0,
-                    0
-                ],
                 [
                     59,
                     0,
                     0
+                ],
+                [
+                    60,
+                    0,
+                    0
+                ],
+                [
+                    61,
+                    0,
+                    0
+                ],
+                [
+                    62,
+                    0,
+                    0
                 ]
             ]
-        },
-        {
-            "op": "null",
-            "name": "p64",
-            "inputs": []
         },
         {
             "op": "null",
@@ -866,34 +885,24 @@
             "inputs": []
         },
         {
+            "op": "null",
+            "name": "p68",
+            "inputs": []
+        },
+        {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_3",
+            "name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_1",
             "attrs": {
                 "num_outputs": "1",
                 "num_inputs": "5",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_3",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_1",
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "afcc3e3243b199b7"
+                "hash": "eef4cb8b0b95c0f6"
             },
             "inputs": [
-                [
-                    60,
-                    0,
-                    0
-                ],
-                [
-                    61,
-                    0,
-                    0
-                ],
-                [
-                    62,
-                    0,
-                    0
-                ],
                 [
                     63,
                     0,
@@ -903,13 +912,23 @@
                     64,
                     0,
                     0
+                ],
+                [
+                    65,
+                    0,
+                    0
+                ],
+                [
+                    66,
+                    0,
+                    0
+                ],
+                [
+                    67,
+                    0,
+                    0
                 ]
             ]
-        },
-        {
-            "op": "null",
-            "name": "p68",
-            "inputs": []
         },
         {
             "op": "null",
@@ -927,34 +946,24 @@
             "inputs": []
         },
         {
+            "op": "null",
+            "name": "p72",
+            "inputs": []
+        },
+        {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_transpose_add_multiply_add_nn_leaky_relu_3",
+            "name": "tvmgen_default_fused_nn_conv2d_transpose_add_multiply_add_nn_leaky_relu_1",
             "attrs": {
                 "num_outputs": "1",
                 "num_inputs": "5",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_transpose_add_multiply_add_nn_leaky_relu_3",
+                "func_name": "tvmgen_default_fused_nn_conv2d_transpose_add_multiply_add_nn_leaky_relu_1",
                 "out_layout": "",
                 "kernel_layout": "IOHW",
                 "data_layout": "NCHW",
-                "hash": "e2fccacfae4878e3"
+                "hash": "7c3bb1d0f4348302"
             },
             "inputs": [
-                [
-                    65,
-                    0,
-                    0
-                ],
-                [
-                    66,
-                    0,
-                    0
-                ],
-                [
-                    67,
-                    0,
-                    0
-                ],
                 [
                     68,
                     0,
@@ -964,27 +973,19 @@
                     69,
                     0,
                     0
-                ]
-            ]
-        },
-        {
-            "op": "tvm_op",
-            "name": "tvmgen_default_fused_concatenate_multiply_round_clip_cast_3",
-            "attrs": {
-                "num_outputs": "1",
-                "num_inputs": "2",
-                "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_concatenate_multiply_round_clip_cast_3",
-                "hash": "9c8a637413505916"
-            },
-            "inputs": [
+                ],
                 [
                     70,
                     0,
                     0
                 ],
                 [
-                    4,
+                    71,
+                    0,
+                    0
+                ],
+                [
+                    72,
                     0,
                     0
                 ]
@@ -992,26 +993,44 @@
         },
         {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_cast_divide_7",
+            "name": "tvmgen_default_fused_concatenate_multiply_round_clip_cast_1",
             "attrs": {
                 "num_outputs": "1",
-                "num_inputs": "1",
+                "num_inputs": "2",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_cast_divide_7",
-                "hash": "186333aa7e215879"
+                "func_name": "tvmgen_default_fused_concatenate_multiply_round_clip_cast_1",
+                "hash": "c1ea77ee130118b4"
             },
             "inputs": [
                 [
-                    71,
+                    73,
+                    0,
+                    0
+                ],
+                [
+                    30,
                     0,
                     0
                 ]
             ]
         },
         {
-            "op": "null",
-            "name": "p72",
-            "inputs": []
+            "op": "tvm_op",
+            "name": "tvmgen_default_fused_cast_divide_9",
+            "attrs": {
+                "num_outputs": "1",
+                "num_inputs": "1",
+                "flatten_data": "0",
+                "func_name": "tvmgen_default_fused_cast_divide_9",
+                "hash": "124e1fbf92ab5a82"
+            },
+            "inputs": [
+                [
+                    74,
+                    0,
+                    0
+                ]
+            ]
         },
         {
             "op": "null",
@@ -1024,70 +1043,29 @@
             "inputs": []
         },
         {
-            "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_8",
-            "attrs": {
-                "num_outputs": "1",
-                "num_inputs": "4",
-                "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_8",
-                "out_layout": "",
-                "kernel_layout": "OIHW",
-                "data_layout": "NCHW",
-                "hash": "0258e262c093a80d"
-            },
-            "inputs": [
-                [
-                    72,
-                    0,
-                    0
-                ],
-                [
-                    73,
-                    0,
-                    0
-                ],
-                [
-                    74,
-                    0,
-                    0
-                ],
-                [
-                    75,
-                    0,
-                    0
-                ]
-            ]
-        },
-        {
             "op": "null",
             "name": "p75",
             "inputs": []
         },
         {
-            "op": "null",
-            "name": "p76",
-            "inputs": []
-        },
-        {
-            "op": "null",
-            "name": "p77",
-            "inputs": []
-        },
-        {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_add_add",
+            "name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_6",
             "attrs": {
                 "num_outputs": "1",
                 "num_inputs": "4",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_add",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_add_nn_leaky_relu_6",
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "b83cfcda2b3569ee"
+                "hash": "7be6ecb9f8d28f4d"
             },
             "inputs": [
+                [
+                    75,
+                    0,
+                    0
+                ],
                 [
                     76,
                     0,
@@ -1102,13 +1080,18 @@
                     78,
                     0,
                     0
-                ],
-                [
-                    79,
-                    0,
-                    0
                 ]
             ]
+        },
+        {
+            "op": "null",
+            "name": "p76",
+            "inputs": []
+        },
+        {
+            "op": "null",
+            "name": "p77",
+            "inputs": []
         },
         {
             "op": "null",
@@ -1122,18 +1105,23 @@
         },
         {
             "op": "tvm_op",
-            "name": "tvmgen_default_fused_nn_conv2d_add_sigmoid",
+            "name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_2",
             "attrs": {
                 "num_outputs": "1",
-                "num_inputs": "3",
+                "num_inputs": "5",
                 "flatten_data": "0",
-                "func_name": "tvmgen_default_fused_nn_conv2d_add_sigmoid",
+                "func_name": "tvmgen_default_fused_nn_conv2d_add_multiply_add_2",
                 "out_layout": "",
                 "kernel_layout": "OIHW",
                 "data_layout": "NCHW",
-                "hash": "61cdf1c6242552b1"
+                "hash": "8cb240c20c9a61e5"
             },
             "inputs": [
+                [
+                    79,
+                    0,
+                    0
+                ],
                 [
                     80,
                     0,
@@ -1148,6 +1136,11 @@
                     82,
                     0,
                     0
+                ],
+                [
+                    83,
+                    0,
+                    0
                 ]
             ]
         }
@@ -1157,62 +1150,82 @@
         1,
         2,
         3,
-        9,
-        10,
+        4,
+        5,
+        6,
+        7,
+        8,
         11,
-        13,
+        12,
         14,
         15,
         16,
-        18,
-        19,
-        20,
-        21,
+        17,
+        22,
+        23,
         25,
         26,
         27,
-        29,
-        30,
-        31,
-        32,
+        28,
+        33,
         34,
-        35,
         36,
         37,
-        41,
-        42,
-        43,
+        38,
+        39,
+        44,
         45,
         46,
-        47,
         48,
+        49,
         50,
         51,
-        52,
         53,
-        57,
-        58,
-        59,
+        54,
+        55,
+        56,
+        60,
         61,
         62,
-        63,
         64,
+        65,
         66,
         67,
-        68,
         69,
-        73,
-        74,
-        75,
+        70,
+        71,
+        72,
+        76,
         77,
         78,
-        79,
+        80,
         81,
-        82
+        82,
+        83
     ],
     "heads": [
         [
-            83,
+            6,
+            0,
+            0
+        ],
+        [
+            7,
+            0,
+            0
+        ],
+        [
+            8,
+            0,
+            0
+        ],
+        [
+            18,
+            0,
+            0
+        ],
+        [
+            84,
             0,
             0
         ]
@@ -1221,20 +1234,6 @@
         "dltype": [
             "list_str",
             [
-                "int8",
-                "int8",
-                "int8",
-                "int8",
-                "float32",
-                "float32",
-                "float32",
-                "float32",
-                "float32",
-                "float32",
-                "float32",
-                "float32",
-                "float32",
-                "float32",
                 "float32",
                 "float32",
                 "float32",
@@ -1253,12 +1252,7 @@
                 "float32",
                 "float32",
                 "float32",
-                "float32",
-                "float32",
-                "float32",
-                "float32",
-                "float32",
-                "float32",
+                "int8",
                 "float32",
                 "int8",
                 "float32",
@@ -1269,12 +1263,18 @@
                 "float32",
                 "float32",
                 "float32",
+                "int8",
+                "float32",
+                "int8",
                 "float32",
                 "float32",
                 "float32",
                 "float32",
                 "float32",
                 "float32",
+                "float32",
+                "float32",
+                "int8",
                 "float32",
                 "int8",
                 "float32",
@@ -1295,6 +1295,20 @@
                 "int8",
                 "float32",
                 "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "float32",
+                "int8",
                 "float32",
                 "float32",
                 "float32",
@@ -1393,96 +1407,98 @@
                 2,
                 2,
                 2,
+                2,
                 2
             ]
         ],
         "storage_id": [
             "list_int",
             [
-                9,
                 10,
+                11,
                 19,
-                28,
-                4,
-                14,
+                21,
                 23,
-                32,
-                37,
-                38,
-                39,
+                30,
+                31,
+                33,
                 40,
+                14,
+                10,
                 41,
                 42,
+                14,
                 43,
                 44,
                 45,
-                37,
                 46,
+                10,
+                14,
+                10,
                 47,
                 48,
                 49,
-                41,
-                37,
-                32,
+                10,
                 50,
                 51,
                 52,
-                41,
                 53,
+                47,
+                10,
+                47,
                 54,
                 55,
                 56,
-                32,
+                47,
                 57,
                 58,
                 59,
                 60,
-                41,
-                32,
-                23,
+                54,
+                47,
+                54,
                 61,
                 62,
                 63,
-                41,
                 64,
+                54,
                 65,
                 66,
                 67,
-                32,
                 68,
+                61,
                 69,
                 70,
                 71,
-                23,
-                41,
-                14,
                 72,
+                54,
+                61,
+                47,
                 73,
                 74,
-                23,
                 75,
+                54,
                 76,
                 77,
                 78,
-                14,
                 79,
+                47,
                 80,
                 81,
                 82,
-                23,
-                14,
-                4,
                 83,
+                54,
+                47,
+                10,
                 84,
                 85,
-                23,
                 86,
+                54,
                 87,
                 88,
-                14,
                 89,
                 90,
-                37
+                47
             ]
         ],
         "shape": [
@@ -1491,32 +1507,85 @@
                 [
                     1,
                     16,
-                    512,
-                    512
-                ],
-                [
-                    1,
-                    32,
                     256,
                     256
                 ],
                 [
-                    1,
-                    64,
-                    128,
-                    128
+                    32,
+                    16,
+                    3,
+                    3
                 ],
+                [],
+                [],
+                [
+                    64,
+                    32,
+                    3,
+                    3
+                ],
+                [],
+                [],
+                [
+                    128,
+                    64,
+                    3,
+                    3
+                ],
+                [],
                 [
                     1,
-                    128,
-                    64,
-                    64
+                    16,
+                    256,
+                    256
                 ],
                 [
                     1,
                     16,
-                    512,
-                    512
+                    256,
+                    256
+                ],
+                [
+                    1,
+                    32,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    32,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    32,
+                    256,
+                    256
+                ],
+                [
+                    32,
+                    32,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    32,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    32,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    32,
+                    1,
+                    1
                 ],
                 [
                     1,
@@ -1526,15 +1595,147 @@
                 ],
                 [
                     1,
+                    32,
+                    256,
+                    256
+                ],
+                [
+                    1,
+                    32,
+                    128,
+                    128
+                ],
+                [
+                    1,
+                    32,
+                    128,
+                    128
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    64,
+                    128,
+                    128
+                ],
+                [
+                    64,
+                    64,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    64,
+                    1,
+                    1
+                ],
+                [
+                    1,
                     64,
                     128,
                     128
                 ],
                 [
                     1,
+                    64,
+                    128,
+                    128
+                ],
+                [
+                    1,
+                    64,
+                    64,
+                    64
+                ],
+                [
+                    1,
+                    64,
+                    64,
+                    64
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
                     128,
                     64,
                     64
+                ],
+                [
+                    128,
+                    128,
+                    3,
+                    3
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    128,
+                    1,
+                    1
+                ],
+                [
+                    1,
+                    128,
+                    64,
+                    64
+                ],
+                [
+                    1,
+                    128,
+                    64,
+                    64
+                ],
+                [
+                    1,
+                    128,
+                    32,
+                    32
                 ],
                 [
                     1,
@@ -1787,209 +1988,6 @@
                     64,
                     128,
                     128
-                ],
-                [
-                    64,
-                    32,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    256,
-                    256
-                ],
-                [
-                    1,
-                    64,
-                    256,
-                    256
-                ],
-                [
-                    1,
-                    64,
-                    256,
-                    256
-                ],
-                [
-                    32,
-                    64,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    256,
-                    256
-                ],
-                [
-                    32,
-                    32,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    32,
-                    256,
-                    256
-                ],
-                [
-                    32,
-                    16,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    512,
-                    512
-                ],
-                [
-                    1,
-                    32,
-                    512,
-                    512
-                ],
-                [
-                    1,
-                    32,
-                    512,
-                    512
-                ],
-                [
-                    16,
-                    32,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    512,
-                    512
-                ],
-                [
-                    16,
-                    16,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    16,
-                    512,
-                    512
-                ],
-                [
-                    1,
-                    16,
-                    3,
-                    3
-                ],
-                [
-                    1,
-                    1,
-                    1
-                ],
-                [
-                    1,
-                    1,
-                    512,
-                    512
                 ]
             ]
         ]
@@ -2079,17 +2077,24 @@
         81,
         82,
         83,
-        84
+        84,
+        85
     ],
     "extra": {
         "inputs": [
-            9,
+            11,
+            12,
             20,
-            31,
-            42
+            22,
+            25,
+            33
         ],
         "outputs": [
-            119
+            35,
+            38,
+            46,
+            57,
+            123
         ]
     }
 }

@@ -1,5 +1,6 @@
 import socket
 import pickle
+from warnings import formatwarning
 # import cloudpickle as pickle
 import numpy as np
 import tvm
@@ -90,34 +91,10 @@ img_size = args.img_size
 org=(50,100)
 font=cv2.FONT_HERSHEY_SIMPLEX
 
-# Load models
-model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
-lib = tvm.runtime.load_module(model_path)
-
-param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
-with open(param_path, "rb") as fi:
-    loaded_params = bytearray(fi.read())
-
-def load_data():
-    cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
-    data_queue = []
-    while (cap.isOpened()):
-        ret, frame = cap.read()
-        try:
-            frame = preprocess(frame)    
-        except:
-            data_queue.append([])
-            # frame_queue.put({-1:-1})
-            # result_queue.put({-1:-1})
-            break
-        data_queue.append(frame)
-    cap.release()
-    return data_queue
-
-def read_and_inference(data_queue, frame_queue, send_queue):
-    # # Load models
-    # model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
-    # lib = tvm.runtime.load_module(model_path)
+def read_and_inference(send_queue):
+    # Load models
+    model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
+    lib = tvm.runtime.load_module(model_path)
     partition_points = args.partition_points
     current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
 
@@ -139,9 +116,9 @@ def read_and_inference(data_queue, frame_queue, send_queue):
         model_graph_json_strs.append(json.dumps(graph_json))
 
 
-    # param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
-    # with open(param_path, "rb") as fi:
-    #     loaded_params = bytearray(fi.read())
+    param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
+    with open(param_path, "rb") as fi:
+        loaded_params = bytearray(fi.read())
 
     models = []
     for graph_json_str in model_graph_json_strs:
@@ -151,24 +128,27 @@ def read_and_inference(data_queue, frame_queue, send_queue):
 
     timer_model = 0
 
+    # Load video file
+    cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
+    
     in_data = {0 : 0}
+
+    # timer_set_input = [0 for i in range(len(model_input_indexs))]
+    # timer_get_output = [0 for i in range()]
 
     # Start loop
     # TODO : get_data fuction to make modulize getting frames
     # TODO : This version sends all intermediate output, should be changed afterwards
     fpss = []
-
-    while True:
-        try:
-            frame = data_queue.pop(0)
-            if len(frame) == 0:
-                send_queue.put({-1 : -1})
-                break
-        except:
-            break
-
+    recv_msg = b''
+    while (cap.isOpened()):
         s_start = time.time()
-
+        ret, frame = cap.read()                      
+        try:
+            frame = preprocess(frame)
+        except:
+            send_queue.put({-1 : -1})
+            break
         # TIMER MODEL - start
         time_start = time.time()
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
@@ -202,11 +182,44 @@ def read_and_inference(data_queue, frame_queue, send_queue):
         
         # Put data to send msg process
         # send_queue.put(outs)
-        frame_queue.put(frame)
+        # frame_queue.put(frame)
+        # Receive size of message (int - 4 byte)
+        while len(recv_msg) < 4:
+            recv_msg += client_socket.recv(4)
+
+        msg_size_bytes = recv_msg[:4]
+        recv_msg = recv_msg[4:]
+        total_recv_msg_size = struct.unpack('i', msg_size_bytes)[0]
+
+        # Exit condition
+        if total_recv_msg_size == 0:
+            break 
+
+        # Receive data object
+        while len(recv_msg) < total_recv_msg_size:
+            recv_msg += client_socket.recv(total_recv_msg_size)
+
+        ## TODO : get output and parse 
+        msg_data_bytes = recv_msg[:total_recv_msg_size]
+        data = pickle.loads(msg_data_bytes)
+        recv_msg = recv_msg[total_recv_msg_size:]
+
+        outs = []
+        for key in data.keys():
+            outs.append(data[key])
+        
+        img_in_rgb = frame
+        th = cv2.resize(cv2.threshold(np.squeeze(outs[0].transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
+        img_in_rgb[th == 1] = [0, 0, 255]
+        if args.visualize:
+            cv2.imshow("received - client", img_in_rgb)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        # print('recv_img End')
 
         fpss.append(1/(time.time() - s_start))
+    cv2.destroyAllWindows()
     print("Mean FPS :", np.mean(fpss))
-    # print(timer_model)
     client_socket.close()
 
 
@@ -303,22 +316,13 @@ def recv_img(frame_queue):
 if __name__ == '__main__':
     print("------------------------")
     print(args.model, ", ", args.target, ", ", args.img_size, ", ", args.opt_level, ", ", 'partition points :', args.partition_points, sep='')
-    frame_queue = Queue()
     send_queue = Queue()
-    data_queue = load_data()
-
-    p1 = Process(target=read_and_inference, args=(data_queue, frame_queue, send_queue))
+    p1 = Process(target=read_and_inference, args=(send_queue,))
     p2 = Process(target=send_img, args=(send_queue,))
-    p3 = Process(target=recv_img, args=(frame_queue,))
-
-    # p0.start()
     p1.start() 
     p2.start()
-    p3.start() 
     stime = time.time()
-    # p0.join()
     p1.join(); 
     p2.join(); 
-    p3.join()
     print("Total Time :", time.time() - stime)
     print("------------------------")

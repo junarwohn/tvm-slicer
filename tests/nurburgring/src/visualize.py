@@ -33,9 +33,18 @@ def show_graph(json_data, file_name=None):
     A = pgv.AGraph(directed=True)
     for node_idx, node in enumerate(json_data['nodes']):
         for src in node['inputs']:
-            if args.show_size == 1:
-                print(src[0], json_data['attrs']['dltype'][1][src[0]], json_data['attrs']['shape'][1][src[0]])
-                A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]) + '{}'.format(json_data['attrs']['dltype'][1][src[0]]), node['name'] + '[{}]'.format(node_idx) + '{}'.format(json_data['attrs']['dltype'][1][node_idx]))
+            # if args.show_size == 1:
+            if 1 == 1:
+                src_size = 1
+                for i in json_data['attrs']['shape'][1][src[0]]:
+                    src_size = src_size * i
+                
+                dst_size = 1
+                for i in json_data['attrs']['shape'][1][node_idx]:
+                    dst_size = dst_size * i
+                print(src[0], json_data['nodes'][src[0]]['name'], src_size)
+
+                A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]) + '{}'.format(json_data['attrs']['dltype'][1][src[0]]) + "[{}]".format(src_size), node['name'] + '[{}]'.format(node_idx) + '{}'.format(json_data['attrs']['dltype'][1][node_idx]) + "[{}]".format(dst_size))
             else:
                 A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]) + '{}'.format(json_data['attrs']['dltype'][1][src[0]]), node['name'] + '[{}]'.format(node_idx) + '{}'.format(json_data['attrs']['dltype'][1][node_idx]))
     if file_name:
@@ -51,5 +60,6 @@ for i in range(len(partition_points) - 1):
     start_point = partition_points[i]
     end_point = partition_points[i + 1]
     with open(path.format(args.model, args.target, args.img_size, args.opt_level, start_point, end_point), "r") as json_file:
+    # with open("./graph/unet_cuda_full_512_3.json", "r") as json_file:
         json_graph = json.load(json_file)
         show_graph(json_graph, img_path.format(args.model, args.target, args.img_size, args.opt_level, start_point, end_point))

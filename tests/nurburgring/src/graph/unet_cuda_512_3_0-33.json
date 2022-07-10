@@ -1,0 +1,55 @@
+{
+    "nodes": [
+        {
+            "op": "null",
+            "name": "p23",
+            "inputs": []
+        }
+    ],
+    "arg_nodes": [
+        0
+    ],
+    "heads": [
+        [
+            0,
+            0,
+            0
+        ]
+    ],
+    "attrs": {
+        "dltype": [
+            "list_str",
+            [
+                "float32"
+            ]
+        ],
+        "device_index": [
+            "list_int",
+            [
+                2
+            ]
+        ],
+        "storage_id": [
+            "list_int",
+            [
+                30
+            ]
+        ],
+        "shape": [
+            "list_shape",
+            [
+                []
+            ]
+        ]
+    },
+    "node_row_ptr": [
+        0,
+        1
+    ],
+    "extra": {
+        "inputs": [],
+        "outputs": [
+            33
+        ]
+    }
+}

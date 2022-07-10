@@ -90,34 +90,10 @@ img_size = args.img_size
 org=(50,100)
 font=cv2.FONT_HERSHEY_SIMPLEX
 
-# Load models
-model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
-lib = tvm.runtime.load_module(model_path)
-
-param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
-with open(param_path, "rb") as fi:
-    loaded_params = bytearray(fi.read())
-
-def load_data():
-    cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
-    data_queue = []
-    while (cap.isOpened()):
-        ret, frame = cap.read()
-        try:
-            frame = preprocess(frame)    
-        except:
-            data_queue.append([])
-            # frame_queue.put({-1:-1})
-            # result_queue.put({-1:-1})
-            break
-        data_queue.append(frame)
-    cap.release()
-    return data_queue
-
-def read_and_inference(data_queue, frame_queue, send_queue):
-    # # Load models
-    # model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
-    # lib = tvm.runtime.load_module(model_path)
+def read_and_inference(frame_queue, send_queue):
+    # Load models
+    model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
+    lib = tvm.runtime.load_module(model_path)
     partition_points = args.partition_points
     current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
 
@@ -139,9 +115,9 @@ def read_and_inference(data_queue, frame_queue, send_queue):
         model_graph_json_strs.append(json.dumps(graph_json))
 
 
-    # param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
-    # with open(param_path, "rb") as fi:
-    #     loaded_params = bytearray(fi.read())
+    param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
+    with open(param_path, "rb") as fi:
+        loaded_params = bytearray(fi.read())
 
     models = []
     for graph_json_str in model_graph_json_strs:
@@ -151,24 +127,23 @@ def read_and_inference(data_queue, frame_queue, send_queue):
 
     timer_model = 0
 
+    # Load video file
+    cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
+    
     in_data = {0 : 0}
 
     # Start loop
     # TODO : get_data fuction to make modulize getting frames
     # TODO : This version sends all intermediate output, should be changed afterwards
     fpss = []
-
-    while True:
-        try:
-            frame = data_queue.pop(0)
-            if len(frame) == 0:
-                send_queue.put({-1 : -1})
-                break
-        except:
-            break
-
+    while (cap.isOpened()):
         s_start = time.time()
-
+        ret, frame = cap.read()
+        try:
+            frame = preprocess(frame)
+        except:
+            send_queue.put({-1 : -1})
+            break
         # TIMER MODEL - start
         time_start = time.time()
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
@@ -305,18 +280,13 @@ if __name__ == '__main__':
     print(args.model, ", ", args.target, ", ", args.img_size, ", ", args.opt_level, ", ", 'partition points :', args.partition_points, sep='')
     frame_queue = Queue()
     send_queue = Queue()
-    data_queue = load_data()
-
-    p1 = Process(target=read_and_inference, args=(data_queue, frame_queue, send_queue))
+    p1 = Process(target=read_and_inference, args=(frame_queue, send_queue))
     p2 = Process(target=send_img, args=(send_queue,))
     p3 = Process(target=recv_img, args=(frame_queue,))
-
-    # p0.start()
     p1.start() 
     p2.start()
     p3.start() 
     stime = time.time()
-    # p0.join()
     p1.join(); 
     p2.join(); 
     p3.join()

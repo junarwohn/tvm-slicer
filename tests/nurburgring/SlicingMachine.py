@@ -60,7 +60,9 @@ class TVMSlicer:
             # Traverse
             mark_list.append(cur_node_index)
             input_lists = graph_config['nodes'][cur_node_index]['inputs']
+            print(input_lists)
             for input_node_index in input_lists:
+                print(cur_node_index, "->", input_node_index[0])
                 mark_list = dfs(input_node_index[0], upper_bound, mark_list)
             return mark_list
 
@@ -69,8 +71,11 @@ class TVMSlicer:
         start_p = start_node - 1
         end_p = end_node
 
+        print("pre_nodes")
         pre_nodes = np.array(sorted(dfs(start_p, 0, [])))
+        print("target_nodes")
         target_nodes = np.array(sorted(dfs(end_p, 0, [])))
+        print("total_nodes")
         total_nodes = [i for i in range(len(graph_config['nodes']))]
 
         # model_nodes = target_nodes - pre_nodes 
@@ -96,6 +101,8 @@ class TVMSlicer:
         #####################
         print("##############################")
         print("Initial models")
+        print("pre_nodes", pre_nodes)
+        print("target_nodes", target_nodes)
         print("model_nodes", model_nodes)
         print("complement_nodes", complement_nodes)
         print("##############################")
