@@ -96,12 +96,12 @@ font=cv2.FONT_HERSHEY_SIMPLEX
 # Global
 #########################
 # Load models
-model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
-lib = tvm.runtime.load_module(model_path)
+# model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
+# lib = tvm.runtime.load_module(model_path)
 
-param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
-with open(param_path, "rb") as fi:
-    loaded_params = bytearray(fi.read())
+# param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
+# with open(param_path, "rb") as fi:
+#     loaded_params = bytearray(fi.read())
 
 # Calculate input/output dependencies
 
@@ -200,13 +200,13 @@ def inference_front(data_queue, frame_queue, pass_queue, send_queue):
     send_queue_idxs = total_server_input_idxs
     pass_queue_idxs = np.setdiff1d(total_front_output_idxs, total_server_input_idxs)
 
-    # # Load models
-    # model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
-    # lib = tvm.runtime.load_module(model_path)
+    # Load models
+    model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
+    lib = tvm.runtime.load_module(model_path)
 
-    # param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
-    # with open(param_path, "rb") as fi:
-    #     loaded_params = bytearray(fi.read())
+    param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
+    with open(param_path, "rb") as fi:
+        loaded_params = bytearray(fi.read())
 
     models = []
     for graph_json_str in front_graph_json_strs:
@@ -293,13 +293,13 @@ def inference_back(pass_queue, recv_queue, frame_queue):
     pass_queue_idxs = np.intersect1d(total_front_output_idxs, total_back_input_idxs)
     recv_queue_idxs = np.intersect1d(total_server_output_idxs, total_back_input_idxs)
 
-    # # Load models
-    # model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
-    # lib = tvm.runtime.load_module(model_path)
+    # Load models
+    model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
+    lib = tvm.runtime.load_module(model_path)
 
-    # param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
-    # with open(param_path, "rb") as fi:
-    #     loaded_params = bytearray(fi.read())
+    param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
+    with open(param_path, "rb") as fi:
+        loaded_params = bytearray(fi.read())
 
     models = []
     for graph_json_str in back_graph_json_strs:
@@ -329,6 +329,11 @@ def inference_back(pass_queue, recv_queue, frame_queue):
                     pass_data.append(k)
                     in_data[k] = pdata[k]
 
+        # Assume one model
+        if pass_flag:
+            for in_index in pass_queue_idxs:
+                models[0].set_input("input_{}".format(in_index), in_data[in_index])
+
         while len(recv_data) != len(recv_queue_idxs):
         # while len(recv_data) != len(recv_queue_idxs) or recv_data != recv_queue_idxs:
             if not recv_queue.empty():
@@ -343,32 +348,32 @@ def inference_back(pass_queue, recv_queue, frame_queue):
         if not pass_flag and not recv_flag:
             break
 
-        # try:
-        #     frame = data_queue.pop(0)
-        #     if len(frame) == 0:
-        #         send_queue.put({-1 : -1})
-        #         break
-        # except:
-        #     break
+        # Assume one model
+        if recv_flag:
+            for in_index in recv_queue_idxs:
+                models[0].set_input("input_{}".format(in_index), in_data[in_index])
 
-        
 
-        pre_outputs = []
-        if len(models) == 0:
-            pre_outputs = [0]
-        for in_indexs, out_indexs, model in zip(back_input_idxs, back_output_idxs, models):
-            # set input
-            for input_index in in_indexs:
-                model.set_input("input_{}".format(input_index), in_data[input_index])
-            # run model
-            model.run()
+        # Assume one model
+        # pre_outputs = []
+        # if len(models) == 0:
+        #     pre_outputs = [0]
+        # for in_indexs, out_indexs, model in zip(back_input_idxs, back_output_idxs, models):
+        #     # set input
+        #     for input_index in in_indexs:
+        #         model.set_input("input_{}".format(input_index), in_data[input_index])
+        #     # run model
+        #     model.run()
 
-            # get output
-            for i, output_index in enumerate(out_indexs):
-                in_data[output_index] = model.get_output(i).numpy()
-            pre_outputs = out_indexs
+        #     # get output
+        #     for i, output_index in enumerate(out_indexs):
+        #         in_data[output_index] = model.get_output(i).numpy()
+        #     pre_outputs = out_indexs
 
-        out = in_data[pre_outputs[0]]
+        # out = in_data[pre_outputs[0]]
+
+        models[0].run()
+        out = models[0].get_output(0).numpy()
         
         img_in_rgb = frame_queue.get()
         th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
