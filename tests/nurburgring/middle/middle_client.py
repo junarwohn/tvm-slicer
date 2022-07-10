@@ -1,6 +1,5 @@
 import socket
 import pickle
-import defusedxml
 # import cloudpickle as pickle
 import numpy as np
 import tvm
