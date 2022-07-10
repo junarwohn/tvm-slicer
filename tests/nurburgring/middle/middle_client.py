@@ -308,6 +308,7 @@ def inference_back(pass_queue, recv_queue, frame_queue):
         models.append(model)
 
 
+    timer_start = time.time()
     # Start loop
     while True:
         # First get internal data from pass_queue
@@ -377,6 +378,8 @@ def inference_back(pass_queue, recv_queue, frame_queue):
             cv2.imshow("received - client", img_in_rgb)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
+
+    print("inf_back", time.time() - timer_start)
     cv2.destroyAllWindows()
 
 
