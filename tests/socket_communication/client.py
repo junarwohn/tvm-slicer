@@ -65,9 +65,9 @@ if __name__ == '__main__':
     data_q = [np.random.normal(0, 1, (args.size)) for i in range(253)]
     p1 = Process(target=send_img, args=(data_q,))
     p2 = Process(target=recv_img)
-    stime = time.time()
     p1.start(); 
     p2.start(); 
+    stime = time.time()
     p1.join(); p2.join()
     print(time.time() - stime)
 

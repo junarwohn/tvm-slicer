@@ -65,9 +65,9 @@ if __name__ == '__main__':
     q = Queue()
     p1 = Process(target=send_img, args=(q,))
     p2 = Process(target=recv_img, args=(q,))
-    stime = time.time()
     p1.start(); 
     p2.start(); 
+    stime = time.time()
     p1.join(); p2.join()
     print(time.time() - stime)
 
