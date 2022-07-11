@@ -149,12 +149,14 @@ def read_and_inference(data_queue, frame_queue, send_queue):
     # TODO : get_data fuction to make modulize getting frames
     # TODO : This version sends all intermediate output, should be changed afterwards
     fpss = []
-
+    cnt = 0
     while True:
         try:
             frame = data_queue.pop(0)
+            cnt += 1
             if len(frame) == 0:
                 send_queue.put({-1 : -1})
+                print(cnt)
                 break
         except:
             break
@@ -247,7 +249,7 @@ def send_img(send_queue):
 
             # Send object
             client_socket.sendall(send_msg)
-        
+    
     # Exit
     # client_socket.close()
     # print('send_img End')
