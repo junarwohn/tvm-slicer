@@ -197,7 +197,7 @@ def send_data(send_queue):
             msg_body = pickle.dumps(data)
             total_send_msg_size = len(msg_body)
             send_msg = struct.pack('i', total_send_msg_size) + msg_body
-
+            print(total_send_msg_size)
             # Send object
             client_socket.sendall(send_msg)
         
