@@ -4,9 +4,13 @@ import struct
 import numpy as np
 from multiprocessing import Process, Queue
 import time
+from argparse import ArgumentParser
 
 HOST_IP = "192.168.0.184" 
 PORT = 9998        
+parser = ArgumentParser()
+parser.add_argument('--size', '-s', type=int, default=786432)
+args = parser.parse_args()
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -14,7 +18,7 @@ server_socket.bind((HOST_IP, PORT))
 
 server_socket.listen()
 client_socket, addr = server_socket.accept()
-arr = np.random.normal(0, 1, (1, 512, 512)).astype(np.float32)
+arr = np.random.normal(0, 1, (args.size)).astype(np.float32)
 
 def recv_img(q):
     recv_msg = b''

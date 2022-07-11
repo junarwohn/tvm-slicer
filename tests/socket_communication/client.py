@@ -5,9 +5,14 @@ import cv2
 import struct
 from multiprocessing import Process, Queue
 import time
+import asyncio
+from argparse import ArgumentParser
 
 HOST_IP = "192.168.0.184"
 PORT = 9998
+parser = ArgumentParser()
+parser.add_argument('--size', '-s', type=int, default=786432)
+args = parser.parse_args()
 
 client_socket  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -57,7 +62,7 @@ def recv_img():
         data = pickle.loads(msg_data)
 
 if __name__ == '__main__':
-    data_q = [np.random.normal(0, 1, (3, 512, 512)) for i in range(253)]
+    data_q = [np.random.normal(0, 1, (args.size)) for i in range(253)]
     p1 = Process(target=send_img, args=(data_q,))
     p2 = Process(target=recv_img)
     stime = time.time()
