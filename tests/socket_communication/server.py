@@ -1,8 +1,8 @@
+import pickle
 import socket
 import struct
 import numpy as np
 
-HOST_IP = "127.0.0.1" 
 HOST_IP = "192.168.0.184" 
 PORT = 9998        
 
@@ -14,7 +14,7 @@ server_socket.listen()
 client_socket, addr = server_socket.accept()
 
 recv_msg = b''
-
+arr = np.random.normal(0, 1, (1, 512, 512)).astype(np.float32)
 while True:
     try:
         while len(recv_msg) < 4:
@@ -31,9 +31,9 @@ while True:
         # packet = client_socket.recvall()
         recv_msg += client_socket.recv(total_recv_msg_size)
  
-    arr = np.random.normal(0, 1, (3, 512, 512)).astype(np.float32)
-    send_msg = arr.tobytes()
-    client_socket.sendall(struct.pack('i', len(send_msg)) + send_msg)
+    msg_body = pickle.dumps(arr)
+    total_send_msg_size = len(msg_body)
+    client_socket.sendall(struct.pack('i', total_send_msg_size) + msg_body)
     recv_msg = recv_msg[total_recv_msg_size:]
 
 client_socket.close()

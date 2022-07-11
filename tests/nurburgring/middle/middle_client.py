@@ -272,7 +272,6 @@ def inference_back(pass_queue, recv_queue, frame_queue):
     points_front_model = args.front
     points_back_model = args.back
     points_server_model = [points_front_model[-1], points_back_model[0]]
-    current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
 
     front_input_idxs, front_output_idxs, _ = get_model_info(points_front_model)
     _, server_output_idxs, _ = get_model_info(points_server_model)
