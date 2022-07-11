@@ -63,7 +63,7 @@ def recv_img():
         data = pickle.loads(msg_data)
 
 if __name__ == '__main__':
-    data_q = [np.random.normal(0, 1, (args.size).astype(np.float32)) for i in range(253)]
+    data_q = [np.random.normal(0, 1, (args.size)).astype(np.float32) for i in range(253)]
     p1 = Process(target=send_img, args=(data_q,))
     p2 = Process(target=recv_img)
     p1.start(); 
