@@ -216,11 +216,12 @@ def inference_front(data_queue, frame_queue, pass_queue, send_queue):
 
     
     in_data = {0 : 0}
-
+    cnt = 0
     # Start loop
     while True:
         try:
             frame = data_queue.pop(0)
+            cnt += 1
             if len(frame) == 0:
                 send_queue.put({-1 : -1})
                 pass_queue.put({})
@@ -265,6 +266,7 @@ def inference_front(data_queue, frame_queue, pass_queue, send_queue):
         frame_queue.put(frame)
 
     # print(timer_model)
+    print("inf front end", cnt)
     client_socket.close()
 
 
@@ -291,7 +293,6 @@ def inference_back(pass_queue, recv_queue, frame_queue):
 
     pass_queue_idxs = np.intersect1d(total_front_output_idxs, total_back_input_idxs)
     recv_queue_idxs = np.intersect1d(total_server_output_idxs, total_back_input_idxs)
-
     # Load models
     model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
     lib = tvm.runtime.load_module(model_path)
@@ -323,6 +324,8 @@ def inference_back(pass_queue, recv_queue, frame_queue):
                 pdata = pass_queue.get()
                 if len(pdata) == 0:
                     pass_flag = False
+                    while not pass_queue.empty():
+                        pass_queue.get()
                     break
                 for k in pdata:
                     pass_data.append(k)
@@ -339,19 +342,20 @@ def inference_back(pass_queue, recv_queue, frame_queue):
                 rdata = recv_queue.get()
                 if len(rdata) == 0:
                     recv_flag = False
+                    while not recv_queue.empty():
+                        recv_queue.get()
                     break
                 for k in rdata:
                     recv_data.append(k)
                     in_data[k] = rdata[k]
 
-        if not pass_flag and not recv_flag:
+        if not pass_flag or not recv_flag:
             break
-
+        
         # Assume one model
         if recv_flag:
             for in_index in recv_queue_idxs:
                 models[0].set_input("input_{}".format(in_index), in_data[in_index])
-
 
         # Assume one model
         # pre_outputs = []
@@ -407,7 +411,7 @@ def send_img(send_queue):
             # Packing data
             msg_body = pickle.dumps(data)
             total_send_msg_size = len(msg_body)
-            print("send msg", total_send_msg_size)
+            # print("send msg", total_send_msg_size)
             send_msg = struct.pack('i', total_send_msg_size) + msg_body
 
             # Send object
