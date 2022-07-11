@@ -55,6 +55,7 @@ def send_img(q):
         # Send msg
         msg_body = pickle.dumps(frame)
         total_send_msg_size = len(msg_body)
+        print(total_send_msg_size)
         send_msg = struct.pack('i', total_send_msg_size) + msg_body
         # Send object
         client_socket.sendall(send_msg)
