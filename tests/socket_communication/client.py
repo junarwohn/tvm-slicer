@@ -16,7 +16,7 @@ client_socket.connect((HOST_IP, PORT))
 print("connected")
 
 
-def generate_img(q, data_q):
+def send_img(data_q):
     while True:
         try:
             frame = data_q.pop(0)
@@ -50,20 +50,15 @@ def recv_img():
         recv_msg = recv_msg[4:]
         if total_recv_msg_size == 0:
             break 
-        # print("total_recv_msg_size", total_recv_msg_size)
-        # recv_msg += client_socket.recv(total_recv_msg_size)
         while len(recv_msg) < total_recv_msg_size:
-            # print(len(recv_msg))
             recv_msg += client_socket.recv(total_recv_msg_size)
-        # img = np.frombuffer(recv_msg[:4*512*512*3], np.float32).reshape((512,512,3))
         msg_data = recv_msg[:total_recv_msg_size]
         recv_msg = recv_msg[total_recv_msg_size:]
         data = pickle.loads(msg_data)
 
 if __name__ == '__main__':
-    q = Queue()
     data_q = [np.random.normal(0, 1, (3, 512, 512)) for i in range(253)]
-    p1 = Process(target=generate_img, args=(q, data_q))
+    p1 = Process(target=send_img, args=(data_q,))
     p2 = Process(target=recv_img)
     stime = time.time()
     p1.start(); 

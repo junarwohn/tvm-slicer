@@ -371,6 +371,7 @@ def inference_back(pass_queue, recv_queue, frame_queue):
 
         # out = in_data[pre_outputs[0]]
 
+
         models[0].run()
         out = models[0].get_output(0).numpy()
         
