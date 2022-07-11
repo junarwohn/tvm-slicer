@@ -102,7 +102,7 @@ def load_data():
             # frame_queue.put({-1:-1})
             # result_queue.put({-1:-1})
             break
-        data_queue.append(frame)
+        data_queue.append(frame.astype(np.float32))
     cap.release()
     return data_queue
 
