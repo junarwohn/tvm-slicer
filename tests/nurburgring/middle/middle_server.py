@@ -210,7 +210,7 @@ def send_data(send_queue):
             # Packing data
             msg_body = pickle.dumps(data)
             total_send_msg_size = len(msg_body)
-            print("Send msg:", total_send_msg_size)
+            # print("Send msg:", total_send_msg_size)
             send_msg = struct.pack('i', total_send_msg_size) + msg_body
 
             # Send object
