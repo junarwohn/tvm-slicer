@@ -166,9 +166,8 @@ def read_and_inference(data_queue, frame_queue, send_queue):
         # TIMER MODEL - start
         time_start = time.time()
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
-
+        print(input_data.shape)
         in_data[0] = input_data
-
         pre_outputs = []
         if len(models) == 0:
             pre_outputs = [0]
@@ -245,9 +244,7 @@ def send_img(send_queue):
             # Packing data
             msg_body = pickle.dumps(data)
             total_send_msg_size = len(msg_body)
-            for i in data:
-                print(data[i].shape)
-            print(total_send_msg_size)
+            print("send msg", total_send_msg_size)
             send_msg = struct.pack('i', total_send_msg_size) + msg_body
 
             # Send object
