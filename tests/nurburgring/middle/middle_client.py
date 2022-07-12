@@ -217,6 +217,7 @@ def inference_front(data_queue, frame_queue, pass_queue, send_queue):
     
     in_data = {0 : 0}
     cnt = 0
+    run_time = 0
     # Start loop
     while True:
         try:
@@ -237,12 +238,13 @@ def inference_front(data_queue, frame_queue, pass_queue, send_queue):
         if len(models) == 0:
             pre_outputs = [0]
         for in_indexs, out_indexs, model in zip(front_input_idxs, front_output_idxs, models):
+            stime = time.time()
             # set input
             for input_index in in_indexs:
                 model.set_input("input_{}".format(input_index), in_data[input_index])
             # run model
             model.run()
-
+            run_time += time.time() - stime
             # Send previous data
             for pre_output in pre_outputs:
                 if pre_output in send_queue_idxs:
@@ -266,7 +268,7 @@ def inference_front(data_queue, frame_queue, pass_queue, send_queue):
         frame_queue.put(frame)
 
     # print(timer_model)
-    print("inf front end", cnt)
+    print("inference back run", run_time)
     client_socket.close()
 
 
@@ -393,7 +395,8 @@ def inference_back(pass_queue, recv_queue, frame_queue):
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
-    print("inf_back", time.time() - timer_start)
+    # print("inf_back", time.time() - timer_start)
+    print("inference back run", run_time)
     cv2.destroyAllWindows()
 
 
