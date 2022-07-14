@@ -473,7 +473,7 @@ def recv_img(recv_queue):
 
 if __name__ == '__main__':
     print("------------------------")
-    print(args.model, ", ", args.target, ", ", args.img_size, ", ", args.opt_level, ", ", 'partition points :', args.partition_points, sep='')
+    print(args.model, ", ", args.target, ", ", args.img_size, ", ", args.opt_level, ", ", 'partition points :', args.front, args.back, sep='')
     frame_queue = Queue()
     send_queue = Queue()
     data_queue = load_data()
