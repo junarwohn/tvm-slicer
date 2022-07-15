@@ -385,9 +385,7 @@ def inference_back(pass_queue, recv_queue, frame_queue):
         models[0].run()
         out = models[0].get_output(0).numpy()
         
-        pre_time = run_time
         run_time += time.time() - stime
-        print(run_time - pre_time)
         img_in_rgb = frame_queue.get()
         th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
         img_in_rgb[th == 1] = [0, 0, 255]
