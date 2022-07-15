@@ -1,4 +1,7 @@
-2022. 07. 14. (목) 11:11:51 KST
-All Loaded
+2022. 07. 14. (목) 13:20:42 KST
 send_img End
-17.520931243896484
+All Loaded
+17.871870040893555
+send_img End
+All Loaded
+21.521831035614014

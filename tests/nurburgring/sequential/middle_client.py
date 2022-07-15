@@ -384,10 +384,9 @@ def inference_back(pass_queue, recv_queue, frame_queue):
 
         models[0].run()
         out = models[0].get_output(0).numpy()
-        
         pre_time = run_time
         run_time += time.time() - stime
-        print(run_time - pre_time)
+        print(pre_time - run_time)
         img_in_rgb = frame_queue.get()
         th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
         img_in_rgb[th == 1] = [0, 0, 255]
@@ -474,26 +473,159 @@ def recv_img(recv_queue):
 
 if __name__ == '__main__':
     print("------------------------")
-    print(args.model, ", ", args.target, ", ", args.img_size, ", ", args.opt_level, ", ", 'partition points :', args.partition_points, sep='')
-    frame_queue = Queue()
-    send_queue = Queue()
+    print(args.model, ", ", args.target, ", ", args.img_size, ", ", args.opt_level, ", ", 'partition points :', args.front, args.back, sep='')
+
+    # Load video
     data_queue = load_data()
-    pass_queue = Queue()
-    recv_queue = Queue()
 
-    p0 = Process(target=inference_front, args=(data_queue, frame_queue, pass_queue, send_queue))
-    p1 = Process(target=inference_back, args=(pass_queue, recv_queue, frame_queue))
-    p2 = Process(target=send_img, args=(send_queue,))
-    p3 = Process(target=recv_img, args=(recv_queue,))
+    # Load model
+    points_front_model = args.front
+    points_back_model = args.back
+    points_server_model = [points_front_model[-1], points_back_model[0]]
 
-    p0.start()
-    p1.start() 
-    p2.start()
-    p3.start() 
-    stime = time.time()
-    p0.join()
-    p1.join(); 
-    p2.join(); 
-    p3.join()
-    print("Total Time :", time.time() - stime)
+    front_input_idxs, front_output_idxs, front_graph_json_strs = get_model_info(points_front_model)
+    server_input_idxs, server_output_idxs, _ = get_model_info(points_server_model)
+    back_input_idxs, back_output_idxs, back_graph_json_strs = get_model_info(points_back_model)
+
+    total_front_output_idxs = []
+    for i in front_output_idxs:
+        total_front_output_idxs += i
+
+    total_server_input_idxs = []
+    for i in server_input_idxs:
+        total_server_input_idxs += i
+
+    total_back_input_idxs = []
+    for i in back_input_idxs:
+        total_back_input_idxs += i
+
+    total_front_output_idxs = []
+    for i in front_output_idxs:
+        total_front_output_idxs += i
+
+    total_server_output_idxs = []
+    for i in server_output_idxs:
+        total_server_output_idxs += i
+
+    total_back_input_idxs = []
+    for i in back_input_idxs:
+        total_back_input_idxs += i
+
+    # Obvious, but for safety
+    if not np.equal(np.setdiff1d(total_front_output_idxs, total_back_input_idxs), total_server_input_idxs):
+        print("Error setting dependencies. It may be occured wrong slicing")
+        exit()
+
+    send_queue_idxs = total_server_input_idxs
+    pass_queue_idxs = np.intersect1d(total_front_output_idxs, total_back_input_idxs)
+    recv_queue_idxs = np.intersect1d(total_server_output_idxs, total_back_input_idxs)
+    # Load models
+    model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
+    lib = tvm.runtime.load_module(model_path)
+
+    param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
+    with open(param_path, "rb") as fi:
+        loaded_params = bytearray(fi.read())
+
+    front_models = []
+    for graph_json_str in front_graph_json_strs:
+        model = graph_executor.create(graph_json_str, lib, dev)
+        model.load_params(loaded_params)
+        front_models.append(model)
+
+    back_models = []
+    for graph_json_str in back_graph_json_strs:
+        model = graph_executor.create(graph_json_str, lib, dev)
+        model.load_params(loaded_params)
+        back_models.append(model)
+
+    in_data = {0 : 0}
+    pass_queue = {}
+    recv_msg = b''
+    # Load network connection
+
+    for frame in data_queue:
+        in_data = {}
+        # Data preprocessing
+        if len(frame) == 0:
+            # Exit condition
+            send_msg = struct.pack('i', 0)
+            client_socket.sendall(send_msg)
+            break
+        
+        input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
+        in_data[0] = input_data
+
+        # Front inference
+        for in_indexs, out_indexs, model in zip(front_input_idxs, front_output_idxs, front_models):
+            # set input
+            for input_index in in_indexs:
+                model.set_input("input_{}".format(input_index), in_data[input_index])
+            # run model
+            model.run()
+            for i, output_index in enumerate(out_indexs):
+                in_data[output_index] = model.get_output(i).numpy()
+        
+        # Send
+        for output_idxs in front_output_idxs:
+            for output_idx in output_idxs:
+                if output_idx in send_queue_idxs:
+                    msg_body = pickle.dumps({output_idx : in_data[output_idx]})
+                    total_send_msg_size = len(msg_body)
+                    send_msg = struct.pack('i', total_send_msg_size) + msg_body
+                    client_socket.sendall(send_msg)
+                elif output_idx in pass_queue_idxs:
+                    pass_queue[output_idx] = in_data[output_idx]
+        # Recv
+        recv_queue = {}
+        while len(recv_queue.keys()) < len(recv_queue_idxs):
+            try:
+                while len(recv_msg) < 4:
+                    recv_msg += client_socket.recv(4)
+                msg_size_bytes = recv_msg[:4]
+                recv_msg = recv_msg[4:]
+                total_recv_msg_size = struct.unpack('i', msg_size_bytes)[0]
+                
+                # Recv end signal - this might not happen
+                if total_recv_msg_size == 0:
+                    # send the end signal : 0
+                    send_msg = struct.pack('i', 0)
+                    client_socket.sendall(send_msg)
+                    break
+
+                while len(recv_msg) < total_recv_msg_size:
+                    recv_msg += client_socket.recv(total_recv_msg_size)
+
+                msg_data_bytes = recv_msg[:total_recv_msg_size]
+                recv_msg = recv_msg[total_recv_msg_size:]
+                data = pickle.loads(msg_data_bytes)
+                for k in data:
+                    recv_queue[k] = data[k]
+            except:
+                break
+
+        # Back inference
+        for in_idx in pass_queue_idxs:
+            back_models[0].set_input("input_{}".format(in_idx), pass_queue[in_idx])
+
+        for in_idx in recv_queue_idxs:
+            back_models[0].set_input("input_{}".format(in_idx), recv_queue[in_idx])
+
+        back_models[0].run()
+        out = back_models[0].get_output(0).numpy()
+
+        img_in_rgb = frame
+        th = cv2.resize(cv2.threshold(np.squeeze(out.transpose([0,2,3,1])), 0.5, 1, cv2.THRESH_BINARY)[-1], (img_size,img_size))
+        img_in_rgb[th == 1] = [0, 0, 255]
+
+        if args.visualize:
+            cv2.imshow("received - client", img_in_rgb)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+        # Option : visualize
+        print("end")
+
+    # Connection Clear
+
     print("------------------------")
