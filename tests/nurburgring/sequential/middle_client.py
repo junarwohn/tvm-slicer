@@ -544,6 +544,7 @@ if __name__ == '__main__':
     recv_msg = b''
     # Load network connection
 
+    stime = time.time()
     for frame in data_queue:
         in_data = {}
         # Data preprocessing
@@ -624,8 +625,7 @@ if __name__ == '__main__':
                 break
 
         # Option : visualize
-        print("end")
-
+    print(time.time() - stime)
     # Connection Clear
 
     print("------------------------")
