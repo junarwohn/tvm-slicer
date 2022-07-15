@@ -27,9 +27,9 @@ parser.add_argument('--end_point', '-e', type=int, default=-1)
 parser.add_argument('--partition_points', '-p', nargs='+', type=int, default=0, help='set partition point')
 parser.add_argument('--img_size', '-i', type=int, default=512, help='set image size')
 parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
-parser.add_argument('--target', '-t', type=str, default='llvm', help='name of taget')
-parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_level')
-parser.add_argument('--ip', type=str, default='127.0.0.1', help='input ip of host')
+parser.add_argument('--target', '-t', type=str, default='cuda', help='name of taget')
+parser.add_argument('--opt_level', '-o', type=int, default=3, help='set opt_level')
+parser.add_argument('--ip', type=str, default='192.168.0.184', help='input ip of host')
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
 parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
 parser.add_argument('--visualize', '-v', type=int, default=0, help='visualize option')
@@ -166,7 +166,6 @@ def read_and_inference(data_queue, frame_queue, send_queue):
         # TIMER MODEL - start
         time_start = time.time()
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
-        print(input_data.shape)
         in_data[0] = input_data
         pre_outputs = []
         if len(models) == 0:
@@ -244,7 +243,6 @@ def send_img(send_queue):
             # Packing data
             msg_body = pickle.dumps(data)
             total_send_msg_size = len(msg_body)
-            print("send msg", total_send_msg_size)
             send_msg = struct.pack('i', total_send_msg_size) + msg_body
 
             # Send object
