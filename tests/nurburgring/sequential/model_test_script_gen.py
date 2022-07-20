@@ -1,33 +1,23 @@
-import socket
-import pickle
-# import cloudpickle as pickle
+from cv2 import CAP_PROP_XI_AUTO_BANDWIDTH_CALCULATION
+from grpc import server
 import numpy as np
-import tvm
-from tvm import te
-import tvm.relay as relay
-from tvm.contrib.download import download_testdata
-from tvm.contrib import graph_executor
-import json
-import time
-import sys
-import cv2
-import struct
 from argparse import ArgumentParser
-import ntplib 
-from multiprocessing import Process, Queue
+from itertools import combinations
 import os
+import json
+import itertools
 
 parser = ArgumentParser()
-parser.add_argument('--start_point', '-s', type=int, default=0)
-parser.add_argument('--end_point', '-e', type=int, default=-1)
 parser.add_argument('--partition_points', '-p', nargs='+', type=int, default=0, help='set partition point')
+parser.add_argument('--front', '-f', nargs='+', type=int, default=0, help='set front point')
+parser.add_argument('--back', '-b', nargs='+', type=int, default=0, help='set back point')
+parser.add_argument('--name', '-n', type=str, default='client', help='set program name')
 parser.add_argument('--img_size', '-i', type=int, default=512, help='set image size')
 parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
 parser.add_argument('--target', '-t', type=str, default='cuda', help='name of taget')
 parser.add_argument('--opt_level', '-o', type=int, default=3, help='set opt_level')
 parser.add_argument('--ip', type=str, default='192.168.0.184', help='input ip of host')
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
-parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
 parser.add_argument('--visualize', '-v', type=int, default=0, help='visualize option')
 args = parser.parse_args()
 
@@ -35,6 +25,10 @@ def get_model_info(partition_points):
     model_input_indexs = []
     model_output_indexs = []
     model_graph_json_strs = []
+
+    # If there is no model to be executed
+    if len(partition_points) == 1:
+        return [partition_points], [partition_points], []
 
     # Load front model json infos
     for i in range(len(partition_points) - 1):
@@ -53,32 +47,34 @@ def get_model_info(partition_points):
 
     return model_input_indexs, model_output_indexs, model_graph_json_strs
 
+partition_points = args.partition_points
 
-# Model load
-if args.target == 'llvm':
-    target = 'llvm'
-    dev = tvm.cpu()
-elif args.target == 'cuda':
-    target = 'cuda'
-    dev = tvm.cuda()
-elif args.target == 'opencl':
-    target = 'opencl'
-    dev = tvm.opencl()
+client_side = []
+server_side = []
 
+_,_,graph_json_raw = get_model_info(partition_points)
+graph = json.loads(graph_json_raw[0])
+candidates_points = []
+for idx, node in enumerate(graph['nodes']):
+    inputs = [i[0] for i in node['inputs']]
+    dtype = graph['attrs']['dltype'][1][idx]
+    if dtype == 'int8':
+        # print(idx, node['name'], dtype)
+        candidates_points.append(idx)
 
-model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
-lib = tvm.runtime.load_module(model_path)
-
-param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
-with open(param_path, "rb") as fi:
-    loaded_params = bytearray(fi.read())
-
-server_input_idxs, server_output_idxs, server_graph_json_strs = get_model_info(args.partition_points)
-model = graph_executor.create(server_graph_json_strs[0], lib, dev)
-model.load_params(loaded_params)
-
-stime = time.time()
-for i in range(253):
-    model.run()
-    a = model.get_output(0)
-print(args.partition_points, time.time() - stime)
+c = [list(i) for  i in itertools.combinations([args.partition_points[0]] + candidates_points + [args.partition_points[-1]], 2)]
+candidates = c
+tmp = []
+for c in candidates:
+    is_too_narrow = False
+    for i in range(len(c) - 1):
+        if c[i+1] - c[i] == 1:
+            is_too_narrow = True
+            break
+    if not is_too_narrow:
+        tmp.append(c)
+candidates = tmp
+print("rm model_test_log.txt")
+for candi in candidates:
+    print("python3 model_tester.py -p", candi[0], candi[1])
+    print("python3 model_tester.py -p", candi[0], candi[1], ">> model_test_log.txt")

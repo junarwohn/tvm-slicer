@@ -22,12 +22,12 @@ else:
 
 print("read ip")
 
-for i in range(100):
+for i in range(25):
     if args.name == 'client':
-        print("python3 client_pickle.py -i", 100*(i+1), "--ip=$ip")
+        print("python3 client_pickle.py -i", 40*(i+1), "--ip=$ip")
         print("sleep 3")
-        print("python3 client_pickle.py -i", 100*(i+1), "--ip=$ip >> client_log.txt")
+        print("python3 client_pickle.py -i", 40*(i+1), "--ip=$ip >> client_log.txt")
         print("sleep 3")
     else:
-        print("python3 server_pickle.py -i", 100*(i+1), "--ip=$ip")
-        print("python3 server_pickle.py -i", 100*(i+1), "--ip=$ip")
+        print("python3 server_pickle.py", "--ip=$ip")
+        print("python3 server_pickle.py", "--ip=$ip")
