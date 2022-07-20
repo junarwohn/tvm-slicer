@@ -60,9 +60,9 @@ class TVMSlicer:
             # Traverse
             mark_list.append(cur_node_index)
             input_lists = graph_config['nodes'][cur_node_index]['inputs']
-            print(input_lists)
+            # print(input_lists)
             for input_node_index in input_lists:
-                print(cur_node_index, "->", input_node_index[0])
+                # print(cur_node_index, "->", input_node_index[0])
                 mark_list = dfs(input_node_index[0], upper_bound, mark_list)
             return mark_list
 
@@ -99,13 +99,13 @@ class TVMSlicer:
         input_dependency = defaultdict(list) # input_node : model_node
 
         #####################
-        print("##############################")
-        print("Initial models")
-        print("pre_nodes", pre_nodes)
-        print("target_nodes", target_nodes)
-        print("model_nodes", model_nodes)
-        print("complement_nodes", complement_nodes)
-        print("##############################")
+        # print("##############################")
+        # print("Initial models")
+        # print("pre_nodes", pre_nodes)
+        # print("target_nodes", target_nodes)
+        # print("model_nodes", model_nodes)
+        # print("complement_nodes", complement_nodes)
+        # print("##############################")
 
         for mnode in model_nodes:
             # Get all input nodes in 
@@ -117,7 +117,7 @@ class TVMSlicer:
                     if inode in complement_nodes:
                         input_input_nodes = [e[0] for e in graph_config['nodes'][inode]['inputs']]
                         ######## Quantized node check #########
-                        if len(input_input_nodes) != 0:
+                        if len(input_input_nodes) != 0 and graph_config["attrs"]["dltype"][1][inode] != 'int8':
                             for iinode in input_input_nodes:
                                 iinode_dtype = graph_config["attrs"]["dltype"][1][iinode]
                                 iinode_op = graph_config['nodes'][iinode]['op']
@@ -149,14 +149,14 @@ class TVMSlicer:
         complement_nodes = np.setdiff1d(complement_nodes, intermediate_nodes)
 
         np.sort(complement_nodes)
-        print(complement_nodes)
+        # print(complement_nodes)
 
-        print("######################################")
-        print("After input analyze")
-        print("intermediate_nodes", intermediate_nodes)
-        print("input_dependency", input_dependency)
-        print("model_nodes", model_nodes)
-        print("######################################")
+        # print("######################################")
+        # print("After input analyze")
+        # print("intermediate_nodes", intermediate_nodes)
+        # print("input_dependency", input_dependency)
+        # print("model_nodes", model_nodes)
+        # print("######################################")
 
         # Check dependency nodes of ex nodes - for output nodes in model nodes.
         # dep_output_info = defaultdict(list) # model_nodes : ex_dep_node
@@ -175,7 +175,10 @@ class TVMSlicer:
                             if iinode in model_nodes:
                                 iinode_dtype = graph_config["attrs"]["dltype"][1][iinode]
                                 iinode_op = graph_config['nodes'][iinode]['op']
-                                if iinode_dtype == 'int8' and iinode_op != 'null':
+                                if iinode_dtype == 'int8' and iinode_op != 'null' and graph_config["attrs"]["dltype"][1][inode] != 'int8':
+                                    print("######################")
+                                    print(input_input_nodes)
+                                    print("######################")
                                     # intermediate_nodes.append(inode)
                                     output_dependency[iinode].append(cnode)
                                 else:
@@ -183,11 +186,11 @@ class TVMSlicer:
                     else:
                         output_dependency[inode].append(cnode)
 
-        print("######################################")
-        print("After output analyze")
-        print("output_dependency", output_dependency)
-        print("model_nodes", model_nodes)
-        print("######################################")
+        # print("######################################")
+        # print("After output analyze")
+        # print("output_dependency", output_dependency)
+        # print("model_nodes", model_nodes)
+        # print("######################################")
 
         if len(intermediate_nodes) != 0:
             model_nodes = np.concatenate([model_nodes, np.array(intermediate_nodes)])
@@ -237,7 +240,7 @@ class TVMSlicer:
         }
 
 
-        print("input_dependency.keys()", input_dependency.keys())
+        # print("input_dependency.keys()", input_dependency.keys())
         # Add input
         input_nodes = sorted(input_dependency.keys())
 
@@ -269,7 +272,7 @@ class TVMSlicer:
         # Add body
         model_nodes = sorted(model_nodes)
         model_nodes = input_nodes + model_nodes
-        print("model_nodes", model_nodes)
+        # print("model_nodes", model_nodes)
 
         for node_index in model_nodes[len(input_nodes):]:
             sliced_graph_config["nodes"].append(copy.deepcopy(graph_config['nodes'][node_index]))
@@ -300,8 +303,8 @@ class TVMSlicer:
         # TODO : Add logic for originally multiple output model.
         if len(output_nodes) == 0:
             output_nodes = [len(graph_config['nodes']) - 1]
-        print("output_dependency", output_dependency)
-        print("output_nodes", output_nodes)
+        # print("output_dependency", output_dependency)
+        # print("output_nodes", output_nodes)
         # Lookup Table for indexing.
         # {original_index : node_name}
         original_lut = dict()
@@ -316,7 +319,7 @@ class TVMSlicer:
             name = node_info['name']
             lut[name] = idx
 
-        print(lut)
+        # print(lut)
         # Set input
         for node_index, input_index in enumerate(model_nodes):
             node_input_indexs = sliced_graph_config["nodes"][node_index]['inputs']
@@ -326,10 +329,16 @@ class TVMSlicer:
                 # when required node is transformed into input_{} 
                 except:
                     print('input_{}'.format(node[0]))
+                    print('name' , sliced_graph_config["nodes"][node_index]['name'])
                     sliced_graph_config["nodes"][node_index]['inputs'][i] = [lut['input_{}'.format(node[0])], 0, 0]
-        
-        
-        # print(output_nodes)
+                    # except:
+                    #     # parent int8
+                    #     if 'input_{}'.format(node[0] - 1) in lut:
+                    #         sliced_graph_config["nodes"][node_index]['inputs'][i] = [lut['input_{}'.format(node[0] - 1)], 0, 0]
+                    #     else:
+                    #         print("error")
+                    #         print(lut)
+                    #         continue
         output_nodes = np.setdiff1d(output_nodes, np.array([0]))
         for output_node_index in output_nodes:
             try:
@@ -345,12 +354,12 @@ class TVMSlicer:
         #     sliced_graph_config["heads"].append([len(model_nodes) - 1, 0, 0])
         # Set rest : node_row_ptr
         sliced_graph_config["node_row_ptr"] = [i for i in range(len(sliced_graph_config["nodes"]) + 1)]
-        print("====================")
+        # print("====================")
 
         # return [sliced_graph_config, input_nodes, [o + len(input_nodes) for o in output_nodes]]
         # print(output_dependency.keys())
         # print([h[0] for h in sliced_graph_config["heads"]])
-        print(output_nodes)
+        # print(output_nodes)
         return [sliced_graph_config, input_nodes, output_nodes.tolist()]
 
 
