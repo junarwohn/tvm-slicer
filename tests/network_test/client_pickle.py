@@ -30,7 +30,7 @@ parser.add_argument('--img_size', '-i', type=int, default=512, help='set image s
 parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
 parser.add_argument('--target', '-t', type=str, default='llvm', help='name of taget')
 parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_level')
-parser.add_argument('--ip', type=str, default='127.0.0.1', help='input ip of host')
+parser.add_argument('--ip', type=str, default='192.168.0.184', help='input ip of host')
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
 parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
 
@@ -46,14 +46,14 @@ client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 client_socket.connect((HOST_IP, PORT))
 time_start = time.time()
 for i in range(1000):
-    new_data = np.random.normal(0, 1, (3, 512, 512)).astype(np.float32)
+    new_data = np.random.normal(0, 1, (3, args.img_size, args.img_size)).astype(np.float32)
     msg_body = pickle.dumps(new_data)
     total_send_msg_size = len(msg_body)
     send_msg = struct.pack('i', total_send_msg_size) + msg_body
 
     client_socket.sendall(send_msg)
     # print("send")
-
+time_end = time.time() - time_start
 client_socket.sendall(struct.pack('i', 0))
-print("total time start :", time.time() - time_start)
+print("total time start :", time_end, "data size :", len(send_msg))
 client_socket.close()
