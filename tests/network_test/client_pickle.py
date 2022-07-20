@@ -44,9 +44,9 @@ socket_size = args.socket_size
 client_socket  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 client_socket.connect((HOST_IP, PORT))
+new_data = np.random.normal(0, 1, (3, args.img_size, args.img_size)).astype(np.float32)
 time_start = time.time()
 for i in range(1000):
-    new_data = np.random.normal(0, 1, (3, args.img_size, args.img_size)).astype(np.float32)
     msg_body = pickle.dumps(new_data)
     total_send_msg_size = len(msg_body)
     send_msg = struct.pack('i', total_send_msg_size) + msg_body
