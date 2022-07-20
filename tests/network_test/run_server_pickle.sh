@@ -1,26 +1,28 @@
-python3 server_pickle.py
-python3 server_pickle.py
+read ip
 
-python3 server_pickle.py
-python3 server_pickle.py
+python3 server_pickle.py --ip=$ip 
+python3 server_pickle.py --ip=$ip 
 
-python3 server_pickle.py
-python3 server_pickle.py
+python3 server_pickle.py --ip=$ip 
+python3 server_pickle.py --ip=$ip 
 
-python3 server_pickle.py
-python3 server_pickle.py
+python3 server_pickle.py --ip=$ip 
+python3 server_pickle.py --ip=$ip 
 
-python3 server_pickle.py
-python3 server_pickle.py
+python3 server_pickle.py --ip=$ip 
+python3 server_pickle.py --ip=$ip 
 
-python3 server_pickle.py
-python3 server_pickle.py
+python3 server_pickle.py --ip=$ip 
+python3 server_pickle.py --ip=$ip 
 
-python3 server_pickle.py
-python3 server_pickle.py
+python3 server_pickle.py --ip=$ip 
+python3 server_pickle.py --ip=$ip 
 
-python3 server_pickle.py
-python3 server_pickle.py
+python3 server_pickle.py --ip=$ip 
+python3 server_pickle.py --ip=$ip 
 
-python3 server_pickle.py
-python3 server_pickle.py
+python3 server_pickle.py --ip=$ip 
+python3 server_pickle.py --ip=$ip 
+
+python3 server_pickle.py --ip=$ip 
+python3 server_pickle.py --ip=$ip 
