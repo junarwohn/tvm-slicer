@@ -55,5 +55,5 @@ for i in range(1000):
     # print("send")
 time_end = time.time() - time_start
 client_socket.sendall(struct.pack('i', 0))
-print("total time start :", time_end, "data size :", len(send_msg))
+print("totaltime", time_end, "data size", len(send_msg))
 client_socket.close()
