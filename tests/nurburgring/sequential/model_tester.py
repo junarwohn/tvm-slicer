@@ -74,11 +74,18 @@ with open(param_path, "rb") as fi:
     loaded_params = bytearray(fi.read())
 
 server_input_idxs, server_output_idxs, server_graph_json_strs = get_model_info(args.partition_points)
+
 model = graph_executor.create(server_graph_json_strs[0], lib, dev)
 model.load_params(loaded_params)
-
+json_graph = json.loads(server_graph_json_strs[0])
+input_shapes = [json_graph['attrs']['shape'][1][input_idx] for input_idx in range(len(server_input_idxs[0]))]
+input_dummies = [np.random.normal(0,1,tuple(input_shape)) for input_shape in input_shapes]
 stime = time.time()
 for i in range(253):
+    for idx, input_dummy in zip(server_input_idxs[0], input_dummies):
+        model.set_input("input_{}".format(idx), input_dummy)
     model.run()
-    a = model.get_output(0)
+    dev.sync()
+    for idx in range(len(server_output_idxs[0])):
+        a = model.get_output(idx).numpy()
 print(args.partition_points, time.time() - stime)
