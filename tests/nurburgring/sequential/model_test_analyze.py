@@ -48,6 +48,8 @@ def dfs(history, end_node, lut, cost_lut):
     last_visit = history[-1]
     if last_visit == end_node:
         print(history, sum([cost_lut["{}_{}".format(history[i], history[i+1])] for i in range(len(history) - 1)]))
+    elif len(history) == 3:
+        dfs(history+ [lut[last_visit][-1]], end_node, lut, cost_lut)
     else:
         for dst in lut[last_visit]:
             dfs(history+[dst], end_node, lut, cost_lut)
