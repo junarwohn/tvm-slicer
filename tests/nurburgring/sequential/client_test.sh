@@ -1,5 +1,5 @@
-300_c.sh
-705_c.sh
-1200_c.sh
-1605_c.sh
-1965_c.sh
+bash 300_c.sh
+bash 705_c.sh
+bash 1200_c.sh
+bash 1605_c.sh
+bash 1965_c.sh
