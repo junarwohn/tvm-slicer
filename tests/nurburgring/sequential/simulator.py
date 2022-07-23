@@ -22,6 +22,7 @@ MODEL_TEST_TIME = 253
 NETWORK_TEST_TIME = 1000
 def network_cost(data_shape, data_type):
     data_size = 1
+    print(data_type)
     for d in data_shape:
         data_size = data_size * d
     if data_type == 'float32':
