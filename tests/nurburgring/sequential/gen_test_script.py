@@ -42,13 +42,13 @@ while True:
         server_cmd.append(server_cmd_format.format(*points[1:3]))
 
 print("##############")
-print("sudo nvidia-smi -lgc {},{}".format(args.frequency, args.frequency))
 print("rm client_log.txt")
 for i in client_cmd:
     print(i)
     print(i , ">> client_log.txt")
 
 print("##############")
+print("sudo nvidia-smi -lgc {},{}".format(args.frequency, args.frequency))
 print("rm server_log.txt")
 for i in server_cmd:
     print(i)
