@@ -199,7 +199,6 @@ if __name__ == '__main__':
         # Data preprocessing
         if len(frame) == 0:
             break
-        print(e)
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
         in_data[0] = input_data
 
