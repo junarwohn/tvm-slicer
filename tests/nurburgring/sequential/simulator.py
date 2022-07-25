@@ -22,7 +22,6 @@ MODEL_TEST_TIME = 253
 NETWORK_TEST_TIME = 1000
 def network_cost(data_shape, data_type):
     data_size = 1
-    print(data_type)
     for d in data_shape:
         data_size = data_size * d
     if data_type == 'float32':
@@ -131,6 +130,10 @@ def dfs(history, end_node, lut, cost_lut_client, cost_lut_server):
         if len(history) == 2:
             cost = sum([cost_lut_client["{}_{}".format(history[i], history[i+1])] for i in range(len(history) - 1)])
             print(history, cost, "(client)")
+            c2s_cost = network_cost(total_graph_json["attrs"]["shape"][1][history[0]], total_graph_json["attrs"]['dltype'][1][history[0]])
+            s2c_cost = network_cost(total_graph_json["attrs"]["shape"][1][history[1]], total_graph_json["attrs"]['dltype'][1][history[1]])
+            cost = sum([cost_lut_server["{}_{}".format(history[i], history[i+1])] for i in range(len(history) - 1)])
+            print(history, cost + c2s_cost + s2c_cost, "(server)")
         # len == 3 => client->server result, server->client result
         elif len(history) == 3:
             # client->server
@@ -186,7 +189,7 @@ def dfs(history, end_node, lut, cost_lut_client, cost_lut_server):
                 total_server_output_idxs += i
 
             send_queue_idxs = [0]
-            recv_queue_idxs = total_server_output_idxs
+            recv_queue_idxs = total_front_output_idxs
 
             front2server_cost = sum([network_cost(total_graph_json["attrs"]["shape"][1][idx], total_graph_json["attrs"]['dltype'][1][idx]) for idx in send_queue_idxs])
             server_inference_cost = cost_lut_server["{}_{}".format(*history[0:2])]

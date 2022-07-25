@@ -10,7 +10,6 @@ parser.add_argument('--partition_points', '-p', nargs='+', type=int, default=[],
 parser.add_argument('--frequency', '-f' , type=int, default='300', help='type target file')
 args = parser.parse_args()
 
-clock = input()
 server_cmd = []
 server_cmd_format = "python3 server.py -p {} {}"
 client_cmd = []
