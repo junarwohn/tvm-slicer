@@ -195,11 +195,11 @@ if __name__ == '__main__':
 
     stime = time.time()
     is_send = False
-    for frame in data_queue:
+    for e, frame in enumerate(data_queue):
         # Data preprocessing
         if len(frame) == 0:
             break
-        
+        print(e)
         input_data = np.expand_dims(frame, 0).transpose([0, 3, 1, 2])
         in_data[0] = input_data
 
@@ -278,7 +278,7 @@ if __name__ == '__main__':
                 cv2.imshow("received - client", img_in_rgb)
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
-            is_send = True
+        is_send = True
 
     # Send
     for output_idxs in front_output_idxs:
