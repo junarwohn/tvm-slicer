@@ -1,5 +1,6 @@
 import socket
 import pickle
+from typing_extensions import runtime
 # import cloudpickle as pickle
 import numpy as np
 import tvm
@@ -80,12 +81,23 @@ model.load_params(loaded_params)
 json_graph = json.loads(server_graph_json_strs[0])
 input_shapes = [json_graph['attrs']['shape'][1][input_idx] for input_idx in range(len(server_input_idxs[0]))]
 input_dummies = [np.random.normal(0,1,tuple(input_shape)) for input_shape in input_shapes]
-stime = time.time()
+set_input_time = 0
+run_time = 0
+get_output_time = 0
 for i in range(253):
+    stime = time.time()
     for idx, input_dummy in zip(server_input_idxs[0], input_dummies):
         model.set_input("input_{}".format(idx), input_dummy)
+    set_input_time += time.time() - stime
+    stime = time.time()
     model.run()
     dev.sync()
+    run_time += time.time() - stime
+    stime = time.time()
     for idx in range(len(server_output_idxs[0])):
         a = model.get_output(idx).numpy()
-print(args.partition_points, time.time() - stime)
+    get_output_time += time.time() - stime
+
+print(*args.partition_points, sep=',', end='')
+print("|", end='')
+print(set_input_time, run_time, get_output_time, sep=",")

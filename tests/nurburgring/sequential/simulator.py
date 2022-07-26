@@ -129,11 +129,15 @@ def dfs(history, end_node, lut, cost_lut_client, cost_lut_server):
         # len == 2 => client only
         if len(history) == 2:
             cost = sum([cost_lut_client["{}_{}".format(history[i], history[i+1])] for i in range(len(history) - 1)])
-            print(history, cost, "(client)")
+            print(*history, sep=',', end='')
+            print("|", end='')
+            print(cost, "client", sep="|")
             c2s_cost = network_cost(total_graph_json["attrs"]["shape"][1][history[0]], total_graph_json["attrs"]['dltype'][1][history[0]])
             s2c_cost = network_cost(total_graph_json["attrs"]["shape"][1][history[1]], total_graph_json["attrs"]['dltype'][1][history[1]])
             cost = sum([cost_lut_server["{}_{}".format(history[i], history[i+1])] for i in range(len(history) - 1)])
-            print(history, cost + c2s_cost + s2c_cost, "(server)")
+            print(*history, sep=',', end='')
+            print("|", end='')
+            print(cost + c2s_cost + s2c_cost, "server", sep="|")
         # len == 3 => client->server result, server->client result
         elif len(history) == 3:
             # client->server
@@ -164,9 +168,9 @@ def dfs(history, end_node, lut, cost_lut_client, cost_lut_server):
             server_inference_cost = cost_lut_server["{}_{}".format(*history[1:3])]
             server2client_cost = sum([network_cost(total_graph_json["attrs"]["shape"][1][idx], total_graph_json["attrs"]['dltype'][1][idx]) for idx in recv_queue_idxs])
             total_cost = front_inference_cost + front2server_cost + server_inference_cost + server2client_cost
-            print(history, total_cost, "(client->server)")
-            # print(front2server_cost + server2client_cost)
-
+            print(*history, sep=',', end='')
+            print("|", end='')
+            print(total_cost, "client,server", sep="|")
 
             # server->client
             _, front_output_idxs, _ = get_model_info(history[0:2])
@@ -196,8 +200,10 @@ def dfs(history, end_node, lut, cost_lut_client, cost_lut_server):
             server2client_cost = sum([network_cost(total_graph_json["attrs"]["shape"][1][idx], total_graph_json["attrs"]['dltype'][1][idx]) for idx in recv_queue_idxs])
             back_inference_cost = cost_lut_client["{}_{}".format(*history[1:3])]
             total_cost = front2server_cost + server_inference_cost + server2client_cost + back_inference_cost
-            print(history, total_cost, "(server->client)")
-            # print(front2server_cost + server2client_cost)
+            print(*history, sep=',', end='')
+            print("|", end='')
+            print(total_cost, "server,client", sep="|")
+
         elif len(history) == 4:
             _, front_output_idxs, _ = get_model_info(history[0:2])
             server_input_idxs, server_output_idxs, _ = get_model_info(history[1:3])
@@ -236,8 +242,9 @@ def dfs(history, end_node, lut, cost_lut_client, cost_lut_server):
             server2client_cost = sum([network_cost(total_graph_json["attrs"]["shape"][1][idx], total_graph_json["attrs"]['dltype'][1][idx]) for idx in recv_queue_idxs])
             back_inference_cost = cost_lut_client["{}_{}".format(*history[2:4])]
             total_cost = front_inference_cost + front2server_cost + server_inference_cost + server2client_cost + back_inference_cost
-            print(history, total_cost, "(client->server->client)")
-            # print(front2server_cost + server2client_cost)
+            print(*history, sep=',', end='')
+            print("|", end='')
+            print(total_cost, "client,server,client", sep="|")
 
     else:
         for dst in lut[last_visit]:
