@@ -84,7 +84,8 @@ input_dummies = [np.random.normal(0,1,tuple(input_shape)) for input_shape in inp
 set_input_time = 0
 run_time = 0
 get_output_time = 0
-for i in range(253):
+REPEAT = 1000
+for i in range(REPEAT):
     stime = time.time()
     for idx, input_dummy in zip(server_input_idxs[0], input_dummies):
         model.set_input("input_{}".format(idx), input_dummy)
@@ -100,4 +101,4 @@ for i in range(253):
 
 print(*args.partition_points, sep=',', end='')
 print("|", end='')
-print(set_input_time, run_time, get_output_time, sep=",")
+print(set_input_time/REPEAT, run_time/REPEAT, get_output_time/REPEAT, sum([set_input_time, run_time, get_output_time])/REPEAT, sep=",")
