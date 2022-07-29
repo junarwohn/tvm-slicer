@@ -8,6 +8,7 @@ from sklearn import datasets
 parser = ArgumentParser()
 parser.add_argument('--partition_points', '-p', nargs='+', type=int, default=[], help='set partition points')
 parser.add_argument('--frequency', '-f' , type=int, default='300', help='type target file')
+parser.add_argument('--print_client', '-c', type=int, default=1)
 args = parser.parse_args()
 
 server_cmd = []
@@ -16,15 +17,22 @@ client_cmd = []
 client_cmd_format = "python3 client.py -f {} {} -b {} {}"
 
 while True:
-    cmd = input()
-    if cmd == '#' or cmd == "":
+    try:
+        cmd = input()
+    except:
+        break
+    if cmd == '#' or cmd == "" or cmd =="\n":
         break
     points, info = cmd.split("|")
     points = points.split(",")
-    info = info.split("->")
-    # local
+    info = info.split(",")
+    # local or cloud
     if len(info) == 1:
-        client_cmd.append("python3 local.py -p {} {}".format(*points))
+        if info[0] == 'server':
+            client_cmd.append(client_cmd_format.format(points[0], '', points[1], ''))
+            server_cmd.append(server_cmd_format.format(*points[0:2]))
+        else:
+            client_cmd.append("python3 local.py -p {} {}".format(*points))
     # splitted into 2
     elif len(info) == 2:
         # server->client
@@ -40,17 +48,18 @@ while True:
         client_cmd.append(client_cmd_format.format(*points[0:2], *points[2:4]))
         server_cmd.append(server_cmd_format.format(*points[1:3]))
 
-print("##############")
-print("rm client_log.txt")
-for i in client_cmd:
-    print(i)
-    print(i , ">> client_log.txt")
-
-print("##############")
-print("sudo nvidia-smi -lgc {},{}".format(args.frequency, args.frequency))
-print("rm server_log.txt")
-for i in server_cmd:
-    print(i)
-    print("sleep 3")
-    print(i, ">> server_log.txt")
-    print("sleep 3")
+if args.print_client == 1:
+    print("rm client_log.txt")
+    for i in client_cmd:
+        print(i)
+        print("sleep 3")
+        print(i , ">> client_log.txt")
+        print("sleep 3")
+    print("mv client_log.txt real_test_{}.txt".format(args.frequency))
+else:
+    print("read pw")
+    print("echo $pw sudo -S nvidia-smi -lgc {},{}".format(args.frequency, args.frequency))
+    print("rm server_log.txt")
+    for i in server_cmd:
+        print(i)
+        print(i, ">> server_log.txt")

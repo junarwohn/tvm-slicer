@@ -1,42 +1,29 @@
 read pw
-echo $pw | sudo -S nvidia-smi -lgc 300,300
+echo $pw sudo -S nvidia-smi -lgc 300,300
 rm server_log.txt
-python3 server.py -p  55  61
-
-python3 server.py -p  55  61 >> server_log.txt
-
-python3 server.py -p  41  53
-
-python3 server.py -p  41  53 >> server_log.txt
-
-python3 server.py -p  53  55
-
-python3 server.py -p  53  55 >> server_log.txt
-
-python3 server.py -p  41  47
-
-python3 server.py -p  41  47 >> server_log.txt
-
-python3 server.py -p  41  79
-
-python3 server.py -p  41  79 >> server_log.txt
-
-python3 server.py -p  53  61
-
-python3 server.py -p  53  61 >> server_log.txt
-
-python3 server.py -p  41  55
-
-python3 server.py -p  41  55 >> server_log.txt
-
-python3 server.py -p  47  53
-
-python3 server.py -p  47  53 >> server_log.txt
-
-python3 server.py -p  41  61
-
-python3 server.py -p  41  61 >> server_log.txt
-
-python3 server.py -p  55  72
-
-python3 server.py -p  55  72 >> server_log.txt
+python3 server.py -p 115 141
+python3 server.py -p 115 141 >> server_log.txt
+python3 server.py -p 133 141
+python3 server.py -p 133 141 >> server_log.txt
+python3 server.py -p 127 141
+python3 server.py -p 127 141 >> server_log.txt
+python3 server.py -p 126 141
+python3 server.py -p 126 141 >> server_log.txt
+python3 server.py -p 0 141
+python3 server.py -p 0 141 >> server_log.txt
+python3 server.py -p 109 141
+python3 server.py -p 109 141 >> server_log.txt
+python3 server.py -p 108 141
+python3 server.py -p 108 141 >> server_log.txt
+python3 server.py -p 97 141
+python3 server.py -p 97 141 >> server_log.txt
+python3 server.py -p 11 141
+python3 server.py -p 11 141 >> server_log.txt
+python3 server.py -p 0 11
+python3 server.py -p 0 11 >> server_log.txt
+python3 server.py -p 0 5
+python3 server.py -p 0 5 >> server_log.txt
+python3 server.py -p 0 13
+python3 server.py -p 0 13 >> server_log.txt
+python3 server.py -p 0 25
+python3 server.py -p 0 25 >> server_log.txt
