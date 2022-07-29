@@ -257,10 +257,11 @@ parser = ArgumentParser()
 parser.add_argument('--partition_points', '-p', nargs='+', type=int, default=[], help='set partition points')
 parser.add_argument('--img_size', '-i', type=int, default=512, help='set image size')
 parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
-parser.add_argument('--target', '-t', type=str, default='llvm', help='name of taget')
-parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_level')
+parser.add_argument('--target', '-t', type=str, default='cuda', help='name of taget')
+parser.add_argument('--opt_level', '-o', type=int, default=3, help='set opt_level')
 parser.add_argument('--build', '-b', type=int, default=0, help='build model')
 parser.add_argument('--add_quantize_layer', '-q', type=int, default=0, help='add int8 quantize layer at sliced edge')
+parser.add_argument('--force', '-f', type=int, default=0)
 args = parser.parse_args()
 
 current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
@@ -389,8 +390,8 @@ candidates = tmp
 # do 'extra' job to 
 with open(current_file_path + "./src/graph/{}_{}_full_{}_{}.json".format(args.model, args.target, img_size, args.opt_level), "w") as json_file:
     json_file.write(graph_json_raw)
-# force_slice = False
-force_slice = True
+force_slice = (args.force == 1)
+# force_slice = True
 # json format would be {model}_{target}_{img_size}_{opt_level}_{partition_start}-{partition_end}.json
 
 for partition_points in candidates:
