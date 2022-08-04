@@ -68,7 +68,7 @@ f_c.write('\n')
 # else:
 f_s.write("read pw")
 f_s.write('\n')
-f_s.write("echo $pw sudo -S nvidia-smi -lgc {},{}".format(args.frequency, args.frequency))
+f_s.write("echo $pw | sudo -S nvidia-smi -lgc {},{}".format(args.frequency, args.frequency))
 f_s.write('\n')
 f_s.write("rm server_log.txt")
 f_s.write('\n')

@@ -1,5 +1,5 @@
 read pw
-echo $pw sudo -S nvidia-smi -lgc 405,405
+echo $pw | sudo -S nvidia-smi -lgc 405,405
 rm server_log.txt
 python3 server.py -p 0 141
 python3 server.py -p 0 141 >> server_log.txt
