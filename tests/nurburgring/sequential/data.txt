@@ -26,8 +26,8 @@
 0,115,141|server,client
 0,91,141|client,server
 0,39,126,141|client,server,client
-0,90,141|client,server
 0,33,126,141|client,server,client
+0,90,141|client,server
 0,61,141|client,server
 0,73,141|client,server
 0,72,141|client,server
@@ -41,14 +41,3 @@
 0,13,115,141|client,server,client
 0,97,141|server,client
 0,73,126,141|client,server,client
-0,13,133,141|client,server,client
-0,72,126,141|client,server,client
-0,11,126,141|client,server,client
-0,91,126,141|client,server,client
-0,90,126,141|client,server,client
-0,97,126,141|client,server,client
-0,126,141|client,server
-0,127,141|client,server
-0,133,141|client,server
-0,79,141|server,client
-0,25,115,141|client,server,client

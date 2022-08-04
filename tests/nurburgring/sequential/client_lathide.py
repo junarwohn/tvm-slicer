@@ -145,10 +145,6 @@ if __name__ == '__main__':
     for i in back_input_idxs:
         total_back_input_idxs += i
 
-    total_front_output_idxs = []
-    for i in front_output_idxs:
-        total_front_output_idxs += i
-
     total_server_output_idxs = []
     for i in server_output_idxs:
         total_server_output_idxs += i

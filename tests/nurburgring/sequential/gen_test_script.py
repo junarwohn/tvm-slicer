@@ -48,18 +48,35 @@ while True:
         client_cmd.append(client_cmd_format.format(*points[0:2], *points[2:4]))
         server_cmd.append(server_cmd_format.format(*points[1:3]))
 
-if args.print_client == 1:
-    print("rm client_log.txt")
-    for i in client_cmd:
-        print(i)
-        print("sleep 3")
-        print(i , ">> client_log.txt")
-        print("sleep 3")
-    print("mv client_log.txt real_test_{}.txt".format(args.frequency))
-else:
-    print("read pw")
-    print("echo $pw sudo -S nvidia-smi -lgc {},{}".format(args.frequency, args.frequency))
-    print("rm server_log.txt")
-    for i in server_cmd:
-        print(i)
-        print(i, ">> server_log.txt")
+f_c = open("./{}_c.sh".format(args.frequency), 'w')
+f_s = open("./{}_s.sh".format(args.frequency), 'w')
+
+# if args.print_client == 1:
+f_c.write("rm client_log.txt")
+f_c.write('\n')
+for i in client_cmd:
+    f_c.write(i)
+    f_c.write('\n')
+    f_c.write("sleep 3")
+    f_c.write('\n')
+    f_c.write(str(i) + ">> client_log.txt")
+    f_c.write('\n')
+    f_c.write("sleep 3")
+    f_c.write('\n')
+f_c.write("mv client_log.txt real_test_{}.txt".format(args.frequency))
+f_c.write('\n')
+# else:
+f_s.write("read pw")
+f_s.write('\n')
+f_s.write("echo $pw sudo -S nvidia-smi -lgc {},{}".format(args.frequency, args.frequency))
+f_s.write('\n')
+f_s.write("rm server_log.txt")
+f_s.write('\n')
+for i in server_cmd:
+    f_s.write(i)
+    f_s.write('\n')
+    f_s.write(str(i) + ">> server_log.txt")
+    f_s.write('\n')
+
+f_c.close()
+f_s.close()

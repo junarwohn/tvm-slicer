@@ -5,10 +5,10 @@ python3 server.py -p 115 141
 python3 server.py -p 115 141 >> server_log.txt
 python3 server.py -p 133 141
 python3 server.py -p 133 141 >> server_log.txt
-python3 server.py -p 127 141
-python3 server.py -p 127 141 >> server_log.txt
 python3 server.py -p 126 141
 python3 server.py -p 126 141 >> server_log.txt
+python3 server.py -p 127 141
+python3 server.py -p 127 141 >> server_log.txt
 python3 server.py -p 0 141
 python3 server.py -p 0 141 >> server_log.txt
 python3 server.py -p 109 141
