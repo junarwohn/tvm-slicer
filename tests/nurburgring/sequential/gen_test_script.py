@@ -59,7 +59,7 @@ for i in client_cmd:
     f_c.write('\n')
     f_c.write("sleep 3")
     f_c.write('\n')
-    f_c.write(str(i) + ">> client_log.txt")
+    f_c.write(str(i) + " >> client_log.txt")
     f_c.write('\n')
     f_c.write("sleep 3")
     f_c.write('\n')
@@ -75,7 +75,7 @@ f_s.write('\n')
 for i in server_cmd:
     f_s.write(i)
     f_s.write('\n')
-    f_s.write(str(i) + ">> server_log.txt")
+    f_s.write(str(i) + " >> server_log.txt")
     f_s.write('\n')
 
 f_c.close()
