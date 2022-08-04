@@ -14,7 +14,7 @@ args = parser.parse_args()
 server_cmd = []
 server_cmd_format = "python3 server.py -p {} {}"
 client_cmd = []
-client_cmd_format = "python3 client.py -f {} {} -b {} {}"
+client_cmd_format = "python3 client_lathide.py -f {} {} -b {} {}"
 
 while True:
     try:
