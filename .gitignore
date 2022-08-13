@@ -23,4 +23,6 @@ tags
 **/*.pyc
 **/*.png
 **/*.params
-./include/*
+#include/
+tests/Unet/Unet_test/data/
+tests/Unet/Unet_test/*.h5
