@@ -1,0 +1,2902 @@
+Found 483 images belonging to 1 classes.
+Found 161 images belonging to 1 classes.
+Found 483 images belonging to 1 classes.
+Found 161 images belonging to 1 classes.
+############################
+[5, 0, 0, 0]
+############################
+Epoch 1/10
+120/120 - 40s - loss: 0.8327 - binary_crossentropy: 0.8327 - val_loss: 0.6843 - val_binary_crossentropy: 0.6843
+Epoch 2/10
+120/120 - 33s - loss: 0.6606 - binary_crossentropy: 0.6606 - val_loss: 0.6227 - val_binary_crossentropy: 0.6227
+Epoch 3/10
+120/120 - 33s - loss: 0.5169 - binary_crossentropy: 0.5169 - val_loss: 0.4937 - val_binary_crossentropy: 0.4937
+Epoch 4/10
+120/120 - 33s - loss: 0.3730 - binary_crossentropy: 0.3730 - val_loss: 0.3671 - val_binary_crossentropy: 0.3671
+Epoch 5/10
+120/120 - 32s - loss: 0.2660 - binary_crossentropy: 0.2660 - val_loss: 0.2523 - val_binary_crossentropy: 0.2523
+Epoch 6/10
+120/120 - 33s - loss: 0.1896 - binary_crossentropy: 0.1896 - val_loss: 0.1934 - val_binary_crossentropy: 0.1934
+Epoch 7/10
+120/120 - 33s - loss: 0.1403 - binary_crossentropy: 0.1403 - val_loss: 0.1395 - val_binary_crossentropy: 0.1395
+Epoch 8/10
+120/120 - 33s - loss: 0.1064 - binary_crossentropy: 0.1064 - val_loss: 0.1084 - val_binary_crossentropy: 0.1084
+Epoch 9/10
+120/120 - 34s - loss: 0.0859 - binary_crossentropy: 0.0859 - val_loss: 0.1137 - val_binary_crossentropy: 0.1137
+Epoch 10/10
+120/120 - 35s - loss: 0.0702 - binary_crossentropy: 0.0702 - val_loss: 0.0923 - val_binary_crossentropy: 0.0923
+############################
+[4, 1, 0, 0]
+############################
+Epoch 1/10
+120/120 - 41s - loss: 0.7850 - binary_crossentropy: 0.7850 - val_loss: 0.6745 - val_binary_crossentropy: 0.6745
+Epoch 2/10
+120/120 - 34s - loss: 0.5991 - binary_crossentropy: 0.5991 - val_loss: 0.5519 - val_binary_crossentropy: 0.5519
+Epoch 3/10
+120/120 - 34s - loss: 0.4037 - binary_crossentropy: 0.4037 - val_loss: 0.3725 - val_binary_crossentropy: 0.3725
+Epoch 4/10
+120/120 - 35s - loss: 0.2888 - binary_crossentropy: 0.2888 - val_loss: 0.2681 - val_binary_crossentropy: 0.2681
+Epoch 5/10
+120/120 - 35s - loss: 0.2196 - binary_crossentropy: 0.2196 - val_loss: 0.1811 - val_binary_crossentropy: 0.1811
+Epoch 6/10
+120/120 - 34s - loss: 0.1627 - binary_crossentropy: 0.1627 - val_loss: 0.1502 - val_binary_crossentropy: 0.1502
+Epoch 7/10
+120/120 - 36s - loss: 0.1193 - binary_crossentropy: 0.1193 - val_loss: 0.1201 - val_binary_crossentropy: 0.1201
+Epoch 8/10
+120/120 - 37s - loss: 0.0944 - binary_crossentropy: 0.0944 - val_loss: 0.0866 - val_binary_crossentropy: 0.0866
+Epoch 9/10
+120/120 - 35s - loss: 0.0761 - binary_crossentropy: 0.0761 - val_loss: 0.0754 - val_binary_crossentropy: 0.0754
+Epoch 10/10
+120/120 - 36s - loss: 0.0647 - binary_crossentropy: 0.0647 - val_loss: 0.0764 - val_binary_crossentropy: 0.0764
+############################
+[4, 0, 1, 0]
+############################
+Epoch 1/10
+120/120 - 38s - loss: 0.6211 - binary_crossentropy: 0.6211 - val_loss: 0.6420 - val_binary_crossentropy: 0.6420
+Epoch 2/10
+120/120 - 35s - loss: 0.3797 - binary_crossentropy: 0.3797 - val_loss: 0.4405 - val_binary_crossentropy: 0.4405
+Epoch 3/10
+120/120 - 34s - loss: 0.2290 - binary_crossentropy: 0.2290 - val_loss: 0.2421 - val_binary_crossentropy: 0.2421
+Epoch 4/10
+120/120 - 32s - loss: 0.1532 - binary_crossentropy: 0.1532 - val_loss: 0.1624 - val_binary_crossentropy: 0.1624
+Epoch 5/10
+120/120 - 34s - loss: 0.1109 - binary_crossentropy: 0.1109 - val_loss: 0.1219 - val_binary_crossentropy: 0.1219
+Epoch 6/10
+120/120 - 32s - loss: 0.0887 - binary_crossentropy: 0.0887 - val_loss: 0.1140 - val_binary_crossentropy: 0.1140
+Epoch 7/10
+120/120 - 36s - loss: 0.0731 - binary_crossentropy: 0.0731 - val_loss: 0.0738 - val_binary_crossentropy: 0.0738
+Epoch 8/10
+120/120 - 34s - loss: 0.0597 - binary_crossentropy: 0.0597 - val_loss: 0.0670 - val_binary_crossentropy: 0.0670
+Epoch 9/10
+120/120 - 36s - loss: 0.0532 - binary_crossentropy: 0.0532 - val_loss: 0.0613 - val_binary_crossentropy: 0.0613
+Epoch 10/10
+120/120 - 37s - loss: 0.0459 - binary_crossentropy: 0.0459 - val_loss: 0.0580 - val_binary_crossentropy: 0.0580
+############################
+[4, 0, 0, 1]
+############################
+Epoch 1/10
+120/120 - 40s - loss: 0.4118 - binary_crossentropy: 0.4118 - val_loss: 0.6215 - val_binary_crossentropy: 0.6215
+Epoch 2/10
+120/120 - 36s - loss: 0.2627 - binary_crossentropy: 0.2627 - val_loss: 0.4519 - val_binary_crossentropy: 0.4519
+Epoch 3/10
+120/120 - 36s - loss: 0.1839 - binary_crossentropy: 0.1839 - val_loss: 0.2248 - val_binary_crossentropy: 0.2248
+Epoch 4/10
+120/120 - 35s - loss: 0.1362 - binary_crossentropy: 0.1362 - val_loss: 0.1267 - val_binary_crossentropy: 0.1267
+Epoch 5/10
+120/120 - 32s - loss: 0.1021 - binary_crossentropy: 0.1021 - val_loss: 0.0846 - val_binary_crossentropy: 0.0846
+Epoch 6/10
+120/120 - 31s - loss: 0.0819 - binary_crossentropy: 0.0819 - val_loss: 0.0733 - val_binary_crossentropy: 0.0733
+Epoch 7/10
+120/120 - 31s - loss: 0.0637 - binary_crossentropy: 0.0637 - val_loss: 0.0706 - val_binary_crossentropy: 0.0706
+Epoch 8/10
+120/120 - 31s - loss: 0.0529 - binary_crossentropy: 0.0529 - val_loss: 0.0763 - val_binary_crossentropy: 0.0763
+Epoch 9/10
+120/120 - 31s - loss: 0.0448 - binary_crossentropy: 0.0448 - val_loss: 0.0550 - val_binary_crossentropy: 0.0550
+Epoch 10/10
+120/120 - 31s - loss: 0.0384 - binary_crossentropy: 0.0384 - val_loss: 0.0666 - val_binary_crossentropy: 0.0666
+############################
+[4, 0, 0, 0]
+############################
+Epoch 1/10
+120/120 - 34s - loss: 0.7549 - binary_crossentropy: 0.7549 - val_loss: 0.6454 - val_binary_crossentropy: 0.6454
+Epoch 2/10
+120/120 - 30s - loss: 0.4805 - binary_crossentropy: 0.4805 - val_loss: 0.5336 - val_binary_crossentropy: 0.5336
+Epoch 3/10
+120/120 - 31s - loss: 0.3088 - binary_crossentropy: 0.3088 - val_loss: 0.3440 - val_binary_crossentropy: 0.3440
+Epoch 4/10
+120/120 - 31s - loss: 0.1927 - binary_crossentropy: 0.1927 - val_loss: 0.2078 - val_binary_crossentropy: 0.2078
+Epoch 5/10
+120/120 - 31s - loss: 0.1343 - binary_crossentropy: 0.1343 - val_loss: 0.1417 - val_binary_crossentropy: 0.1417
+Epoch 6/10
+120/120 - 32s - loss: 0.1016 - binary_crossentropy: 0.1016 - val_loss: 0.1110 - val_binary_crossentropy: 0.1110
+Epoch 7/10
+120/120 - 34s - loss: 0.0813 - binary_crossentropy: 0.0813 - val_loss: 0.0993 - val_binary_crossentropy: 0.0993
+Epoch 8/10
+120/120 - 35s - loss: 0.0667 - binary_crossentropy: 0.0667 - val_loss: 0.0765 - val_binary_crossentropy: 0.0765
+Epoch 9/10
+120/120 - 35s - loss: 0.0560 - binary_crossentropy: 0.0560 - val_loss: 0.0684 - val_binary_crossentropy: 0.0684
+Epoch 10/10
+120/120 - 33s - loss: 0.0472 - binary_crossentropy: 0.0472 - val_loss: 0.0703 - val_binary_crossentropy: 0.0703
+############################
+[3, 2, 0, 0]
+############################
+Epoch 1/10
+120/120 - 38s - loss: 0.3831 - binary_crossentropy: 0.3831 - val_loss: 0.5892 - val_binary_crossentropy: 0.5892
+Epoch 2/10
+120/120 - 34s - loss: 0.2465 - binary_crossentropy: 0.2465 - val_loss: 0.3871 - val_binary_crossentropy: 0.3871
+Epoch 3/10
+120/120 - 31s - loss: 0.1807 - binary_crossentropy: 0.1807 - val_loss: 0.2382 - val_binary_crossentropy: 0.2382
+Epoch 4/10
+120/120 - 31s - loss: 0.1414 - binary_crossentropy: 0.1414 - val_loss: 0.1622 - val_binary_crossentropy: 0.1622
+Epoch 5/10
+120/120 - 31s - loss: 0.1157 - binary_crossentropy: 0.1157 - val_loss: 0.1256 - val_binary_crossentropy: 0.1256
+Epoch 6/10
+120/120 - 33s - loss: 0.0935 - binary_crossentropy: 0.0935 - val_loss: 0.0899 - val_binary_crossentropy: 0.0899
+Epoch 7/10
+120/120 - 31s - loss: 0.0773 - binary_crossentropy: 0.0773 - val_loss: 0.0806 - val_binary_crossentropy: 0.0806
+Epoch 8/10
+120/120 - 31s - loss: 0.0649 - binary_crossentropy: 0.0649 - val_loss: 0.0786 - val_binary_crossentropy: 0.0786
+Epoch 9/10
+120/120 - 31s - loss: 0.0537 - binary_crossentropy: 0.0537 - val_loss: 0.0766 - val_binary_crossentropy: 0.0766
+Epoch 10/10
+120/120 - 35s - loss: 0.0468 - binary_crossentropy: 0.0468 - val_loss: 0.0666 - val_binary_crossentropy: 0.0666
+############################
+[3, 1, 1, 0]
+############################
+Epoch 1/10
+120/120 - 39s - loss: 0.7124 - binary_crossentropy: 0.7124 - val_loss: 0.6402 - val_binary_crossentropy: 0.6402
+Epoch 2/10
+120/120 - 36s - loss: 0.4846 - binary_crossentropy: 0.4846 - val_loss: 0.4716 - val_binary_crossentropy: 0.4716
+Epoch 3/10
+120/120 - 36s - loss: 0.3189 - binary_crossentropy: 0.3189 - val_loss: 0.3461 - val_binary_crossentropy: 0.3461
+Epoch 4/10
+120/120 - 35s - loss: 0.2291 - binary_crossentropy: 0.2291 - val_loss: 0.2500 - val_binary_crossentropy: 0.2500
+Epoch 5/10
+120/120 - 32s - loss: 0.1707 - binary_crossentropy: 0.1707 - val_loss: 0.1833 - val_binary_crossentropy: 0.1833
+Epoch 6/10
+120/120 - 31s - loss: 0.1307 - binary_crossentropy: 0.1307 - val_loss: 0.1156 - val_binary_crossentropy: 0.1156
+Epoch 7/10
+120/120 - 31s - loss: 0.1023 - binary_crossentropy: 0.1023 - val_loss: 0.0961 - val_binary_crossentropy: 0.0961
+Epoch 8/10
+120/120 - 33s - loss: 0.0835 - binary_crossentropy: 0.0835 - val_loss: 0.0726 - val_binary_crossentropy: 0.0726
+Epoch 9/10
+120/120 - 36s - loss: 0.0684 - binary_crossentropy: 0.0684 - val_loss: 0.0773 - val_binary_crossentropy: 0.0773
+Epoch 10/10
+120/120 - 35s - loss: 0.0595 - binary_crossentropy: 0.0595 - val_loss: 0.0693 - val_binary_crossentropy: 0.0693
+############################
+[3, 1, 0, 1]
+############################
+Epoch 1/10
+120/120 - 40s - loss: 0.5028 - binary_crossentropy: 0.5028 - val_loss: 0.6228 - val_binary_crossentropy: 0.6228
+Epoch 2/10
+120/120 - 36s - loss: 0.3084 - binary_crossentropy: 0.3084 - val_loss: 0.3372 - val_binary_crossentropy: 0.3372
+Epoch 3/10
+120/120 - 37s - loss: 0.2007 - binary_crossentropy: 0.2007 - val_loss: 0.1955 - val_binary_crossentropy: 0.1955
+Epoch 4/10
+120/120 - 35s - loss: 0.1392 - binary_crossentropy: 0.1392 - val_loss: 0.1517 - val_binary_crossentropy: 0.1517
+Epoch 5/10
+120/120 - 34s - loss: 0.1005 - binary_crossentropy: 0.1005 - val_loss: 0.1130 - val_binary_crossentropy: 0.1130
+Epoch 6/10
+120/120 - 34s - loss: 0.0757 - binary_crossentropy: 0.0757 - val_loss: 0.0863 - val_binary_crossentropy: 0.0863
+Epoch 7/10
+120/120 - 35s - loss: 0.0607 - binary_crossentropy: 0.0607 - val_loss: 0.0751 - val_binary_crossentropy: 0.0751
+Epoch 8/10
+120/120 - 33s - loss: 0.0508 - binary_crossentropy: 0.0508 - val_loss: 0.0705 - val_binary_crossentropy: 0.0705
+Epoch 9/10
+120/120 - 31s - loss: 0.0428 - binary_crossentropy: 0.0428 - val_loss: 0.0600 - val_binary_crossentropy: 0.0600
+Epoch 10/10
+120/120 - 31s - loss: 0.0354 - binary_crossentropy: 0.0354 - val_loss: 0.0523 - val_binary_crossentropy: 0.0523
+############################
+[3, 1, 0, 0]
+############################
+Epoch 1/10
+120/120 - 35s - loss: 0.3991 - binary_crossentropy: 0.3991 - val_loss: 0.5724 - val_binary_crossentropy: 0.5724
+Epoch 2/10
+120/120 - 31s - loss: 0.2486 - binary_crossentropy: 0.2486 - val_loss: 0.3412 - val_binary_crossentropy: 0.3412
+Epoch 3/10
+120/120 - 31s - loss: 0.1654 - binary_crossentropy: 0.1654 - val_loss: 0.1818 - val_binary_crossentropy: 0.1818
+Epoch 4/10
+120/120 - 33s - loss: 0.1139 - binary_crossentropy: 0.1139 - val_loss: 0.1246 - val_binary_crossentropy: 0.1246
+Epoch 5/10
+120/120 - 31s - loss: 0.0828 - binary_crossentropy: 0.0828 - val_loss: 0.0924 - val_binary_crossentropy: 0.0924
+Epoch 6/10
+120/120 - 31s - loss: 0.0632 - binary_crossentropy: 0.0632 - val_loss: 0.0874 - val_binary_crossentropy: 0.0874
+Epoch 7/10
+120/120 - 30s - loss: 0.0510 - binary_crossentropy: 0.0510 - val_loss: 0.0609 - val_binary_crossentropy: 0.0609
+Epoch 8/10
+120/120 - 31s - loss: 0.0394 - binary_crossentropy: 0.0394 - val_loss: 0.0427 - val_binary_crossentropy: 0.0427
+Epoch 9/10
+120/120 - 32s - loss: 0.0343 - binary_crossentropy: 0.0343 - val_loss: 0.0537 - val_binary_crossentropy: 0.0537
+Epoch 10/10
+120/120 - 34s - loss: 0.0293 - binary_crossentropy: 0.0293 - val_loss: 0.0471 - val_binary_crossentropy: 0.0471
+############################
+[3, 0, 2, 0]
+############################
+Epoch 1/10
+120/120 - 36s - loss: 0.4480 - binary_crossentropy: 0.4480 - val_loss: 0.6129 - val_binary_crossentropy: 0.6129
+Epoch 2/10
+120/120 - 33s - loss: 0.2875 - binary_crossentropy: 0.2875 - val_loss: 0.4222 - val_binary_crossentropy: 0.4222
+Epoch 3/10
+120/120 - 36s - loss: 0.1999 - binary_crossentropy: 0.1999 - val_loss: 0.2351 - val_binary_crossentropy: 0.2351
+Epoch 4/10
+120/120 - 36s - loss: 0.1470 - binary_crossentropy: 0.1470 - val_loss: 0.1669 - val_binary_crossentropy: 0.1669
+Epoch 5/10
+120/120 - 36s - loss: 0.1131 - binary_crossentropy: 0.1131 - val_loss: 0.1015 - val_binary_crossentropy: 0.1015
+Epoch 6/10
+120/120 - 36s - loss: 0.0916 - binary_crossentropy: 0.0916 - val_loss: 0.0877 - val_binary_crossentropy: 0.0877
+Epoch 7/10
+120/120 - 34s - loss: 0.0760 - binary_crossentropy: 0.0760 - val_loss: 0.1000 - val_binary_crossentropy: 0.1000
+Epoch 8/10
+120/120 - 36s - loss: 0.0653 - binary_crossentropy: 0.0653 - val_loss: 0.0872 - val_binary_crossentropy: 0.0872
+Epoch 9/10
+120/120 - 36s - loss: 0.0590 - binary_crossentropy: 0.0590 - val_loss: 0.0686 - val_binary_crossentropy: 0.0686
+Epoch 10/10
+120/120 - 34s - loss: 0.0516 - binary_crossentropy: 0.0516 - val_loss: 0.0638 - val_binary_crossentropy: 0.0638
+############################
+[3, 0, 1, 1]
+############################
+Epoch 1/10
+120/120 - 37s - loss: 0.8759 - binary_crossentropy: 0.8759 - val_loss: 0.6947 - val_binary_crossentropy: 0.6947
+Epoch 2/10
+120/120 - 34s - loss: 0.6977 - binary_crossentropy: 0.6977 - val_loss: 0.6763 - val_binary_crossentropy: 0.6763
+Epoch 3/10
+120/120 - 37s - loss: 0.6637 - binary_crossentropy: 0.6637 - val_loss: 0.6507 - val_binary_crossentropy: 0.6507
+Epoch 4/10
+120/120 - 32s - loss: 0.6246 - binary_crossentropy: 0.6246 - val_loss: 0.6051 - val_binary_crossentropy: 0.6051
+Epoch 5/10
+120/120 - 37s - loss: 0.5284 - binary_crossentropy: 0.5284 - val_loss: 0.4822 - val_binary_crossentropy: 0.4822
+Epoch 6/10
+120/120 - 31s - loss: 0.3616 - binary_crossentropy: 0.3616 - val_loss: 0.3519 - val_binary_crossentropy: 0.3519
+Epoch 7/10
+120/120 - 31s - loss: 0.2554 - binary_crossentropy: 0.2554 - val_loss: 0.2541 - val_binary_crossentropy: 0.2541
+Epoch 8/10
+120/120 - 31s - loss: 0.2038 - binary_crossentropy: 0.2038 - val_loss: 0.2088 - val_binary_crossentropy: 0.2088
+Epoch 9/10
+120/120 - 32s - loss: 0.1649 - binary_crossentropy: 0.1649 - val_loss: 0.1610 - val_binary_crossentropy: 0.1610
+Epoch 10/10
+120/120 - 34s - loss: 0.1346 - binary_crossentropy: 0.1346 - val_loss: 0.1319 - val_binary_crossentropy: 0.1319
+############################
+[3, 0, 1, 0]
+############################
+Epoch 1/10
+120/120 - 36s - loss: 0.4321 - binary_crossentropy: 0.4321 - val_loss: 0.6021 - val_binary_crossentropy: 0.6021
+Epoch 2/10
+120/120 - 33s - loss: 0.2542 - binary_crossentropy: 0.2542 - val_loss: 0.4433 - val_binary_crossentropy: 0.4433
+Epoch 3/10
+120/120 - 34s - loss: 0.1671 - binary_crossentropy: 0.1671 - val_loss: 0.2661 - val_binary_crossentropy: 0.2661
+Epoch 4/10
+120/120 - 34s - loss: 0.1160 - binary_crossentropy: 0.1160 - val_loss: 0.1430 - val_binary_crossentropy: 0.1430
+Epoch 5/10
+120/120 - 35s - loss: 0.0853 - binary_crossentropy: 0.0853 - val_loss: 0.1055 - val_binary_crossentropy: 0.1055
+Epoch 6/10
+120/120 - 35s - loss: 0.0671 - binary_crossentropy: 0.0671 - val_loss: 0.0929 - val_binary_crossentropy: 0.0929
+Epoch 7/10
+120/120 - 31s - loss: 0.0532 - binary_crossentropy: 0.0532 - val_loss: 0.0609 - val_binary_crossentropy: 0.0609
+Epoch 8/10
+120/120 - 32s - loss: 0.0451 - binary_crossentropy: 0.0451 - val_loss: 0.0590 - val_binary_crossentropy: 0.0590
+Epoch 9/10
+120/120 - 31s - loss: 0.0389 - binary_crossentropy: 0.0389 - val_loss: 0.0620 - val_binary_crossentropy: 0.0620
+Epoch 10/10
+120/120 - 31s - loss: 0.0329 - binary_crossentropy: 0.0329 - val_loss: 0.0510 - val_binary_crossentropy: 0.0510
+############################
+[3, 0, 0, 2]
+############################
+Epoch 1/10
+120/120 - 33s - loss: 0.7065 - binary_crossentropy: 0.7065 - val_loss: 0.6087 - val_binary_crossentropy: 0.6087
+Epoch 2/10
+120/120 - 31s - loss: 0.5036 - binary_crossentropy: 0.5036 - val_loss: 0.4877 - val_binary_crossentropy: 0.4877
+Epoch 3/10
+120/120 - 37s - loss: 0.3649 - binary_crossentropy: 0.3649 - val_loss: 0.3806 - val_binary_crossentropy: 0.3806
+Epoch 4/10
+120/120 - 38s - loss: 0.2193 - binary_crossentropy: 0.2193 - val_loss: 0.2323 - val_binary_crossentropy: 0.2323
+Epoch 5/10
+120/120 - 38s - loss: 0.1429 - binary_crossentropy: 0.1429 - val_loss: 0.1473 - val_binary_crossentropy: 0.1473
+Epoch 6/10
+120/120 - 39s - loss: 0.1040 - binary_crossentropy: 0.1040 - val_loss: 0.1074 - val_binary_crossentropy: 0.1074
+Epoch 7/10
+120/120 - 38s - loss: 0.0802 - binary_crossentropy: 0.0802 - val_loss: 0.0862 - val_binary_crossentropy: 0.0862
+Epoch 8/10
+120/120 - 34s - loss: 0.0690 - binary_crossentropy: 0.0690 - val_loss: 0.0720 - val_binary_crossentropy: 0.0720
+Epoch 9/10
+120/120 - 39s - loss: 0.0583 - binary_crossentropy: 0.0583 - val_loss: 0.0607 - val_binary_crossentropy: 0.0607
+Epoch 10/10
+120/120 - 38s - loss: 0.0486 - binary_crossentropy: 0.0486 - val_loss: 0.0562 - val_binary_crossentropy: 0.0562
+############################
+[3, 0, 0, 1]
+############################
+Epoch 1/10
+120/120 - 42s - loss: 0.6177 - binary_crossentropy: 0.6177 - val_loss: 0.6462 - val_binary_crossentropy: 0.6462
+Epoch 2/10
+120/120 - 39s - loss: 0.3863 - binary_crossentropy: 0.3863 - val_loss: 0.4314 - val_binary_crossentropy: 0.4314
+Epoch 3/10
+120/120 - 38s - loss: 0.2562 - binary_crossentropy: 0.2562 - val_loss: 0.2686 - val_binary_crossentropy: 0.2686
+Epoch 4/10
+120/120 - 37s - loss: 0.1797 - binary_crossentropy: 0.1797 - val_loss: 0.1832 - val_binary_crossentropy: 0.1832
+Epoch 5/10
+120/120 - 38s - loss: 0.1285 - binary_crossentropy: 0.1285 - val_loss: 0.1117 - val_binary_crossentropy: 0.1117
+Epoch 6/10
+120/120 - 39s - loss: 0.0962 - binary_crossentropy: 0.0962 - val_loss: 0.0849 - val_binary_crossentropy: 0.0849
+Epoch 7/10
+120/120 - 36s - loss: 0.0782 - binary_crossentropy: 0.0782 - val_loss: 0.0790 - val_binary_crossentropy: 0.0790
+Epoch 8/10
+120/120 - 38s - loss: 0.0635 - binary_crossentropy: 0.0635 - val_loss: 0.0570 - val_binary_crossentropy: 0.0570
+Epoch 9/10
+120/120 - 38s - loss: 0.0555 - binary_crossentropy: 0.0555 - val_loss: 0.0618 - val_binary_crossentropy: 0.0618
+Epoch 10/10
+120/120 - 35s - loss: 0.0464 - binary_crossentropy: 0.0464 - val_loss: 0.0536 - val_binary_crossentropy: 0.0536
+############################
+[3, 0, 0, 0]
+############################
+Epoch 1/10
+120/120 - 36s - loss: 0.4082 - binary_crossentropy: 0.4082 - val_loss: 0.5970 - val_binary_crossentropy: 0.5970
+Epoch 2/10
+120/120 - 38s - loss: 0.2419 - binary_crossentropy: 0.2419 - val_loss: 0.3399 - val_binary_crossentropy: 0.3399
+Epoch 3/10
+120/120 - 38s - loss: 0.1441 - binary_crossentropy: 0.1441 - val_loss: 0.1936 - val_binary_crossentropy: 0.1936
+Epoch 4/10
+120/120 - 38s - loss: 0.0937 - binary_crossentropy: 0.0937 - val_loss: 0.1260 - val_binary_crossentropy: 0.1260
+Epoch 5/10
+120/120 - 39s - loss: 0.0692 - binary_crossentropy: 0.0692 - val_loss: 0.0732 - val_binary_crossentropy: 0.0732
+Epoch 6/10
+120/120 - 39s - loss: 0.0518 - binary_crossentropy: 0.0518 - val_loss: 0.0648 - val_binary_crossentropy: 0.0648
+Epoch 7/10
+120/120 - 38s - loss: 0.0424 - binary_crossentropy: 0.0424 - val_loss: 0.0517 - val_binary_crossentropy: 0.0517
+Epoch 8/10
+120/120 - 39s - loss: 0.0352 - binary_crossentropy: 0.0352 - val_loss: 0.0496 - val_binary_crossentropy: 0.0496
+Epoch 9/10
+120/120 - 39s - loss: 0.0316 - binary_crossentropy: 0.0316 - val_loss: 0.0574 - val_binary_crossentropy: 0.0574
+Epoch 10/10
+120/120 - 39s - loss: 0.0264 - binary_crossentropy: 0.0264 - val_loss: 0.0382 - val_binary_crossentropy: 0.0382
+############################
+[2, 3, 0, 0]
+############################
+Epoch 1/10
+120/120 - 42s - loss: 0.7759 - binary_crossentropy: 0.7759 - val_loss: 0.6879 - val_binary_crossentropy: 0.6879
+Epoch 2/10
+120/120 - 39s - loss: 0.5024 - binary_crossentropy: 0.5024 - val_loss: 0.5683 - val_binary_crossentropy: 0.5683
+Epoch 3/10
+120/120 - 39s - loss: 0.3592 - binary_crossentropy: 0.3592 - val_loss: 0.4228 - val_binary_crossentropy: 0.4228
+Epoch 4/10
+120/120 - 38s - loss: 0.2805 - binary_crossentropy: 0.2805 - val_loss: 0.2992 - val_binary_crossentropy: 0.2992
+Epoch 5/10
+120/120 - 38s - loss: 0.2185 - binary_crossentropy: 0.2185 - val_loss: 0.2210 - val_binary_crossentropy: 0.2210
+Epoch 6/10
+120/120 - 39s - loss: 0.1656 - binary_crossentropy: 0.1656 - val_loss: 0.1679 - val_binary_crossentropy: 0.1679
+Epoch 7/10
+120/120 - 39s - loss: 0.1305 - binary_crossentropy: 0.1305 - val_loss: 0.1324 - val_binary_crossentropy: 0.1324
+Epoch 8/10
+120/120 - 39s - loss: 0.1062 - binary_crossentropy: 0.1062 - val_loss: 0.1088 - val_binary_crossentropy: 0.1088
+Epoch 9/10
+120/120 - 39s - loss: 0.0863 - binary_crossentropy: 0.0863 - val_loss: 0.0919 - val_binary_crossentropy: 0.0919
+Epoch 10/10
+120/120 - 39s - loss: 0.0758 - binary_crossentropy: 0.0758 - val_loss: 0.0899 - val_binary_crossentropy: 0.0899
+############################
+[2, 2, 1, 0]
+############################
+Epoch 1/10
+120/120 - 43s - loss: 0.5854 - binary_crossentropy: 0.5854 - val_loss: 0.5935 - val_binary_crossentropy: 0.5935
+Epoch 2/10
+120/120 - 39s - loss: 0.3599 - binary_crossentropy: 0.3599 - val_loss: 0.4012 - val_binary_crossentropy: 0.4012
+Epoch 3/10
+120/120 - 39s - loss: 0.2332 - binary_crossentropy: 0.2332 - val_loss: 0.2440 - val_binary_crossentropy: 0.2440
+Epoch 4/10
+120/120 - 39s - loss: 0.1576 - binary_crossentropy: 0.1576 - val_loss: 0.1774 - val_binary_crossentropy: 0.1774
+Epoch 5/10
+120/120 - 39s - loss: 0.1153 - binary_crossentropy: 0.1153 - val_loss: 0.1598 - val_binary_crossentropy: 0.1598
+Epoch 6/10
+120/120 - 39s - loss: 0.0903 - binary_crossentropy: 0.0903 - val_loss: 0.1136 - val_binary_crossentropy: 0.1136
+Epoch 7/10
+120/120 - 39s - loss: 0.0722 - binary_crossentropy: 0.0722 - val_loss: 0.0835 - val_binary_crossentropy: 0.0835
+Epoch 8/10
+120/120 - 38s - loss: 0.0606 - binary_crossentropy: 0.0606 - val_loss: 0.0826 - val_binary_crossentropy: 0.0826
+Epoch 9/10
+120/120 - 39s - loss: 0.0526 - binary_crossentropy: 0.0526 - val_loss: 0.0656 - val_binary_crossentropy: 0.0656
+Epoch 10/10
+120/120 - 39s - loss: 0.0444 - binary_crossentropy: 0.0444 - val_loss: 0.0911 - val_binary_crossentropy: 0.0911
+############################
+[2, 2, 0, 1]
+############################
+Epoch 1/10
+120/120 - 43s - loss: 0.8232 - binary_crossentropy: 0.8232 - val_loss: 0.6752 - val_binary_crossentropy: 0.6752
+Epoch 2/10
+120/120 - 39s - loss: 0.6106 - binary_crossentropy: 0.6106 - val_loss: 0.6089 - val_binary_crossentropy: 0.6089
+Epoch 3/10
+120/120 - 39s - loss: 0.4803 - binary_crossentropy: 0.4803 - val_loss: 0.4761 - val_binary_crossentropy: 0.4761
+Epoch 4/10
+120/120 - 39s - loss: 0.3405 - binary_crossentropy: 0.3405 - val_loss: 0.2989 - val_binary_crossentropy: 0.2989
+Epoch 5/10
+120/120 - 39s - loss: 0.2283 - binary_crossentropy: 0.2283 - val_loss: 0.2093 - val_binary_crossentropy: 0.2093
+Epoch 6/10
+120/120 - 38s - loss: 0.1663 - binary_crossentropy: 0.1663 - val_loss: 0.1719 - val_binary_crossentropy: 0.1719
+Epoch 7/10
+120/120 - 39s - loss: 0.1252 - binary_crossentropy: 0.1252 - val_loss: 0.1270 - val_binary_crossentropy: 0.1270
+Epoch 8/10
+120/120 - 38s - loss: 0.0997 - binary_crossentropy: 0.0997 - val_loss: 0.1026 - val_binary_crossentropy: 0.1026
+Epoch 9/10
+120/120 - 38s - loss: 0.0822 - binary_crossentropy: 0.0822 - val_loss: 0.1028 - val_binary_crossentropy: 0.1028
+Epoch 10/10
+120/120 - 38s - loss: 0.0687 - binary_crossentropy: 0.0687 - val_loss: 0.0813 - val_binary_crossentropy: 0.0813
+############################
+[2, 2, 0, 0]
+############################
+Epoch 1/10
+120/120 - 42s - loss: 0.5768 - binary_crossentropy: 0.5768 - val_loss: 0.5473 - val_binary_crossentropy: 0.5473
+Epoch 2/10
+120/120 - 38s - loss: 0.3053 - binary_crossentropy: 0.3053 - val_loss: 0.3720 - val_binary_crossentropy: 0.3720
+Epoch 3/10
+120/120 - 38s - loss: 0.1869 - binary_crossentropy: 0.1869 - val_loss: 0.2364 - val_binary_crossentropy: 0.2364
+Epoch 4/10
+120/120 - 38s - loss: 0.1312 - binary_crossentropy: 0.1312 - val_loss: 0.1383 - val_binary_crossentropy: 0.1383
+Epoch 5/10
+120/120 - 39s - loss: 0.0982 - binary_crossentropy: 0.0982 - val_loss: 0.1126 - val_binary_crossentropy: 0.1126
+Epoch 6/10
+120/120 - 38s - loss: 0.0785 - binary_crossentropy: 0.0785 - val_loss: 0.0867 - val_binary_crossentropy: 0.0867
+Epoch 7/10
+120/120 - 39s - loss: 0.0630 - binary_crossentropy: 0.0630 - val_loss: 0.0825 - val_binary_crossentropy: 0.0825
+Epoch 8/10
+120/120 - 38s - loss: 0.0534 - binary_crossentropy: 0.0534 - val_loss: 0.0812 - val_binary_crossentropy: 0.0812
+Epoch 9/10
+120/120 - 38s - loss: 0.0461 - binary_crossentropy: 0.0461 - val_loss: 0.0696 - val_binary_crossentropy: 0.0696
+Epoch 10/10
+120/120 - 39s - loss: 0.0397 - binary_crossentropy: 0.0397 - val_loss: 0.0560 - val_binary_crossentropy: 0.0560
+############################
+[2, 1, 2, 0]
+############################
+Epoch 1/10
+120/120 - 42s - loss: 0.7305 - binary_crossentropy: 0.7305 - val_loss: 0.6423 - val_binary_crossentropy: 0.6423
+Epoch 2/10
+120/120 - 39s - loss: 0.4839 - binary_crossentropy: 0.4839 - val_loss: 0.4931 - val_binary_crossentropy: 0.4931
+Epoch 3/10
+120/120 - 38s - loss: 0.3151 - binary_crossentropy: 0.3151 - val_loss: 0.3147 - val_binary_crossentropy: 0.3147
+Epoch 4/10
+120/120 - 38s - loss: 0.2255 - binary_crossentropy: 0.2255 - val_loss: 0.2238 - val_binary_crossentropy: 0.2238
+Epoch 5/10
+120/120 - 39s - loss: 0.1735 - binary_crossentropy: 0.1735 - val_loss: 0.1759 - val_binary_crossentropy: 0.1759
+Epoch 6/10
+120/120 - 38s - loss: 0.1365 - binary_crossentropy: 0.1365 - val_loss: 0.1268 - val_binary_crossentropy: 0.1268
+Epoch 7/10
+120/120 - 38s - loss: 0.1105 - binary_crossentropy: 0.1105 - val_loss: 0.1389 - val_binary_crossentropy: 0.1389
+Epoch 8/10
+120/120 - 39s - loss: 0.0931 - binary_crossentropy: 0.0931 - val_loss: 0.1012 - val_binary_crossentropy: 0.1012
+Epoch 9/10
+120/120 - 39s - loss: 0.0814 - binary_crossentropy: 0.0814 - val_loss: 0.0939 - val_binary_crossentropy: 0.0939
+Epoch 10/10
+120/120 - 39s - loss: 0.0724 - binary_crossentropy: 0.0724 - val_loss: 0.1517 - val_binary_crossentropy: 0.1517
+############################
+[2, 1, 1, 1]
+############################
+Epoch 1/10
+120/120 - 43s - loss: 0.4131 - binary_crossentropy: 0.4131 - val_loss: 0.5802 - val_binary_crossentropy: 0.5802
+Epoch 2/10
+120/120 - 39s - loss: 0.2515 - binary_crossentropy: 0.2515 - val_loss: 0.3572 - val_binary_crossentropy: 0.3572
+Epoch 3/10
+120/120 - 39s - loss: 0.1669 - binary_crossentropy: 0.1669 - val_loss: 0.1937 - val_binary_crossentropy: 0.1937
+Epoch 4/10
+120/120 - 38s - loss: 0.1200 - binary_crossentropy: 0.1200 - val_loss: 0.1448 - val_binary_crossentropy: 0.1448
+Epoch 5/10
+120/120 - 38s - loss: 0.0898 - binary_crossentropy: 0.0898 - val_loss: 0.0930 - val_binary_crossentropy: 0.0930
+Epoch 6/10
+120/120 - 38s - loss: 0.0727 - binary_crossentropy: 0.0727 - val_loss: 0.0620 - val_binary_crossentropy: 0.0620
+Epoch 7/10
+120/120 - 38s - loss: 0.0573 - binary_crossentropy: 0.0573 - val_loss: 0.0719 - val_binary_crossentropy: 0.0719
+Epoch 8/10
+120/120 - 38s - loss: 0.0502 - binary_crossentropy: 0.0502 - val_loss: 0.0626 - val_binary_crossentropy: 0.0626
+Epoch 9/10
+120/120 - 38s - loss: 0.0439 - binary_crossentropy: 0.0439 - val_loss: 0.0651 - val_binary_crossentropy: 0.0651
+Epoch 10/10
+120/120 - 38s - loss: 0.0367 - binary_crossentropy: 0.0367 - val_loss: 0.0621 - val_binary_crossentropy: 0.0621
+############################
+[2, 1, 1, 0]
+############################
+Epoch 1/10
+120/120 - 42s - loss: 0.4524 - binary_crossentropy: 0.4524 - val_loss: 0.5964 - val_binary_crossentropy: 0.5964
+Epoch 2/10
+120/120 - 38s - loss: 0.2518 - binary_crossentropy: 0.2518 - val_loss: 0.3268 - val_binary_crossentropy: 0.3268
+Epoch 3/10
+120/120 - 39s - loss: 0.1628 - binary_crossentropy: 0.1628 - val_loss: 0.2062 - val_binary_crossentropy: 0.2062
+Epoch 4/10
+120/120 - 38s - loss: 0.1154 - binary_crossentropy: 0.1154 - val_loss: 0.1483 - val_binary_crossentropy: 0.1483
+Epoch 5/10
+120/120 - 40s - loss: 0.0814 - binary_crossentropy: 0.0814 - val_loss: 0.1012 - val_binary_crossentropy: 0.1012
+Epoch 6/10
+120/120 - 40s - loss: 0.0635 - binary_crossentropy: 0.0635 - val_loss: 0.0670 - val_binary_crossentropy: 0.0670
+Epoch 7/10
+120/120 - 40s - loss: 0.0502 - binary_crossentropy: 0.0502 - val_loss: 0.0615 - val_binary_crossentropy: 0.0615
+Epoch 8/10
+120/120 - 40s - loss: 0.0411 - binary_crossentropy: 0.0411 - val_loss: 0.0591 - val_binary_crossentropy: 0.0591
+Epoch 9/10
+120/120 - 40s - loss: 0.0366 - binary_crossentropy: 0.0366 - val_loss: 0.0526 - val_binary_crossentropy: 0.0526
+Epoch 10/10
+120/120 - 40s - loss: 0.0326 - binary_crossentropy: 0.0326 - val_loss: 0.0425 - val_binary_crossentropy: 0.0425
+############################
+[2, 1, 0, 2]
+############################
+Epoch 1/10
+120/120 - 44s - loss: 0.4799 - binary_crossentropy: 0.4799 - val_loss: 0.6846 - val_binary_crossentropy: 0.6846
+Epoch 2/10
+120/120 - 40s - loss: 0.2753 - binary_crossentropy: 0.2753 - val_loss: 0.4837 - val_binary_crossentropy: 0.4837
+Epoch 3/10
+120/120 - 40s - loss: 0.1829 - binary_crossentropy: 0.1829 - val_loss: 0.2759 - val_binary_crossentropy: 0.2759
+Epoch 4/10
+120/120 - 40s - loss: 0.1317 - binary_crossentropy: 0.1317 - val_loss: 0.1553 - val_binary_crossentropy: 0.1553
+Epoch 5/10
+120/120 - 40s - loss: 0.0994 - binary_crossentropy: 0.0994 - val_loss: 0.1025 - val_binary_crossentropy: 0.1025
+Epoch 6/10
+120/120 - 40s - loss: 0.0773 - binary_crossentropy: 0.0773 - val_loss: 0.0955 - val_binary_crossentropy: 0.0955
+Epoch 7/10
+120/120 - 40s - loss: 0.0620 - binary_crossentropy: 0.0620 - val_loss: 0.0783 - val_binary_crossentropy: 0.0783
+Epoch 8/10
+120/120 - 40s - loss: 0.0533 - binary_crossentropy: 0.0533 - val_loss: 0.0860 - val_binary_crossentropy: 0.0860
+Epoch 9/10
+120/120 - 40s - loss: 0.0443 - binary_crossentropy: 0.0443 - val_loss: 0.0648 - val_binary_crossentropy: 0.0648
+Epoch 10/10
+120/120 - 40s - loss: 0.0381 - binary_crossentropy: 0.0381 - val_loss: 0.0386 - val_binary_crossentropy: 0.0386
+############################
+[2, 1, 0, 1]
+############################
+Epoch 1/10
+120/120 - 44s - loss: 0.6562 - binary_crossentropy: 0.6562 - val_loss: 0.6188 - val_binary_crossentropy: 0.6188
+Epoch 2/10
+120/120 - 40s - loss: 0.3247 - binary_crossentropy: 0.3247 - val_loss: 0.4306 - val_binary_crossentropy: 0.4306
+Epoch 3/10
+120/120 - 40s - loss: 0.1960 - binary_crossentropy: 0.1960 - val_loss: 0.2768 - val_binary_crossentropy: 0.2768
+Epoch 4/10
+120/120 - 38s - loss: 0.1382 - binary_crossentropy: 0.1382 - val_loss: 0.1694 - val_binary_crossentropy: 0.1694
+Epoch 5/10
+120/120 - 39s - loss: 0.1059 - binary_crossentropy: 0.1059 - val_loss: 0.1245 - val_binary_crossentropy: 0.1245
+Epoch 6/10
+120/120 - 39s - loss: 0.0848 - binary_crossentropy: 0.0848 - val_loss: 0.0881 - val_binary_crossentropy: 0.0881
+Epoch 7/10
+120/120 - 38s - loss: 0.0688 - binary_crossentropy: 0.0688 - val_loss: 0.0764 - val_binary_crossentropy: 0.0764
+Epoch 8/10
+120/120 - 38s - loss: 0.0591 - binary_crossentropy: 0.0591 - val_loss: 0.0664 - val_binary_crossentropy: 0.0664
+Epoch 9/10
+120/120 - 38s - loss: 0.0517 - binary_crossentropy: 0.0517 - val_loss: 0.0758 - val_binary_crossentropy: 0.0758
+Epoch 10/10
+120/120 - 38s - loss: 0.0454 - binary_crossentropy: 0.0454 - val_loss: 0.0517 - val_binary_crossentropy: 0.0517
+############################
+[2, 1, 0, 0]
+############################
+Epoch 1/10
+120/120 - 41s - loss: 0.6158 - binary_crossentropy: 0.6158 - val_loss: 0.6150 - val_binary_crossentropy: 0.6150
+Epoch 2/10
+120/120 - 39s - loss: 0.3567 - binary_crossentropy: 0.3567 - val_loss: 0.3756 - val_binary_crossentropy: 0.3756
+Epoch 3/10
+120/120 - 39s - loss: 0.2194 - binary_crossentropy: 0.2194 - val_loss: 0.2671 - val_binary_crossentropy: 0.2671
+Epoch 4/10
+120/120 - 38s - loss: 0.1480 - binary_crossentropy: 0.1480 - val_loss: 0.1699 - val_binary_crossentropy: 0.1699
+Epoch 5/10
+120/120 - 38s - loss: 0.1080 - binary_crossentropy: 0.1080 - val_loss: 0.1214 - val_binary_crossentropy: 0.1214
+Epoch 6/10
+120/120 - 39s - loss: 0.0819 - binary_crossentropy: 0.0819 - val_loss: 0.0930 - val_binary_crossentropy: 0.0930
+Epoch 7/10
+120/120 - 38s - loss: 0.0659 - binary_crossentropy: 0.0659 - val_loss: 0.0792 - val_binary_crossentropy: 0.0792
+Epoch 8/10
+120/120 - 38s - loss: 0.0538 - binary_crossentropy: 0.0538 - val_loss: 0.0660 - val_binary_crossentropy: 0.0660
+Epoch 9/10
+120/120 - 38s - loss: 0.0450 - binary_crossentropy: 0.0450 - val_loss: 0.0644 - val_binary_crossentropy: 0.0644
+Epoch 10/10
+120/120 - 38s - loss: 0.0397 - binary_crossentropy: 0.0397 - val_loss: 0.0503 - val_binary_crossentropy: 0.0503
+############################
+[2, 0, 3, 0]
+############################
+Epoch 1/10
+120/120 - 42s - loss: 0.3849 - binary_crossentropy: 0.3849 - val_loss: 0.5323 - val_binary_crossentropy: 0.5323
+Epoch 2/10
+120/120 - 38s - loss: 0.2297 - binary_crossentropy: 0.2297 - val_loss: 0.3844 - val_binary_crossentropy: 0.3844
+Epoch 3/10
+120/120 - 38s - loss: 0.1621 - binary_crossentropy: 0.1621 - val_loss: 0.2483 - val_binary_crossentropy: 0.2483
+Epoch 4/10
+120/120 - 38s - loss: 0.1295 - binary_crossentropy: 0.1295 - val_loss: 0.1682 - val_binary_crossentropy: 0.1682
+Epoch 5/10
+120/120 - 38s - loss: 0.1089 - binary_crossentropy: 0.1089 - val_loss: 0.1073 - val_binary_crossentropy: 0.1073
+Epoch 6/10
+120/120 - 38s - loss: 0.0938 - binary_crossentropy: 0.0938 - val_loss: 0.0952 - val_binary_crossentropy: 0.0952
+Epoch 7/10
+120/120 - 38s - loss: 0.0831 - binary_crossentropy: 0.0831 - val_loss: 0.0928 - val_binary_crossentropy: 0.0928
+Epoch 8/10
+120/120 - 38s - loss: 0.0753 - binary_crossentropy: 0.0753 - val_loss: 0.0733 - val_binary_crossentropy: 0.0733
+Epoch 9/10
+120/120 - 39s - loss: 0.0690 - binary_crossentropy: 0.0690 - val_loss: 0.0769 - val_binary_crossentropy: 0.0769
+Epoch 10/10
+120/120 - 38s - loss: 0.0615 - binary_crossentropy: 0.0615 - val_loss: 0.0792 - val_binary_crossentropy: 0.0792
+############################
+[2, 0, 2, 1]
+############################
+Epoch 1/10
+120/120 - 42s - loss: 0.4621 - binary_crossentropy: 0.4621 - val_loss: 0.6348 - val_binary_crossentropy: 0.6348
+Epoch 2/10
+120/120 - 39s - loss: 0.2894 - binary_crossentropy: 0.2894 - val_loss: 0.4074 - val_binary_crossentropy: 0.4074
+Epoch 3/10
+120/120 - 39s - loss: 0.2014 - binary_crossentropy: 0.2014 - val_loss: 0.2268 - val_binary_crossentropy: 0.2268
+Epoch 4/10
+120/120 - 38s - loss: 0.1499 - binary_crossentropy: 0.1499 - val_loss: 0.1330 - val_binary_crossentropy: 0.1330
+Epoch 5/10
+120/120 - 38s - loss: 0.1129 - binary_crossentropy: 0.1129 - val_loss: 0.0971 - val_binary_crossentropy: 0.0971
+Epoch 6/10
+120/120 - 38s - loss: 0.0871 - binary_crossentropy: 0.0871 - val_loss: 0.0849 - val_binary_crossentropy: 0.0849
+Epoch 7/10
+120/120 - 38s - loss: 0.0713 - binary_crossentropy: 0.0713 - val_loss: 0.0783 - val_binary_crossentropy: 0.0783
+Epoch 8/10
+120/120 - 38s - loss: 0.0564 - binary_crossentropy: 0.0564 - val_loss: 0.0613 - val_binary_crossentropy: 0.0613
+Epoch 9/10
+120/120 - 38s - loss: 0.0504 - binary_crossentropy: 0.0504 - val_loss: 0.0637 - val_binary_crossentropy: 0.0637
+Epoch 10/10
+120/120 - 38s - loss: 0.0414 - binary_crossentropy: 0.0414 - val_loss: 0.0654 - val_binary_crossentropy: 0.0654
+############################
+[2, 0, 2, 0]
+############################
+Epoch 1/10
+120/120 - 42s - loss: 0.5723 - binary_crossentropy: 0.5723 - val_loss: 0.6096 - val_binary_crossentropy: 0.6096
+Epoch 2/10
+120/120 - 39s - loss: 0.3301 - binary_crossentropy: 0.3301 - val_loss: 0.3900 - val_binary_crossentropy: 0.3900
+Epoch 3/10
+120/120 - 39s - loss: 0.2128 - binary_crossentropy: 0.2128 - val_loss: 0.2429 - val_binary_crossentropy: 0.2429
+Epoch 4/10
+120/120 - 38s - loss: 0.1472 - binary_crossentropy: 0.1472 - val_loss: 0.1674 - val_binary_crossentropy: 0.1674
+Epoch 5/10
+120/120 - 39s - loss: 0.1092 - binary_crossentropy: 0.1092 - val_loss: 0.1352 - val_binary_crossentropy: 0.1352
+Epoch 6/10
+120/120 - 38s - loss: 0.0846 - binary_crossentropy: 0.0846 - val_loss: 0.0984 - val_binary_crossentropy: 0.0984
+Epoch 7/10
+120/120 - 39s - loss: 0.0695 - binary_crossentropy: 0.0695 - val_loss: 0.0791 - val_binary_crossentropy: 0.0791
+Epoch 8/10
+120/120 - 38s - loss: 0.0582 - binary_crossentropy: 0.0582 - val_loss: 0.0569 - val_binary_crossentropy: 0.0569
+Epoch 9/10
+120/120 - 38s - loss: 0.0478 - binary_crossentropy: 0.0478 - val_loss: 0.0654 - val_binary_crossentropy: 0.0654
+Epoch 10/10
+120/120 - 38s - loss: 0.0417 - binary_crossentropy: 0.0417 - val_loss: 0.0594 - val_binary_crossentropy: 0.0594
+############################
+[2, 0, 1, 2]
+############################
+Epoch 1/10
+120/120 - 39s - loss: 0.5809 - binary_crossentropy: 0.5809 - val_loss: 0.6326 - val_binary_crossentropy: 0.6326
+Epoch 2/10
+120/120 - 30s - loss: 0.3442 - binary_crossentropy: 0.3442 - val_loss: 0.4722 - val_binary_crossentropy: 0.4722
+Epoch 3/10
+120/120 - 31s - loss: 0.2297 - binary_crossentropy: 0.2297 - val_loss: 0.2372 - val_binary_crossentropy: 0.2372
+Epoch 4/10
+120/120 - 32s - loss: 0.1596 - binary_crossentropy: 0.1596 - val_loss: 0.2430 - val_binary_crossentropy: 0.2430
+Epoch 5/10
+120/120 - 35s - loss: 0.1162 - binary_crossentropy: 0.1162 - val_loss: 0.1737 - val_binary_crossentropy: 0.1737
+Epoch 6/10
+120/120 - 34s - loss: 0.0911 - binary_crossentropy: 0.0911 - val_loss: 0.1145 - val_binary_crossentropy: 0.1145
+Epoch 7/10
+120/120 - 31s - loss: 0.0736 - binary_crossentropy: 0.0736 - val_loss: 0.1378 - val_binary_crossentropy: 0.1378
+Epoch 8/10
+120/120 - 31s - loss: 0.0597 - binary_crossentropy: 0.0597 - val_loss: 0.0907 - val_binary_crossentropy: 0.0907
+Epoch 9/10
+120/120 - 31s - loss: 0.0517 - binary_crossentropy: 0.0517 - val_loss: 0.0618 - val_binary_crossentropy: 0.0618
+Epoch 10/10
+120/120 - 31s - loss: 0.0454 - binary_crossentropy: 0.0454 - val_loss: 0.0624 - val_binary_crossentropy: 0.0624
+############################
+[2, 0, 1, 1]
+############################
+Epoch 1/10
+120/120 - 37s - loss: 0.7950 - binary_crossentropy: 0.7950 - val_loss: 0.6684 - val_binary_crossentropy: 0.6684
+Epoch 2/10
+120/120 - 33s - loss: 0.5725 - binary_crossentropy: 0.5725 - val_loss: 0.5529 - val_binary_crossentropy: 0.5529
+Epoch 3/10
+120/120 - 34s - loss: 0.3479 - binary_crossentropy: 0.3479 - val_loss: 0.3677 - val_binary_crossentropy: 0.3677
+Epoch 4/10
+120/120 - 33s - loss: 0.2217 - binary_crossentropy: 0.2217 - val_loss: 0.2251 - val_binary_crossentropy: 0.2251
+Epoch 5/10
+120/120 - 31s - loss: 0.1542 - binary_crossentropy: 0.1542 - val_loss: 0.1505 - val_binary_crossentropy: 0.1505
+Epoch 6/10
+120/120 - 34s - loss: 0.1188 - binary_crossentropy: 0.1188 - val_loss: 0.1127 - val_binary_crossentropy: 0.1127
+Epoch 7/10
+120/120 - 32s - loss: 0.0897 - binary_crossentropy: 0.0897 - val_loss: 0.1001 - val_binary_crossentropy: 0.1001
+Epoch 8/10
+120/120 - 29s - loss: 0.0718 - binary_crossentropy: 0.0718 - val_loss: 0.0797 - val_binary_crossentropy: 0.0797
+Epoch 9/10
+120/120 - 30s - loss: 0.0604 - binary_crossentropy: 0.0604 - val_loss: 0.0686 - val_binary_crossentropy: 0.0686
+Epoch 10/10
+120/120 - 29s - loss: 0.0505 - binary_crossentropy: 0.0505 - val_loss: 0.0600 - val_binary_crossentropy: 0.0600
+############################
+[2, 0, 1, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7609 - binary_crossentropy: 0.7609 - val_loss: 0.6862 - val_binary_crossentropy: 0.6862
+Epoch 2/10
+120/120 - 29s - loss: 0.5345 - binary_crossentropy: 0.5345 - val_loss: 0.5025 - val_binary_crossentropy: 0.5025
+Epoch 3/10
+120/120 - 29s - loss: 0.3225 - binary_crossentropy: 0.3225 - val_loss: 0.3674 - val_binary_crossentropy: 0.3674
+Epoch 4/10
+120/120 - 29s - loss: 0.1943 - binary_crossentropy: 0.1943 - val_loss: 0.2308 - val_binary_crossentropy: 0.2308
+Epoch 5/10
+120/120 - 33s - loss: 0.1332 - binary_crossentropy: 0.1332 - val_loss: 0.1545 - val_binary_crossentropy: 0.1545
+Epoch 6/10
+120/120 - 33s - loss: 0.0991 - binary_crossentropy: 0.0991 - val_loss: 0.1133 - val_binary_crossentropy: 0.1133
+Epoch 7/10
+120/120 - 29s - loss: 0.0776 - binary_crossentropy: 0.0776 - val_loss: 0.0882 - val_binary_crossentropy: 0.0882
+Epoch 8/10
+120/120 - 28s - loss: 0.0619 - binary_crossentropy: 0.0619 - val_loss: 0.0803 - val_binary_crossentropy: 0.0803
+Epoch 9/10
+120/120 - 29s - loss: 0.0516 - binary_crossentropy: 0.0516 - val_loss: 0.0591 - val_binary_crossentropy: 0.0591
+Epoch 10/10
+120/120 - 29s - loss: 0.0437 - binary_crossentropy: 0.0437 - val_loss: 0.0617 - val_binary_crossentropy: 0.0617
+############################
+[2, 0, 0, 3]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6072 - binary_crossentropy: 0.6072 - val_loss: 0.6031 - val_binary_crossentropy: 0.6031
+Epoch 2/10
+120/120 - 29s - loss: 0.3448 - binary_crossentropy: 0.3448 - val_loss: 0.3873 - val_binary_crossentropy: 0.3873
+Epoch 3/10
+120/120 - 28s - loss: 0.2184 - binary_crossentropy: 0.2184 - val_loss: 0.2711 - val_binary_crossentropy: 0.2711
+Epoch 4/10
+120/120 - 28s - loss: 0.1543 - binary_crossentropy: 0.1543 - val_loss: 0.1663 - val_binary_crossentropy: 0.1663
+Epoch 5/10
+120/120 - 29s - loss: 0.1154 - binary_crossentropy: 0.1154 - val_loss: 0.1301 - val_binary_crossentropy: 0.1301
+Epoch 6/10
+120/120 - 29s - loss: 0.0906 - binary_crossentropy: 0.0906 - val_loss: 0.1269 - val_binary_crossentropy: 0.1269
+Epoch 7/10
+120/120 - 28s - loss: 0.0751 - binary_crossentropy: 0.0751 - val_loss: 0.0892 - val_binary_crossentropy: 0.0892
+Epoch 8/10
+120/120 - 29s - loss: 0.0639 - binary_crossentropy: 0.0639 - val_loss: 0.0642 - val_binary_crossentropy: 0.0642
+Epoch 9/10
+120/120 - 28s - loss: 0.0569 - binary_crossentropy: 0.0569 - val_loss: 0.0797 - val_binary_crossentropy: 0.0797
+Epoch 10/10
+120/120 - 29s - loss: 0.0487 - binary_crossentropy: 0.0487 - val_loss: 0.0812 - val_binary_crossentropy: 0.0812
+############################
+[2, 0, 0, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7698 - binary_crossentropy: 0.7698 - val_loss: 0.6713 - val_binary_crossentropy: 0.6713
+Epoch 2/10
+120/120 - 29s - loss: 0.5502 - binary_crossentropy: 0.5502 - val_loss: 0.5255 - val_binary_crossentropy: 0.5255
+Epoch 3/10
+120/120 - 29s - loss: 0.3539 - binary_crossentropy: 0.3539 - val_loss: 0.3651 - val_binary_crossentropy: 0.3651
+Epoch 4/10
+120/120 - 28s - loss: 0.2284 - binary_crossentropy: 0.2284 - val_loss: 0.2377 - val_binary_crossentropy: 0.2377
+Epoch 5/10
+120/120 - 29s - loss: 0.1564 - binary_crossentropy: 0.1564 - val_loss: 0.1668 - val_binary_crossentropy: 0.1668
+Epoch 6/10
+120/120 - 28s - loss: 0.1140 - binary_crossentropy: 0.1140 - val_loss: 0.1112 - val_binary_crossentropy: 0.1112
+Epoch 7/10
+120/120 - 28s - loss: 0.0890 - binary_crossentropy: 0.0890 - val_loss: 0.0930 - val_binary_crossentropy: 0.0930
+Epoch 8/10
+120/120 - 28s - loss: 0.0705 - binary_crossentropy: 0.0705 - val_loss: 0.0759 - val_binary_crossentropy: 0.0759
+Epoch 9/10
+120/120 - 28s - loss: 0.0587 - binary_crossentropy: 0.0587 - val_loss: 0.0633 - val_binary_crossentropy: 0.0633
+Epoch 10/10
+120/120 - 29s - loss: 0.0483 - binary_crossentropy: 0.0483 - val_loss: 0.0640 - val_binary_crossentropy: 0.0640
+############################
+[2, 0, 0, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.4240 - binary_crossentropy: 0.4240 - val_loss: 0.6125 - val_binary_crossentropy: 0.6125
+Epoch 2/10
+120/120 - 29s - loss: 0.2575 - binary_crossentropy: 0.2575 - val_loss: 0.4352 - val_binary_crossentropy: 0.4352
+Epoch 3/10
+120/120 - 29s - loss: 0.1678 - binary_crossentropy: 0.1678 - val_loss: 0.2618 - val_binary_crossentropy: 0.2618
+Epoch 4/10
+120/120 - 28s - loss: 0.1144 - binary_crossentropy: 0.1144 - val_loss: 0.1731 - val_binary_crossentropy: 0.1731
+Epoch 5/10
+120/120 - 29s - loss: 0.0814 - binary_crossentropy: 0.0814 - val_loss: 0.0983 - val_binary_crossentropy: 0.0983
+Epoch 6/10
+120/120 - 28s - loss: 0.0624 - binary_crossentropy: 0.0624 - val_loss: 0.0792 - val_binary_crossentropy: 0.0792
+Epoch 7/10
+120/120 - 29s - loss: 0.0501 - binary_crossentropy: 0.0501 - val_loss: 0.0730 - val_binary_crossentropy: 0.0730
+Epoch 8/10
+120/120 - 28s - loss: 0.0419 - binary_crossentropy: 0.0419 - val_loss: 0.0628 - val_binary_crossentropy: 0.0628
+Epoch 9/10
+120/120 - 29s - loss: 0.0399 - binary_crossentropy: 0.0399 - val_loss: 0.0631 - val_binary_crossentropy: 0.0631
+Epoch 10/10
+120/120 - 28s - loss: 0.0328 - binary_crossentropy: 0.0328 - val_loss: 0.0422 - val_binary_crossentropy: 0.0422
+############################
+[2, 0, 0, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7044 - binary_crossentropy: 0.7044 - val_loss: 0.6461 - val_binary_crossentropy: 0.6461
+Epoch 2/10
+120/120 - 28s - loss: 0.4432 - binary_crossentropy: 0.4432 - val_loss: 0.4796 - val_binary_crossentropy: 0.4796
+Epoch 3/10
+120/120 - 29s - loss: 0.3222 - binary_crossentropy: 0.3222 - val_loss: 0.3565 - val_binary_crossentropy: 0.3565
+Epoch 4/10
+120/120 - 28s - loss: 0.2419 - binary_crossentropy: 0.2419 - val_loss: 0.2636 - val_binary_crossentropy: 0.2636
+Epoch 5/10
+120/120 - 29s - loss: 0.1606 - binary_crossentropy: 0.1606 - val_loss: 0.1668 - val_binary_crossentropy: 0.1668
+Epoch 6/10
+120/120 - 29s - loss: 0.1184 - binary_crossentropy: 0.1184 - val_loss: 0.1351 - val_binary_crossentropy: 0.1351
+Epoch 7/10
+120/120 - 28s - loss: 0.0935 - binary_crossentropy: 0.0935 - val_loss: 0.1055 - val_binary_crossentropy: 0.1055
+Epoch 8/10
+120/120 - 28s - loss: 0.0728 - binary_crossentropy: 0.0728 - val_loss: 0.0834 - val_binary_crossentropy: 0.0834
+Epoch 9/10
+120/120 - 28s - loss: 0.0600 - binary_crossentropy: 0.0600 - val_loss: 0.0745 - val_binary_crossentropy: 0.0745
+Epoch 10/10
+120/120 - 29s - loss: 0.0508 - binary_crossentropy: 0.0508 - val_loss: 0.0595 - val_binary_crossentropy: 0.0595
+############################
+[1, 4, 0, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5590 - binary_crossentropy: 0.5590 - val_loss: 0.5075 - val_binary_crossentropy: 0.5075
+Epoch 2/10
+120/120 - 29s - loss: 0.3443 - binary_crossentropy: 0.3443 - val_loss: 0.3189 - val_binary_crossentropy: 0.3189
+Epoch 3/10
+120/120 - 29s - loss: 0.2443 - binary_crossentropy: 0.2443 - val_loss: 0.2427 - val_binary_crossentropy: 0.2427
+Epoch 4/10
+120/120 - 28s - loss: 0.1746 - binary_crossentropy: 0.1746 - val_loss: 0.1773 - val_binary_crossentropy: 0.1773
+Epoch 5/10
+120/120 - 29s - loss: 0.1303 - binary_crossentropy: 0.1303 - val_loss: 0.1460 - val_binary_crossentropy: 0.1460
+Epoch 6/10
+120/120 - 29s - loss: 0.1037 - binary_crossentropy: 0.1037 - val_loss: 0.0981 - val_binary_crossentropy: 0.0981
+Epoch 7/10
+120/120 - 29s - loss: 0.0840 - binary_crossentropy: 0.0840 - val_loss: 0.0947 - val_binary_crossentropy: 0.0947
+Epoch 8/10
+120/120 - 29s - loss: 0.0704 - binary_crossentropy: 0.0704 - val_loss: 0.1016 - val_binary_crossentropy: 0.1016
+Epoch 9/10
+120/120 - 29s - loss: 0.0610 - binary_crossentropy: 0.0610 - val_loss: 0.0732 - val_binary_crossentropy: 0.0732
+Epoch 10/10
+120/120 - 28s - loss: 0.0524 - binary_crossentropy: 0.0524 - val_loss: 0.0655 - val_binary_crossentropy: 0.0655
+############################
+[1, 3, 1, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5494 - binary_crossentropy: 0.5494 - val_loss: 0.5822 - val_binary_crossentropy: 0.5822
+Epoch 2/10
+120/120 - 29s - loss: 0.3239 - binary_crossentropy: 0.3239 - val_loss: 0.3771 - val_binary_crossentropy: 0.3771
+Epoch 3/10
+120/120 - 28s - loss: 0.2055 - binary_crossentropy: 0.2055 - val_loss: 0.2061 - val_binary_crossentropy: 0.2061
+Epoch 4/10
+120/120 - 28s - loss: 0.1444 - binary_crossentropy: 0.1444 - val_loss: 0.1443 - val_binary_crossentropy: 0.1443
+Epoch 5/10
+120/120 - 29s - loss: 0.1080 - binary_crossentropy: 0.1080 - val_loss: 0.1177 - val_binary_crossentropy: 0.1177
+Epoch 6/10
+120/120 - 29s - loss: 0.0862 - binary_crossentropy: 0.0862 - val_loss: 0.1120 - val_binary_crossentropy: 0.1120
+Epoch 7/10
+120/120 - 29s - loss: 0.0714 - binary_crossentropy: 0.0714 - val_loss: 0.0859 - val_binary_crossentropy: 0.0859
+Epoch 8/10
+120/120 - 28s - loss: 0.0589 - binary_crossentropy: 0.0589 - val_loss: 0.0746 - val_binary_crossentropy: 0.0746
+Epoch 9/10
+120/120 - 29s - loss: 0.0497 - binary_crossentropy: 0.0497 - val_loss: 0.0678 - val_binary_crossentropy: 0.0678
+Epoch 10/10
+120/120 - 28s - loss: 0.0465 - binary_crossentropy: 0.0465 - val_loss: 0.0618 - val_binary_crossentropy: 0.0618
+############################
+[1, 3, 0, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6730 - binary_crossentropy: 0.6730 - val_loss: 0.5213 - val_binary_crossentropy: 0.5213
+Epoch 2/10
+120/120 - 29s - loss: 0.4381 - binary_crossentropy: 0.4381 - val_loss: 0.4003 - val_binary_crossentropy: 0.4003
+Epoch 3/10
+120/120 - 28s - loss: 0.3169 - binary_crossentropy: 0.3169 - val_loss: 0.2806 - val_binary_crossentropy: 0.2806
+Epoch 4/10
+120/120 - 29s - loss: 0.2210 - binary_crossentropy: 0.2210 - val_loss: 0.2032 - val_binary_crossentropy: 0.2032
+Epoch 5/10
+120/120 - 28s - loss: 0.1607 - binary_crossentropy: 0.1607 - val_loss: 0.1927 - val_binary_crossentropy: 0.1927
+Epoch 6/10
+120/120 - 29s - loss: 0.1220 - binary_crossentropy: 0.1220 - val_loss: 0.1456 - val_binary_crossentropy: 0.1456
+Epoch 7/10
+120/120 - 29s - loss: 0.0982 - binary_crossentropy: 0.0982 - val_loss: 0.1190 - val_binary_crossentropy: 0.1190
+Epoch 8/10
+120/120 - 29s - loss: 0.0796 - binary_crossentropy: 0.0796 - val_loss: 0.0937 - val_binary_crossentropy: 0.0937
+Epoch 9/10
+120/120 - 28s - loss: 0.0689 - binary_crossentropy: 0.0689 - val_loss: 0.0763 - val_binary_crossentropy: 0.0763
+Epoch 10/10
+120/120 - 29s - loss: 0.0576 - binary_crossentropy: 0.0576 - val_loss: 0.0854 - val_binary_crossentropy: 0.0854
+############################
+[1, 3, 0, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.4009 - binary_crossentropy: 0.4009 - val_loss: 0.4292 - val_binary_crossentropy: 0.4292
+Epoch 2/10
+120/120 - 29s - loss: 0.2279 - binary_crossentropy: 0.2279 - val_loss: 0.2278 - val_binary_crossentropy: 0.2278
+Epoch 3/10
+120/120 - 29s - loss: 0.1439 - binary_crossentropy: 0.1439 - val_loss: 0.1554 - val_binary_crossentropy: 0.1554
+Epoch 4/10
+120/120 - 28s - loss: 0.1009 - binary_crossentropy: 0.1009 - val_loss: 0.1250 - val_binary_crossentropy: 0.1250
+Epoch 5/10
+120/120 - 28s - loss: 0.0776 - binary_crossentropy: 0.0776 - val_loss: 0.0913 - val_binary_crossentropy: 0.0913
+Epoch 6/10
+120/120 - 29s - loss: 0.0608 - binary_crossentropy: 0.0608 - val_loss: 0.0910 - val_binary_crossentropy: 0.0910
+Epoch 7/10
+120/120 - 28s - loss: 0.0501 - binary_crossentropy: 0.0501 - val_loss: 0.0627 - val_binary_crossentropy: 0.0627
+Epoch 8/10
+120/120 - 29s - loss: 0.0431 - binary_crossentropy: 0.0431 - val_loss: 0.0640 - val_binary_crossentropy: 0.0640
+Epoch 9/10
+120/120 - 28s - loss: 0.0367 - binary_crossentropy: 0.0367 - val_loss: 0.0548 - val_binary_crossentropy: 0.0548
+Epoch 10/10
+120/120 - 29s - loss: 0.0325 - binary_crossentropy: 0.0325 - val_loss: 0.0493 - val_binary_crossentropy: 0.0493
+############################
+[1, 2, 2, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6776 - binary_crossentropy: 0.6776 - val_loss: 0.6542 - val_binary_crossentropy: 0.6542
+Epoch 2/10
+120/120 - 29s - loss: 0.4191 - binary_crossentropy: 0.4191 - val_loss: 0.4194 - val_binary_crossentropy: 0.4194
+Epoch 3/10
+120/120 - 28s - loss: 0.3046 - binary_crossentropy: 0.3046 - val_loss: 0.2874 - val_binary_crossentropy: 0.2874
+Epoch 4/10
+120/120 - 28s - loss: 0.2279 - binary_crossentropy: 0.2279 - val_loss: 0.2124 - val_binary_crossentropy: 0.2124
+Epoch 5/10
+120/120 - 28s - loss: 0.1728 - binary_crossentropy: 0.1728 - val_loss: 0.1629 - val_binary_crossentropy: 0.1629
+Epoch 6/10
+120/120 - 28s - loss: 0.1369 - binary_crossentropy: 0.1369 - val_loss: 0.1407 - val_binary_crossentropy: 0.1407
+Epoch 7/10
+120/120 - 29s - loss: 0.1142 - binary_crossentropy: 0.1142 - val_loss: 0.1266 - val_binary_crossentropy: 0.1266
+Epoch 8/10
+120/120 - 29s - loss: 0.0999 - binary_crossentropy: 0.0999 - val_loss: 0.0904 - val_binary_crossentropy: 0.0904
+Epoch 9/10
+120/120 - 28s - loss: 0.0875 - binary_crossentropy: 0.0875 - val_loss: 0.0918 - val_binary_crossentropy: 0.0918
+Epoch 10/10
+120/120 - 29s - loss: 0.0779 - binary_crossentropy: 0.0779 - val_loss: 0.0817 - val_binary_crossentropy: 0.0817
+############################
+[1, 2, 1, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6578 - binary_crossentropy: 0.6578 - val_loss: 0.5822 - val_binary_crossentropy: 0.5822
+Epoch 2/10
+120/120 - 29s - loss: 0.4078 - binary_crossentropy: 0.4078 - val_loss: 0.3913 - val_binary_crossentropy: 0.3913
+Epoch 3/10
+120/120 - 29s - loss: 0.2835 - binary_crossentropy: 0.2835 - val_loss: 0.2734 - val_binary_crossentropy: 0.2734
+Epoch 4/10
+120/120 - 28s - loss: 0.1937 - binary_crossentropy: 0.1937 - val_loss: 0.2099 - val_binary_crossentropy: 0.2099
+Epoch 5/10
+120/120 - 28s - loss: 0.1417 - binary_crossentropy: 0.1417 - val_loss: 0.1676 - val_binary_crossentropy: 0.1676
+Epoch 6/10
+120/120 - 29s - loss: 0.1084 - binary_crossentropy: 0.1084 - val_loss: 0.1162 - val_binary_crossentropy: 0.1162
+Epoch 7/10
+120/120 - 28s - loss: 0.0882 - binary_crossentropy: 0.0882 - val_loss: 0.1227 - val_binary_crossentropy: 0.1227
+Epoch 8/10
+120/120 - 28s - loss: 0.0739 - binary_crossentropy: 0.0739 - val_loss: 0.0788 - val_binary_crossentropy: 0.0788
+Epoch 9/10
+120/120 - 28s - loss: 0.0623 - binary_crossentropy: 0.0623 - val_loss: 0.0831 - val_binary_crossentropy: 0.0831
+Epoch 10/10
+120/120 - 28s - loss: 0.0553 - binary_crossentropy: 0.0553 - val_loss: 0.0528 - val_binary_crossentropy: 0.0528
+############################
+[1, 2, 1, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5192 - binary_crossentropy: 0.5192 - val_loss: 0.6048 - val_binary_crossentropy: 0.6048
+Epoch 2/10
+120/120 - 28s - loss: 0.2977 - binary_crossentropy: 0.2977 - val_loss: 0.3829 - val_binary_crossentropy: 0.3829
+Epoch 3/10
+120/120 - 29s - loss: 0.1848 - binary_crossentropy: 0.1848 - val_loss: 0.1857 - val_binary_crossentropy: 0.1857
+Epoch 4/10
+120/120 - 28s - loss: 0.1282 - binary_crossentropy: 0.1282 - val_loss: 0.1151 - val_binary_crossentropy: 0.1151
+Epoch 5/10
+120/120 - 29s - loss: 0.0947 - binary_crossentropy: 0.0947 - val_loss: 0.1008 - val_binary_crossentropy: 0.1008
+Epoch 6/10
+120/120 - 29s - loss: 0.0730 - binary_crossentropy: 0.0730 - val_loss: 0.0871 - val_binary_crossentropy: 0.0871
+Epoch 7/10
+120/120 - 28s - loss: 0.0590 - binary_crossentropy: 0.0590 - val_loss: 0.0772 - val_binary_crossentropy: 0.0772
+Epoch 8/10
+120/120 - 28s - loss: 0.0504 - binary_crossentropy: 0.0504 - val_loss: 0.0646 - val_binary_crossentropy: 0.0646
+Epoch 9/10
+120/120 - 28s - loss: 0.0410 - binary_crossentropy: 0.0410 - val_loss: 0.0605 - val_binary_crossentropy: 0.0605
+Epoch 10/10
+120/120 - 29s - loss: 0.0358 - binary_crossentropy: 0.0358 - val_loss: 0.0485 - val_binary_crossentropy: 0.0485
+############################
+[1, 2, 0, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.8510 - binary_crossentropy: 0.8510 - val_loss: 0.6734 - val_binary_crossentropy: 0.6734
+Epoch 2/10
+120/120 - 29s - loss: 0.6271 - binary_crossentropy: 0.6271 - val_loss: 0.4383 - val_binary_crossentropy: 0.4383
+Epoch 3/10
+120/120 - 28s - loss: 0.4447 - binary_crossentropy: 0.4447 - val_loss: 0.3397 - val_binary_crossentropy: 0.3397
+Epoch 4/10
+120/120 - 28s - loss: 0.3544 - binary_crossentropy: 0.3544 - val_loss: 0.3296 - val_binary_crossentropy: 0.3296
+Epoch 5/10
+120/120 - 28s - loss: 0.2888 - binary_crossentropy: 0.2888 - val_loss: 0.3131 - val_binary_crossentropy: 0.3131
+Epoch 6/10
+120/120 - 29s - loss: 0.2254 - binary_crossentropy: 0.2254 - val_loss: 0.2514 - val_binary_crossentropy: 0.2514
+Epoch 7/10
+120/120 - 29s - loss: 0.1793 - binary_crossentropy: 0.1793 - val_loss: 0.1740 - val_binary_crossentropy: 0.1740
+Epoch 8/10
+120/120 - 28s - loss: 0.1466 - binary_crossentropy: 0.1466 - val_loss: 0.1317 - val_binary_crossentropy: 0.1317
+Epoch 9/10
+120/120 - 29s - loss: 0.1193 - binary_crossentropy: 0.1193 - val_loss: 0.1200 - val_binary_crossentropy: 0.1200
+Epoch 10/10
+120/120 - 28s - loss: 0.0981 - binary_crossentropy: 0.0981 - val_loss: 0.0791 - val_binary_crossentropy: 0.0791
+############################
+[1, 2, 0, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6032 - binary_crossentropy: 0.6032 - val_loss: 0.4705 - val_binary_crossentropy: 0.4705
+Epoch 2/10
+120/120 - 28s - loss: 0.3131 - binary_crossentropy: 0.3131 - val_loss: 0.3160 - val_binary_crossentropy: 0.3160
+Epoch 3/10
+120/120 - 29s - loss: 0.2004 - binary_crossentropy: 0.2004 - val_loss: 0.2530 - val_binary_crossentropy: 0.2530
+Epoch 4/10
+120/120 - 28s - loss: 0.1450 - binary_crossentropy: 0.1450 - val_loss: 0.1761 - val_binary_crossentropy: 0.1761
+Epoch 5/10
+120/120 - 28s - loss: 0.1089 - binary_crossentropy: 0.1089 - val_loss: 0.1207 - val_binary_crossentropy: 0.1207
+Epoch 6/10
+120/120 - 29s - loss: 0.0877 - binary_crossentropy: 0.0877 - val_loss: 0.0833 - val_binary_crossentropy: 0.0833
+Epoch 7/10
+120/120 - 29s - loss: 0.0722 - binary_crossentropy: 0.0722 - val_loss: 0.0784 - val_binary_crossentropy: 0.0784
+Epoch 8/10
+120/120 - 28s - loss: 0.0585 - binary_crossentropy: 0.0585 - val_loss: 0.0769 - val_binary_crossentropy: 0.0769
+Epoch 9/10
+120/120 - 28s - loss: 0.0509 - binary_crossentropy: 0.0509 - val_loss: 0.0509 - val_binary_crossentropy: 0.0509
+Epoch 10/10
+120/120 - 29s - loss: 0.0444 - binary_crossentropy: 0.0444 - val_loss: 0.0728 - val_binary_crossentropy: 0.0728
+############################
+[1, 2, 0, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5903 - binary_crossentropy: 0.5903 - val_loss: 0.4421 - val_binary_crossentropy: 0.4421
+Epoch 2/10
+120/120 - 29s - loss: 0.2954 - binary_crossentropy: 0.2954 - val_loss: 0.3076 - val_binary_crossentropy: 0.3076
+Epoch 3/10
+120/120 - 29s - loss: 0.1976 - binary_crossentropy: 0.1976 - val_loss: 0.2509 - val_binary_crossentropy: 0.2509
+Epoch 4/10
+120/120 - 28s - loss: 0.1422 - binary_crossentropy: 0.1422 - val_loss: 0.1682 - val_binary_crossentropy: 0.1682
+Epoch 5/10
+120/120 - 28s - loss: 0.1088 - binary_crossentropy: 0.1088 - val_loss: 0.1266 - val_binary_crossentropy: 0.1266
+Epoch 6/10
+120/120 - 29s - loss: 0.0865 - binary_crossentropy: 0.0865 - val_loss: 0.1096 - val_binary_crossentropy: 0.1096
+Epoch 7/10
+120/120 - 29s - loss: 0.0702 - binary_crossentropy: 0.0702 - val_loss: 0.0827 - val_binary_crossentropy: 0.0827
+Epoch 8/10
+120/120 - 29s - loss: 0.0585 - binary_crossentropy: 0.0585 - val_loss: 0.0811 - val_binary_crossentropy: 0.0811
+Epoch 9/10
+120/120 - 28s - loss: 0.0498 - binary_crossentropy: 0.0498 - val_loss: 0.0693 - val_binary_crossentropy: 0.0693
+Epoch 10/10
+120/120 - 29s - loss: 0.0414 - binary_crossentropy: 0.0414 - val_loss: 0.0566 - val_binary_crossentropy: 0.0566
+############################
+[1, 1, 3, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6502 - binary_crossentropy: 0.6502 - val_loss: 0.4909 - val_binary_crossentropy: 0.4909
+Epoch 2/10
+120/120 - 29s - loss: 0.3882 - binary_crossentropy: 0.3882 - val_loss: 0.3060 - val_binary_crossentropy: 0.3060
+Epoch 3/10
+120/120 - 29s - loss: 0.2792 - binary_crossentropy: 0.2792 - val_loss: 0.2723 - val_binary_crossentropy: 0.2723
+Epoch 4/10
+120/120 - 28s - loss: 0.2062 - binary_crossentropy: 0.2062 - val_loss: 0.2198 - val_binary_crossentropy: 0.2198
+Epoch 5/10
+120/120 - 29s - loss: 0.1652 - binary_crossentropy: 0.1652 - val_loss: 0.1648 - val_binary_crossentropy: 0.1648
+Epoch 6/10
+120/120 - 29s - loss: 0.1393 - binary_crossentropy: 0.1393 - val_loss: 0.1511 - val_binary_crossentropy: 0.1511
+Epoch 7/10
+120/120 - 28s - loss: 0.1211 - binary_crossentropy: 0.1211 - val_loss: 0.1340 - val_binary_crossentropy: 0.1340
+Epoch 8/10
+120/120 - 29s - loss: 0.1086 - binary_crossentropy: 0.1086 - val_loss: 0.1173 - val_binary_crossentropy: 0.1173
+Epoch 9/10
+120/120 - 29s - loss: 0.0985 - binary_crossentropy: 0.0985 - val_loss: 0.1197 - val_binary_crossentropy: 0.1197
+Epoch 10/10
+120/120 - 29s - loss: 0.0900 - binary_crossentropy: 0.0900 - val_loss: 0.0875 - val_binary_crossentropy: 0.0875
+############################
+[1, 1, 2, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6257 - binary_crossentropy: 0.6257 - val_loss: 0.4900 - val_binary_crossentropy: 0.4900
+Epoch 2/10
+120/120 - 29s - loss: 0.3722 - binary_crossentropy: 0.3722 - val_loss: 0.3443 - val_binary_crossentropy: 0.3443
+Epoch 3/10
+120/120 - 29s - loss: 0.2823 - binary_crossentropy: 0.2823 - val_loss: 0.2760 - val_binary_crossentropy: 0.2760
+Epoch 4/10
+120/120 - 28s - loss: 0.2191 - binary_crossentropy: 0.2191 - val_loss: 0.2304 - val_binary_crossentropy: 0.2304
+Epoch 5/10
+120/120 - 28s - loss: 0.1649 - binary_crossentropy: 0.1649 - val_loss: 0.1731 - val_binary_crossentropy: 0.1731
+Epoch 6/10
+120/120 - 29s - loss: 0.1269 - binary_crossentropy: 0.1269 - val_loss: 0.1565 - val_binary_crossentropy: 0.1565
+Epoch 7/10
+120/120 - 29s - loss: 0.1000 - binary_crossentropy: 0.1000 - val_loss: 0.1160 - val_binary_crossentropy: 0.1160
+Epoch 8/10
+120/120 - 28s - loss: 0.0797 - binary_crossentropy: 0.0797 - val_loss: 0.0780 - val_binary_crossentropy: 0.0780
+Epoch 9/10
+120/120 - 29s - loss: 0.0656 - binary_crossentropy: 0.0656 - val_loss: 0.0859 - val_binary_crossentropy: 0.0859
+Epoch 10/10
+120/120 - 29s - loss: 0.0609 - binary_crossentropy: 0.0609 - val_loss: 0.1060 - val_binary_crossentropy: 0.1060
+############################
+[1, 1, 2, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5453 - binary_crossentropy: 0.5453 - val_loss: 0.6118 - val_binary_crossentropy: 0.6118
+Epoch 2/10
+120/120 - 28s - loss: 0.3065 - binary_crossentropy: 0.3065 - val_loss: 0.3653 - val_binary_crossentropy: 0.3653
+Epoch 3/10
+120/120 - 29s - loss: 0.2031 - binary_crossentropy: 0.2031 - val_loss: 0.2172 - val_binary_crossentropy: 0.2172
+Epoch 4/10
+120/120 - 28s - loss: 0.1434 - binary_crossentropy: 0.1434 - val_loss: 0.1560 - val_binary_crossentropy: 0.1560
+Epoch 5/10
+120/120 - 29s - loss: 0.1050 - binary_crossentropy: 0.1050 - val_loss: 0.1176 - val_binary_crossentropy: 0.1176
+Epoch 6/10
+120/120 - 29s - loss: 0.0807 - binary_crossentropy: 0.0807 - val_loss: 0.1526 - val_binary_crossentropy: 0.1526
+Epoch 7/10
+120/120 - 28s - loss: 0.0637 - binary_crossentropy: 0.0637 - val_loss: 0.0819 - val_binary_crossentropy: 0.0819
+Epoch 8/10
+120/120 - 28s - loss: 0.0534 - binary_crossentropy: 0.0534 - val_loss: 0.0690 - val_binary_crossentropy: 0.0690
+Epoch 9/10
+120/120 - 29s - loss: 0.0447 - binary_crossentropy: 0.0447 - val_loss: 0.0542 - val_binary_crossentropy: 0.0542
+Epoch 10/10
+120/120 - 29s - loss: 0.0378 - binary_crossentropy: 0.0378 - val_loss: 0.0606 - val_binary_crossentropy: 0.0606
+############################
+[1, 1, 1, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6230 - binary_crossentropy: 0.6230 - val_loss: 0.5786 - val_binary_crossentropy: 0.5786
+Epoch 2/10
+120/120 - 29s - loss: 0.3808 - binary_crossentropy: 0.3808 - val_loss: 0.3395 - val_binary_crossentropy: 0.3395
+Epoch 3/10
+120/120 - 28s - loss: 0.2826 - binary_crossentropy: 0.2826 - val_loss: 0.2981 - val_binary_crossentropy: 0.2981
+Epoch 4/10
+120/120 - 28s - loss: 0.2255 - binary_crossentropy: 0.2255 - val_loss: 0.2825 - val_binary_crossentropy: 0.2825
+Epoch 5/10
+120/120 - 29s - loss: 0.1643 - binary_crossentropy: 0.1643 - val_loss: 0.1585 - val_binary_crossentropy: 0.1585
+Epoch 6/10
+120/120 - 28s - loss: 0.1183 - binary_crossentropy: 0.1183 - val_loss: 0.1174 - val_binary_crossentropy: 0.1174
+Epoch 7/10
+120/120 - 29s - loss: 0.0951 - binary_crossentropy: 0.0951 - val_loss: 0.1010 - val_binary_crossentropy: 0.1010
+Epoch 8/10
+120/120 - 28s - loss: 0.0789 - binary_crossentropy: 0.0789 - val_loss: 0.0766 - val_binary_crossentropy: 0.0766
+Epoch 9/10
+120/120 - 29s - loss: 0.0658 - binary_crossentropy: 0.0658 - val_loss: 0.0749 - val_binary_crossentropy: 0.0749
+Epoch 10/10
+120/120 - 29s - loss: 0.0570 - binary_crossentropy: 0.0570 - val_loss: 0.0667 - val_binary_crossentropy: 0.0667
+############################
+[1, 1, 1, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5524 - binary_crossentropy: 0.5524 - val_loss: 0.5887 - val_binary_crossentropy: 0.5887
+Epoch 2/10
+120/120 - 29s - loss: 0.3257 - binary_crossentropy: 0.3257 - val_loss: 0.3381 - val_binary_crossentropy: 0.3381
+Epoch 3/10
+120/120 - 29s - loss: 0.2196 - binary_crossentropy: 0.2196 - val_loss: 0.2342 - val_binary_crossentropy: 0.2342
+Epoch 4/10
+120/120 - 28s - loss: 0.1466 - binary_crossentropy: 0.1466 - val_loss: 0.2122 - val_binary_crossentropy: 0.2122
+Epoch 5/10
+120/120 - 28s - loss: 0.1051 - binary_crossentropy: 0.1051 - val_loss: 0.1146 - val_binary_crossentropy: 0.1146
+Epoch 6/10
+120/120 - 28s - loss: 0.0835 - binary_crossentropy: 0.0835 - val_loss: 0.1072 - val_binary_crossentropy: 0.1072
+Epoch 7/10
+120/120 - 29s - loss: 0.0666 - binary_crossentropy: 0.0666 - val_loss: 0.1029 - val_binary_crossentropy: 0.1029
+Epoch 8/10
+120/120 - 28s - loss: 0.0572 - binary_crossentropy: 0.0572 - val_loss: 0.0668 - val_binary_crossentropy: 0.0668
+Epoch 9/10
+120/120 - 29s - loss: 0.0489 - binary_crossentropy: 0.0489 - val_loss: 0.0639 - val_binary_crossentropy: 0.0639
+Epoch 10/10
+120/120 - 29s - loss: 0.0424 - binary_crossentropy: 0.0424 - val_loss: 0.0620 - val_binary_crossentropy: 0.0620
+############################
+[1, 1, 1, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6741 - binary_crossentropy: 0.6741 - val_loss: 0.5655 - val_binary_crossentropy: 0.5655
+Epoch 2/10
+120/120 - 29s - loss: 0.3570 - binary_crossentropy: 0.3570 - val_loss: 0.3309 - val_binary_crossentropy: 0.3309
+Epoch 3/10
+120/120 - 29s - loss: 0.2421 - binary_crossentropy: 0.2421 - val_loss: 0.2581 - val_binary_crossentropy: 0.2581
+Epoch 4/10
+120/120 - 28s - loss: 0.1752 - binary_crossentropy: 0.1752 - val_loss: 0.2087 - val_binary_crossentropy: 0.2087
+Epoch 5/10
+120/120 - 29s - loss: 0.1280 - binary_crossentropy: 0.1280 - val_loss: 0.1654 - val_binary_crossentropy: 0.1654
+Epoch 6/10
+120/120 - 28s - loss: 0.0987 - binary_crossentropy: 0.0987 - val_loss: 0.1202 - val_binary_crossentropy: 0.1202
+Epoch 7/10
+120/120 - 29s - loss: 0.0766 - binary_crossentropy: 0.0766 - val_loss: 0.0884 - val_binary_crossentropy: 0.0884
+Epoch 8/10
+120/120 - 28s - loss: 0.0621 - binary_crossentropy: 0.0621 - val_loss: 0.0812 - val_binary_crossentropy: 0.0812
+Epoch 9/10
+120/120 - 29s - loss: 0.0522 - binary_crossentropy: 0.0522 - val_loss: 0.0761 - val_binary_crossentropy: 0.0761
+Epoch 10/10
+120/120 - 29s - loss: 0.0438 - binary_crossentropy: 0.0438 - val_loss: 0.0627 - val_binary_crossentropy: 0.0627
+############################
+[1, 1, 0, 3]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6469 - binary_crossentropy: 0.6469 - val_loss: 0.5328 - val_binary_crossentropy: 0.5328
+Epoch 2/10
+120/120 - 29s - loss: 0.3981 - binary_crossentropy: 0.3981 - val_loss: 0.3771 - val_binary_crossentropy: 0.3771
+Epoch 3/10
+120/120 - 29s - loss: 0.2882 - binary_crossentropy: 0.2882 - val_loss: 0.2652 - val_binary_crossentropy: 0.2652
+Epoch 4/10
+120/120 - 28s - loss: 0.2136 - binary_crossentropy: 0.2136 - val_loss: 0.1902 - val_binary_crossentropy: 0.1902
+Epoch 5/10
+120/120 - 28s - loss: 0.1661 - binary_crossentropy: 0.1661 - val_loss: 0.1626 - val_binary_crossentropy: 0.1626
+Epoch 6/10
+120/120 - 29s - loss: 0.1333 - binary_crossentropy: 0.1333 - val_loss: 0.1263 - val_binary_crossentropy: 0.1263
+Epoch 7/10
+120/120 - 29s - loss: 0.1095 - binary_crossentropy: 0.1095 - val_loss: 0.0980 - val_binary_crossentropy: 0.0980
+Epoch 8/10
+120/120 - 28s - loss: 0.0919 - binary_crossentropy: 0.0919 - val_loss: 0.1016 - val_binary_crossentropy: 0.1016
+Epoch 9/10
+120/120 - 28s - loss: 0.0774 - binary_crossentropy: 0.0774 - val_loss: 0.0894 - val_binary_crossentropy: 0.0894
+Epoch 10/10
+120/120 - 28s - loss: 0.0690 - binary_crossentropy: 0.0690 - val_loss: 0.0716 - val_binary_crossentropy: 0.0716
+############################
+[1, 1, 0, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5579 - binary_crossentropy: 0.5579 - val_loss: 0.4678 - val_binary_crossentropy: 0.4678
+Epoch 2/10
+120/120 - 29s - loss: 0.3195 - binary_crossentropy: 0.3195 - val_loss: 0.2872 - val_binary_crossentropy: 0.2872
+Epoch 3/10
+120/120 - 29s - loss: 0.2170 - binary_crossentropy: 0.2170 - val_loss: 0.2388 - val_binary_crossentropy: 0.2388
+Epoch 4/10
+120/120 - 28s - loss: 0.1617 - binary_crossentropy: 0.1617 - val_loss: 0.1880 - val_binary_crossentropy: 0.1880
+Epoch 5/10
+120/120 - 29s - loss: 0.1251 - binary_crossentropy: 0.1251 - val_loss: 0.1383 - val_binary_crossentropy: 0.1383
+Epoch 6/10
+120/120 - 29s - loss: 0.1003 - binary_crossentropy: 0.1003 - val_loss: 0.1067 - val_binary_crossentropy: 0.1067
+Epoch 7/10
+120/120 - 29s - loss: 0.0824 - binary_crossentropy: 0.0824 - val_loss: 0.0991 - val_binary_crossentropy: 0.0991
+Epoch 8/10
+120/120 - 28s - loss: 0.0690 - binary_crossentropy: 0.0690 - val_loss: 0.0732 - val_binary_crossentropy: 0.0732
+Epoch 9/10
+120/120 - 28s - loss: 0.0603 - binary_crossentropy: 0.0603 - val_loss: 0.0692 - val_binary_crossentropy: 0.0692
+Epoch 10/10
+120/120 - 29s - loss: 0.0514 - binary_crossentropy: 0.0514 - val_loss: 0.0774 - val_binary_crossentropy: 0.0774
+############################
+[1, 1, 0, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5121 - binary_crossentropy: 0.5121 - val_loss: 0.5074 - val_binary_crossentropy: 0.5074
+Epoch 2/10
+120/120 - 29s - loss: 0.2851 - binary_crossentropy: 0.2851 - val_loss: 0.3321 - val_binary_crossentropy: 0.3321
+Epoch 3/10
+120/120 - 29s - loss: 0.1836 - binary_crossentropy: 0.1836 - val_loss: 0.2316 - val_binary_crossentropy: 0.2316
+Epoch 4/10
+120/120 - 28s - loss: 0.1309 - binary_crossentropy: 0.1309 - val_loss: 0.1417 - val_binary_crossentropy: 0.1417
+Epoch 5/10
+120/120 - 29s - loss: 0.0960 - binary_crossentropy: 0.0960 - val_loss: 0.1035 - val_binary_crossentropy: 0.1035
+Epoch 6/10
+120/120 - 28s - loss: 0.0755 - binary_crossentropy: 0.0755 - val_loss: 0.0913 - val_binary_crossentropy: 0.0913
+Epoch 7/10
+120/120 - 29s - loss: 0.0612 - binary_crossentropy: 0.0612 - val_loss: 0.0646 - val_binary_crossentropy: 0.0646
+Epoch 8/10
+120/120 - 28s - loss: 0.0511 - binary_crossentropy: 0.0511 - val_loss: 0.0644 - val_binary_crossentropy: 0.0644
+Epoch 9/10
+120/120 - 29s - loss: 0.0430 - binary_crossentropy: 0.0430 - val_loss: 0.0504 - val_binary_crossentropy: 0.0504
+Epoch 10/10
+120/120 - 29s - loss: 0.0385 - binary_crossentropy: 0.0385 - val_loss: 0.0500 - val_binary_crossentropy: 0.0500
+############################
+[1, 1, 0, 0]
+############################
+Epoch 1/10
+120/120 - 30s - loss: 0.5320 - binary_crossentropy: 0.5320 - val_loss: 0.5493 - val_binary_crossentropy: 0.5493
+Epoch 2/10
+120/120 - 28s - loss: 0.2550 - binary_crossentropy: 0.2550 - val_loss: 0.3425 - val_binary_crossentropy: 0.3425
+Epoch 3/10
+120/120 - 29s - loss: 0.1676 - binary_crossentropy: 0.1676 - val_loss: 0.2168 - val_binary_crossentropy: 0.2168
+Epoch 4/10
+120/120 - 29s - loss: 0.1251 - binary_crossentropy: 0.1251 - val_loss: 0.1309 - val_binary_crossentropy: 0.1309
+Epoch 5/10
+120/120 - 28s - loss: 0.0988 - binary_crossentropy: 0.0988 - val_loss: 0.1146 - val_binary_crossentropy: 0.1146
+Epoch 6/10
+120/120 - 29s - loss: 0.0777 - binary_crossentropy: 0.0777 - val_loss: 0.0981 - val_binary_crossentropy: 0.0981
+Epoch 7/10
+120/120 - 28s - loss: 0.0637 - binary_crossentropy: 0.0637 - val_loss: 0.0784 - val_binary_crossentropy: 0.0784
+Epoch 8/10
+120/120 - 28s - loss: 0.0527 - binary_crossentropy: 0.0527 - val_loss: 0.0662 - val_binary_crossentropy: 0.0662
+Epoch 9/10
+120/120 - 29s - loss: 0.0444 - binary_crossentropy: 0.0444 - val_loss: 0.0611 - val_binary_crossentropy: 0.0611
+Epoch 10/10
+120/120 - 29s - loss: 0.0375 - binary_crossentropy: 0.0375 - val_loss: 0.0595 - val_binary_crossentropy: 0.0595
+############################
+[1, 0, 4, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6779 - binary_crossentropy: 0.6779 - val_loss: 0.6176 - val_binary_crossentropy: 0.6176
+Epoch 2/10
+120/120 - 29s - loss: 0.4086 - binary_crossentropy: 0.4086 - val_loss: 0.4106 - val_binary_crossentropy: 0.4106
+Epoch 3/10
+120/120 - 29s - loss: 0.2817 - binary_crossentropy: 0.2817 - val_loss: 0.2807 - val_binary_crossentropy: 0.2807
+Epoch 4/10
+120/120 - 29s - loss: 0.2083 - binary_crossentropy: 0.2083 - val_loss: 0.1992 - val_binary_crossentropy: 0.1992
+Epoch 5/10
+120/120 - 28s - loss: 0.1651 - binary_crossentropy: 0.1651 - val_loss: 0.1460 - val_binary_crossentropy: 0.1460
+Epoch 6/10
+120/120 - 29s - loss: 0.1350 - binary_crossentropy: 0.1350 - val_loss: 0.1257 - val_binary_crossentropy: 0.1257
+Epoch 7/10
+120/120 - 29s - loss: 0.1136 - binary_crossentropy: 0.1136 - val_loss: 0.1269 - val_binary_crossentropy: 0.1269
+Epoch 8/10
+120/120 - 28s - loss: 0.0985 - binary_crossentropy: 0.0985 - val_loss: 0.1094 - val_binary_crossentropy: 0.1094
+Epoch 9/10
+120/120 - 29s - loss: 0.0856 - binary_crossentropy: 0.0856 - val_loss: 0.0866 - val_binary_crossentropy: 0.0866
+Epoch 10/10
+120/120 - 29s - loss: 0.0759 - binary_crossentropy: 0.0759 - val_loss: 0.0794 - val_binary_crossentropy: 0.0794
+############################
+[1, 0, 3, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6754 - binary_crossentropy: 0.6754 - val_loss: 0.5644 - val_binary_crossentropy: 0.5644
+Epoch 2/10
+120/120 - 29s - loss: 0.3988 - binary_crossentropy: 0.3988 - val_loss: 0.3206 - val_binary_crossentropy: 0.3206
+Epoch 3/10
+120/120 - 29s - loss: 0.2762 - binary_crossentropy: 0.2762 - val_loss: 0.2736 - val_binary_crossentropy: 0.2736
+Epoch 4/10
+120/120 - 28s - loss: 0.2032 - binary_crossentropy: 0.2032 - val_loss: 0.2333 - val_binary_crossentropy: 0.2333
+Epoch 5/10
+120/120 - 29s - loss: 0.1568 - binary_crossentropy: 0.1568 - val_loss: 0.1743 - val_binary_crossentropy: 0.1743
+Epoch 6/10
+120/120 - 28s - loss: 0.1259 - binary_crossentropy: 0.1259 - val_loss: 0.1575 - val_binary_crossentropy: 0.1575
+Epoch 7/10
+120/120 - 28s - loss: 0.1014 - binary_crossentropy: 0.1014 - val_loss: 0.1073 - val_binary_crossentropy: 0.1073
+Epoch 8/10
+120/120 - 28s - loss: 0.0842 - binary_crossentropy: 0.0842 - val_loss: 0.1048 - val_binary_crossentropy: 0.1048
+Epoch 9/10
+120/120 - 29s - loss: 0.0707 - binary_crossentropy: 0.0707 - val_loss: 0.0948 - val_binary_crossentropy: 0.0948
+Epoch 10/10
+120/120 - 29s - loss: 0.0624 - binary_crossentropy: 0.0624 - val_loss: 0.0944 - val_binary_crossentropy: 0.0944
+############################
+[1, 0, 3, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6021 - binary_crossentropy: 0.6021 - val_loss: 0.5996 - val_binary_crossentropy: 0.5996
+Epoch 2/10
+120/120 - 29s - loss: 0.3515 - binary_crossentropy: 0.3515 - val_loss: 0.4302 - val_binary_crossentropy: 0.4302
+Epoch 3/10
+120/120 - 29s - loss: 0.2333 - binary_crossentropy: 0.2333 - val_loss: 0.2671 - val_binary_crossentropy: 0.2671
+Epoch 4/10
+120/120 - 28s - loss: 0.1697 - binary_crossentropy: 0.1697 - val_loss: 0.1776 - val_binary_crossentropy: 0.1776
+Epoch 5/10
+120/120 - 29s - loss: 0.1300 - binary_crossentropy: 0.1300 - val_loss: 0.1315 - val_binary_crossentropy: 0.1315
+Epoch 6/10
+120/120 - 28s - loss: 0.1023 - binary_crossentropy: 0.1023 - val_loss: 0.1111 - val_binary_crossentropy: 0.1111
+Epoch 7/10
+120/120 - 29s - loss: 0.0820 - binary_crossentropy: 0.0820 - val_loss: 0.0931 - val_binary_crossentropy: 0.0931
+Epoch 8/10
+120/120 - 28s - loss: 0.0692 - binary_crossentropy: 0.0692 - val_loss: 0.0925 - val_binary_crossentropy: 0.0925
+Epoch 9/10
+120/120 - 28s - loss: 0.0589 - binary_crossentropy: 0.0589 - val_loss: 0.0708 - val_binary_crossentropy: 0.0708
+Epoch 10/10
+120/120 - 29s - loss: 0.0508 - binary_crossentropy: 0.0508 - val_loss: 0.0662 - val_binary_crossentropy: 0.0662
+############################
+[1, 0, 2, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.8380 - binary_crossentropy: 0.8380 - val_loss: 0.6558 - val_binary_crossentropy: 0.6558
+Epoch 2/10
+120/120 - 29s - loss: 0.5222 - binary_crossentropy: 0.5222 - val_loss: 0.4803 - val_binary_crossentropy: 0.4803
+Epoch 3/10
+120/120 - 28s - loss: 0.3751 - binary_crossentropy: 0.3751 - val_loss: 0.3405 - val_binary_crossentropy: 0.3405
+Epoch 4/10
+120/120 - 29s - loss: 0.2736 - binary_crossentropy: 0.2736 - val_loss: 0.2736 - val_binary_crossentropy: 0.2736
+Epoch 5/10
+120/120 - 28s - loss: 0.2001 - binary_crossentropy: 0.2001 - val_loss: 0.2140 - val_binary_crossentropy: 0.2140
+Epoch 6/10
+120/120 - 28s - loss: 0.1521 - binary_crossentropy: 0.1521 - val_loss: 0.1428 - val_binary_crossentropy: 0.1428
+Epoch 7/10
+120/120 - 29s - loss: 0.1187 - binary_crossentropy: 0.1187 - val_loss: 0.1276 - val_binary_crossentropy: 0.1276
+Epoch 8/10
+120/120 - 28s - loss: 0.0951 - binary_crossentropy: 0.0951 - val_loss: 0.1016 - val_binary_crossentropy: 0.1016
+Epoch 9/10
+120/120 - 29s - loss: 0.0803 - binary_crossentropy: 0.0803 - val_loss: 0.0901 - val_binary_crossentropy: 0.0901
+Epoch 10/10
+120/120 - 29s - loss: 0.0678 - binary_crossentropy: 0.0678 - val_loss: 0.0746 - val_binary_crossentropy: 0.0746
+############################
+[1, 0, 2, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5571 - binary_crossentropy: 0.5571 - val_loss: 0.5137 - val_binary_crossentropy: 0.5137
+Epoch 2/10
+120/120 - 29s - loss: 0.3385 - binary_crossentropy: 0.3385 - val_loss: 0.3663 - val_binary_crossentropy: 0.3663
+Epoch 3/10
+120/120 - 28s - loss: 0.2138 - binary_crossentropy: 0.2138 - val_loss: 0.2477 - val_binary_crossentropy: 0.2477
+Epoch 4/10
+120/120 - 28s - loss: 0.1440 - binary_crossentropy: 0.1440 - val_loss: 0.1567 - val_binary_crossentropy: 0.1567
+Epoch 5/10
+120/120 - 29s - loss: 0.1059 - binary_crossentropy: 0.1059 - val_loss: 0.1237 - val_binary_crossentropy: 0.1237
+Epoch 6/10
+120/120 - 29s - loss: 0.0852 - binary_crossentropy: 0.0852 - val_loss: 0.0958 - val_binary_crossentropy: 0.0958
+Epoch 7/10
+120/120 - 29s - loss: 0.0685 - binary_crossentropy: 0.0685 - val_loss: 0.0842 - val_binary_crossentropy: 0.0842
+Epoch 8/10
+120/120 - 28s - loss: 0.0578 - binary_crossentropy: 0.0578 - val_loss: 0.0710 - val_binary_crossentropy: 0.0710
+Epoch 9/10
+120/120 - 28s - loss: 0.0492 - binary_crossentropy: 0.0492 - val_loss: 0.0566 - val_binary_crossentropy: 0.0566
+Epoch 10/10
+120/120 - 28s - loss: 0.0449 - binary_crossentropy: 0.0449 - val_loss: 0.0584 - val_binary_crossentropy: 0.0584
+############################
+[1, 0, 2, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7190 - binary_crossentropy: 0.7190 - val_loss: 0.5867 - val_binary_crossentropy: 0.5867
+Epoch 2/10
+120/120 - 29s - loss: 0.4087 - binary_crossentropy: 0.4087 - val_loss: 0.4238 - val_binary_crossentropy: 0.4238
+Epoch 3/10
+120/120 - 29s - loss: 0.2767 - binary_crossentropy: 0.2767 - val_loss: 0.3091 - val_binary_crossentropy: 0.3091
+Epoch 4/10
+120/120 - 28s - loss: 0.1991 - binary_crossentropy: 0.1991 - val_loss: 0.2093 - val_binary_crossentropy: 0.2093
+Epoch 5/10
+120/120 - 29s - loss: 0.1433 - binary_crossentropy: 0.1433 - val_loss: 0.1702 - val_binary_crossentropy: 0.1702
+Epoch 6/10
+120/120 - 28s - loss: 0.1104 - binary_crossentropy: 0.1104 - val_loss: 0.1190 - val_binary_crossentropy: 0.1190
+Epoch 7/10
+120/120 - 29s - loss: 0.0863 - binary_crossentropy: 0.0863 - val_loss: 0.1032 - val_binary_crossentropy: 0.1032
+Epoch 8/10
+120/120 - 28s - loss: 0.0704 - binary_crossentropy: 0.0704 - val_loss: 0.0815 - val_binary_crossentropy: 0.0815
+Epoch 9/10
+120/120 - 29s - loss: 0.0585 - binary_crossentropy: 0.0585 - val_loss: 0.0889 - val_binary_crossentropy: 0.0889
+Epoch 10/10
+120/120 - 29s - loss: 0.0506 - binary_crossentropy: 0.0506 - val_loss: 0.0778 - val_binary_crossentropy: 0.0778
+############################
+[1, 0, 1, 3]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5226 - binary_crossentropy: 0.5226 - val_loss: 0.5558 - val_binary_crossentropy: 0.5558
+Epoch 2/10
+120/120 - 29s - loss: 0.3080 - binary_crossentropy: 0.3080 - val_loss: 0.4080 - val_binary_crossentropy: 0.4080
+Epoch 3/10
+120/120 - 29s - loss: 0.2083 - binary_crossentropy: 0.2083 - val_loss: 0.2846 - val_binary_crossentropy: 0.2846
+Epoch 4/10
+120/120 - 28s - loss: 0.1537 - binary_crossentropy: 0.1537 - val_loss: 0.2077 - val_binary_crossentropy: 0.2077
+Epoch 5/10
+120/120 - 28s - loss: 0.1189 - binary_crossentropy: 0.1189 - val_loss: 0.1371 - val_binary_crossentropy: 0.1371
+Epoch 6/10
+120/120 - 29s - loss: 0.0932 - binary_crossentropy: 0.0932 - val_loss: 0.1029 - val_binary_crossentropy: 0.1029
+Epoch 7/10
+120/120 - 29s - loss: 0.0787 - binary_crossentropy: 0.0787 - val_loss: 0.0834 - val_binary_crossentropy: 0.0834
+Epoch 8/10
+120/120 - 28s - loss: 0.0677 - binary_crossentropy: 0.0677 - val_loss: 0.0725 - val_binary_crossentropy: 0.0725
+Epoch 9/10
+120/120 - 29s - loss: 0.0602 - binary_crossentropy: 0.0602 - val_loss: 0.0748 - val_binary_crossentropy: 0.0748
+Epoch 10/10
+120/120 - 29s - loss: 0.0513 - binary_crossentropy: 0.0513 - val_loss: 0.0537 - val_binary_crossentropy: 0.0537
+############################
+[1, 0, 1, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6192 - binary_crossentropy: 0.6192 - val_loss: 0.6150 - val_binary_crossentropy: 0.6150
+Epoch 2/10
+120/120 - 28s - loss: 0.3879 - binary_crossentropy: 0.3879 - val_loss: 0.3636 - val_binary_crossentropy: 0.3636
+Epoch 3/10
+120/120 - 29s - loss: 0.2808 - binary_crossentropy: 0.2808 - val_loss: 0.2830 - val_binary_crossentropy: 0.2830
+Epoch 4/10
+120/120 - 28s - loss: 0.2012 - binary_crossentropy: 0.2012 - val_loss: 0.1806 - val_binary_crossentropy: 0.1806
+Epoch 5/10
+120/120 - 29s - loss: 0.1481 - binary_crossentropy: 0.1481 - val_loss: 0.1435 - val_binary_crossentropy: 0.1435
+Epoch 6/10
+120/120 - 29s - loss: 0.1127 - binary_crossentropy: 0.1127 - val_loss: 0.1128 - val_binary_crossentropy: 0.1128
+Epoch 7/10
+120/120 - 28s - loss: 0.0903 - binary_crossentropy: 0.0903 - val_loss: 0.0937 - val_binary_crossentropy: 0.0937
+Epoch 8/10
+120/120 - 28s - loss: 0.0761 - binary_crossentropy: 0.0761 - val_loss: 0.0865 - val_binary_crossentropy: 0.0865
+Epoch 9/10
+120/120 - 29s - loss: 0.0635 - binary_crossentropy: 0.0635 - val_loss: 0.0598 - val_binary_crossentropy: 0.0598
+Epoch 10/10
+120/120 - 29s - loss: 0.0525 - binary_crossentropy: 0.0525 - val_loss: 0.0579 - val_binary_crossentropy: 0.0579
+############################
+[1, 0, 1, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6018 - binary_crossentropy: 0.6018 - val_loss: 0.6290 - val_binary_crossentropy: 0.6290
+Epoch 2/10
+120/120 - 29s - loss: 0.3292 - binary_crossentropy: 0.3292 - val_loss: 0.3879 - val_binary_crossentropy: 0.3879
+Epoch 3/10
+120/120 - 28s - loss: 0.2211 - binary_crossentropy: 0.2211 - val_loss: 0.2653 - val_binary_crossentropy: 0.2653
+Epoch 4/10
+120/120 - 29s - loss: 0.1618 - binary_crossentropy: 0.1618 - val_loss: 0.1733 - val_binary_crossentropy: 0.1733
+Epoch 5/10
+120/120 - 28s - loss: 0.1214 - binary_crossentropy: 0.1214 - val_loss: 0.1285 - val_binary_crossentropy: 0.1285
+Epoch 6/10
+120/120 - 28s - loss: 0.0931 - binary_crossentropy: 0.0931 - val_loss: 0.0994 - val_binary_crossentropy: 0.0994
+Epoch 7/10
+120/120 - 29s - loss: 0.0762 - binary_crossentropy: 0.0762 - val_loss: 0.0924 - val_binary_crossentropy: 0.0924
+Epoch 8/10
+120/120 - 28s - loss: 0.0617 - binary_crossentropy: 0.0617 - val_loss: 0.0783 - val_binary_crossentropy: 0.0783
+Epoch 9/10
+120/120 - 29s - loss: 0.0513 - binary_crossentropy: 0.0513 - val_loss: 0.0660 - val_binary_crossentropy: 0.0660
+Epoch 10/10
+120/120 - 28s - loss: 0.0442 - binary_crossentropy: 0.0442 - val_loss: 0.0596 - val_binary_crossentropy: 0.0596
+############################
+[1, 0, 1, 0]
+############################
+Epoch 1/10
+120/120 - 30s - loss: 0.7625 - binary_crossentropy: 0.7625 - val_loss: 0.6482 - val_binary_crossentropy: 0.6482
+Epoch 2/10
+120/120 - 29s - loss: 0.4274 - binary_crossentropy: 0.4274 - val_loss: 0.4737 - val_binary_crossentropy: 0.4737
+Epoch 3/10
+120/120 - 29s - loss: 0.2905 - binary_crossentropy: 0.2905 - val_loss: 0.3312 - val_binary_crossentropy: 0.3312
+Epoch 4/10
+120/120 - 29s - loss: 0.2154 - binary_crossentropy: 0.2154 - val_loss: 0.2477 - val_binary_crossentropy: 0.2477
+Epoch 5/10
+120/120 - 29s - loss: 0.1659 - binary_crossentropy: 0.1659 - val_loss: 0.1974 - val_binary_crossentropy: 0.1974
+Epoch 6/10
+120/120 - 28s - loss: 0.1331 - binary_crossentropy: 0.1331 - val_loss: 0.1673 - val_binary_crossentropy: 0.1673
+Epoch 7/10
+120/120 - 29s - loss: 0.1077 - binary_crossentropy: 0.1077 - val_loss: 0.1270 - val_binary_crossentropy: 0.1270
+Epoch 8/10
+120/120 - 28s - loss: 0.0882 - binary_crossentropy: 0.0882 - val_loss: 0.0995 - val_binary_crossentropy: 0.0995
+Epoch 9/10
+120/120 - 29s - loss: 0.0755 - binary_crossentropy: 0.0755 - val_loss: 0.0917 - val_binary_crossentropy: 0.0917
+Epoch 10/10
+120/120 - 28s - loss: 0.0616 - binary_crossentropy: 0.0616 - val_loss: 0.0742 - val_binary_crossentropy: 0.0742
+############################
+[1, 0, 0, 4]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5244 - binary_crossentropy: 0.5244 - val_loss: 0.5800 - val_binary_crossentropy: 0.5800
+Epoch 2/10
+120/120 - 29s - loss: 0.3031 - binary_crossentropy: 0.3031 - val_loss: 0.4000 - val_binary_crossentropy: 0.4000
+Epoch 3/10
+120/120 - 28s - loss: 0.2094 - binary_crossentropy: 0.2094 - val_loss: 0.2799 - val_binary_crossentropy: 0.2799
+Epoch 4/10
+120/120 - 29s - loss: 0.1613 - binary_crossentropy: 0.1613 - val_loss: 0.1801 - val_binary_crossentropy: 0.1801
+Epoch 5/10
+120/120 - 29s - loss: 0.1323 - binary_crossentropy: 0.1323 - val_loss: 0.1631 - val_binary_crossentropy: 0.1631
+Epoch 6/10
+120/120 - 29s - loss: 0.1122 - binary_crossentropy: 0.1122 - val_loss: 0.1497 - val_binary_crossentropy: 0.1497
+Epoch 7/10
+120/120 - 29s - loss: 0.0979 - binary_crossentropy: 0.0979 - val_loss: 0.1026 - val_binary_crossentropy: 0.1026
+Epoch 8/10
+120/120 - 28s - loss: 0.0854 - binary_crossentropy: 0.0854 - val_loss: 0.1021 - val_binary_crossentropy: 0.1021
+Epoch 9/10
+120/120 - 28s - loss: 0.0801 - binary_crossentropy: 0.0801 - val_loss: 0.1022 - val_binary_crossentropy: 0.1022
+Epoch 10/10
+120/120 - 29s - loss: 0.0703 - binary_crossentropy: 0.0703 - val_loss: 0.0802 - val_binary_crossentropy: 0.0802
+############################
+[1, 0, 0, 3]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.4429 - binary_crossentropy: 0.4429 - val_loss: 0.5566 - val_binary_crossentropy: 0.5566
+Epoch 2/10
+120/120 - 29s - loss: 0.2634 - binary_crossentropy: 0.2634 - val_loss: 0.4895 - val_binary_crossentropy: 0.4895
+Epoch 3/10
+120/120 - 29s - loss: 0.1836 - binary_crossentropy: 0.1836 - val_loss: 0.3435 - val_binary_crossentropy: 0.3435
+Epoch 4/10
+120/120 - 29s - loss: 0.1429 - binary_crossentropy: 0.1429 - val_loss: 0.1681 - val_binary_crossentropy: 0.1681
+Epoch 5/10
+120/120 - 28s - loss: 0.1119 - binary_crossentropy: 0.1119 - val_loss: 0.1523 - val_binary_crossentropy: 0.1523
+Epoch 6/10
+120/120 - 29s - loss: 0.0905 - binary_crossentropy: 0.0905 - val_loss: 0.0984 - val_binary_crossentropy: 0.0984
+Epoch 7/10
+120/120 - 28s - loss: 0.0755 - binary_crossentropy: 0.0755 - val_loss: 0.0977 - val_binary_crossentropy: 0.0977
+Epoch 8/10
+120/120 - 28s - loss: 0.0633 - binary_crossentropy: 0.0633 - val_loss: 0.0690 - val_binary_crossentropy: 0.0690
+Epoch 9/10
+120/120 - 29s - loss: 0.0564 - binary_crossentropy: 0.0564 - val_loss: 0.0826 - val_binary_crossentropy: 0.0826
+Epoch 10/10
+120/120 - 29s - loss: 0.0473 - binary_crossentropy: 0.0473 - val_loss: 0.0751 - val_binary_crossentropy: 0.0751
+############################
+[1, 0, 0, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.4555 - binary_crossentropy: 0.4555 - val_loss: 0.5735 - val_binary_crossentropy: 0.5735
+Epoch 2/10
+120/120 - 29s - loss: 0.2351 - binary_crossentropy: 0.2351 - val_loss: 0.3607 - val_binary_crossentropy: 0.3607
+Epoch 3/10
+120/120 - 29s - loss: 0.1559 - binary_crossentropy: 0.1559 - val_loss: 0.2079 - val_binary_crossentropy: 0.2079
+Epoch 4/10
+120/120 - 28s - loss: 0.1138 - binary_crossentropy: 0.1138 - val_loss: 0.1385 - val_binary_crossentropy: 0.1385
+Epoch 5/10
+120/120 - 29s - loss: 0.0859 - binary_crossentropy: 0.0859 - val_loss: 0.0950 - val_binary_crossentropy: 0.0950
+Epoch 6/10
+120/120 - 29s - loss: 0.0707 - binary_crossentropy: 0.0707 - val_loss: 0.0887 - val_binary_crossentropy: 0.0887
+Epoch 7/10
+120/120 - 29s - loss: 0.0560 - binary_crossentropy: 0.0560 - val_loss: 0.0719 - val_binary_crossentropy: 0.0719
+Epoch 8/10
+120/120 - 28s - loss: 0.0477 - binary_crossentropy: 0.0477 - val_loss: 0.0522 - val_binary_crossentropy: 0.0522
+Epoch 9/10
+120/120 - 28s - loss: 0.0413 - binary_crossentropy: 0.0413 - val_loss: 0.0729 - val_binary_crossentropy: 0.0729
+Epoch 10/10
+120/120 - 29s - loss: 0.0354 - binary_crossentropy: 0.0354 - val_loss: 0.0512 - val_binary_crossentropy: 0.0512
+############################
+[1, 0, 0, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.4329 - binary_crossentropy: 0.4329 - val_loss: 0.4376 - val_binary_crossentropy: 0.4376
+Epoch 2/10
+120/120 - 29s - loss: 0.2039 - binary_crossentropy: 0.2039 - val_loss: 0.2963 - val_binary_crossentropy: 0.2963
+Epoch 3/10
+120/120 - 28s - loss: 0.1398 - binary_crossentropy: 0.1398 - val_loss: 0.1825 - val_binary_crossentropy: 0.1825
+Epoch 4/10
+120/120 - 28s - loss: 0.1012 - binary_crossentropy: 0.1012 - val_loss: 0.1245 - val_binary_crossentropy: 0.1245
+Epoch 5/10
+120/120 - 29s - loss: 0.0793 - binary_crossentropy: 0.0793 - val_loss: 0.0874 - val_binary_crossentropy: 0.0874
+Epoch 6/10
+120/120 - 29s - loss: 0.0640 - binary_crossentropy: 0.0640 - val_loss: 0.0863 - val_binary_crossentropy: 0.0863
+Epoch 7/10
+120/120 - 28s - loss: 0.0523 - binary_crossentropy: 0.0523 - val_loss: 0.0761 - val_binary_crossentropy: 0.0761
+Epoch 8/10
+120/120 - 28s - loss: 0.0442 - binary_crossentropy: 0.0442 - val_loss: 0.0597 - val_binary_crossentropy: 0.0597
+Epoch 9/10
+120/120 - 29s - loss: 0.0376 - binary_crossentropy: 0.0376 - val_loss: 0.0563 - val_binary_crossentropy: 0.0563
+Epoch 10/10
+120/120 - 29s - loss: 0.0326 - binary_crossentropy: 0.0326 - val_loss: 0.0498 - val_binary_crossentropy: 0.0498
+############################
+[1, 0, 0, 0]
+############################
+Epoch 1/10
+120/120 - 30s - loss: 0.3558 - binary_crossentropy: 0.3558 - val_loss: 0.4464 - val_binary_crossentropy: 0.4464
+Epoch 2/10
+120/120 - 29s - loss: 0.1887 - binary_crossentropy: 0.1887 - val_loss: 0.2903 - val_binary_crossentropy: 0.2903
+Epoch 3/10
+120/120 - 28s - loss: 0.1228 - binary_crossentropy: 0.1228 - val_loss: 0.1657 - val_binary_crossentropy: 0.1657
+Epoch 4/10
+120/120 - 28s - loss: 0.0891 - binary_crossentropy: 0.0891 - val_loss: 0.0969 - val_binary_crossentropy: 0.0969
+Epoch 5/10
+120/120 - 29s - loss: 0.0675 - binary_crossentropy: 0.0675 - val_loss: 0.1599 - val_binary_crossentropy: 0.1599
+Epoch 6/10
+120/120 - 29s - loss: 0.0539 - binary_crossentropy: 0.0539 - val_loss: 0.0788 - val_binary_crossentropy: 0.0788
+Epoch 7/10
+120/120 - 28s - loss: 0.0449 - binary_crossentropy: 0.0449 - val_loss: 0.0514 - val_binary_crossentropy: 0.0514
+Epoch 8/10
+120/120 - 28s - loss: 0.0367 - binary_crossentropy: 0.0367 - val_loss: 0.0443 - val_binary_crossentropy: 0.0443
+Epoch 9/10
+120/120 - 28s - loss: 0.0321 - binary_crossentropy: 0.0321 - val_loss: 0.0445 - val_binary_crossentropy: 0.0445
+Epoch 10/10
+120/120 - 29s - loss: 0.0283 - binary_crossentropy: 0.0283 - val_loss: 0.0466 - val_binary_crossentropy: 0.0466
+############################
+[0, 5, 0, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7112 - binary_crossentropy: 0.7112 - val_loss: 0.7150 - val_binary_crossentropy: 0.7150
+Epoch 2/10
+120/120 - 29s - loss: 0.6524 - binary_crossentropy: 0.6524 - val_loss: 0.6524 - val_binary_crossentropy: 0.6524
+Epoch 3/10
+120/120 - 29s - loss: 0.6050 - binary_crossentropy: 0.6050 - val_loss: 0.6041 - val_binary_crossentropy: 0.6041
+Epoch 4/10
+120/120 - 29s - loss: 0.5327 - binary_crossentropy: 0.5327 - val_loss: 0.5160 - val_binary_crossentropy: 0.5160
+Epoch 5/10
+120/120 - 29s - loss: 0.4451 - binary_crossentropy: 0.4451 - val_loss: 0.4218 - val_binary_crossentropy: 0.4218
+Epoch 6/10
+120/120 - 29s - loss: 0.3520 - binary_crossentropy: 0.3520 - val_loss: 0.3286 - val_binary_crossentropy: 0.3286
+Epoch 7/10
+120/120 - 28s - loss: 0.2679 - binary_crossentropy: 0.2679 - val_loss: 0.2719 - val_binary_crossentropy: 0.2719
+Epoch 8/10
+120/120 - 28s - loss: 0.2028 - binary_crossentropy: 0.2028 - val_loss: 0.2107 - val_binary_crossentropy: 0.2107
+Epoch 9/10
+120/120 - 28s - loss: 0.1550 - binary_crossentropy: 0.1550 - val_loss: 0.1864 - val_binary_crossentropy: 0.1864
+Epoch 10/10
+120/120 - 29s - loss: 0.1228 - binary_crossentropy: 0.1228 - val_loss: 0.1890 - val_binary_crossentropy: 0.1890
+############################
+[0, 4, 1, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6960 - binary_crossentropy: 0.6960 - val_loss: 0.5929 - val_binary_crossentropy: 0.5929
+Epoch 2/10
+120/120 - 29s - loss: 0.6181 - binary_crossentropy: 0.6181 - val_loss: 0.5352 - val_binary_crossentropy: 0.5352
+Epoch 3/10
+120/120 - 29s - loss: 0.5549 - binary_crossentropy: 0.5549 - val_loss: 0.4210 - val_binary_crossentropy: 0.4210
+Epoch 4/10
+120/120 - 28s - loss: 0.4555 - binary_crossentropy: 0.4555 - val_loss: 0.3113 - val_binary_crossentropy: 0.3113
+Epoch 5/10
+120/120 - 29s - loss: 0.3402 - binary_crossentropy: 0.3402 - val_loss: 0.3199 - val_binary_crossentropy: 0.3199
+Epoch 6/10
+120/120 - 29s - loss: 0.2487 - binary_crossentropy: 0.2487 - val_loss: 0.2290 - val_binary_crossentropy: 0.2290
+Epoch 7/10
+120/120 - 29s - loss: 0.1761 - binary_crossentropy: 0.1761 - val_loss: 0.1623 - val_binary_crossentropy: 0.1623
+Epoch 8/10
+120/120 - 29s - loss: 0.1476 - binary_crossentropy: 0.1476 - val_loss: 0.1391 - val_binary_crossentropy: 0.1391
+Epoch 9/10
+120/120 - 29s - loss: 0.1163 - binary_crossentropy: 0.1163 - val_loss: 0.1182 - val_binary_crossentropy: 0.1182
+Epoch 10/10
+120/120 - 29s - loss: 0.0919 - binary_crossentropy: 0.0919 - val_loss: 0.1182 - val_binary_crossentropy: 0.1182
+############################
+[0, 4, 0, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6949 - binary_crossentropy: 0.6949 - val_loss: 0.6620 - val_binary_crossentropy: 0.6620
+Epoch 2/10
+120/120 - 29s - loss: 0.6420 - binary_crossentropy: 0.6420 - val_loss: 0.6237 - val_binary_crossentropy: 0.6237
+Epoch 3/10
+120/120 - 29s - loss: 0.5744 - binary_crossentropy: 0.5744 - val_loss: 0.5727 - val_binary_crossentropy: 0.5727
+Epoch 4/10
+120/120 - 28s - loss: 0.4681 - binary_crossentropy: 0.4681 - val_loss: 0.5166 - val_binary_crossentropy: 0.5166
+Epoch 5/10
+120/120 - 28s - loss: 0.3428 - binary_crossentropy: 0.3428 - val_loss: 0.6525 - val_binary_crossentropy: 0.6525
+Epoch 6/10
+120/120 - 29s - loss: 0.2202 - binary_crossentropy: 0.2202 - val_loss: 0.7420 - val_binary_crossentropy: 0.7420
+Epoch 7/10
+120/120 - 29s - loss: 0.1465 - binary_crossentropy: 0.1465 - val_loss: 0.4955 - val_binary_crossentropy: 0.4955
+Epoch 8/10
+120/120 - 28s - loss: 0.1105 - binary_crossentropy: 0.1105 - val_loss: 0.1658 - val_binary_crossentropy: 0.1658
+Epoch 9/10
+120/120 - 29s - loss: 0.0861 - binary_crossentropy: 0.0861 - val_loss: 0.1458 - val_binary_crossentropy: 0.1458
+Epoch 10/10
+120/120 - 29s - loss: 0.0686 - binary_crossentropy: 0.0686 - val_loss: 0.0894 - val_binary_crossentropy: 0.0894
+############################
+[0, 4, 0, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6980 - binary_crossentropy: 0.6980 - val_loss: 0.5824 - val_binary_crossentropy: 0.5824
+Epoch 2/10
+120/120 - 29s - loss: 0.5245 - binary_crossentropy: 0.5245 - val_loss: 0.3932 - val_binary_crossentropy: 0.3932
+Epoch 3/10
+120/120 - 28s - loss: 0.3444 - binary_crossentropy: 0.3444 - val_loss: 0.2821 - val_binary_crossentropy: 0.2821
+Epoch 4/10
+120/120 - 28s - loss: 0.2291 - binary_crossentropy: 0.2291 - val_loss: 0.1779 - val_binary_crossentropy: 0.1779
+Epoch 5/10
+120/120 - 29s - loss: 0.1788 - binary_crossentropy: 0.1788 - val_loss: 0.1942 - val_binary_crossentropy: 0.1942
+Epoch 6/10
+120/120 - 28s - loss: 0.1322 - binary_crossentropy: 0.1322 - val_loss: 0.1562 - val_binary_crossentropy: 0.1562
+Epoch 7/10
+120/120 - 29s - loss: 0.1063 - binary_crossentropy: 0.1063 - val_loss: 0.1651 - val_binary_crossentropy: 0.1651
+Epoch 8/10
+120/120 - 28s - loss: 0.0842 - binary_crossentropy: 0.0842 - val_loss: 0.1615 - val_binary_crossentropy: 0.1615
+Epoch 9/10
+120/120 - 28s - loss: 0.0740 - binary_crossentropy: 0.0740 - val_loss: 0.1161 - val_binary_crossentropy: 0.1161
+Epoch 10/10
+120/120 - 29s - loss: 0.0639 - binary_crossentropy: 0.0639 - val_loss: 0.0796 - val_binary_crossentropy: 0.0796
+############################
+[0, 3, 2, 0]
+############################
+Epoch 1/10
+120/120 - 32s - loss: 0.7042 - binary_crossentropy: 0.7042 - val_loss: 0.6498 - val_binary_crossentropy: 0.6498
+Epoch 2/10
+120/120 - 29s - loss: 0.6133 - binary_crossentropy: 0.6133 - val_loss: 0.5720 - val_binary_crossentropy: 0.5720
+Epoch 3/10
+120/120 - 29s - loss: 0.5503 - binary_crossentropy: 0.5503 - val_loss: 0.4938 - val_binary_crossentropy: 0.4938
+Epoch 4/10
+120/120 - 28s - loss: 0.4699 - binary_crossentropy: 0.4699 - val_loss: 0.3600 - val_binary_crossentropy: 0.3600
+Epoch 5/10
+120/120 - 29s - loss: 0.3773 - binary_crossentropy: 0.3773 - val_loss: 0.3004 - val_binary_crossentropy: 0.3004
+Epoch 6/10
+120/120 - 28s - loss: 0.3132 - binary_crossentropy: 0.3132 - val_loss: 0.9660 - val_binary_crossentropy: 0.9660
+Epoch 7/10
+120/120 - 29s - loss: 0.2505 - binary_crossentropy: 0.2505 - val_loss: 0.2357 - val_binary_crossentropy: 0.2357
+Epoch 8/10
+120/120 - 28s - loss: 0.1999 - binary_crossentropy: 0.1999 - val_loss: 0.2323 - val_binary_crossentropy: 0.2323
+Epoch 9/10
+120/120 - 29s - loss: 0.1671 - binary_crossentropy: 0.1671 - val_loss: 0.1833 - val_binary_crossentropy: 0.1833
+Epoch 10/10
+120/120 - 29s - loss: 0.1422 - binary_crossentropy: 0.1422 - val_loss: 0.1183 - val_binary_crossentropy: 0.1183
+############################
+[0, 3, 1, 1]
+############################
+Epoch 1/10
+120/120 - 32s - loss: 0.6897 - binary_crossentropy: 0.6897 - val_loss: 0.5925 - val_binary_crossentropy: 0.5925
+Epoch 2/10
+120/120 - 29s - loss: 0.6174 - binary_crossentropy: 0.6174 - val_loss: 0.5327 - val_binary_crossentropy: 0.5327
+Epoch 3/10
+120/120 - 28s - loss: 0.5149 - binary_crossentropy: 0.5149 - val_loss: 0.3925 - val_binary_crossentropy: 0.3925
+Epoch 4/10
+120/120 - 28s - loss: 0.3562 - binary_crossentropy: 0.3562 - val_loss: 0.2869 - val_binary_crossentropy: 0.2869
+Epoch 5/10
+120/120 - 29s - loss: 0.2343 - binary_crossentropy: 0.2343 - val_loss: 0.1892 - val_binary_crossentropy: 0.1892
+Epoch 6/10
+120/120 - 29s - loss: 0.1804 - binary_crossentropy: 0.1804 - val_loss: 0.1687 - val_binary_crossentropy: 0.1687
+Epoch 7/10
+120/120 - 28s - loss: 0.1181 - binary_crossentropy: 0.1181 - val_loss: 0.1598 - val_binary_crossentropy: 0.1598
+Epoch 8/10
+120/120 - 28s - loss: 0.0967 - binary_crossentropy: 0.0967 - val_loss: 0.1147 - val_binary_crossentropy: 0.1147
+Epoch 9/10
+120/120 - 29s - loss: 0.0871 - binary_crossentropy: 0.0871 - val_loss: 0.0900 - val_binary_crossentropy: 0.0900
+Epoch 10/10
+120/120 - 29s - loss: 0.0711 - binary_crossentropy: 0.0711 - val_loss: 0.0766 - val_binary_crossentropy: 0.0766
+############################
+[0, 3, 1, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6869 - binary_crossentropy: 0.6869 - val_loss: 0.5642 - val_binary_crossentropy: 0.5642
+Epoch 2/10
+120/120 - 29s - loss: 0.5678 - binary_crossentropy: 0.5678 - val_loss: 0.4300 - val_binary_crossentropy: 0.4300
+Epoch 3/10
+120/120 - 29s - loss: 0.4083 - binary_crossentropy: 0.4083 - val_loss: 0.3221 - val_binary_crossentropy: 0.3221
+Epoch 4/10
+120/120 - 29s - loss: 0.2711 - binary_crossentropy: 0.2711 - val_loss: 0.2441 - val_binary_crossentropy: 0.2441
+Epoch 5/10
+120/120 - 28s - loss: 0.1914 - binary_crossentropy: 0.1914 - val_loss: 0.2094 - val_binary_crossentropy: 0.2094
+Epoch 6/10
+120/120 - 28s - loss: 0.1354 - binary_crossentropy: 0.1354 - val_loss: 0.1392 - val_binary_crossentropy: 0.1392
+Epoch 7/10
+120/120 - 29s - loss: 0.1067 - binary_crossentropy: 0.1067 - val_loss: 0.1483 - val_binary_crossentropy: 0.1483
+Epoch 8/10
+120/120 - 28s - loss: 0.0913 - binary_crossentropy: 0.0913 - val_loss: 0.1142 - val_binary_crossentropy: 0.1142
+Epoch 9/10
+120/120 - 28s - loss: 0.0733 - binary_crossentropy: 0.0733 - val_loss: 0.0928 - val_binary_crossentropy: 0.0928
+Epoch 10/10
+120/120 - 29s - loss: 0.0666 - binary_crossentropy: 0.0666 - val_loss: 0.1059 - val_binary_crossentropy: 0.1059
+############################
+[0, 3, 0, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6610 - binary_crossentropy: 0.6610 - val_loss: 0.5390 - val_binary_crossentropy: 0.5390
+Epoch 2/10
+120/120 - 29s - loss: 0.4199 - binary_crossentropy: 0.4199 - val_loss: 0.3238 - val_binary_crossentropy: 0.3238
+Epoch 3/10
+120/120 - 28s - loss: 0.2915 - binary_crossentropy: 0.2915 - val_loss: 0.2470 - val_binary_crossentropy: 0.2470
+Epoch 4/10
+120/120 - 28s - loss: 0.1944 - binary_crossentropy: 0.1944 - val_loss: 0.1713 - val_binary_crossentropy: 0.1713
+Epoch 5/10
+120/120 - 29s - loss: 0.1536 - binary_crossentropy: 0.1536 - val_loss: 0.1563 - val_binary_crossentropy: 0.1563
+Epoch 6/10
+120/120 - 28s - loss: 0.1141 - binary_crossentropy: 0.1141 - val_loss: 0.0988 - val_binary_crossentropy: 0.0988
+Epoch 7/10
+120/120 - 29s - loss: 0.0934 - binary_crossentropy: 0.0934 - val_loss: 0.1977 - val_binary_crossentropy: 0.1977
+Epoch 8/10
+120/120 - 29s - loss: 0.0858 - binary_crossentropy: 0.0858 - val_loss: 0.0972 - val_binary_crossentropy: 0.0972
+Epoch 9/10
+120/120 - 29s - loss: 0.0713 - binary_crossentropy: 0.0713 - val_loss: 0.0991 - val_binary_crossentropy: 0.0991
+Epoch 10/10
+120/120 - 28s - loss: 0.0601 - binary_crossentropy: 0.0601 - val_loss: 0.0627 - val_binary_crossentropy: 0.0627
+############################
+[0, 3, 0, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6981 - binary_crossentropy: 0.6981 - val_loss: 0.7048 - val_binary_crossentropy: 0.7048
+Epoch 2/10
+120/120 - 29s - loss: 0.6254 - binary_crossentropy: 0.6254 - val_loss: 0.7258 - val_binary_crossentropy: 0.7258
+Epoch 3/10
+120/120 - 28s - loss: 0.5445 - binary_crossentropy: 0.5445 - val_loss: 0.6004 - val_binary_crossentropy: 0.6004
+Epoch 4/10
+120/120 - 29s - loss: 0.4221 - binary_crossentropy: 0.4221 - val_loss: 0.6270 - val_binary_crossentropy: 0.6270
+Epoch 5/10
+120/120 - 28s - loss: 0.2509 - binary_crossentropy: 0.2509 - val_loss: 0.4056 - val_binary_crossentropy: 0.4056
+Epoch 6/10
+120/120 - 29s - loss: 0.1737 - binary_crossentropy: 0.1737 - val_loss: 0.4159 - val_binary_crossentropy: 0.4159
+Epoch 7/10
+120/120 - 29s - loss: 0.1129 - binary_crossentropy: 0.1129 - val_loss: 0.1306 - val_binary_crossentropy: 0.1306
+Epoch 8/10
+120/120 - 28s - loss: 0.0850 - binary_crossentropy: 0.0850 - val_loss: 0.1079 - val_binary_crossentropy: 0.1079
+Epoch 9/10
+120/120 - 29s - loss: 0.0708 - binary_crossentropy: 0.0708 - val_loss: 0.0895 - val_binary_crossentropy: 0.0895
+Epoch 10/10
+120/120 - 28s - loss: 0.0590 - binary_crossentropy: 0.0590 - val_loss: 0.0566 - val_binary_crossentropy: 0.0566
+############################
+[0, 3, 0, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6919 - binary_crossentropy: 0.6919 - val_loss: 0.6479 - val_binary_crossentropy: 0.6479
+Epoch 2/10
+120/120 - 29s - loss: 0.6270 - binary_crossentropy: 0.6270 - val_loss: 0.7166 - val_binary_crossentropy: 0.7166
+Epoch 3/10
+120/120 - 29s - loss: 0.5268 - binary_crossentropy: 0.5268 - val_loss: 1.0227 - val_binary_crossentropy: 1.0227
+Epoch 4/10
+120/120 - 28s - loss: 0.3916 - binary_crossentropy: 0.3916 - val_loss: 0.5326 - val_binary_crossentropy: 0.5326
+Epoch 5/10
+120/120 - 29s - loss: 0.2640 - binary_crossentropy: 0.2640 - val_loss: 0.3969 - val_binary_crossentropy: 0.3969
+Epoch 6/10
+120/120 - 29s - loss: 0.1678 - binary_crossentropy: 0.1678 - val_loss: 0.2466 - val_binary_crossentropy: 0.2466
+Epoch 7/10
+120/120 - 28s - loss: 0.1183 - binary_crossentropy: 0.1183 - val_loss: 0.1370 - val_binary_crossentropy: 0.1370
+Epoch 8/10
+120/120 - 29s - loss: 0.0932 - binary_crossentropy: 0.0932 - val_loss: 0.1955 - val_binary_crossentropy: 0.1955
+Epoch 9/10
+120/120 - 28s - loss: 0.0778 - binary_crossentropy: 0.0778 - val_loss: 0.1798 - val_binary_crossentropy: 0.1798
+Epoch 10/10
+120/120 - 28s - loss: 0.0694 - binary_crossentropy: 0.0694 - val_loss: 0.1251 - val_binary_crossentropy: 0.1251
+############################
+[0, 2, 3, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7163 - binary_crossentropy: 0.7163 - val_loss: 0.6734 - val_binary_crossentropy: 0.6734
+Epoch 2/10
+120/120 - 29s - loss: 0.6533 - binary_crossentropy: 0.6533 - val_loss: 0.5964 - val_binary_crossentropy: 0.5964
+Epoch 3/10
+120/120 - 29s - loss: 0.6062 - binary_crossentropy: 0.6062 - val_loss: 0.5460 - val_binary_crossentropy: 0.5460
+Epoch 4/10
+120/120 - 28s - loss: 0.5326 - binary_crossentropy: 0.5326 - val_loss: 0.5463 - val_binary_crossentropy: 0.5463
+Epoch 5/10
+120/120 - 29s - loss: 0.4416 - binary_crossentropy: 0.4416 - val_loss: 0.4140 - val_binary_crossentropy: 0.4140
+Epoch 6/10
+120/120 - 29s - loss: 0.3550 - binary_crossentropy: 0.3550 - val_loss: 0.3178 - val_binary_crossentropy: 0.3178
+Epoch 7/10
+120/120 - 29s - loss: 0.2840 - binary_crossentropy: 0.2840 - val_loss: 0.2393 - val_binary_crossentropy: 0.2393
+Epoch 8/10
+120/120 - 29s - loss: 0.2242 - binary_crossentropy: 0.2242 - val_loss: 0.2068 - val_binary_crossentropy: 0.2068
+Epoch 9/10
+120/120 - 29s - loss: 0.1886 - binary_crossentropy: 0.1886 - val_loss: 0.1656 - val_binary_crossentropy: 0.1656
+Epoch 10/10
+120/120 - 28s - loss: 0.1524 - binary_crossentropy: 0.1524 - val_loss: 0.1795 - val_binary_crossentropy: 0.1795
+############################
+[0, 2, 2, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6962 - binary_crossentropy: 0.6962 - val_loss: 0.5513 - val_binary_crossentropy: 0.5513
+Epoch 2/10
+120/120 - 29s - loss: 0.6103 - binary_crossentropy: 0.6103 - val_loss: 0.5024 - val_binary_crossentropy: 0.5024
+Epoch 3/10
+120/120 - 29s - loss: 0.5218 - binary_crossentropy: 0.5218 - val_loss: 0.3888 - val_binary_crossentropy: 0.3888
+Epoch 4/10
+120/120 - 28s - loss: 0.3701 - binary_crossentropy: 0.3701 - val_loss: 0.2722 - val_binary_crossentropy: 0.2722
+Epoch 5/10
+120/120 - 28s - loss: 0.2347 - binary_crossentropy: 0.2347 - val_loss: 0.1792 - val_binary_crossentropy: 0.1792
+Epoch 6/10
+120/120 - 29s - loss: 0.1687 - binary_crossentropy: 0.1687 - val_loss: 0.1467 - val_binary_crossentropy: 0.1467
+Epoch 7/10
+120/120 - 29s - loss: 0.1256 - binary_crossentropy: 0.1256 - val_loss: 0.1308 - val_binary_crossentropy: 0.1308
+Epoch 8/10
+120/120 - 29s - loss: 0.1038 - binary_crossentropy: 0.1038 - val_loss: 0.1080 - val_binary_crossentropy: 0.1080
+Epoch 9/10
+120/120 - 29s - loss: 0.1059 - binary_crossentropy: 0.1059 - val_loss: 0.1260 - val_binary_crossentropy: 0.1260
+Epoch 10/10
+120/120 - 28s - loss: 0.0978 - binary_crossentropy: 0.0978 - val_loss: 0.0926 - val_binary_crossentropy: 0.0926
+############################
+[0, 2, 2, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7119 - binary_crossentropy: 0.7119 - val_loss: 0.6115 - val_binary_crossentropy: 0.6115
+Epoch 2/10
+120/120 - 29s - loss: 0.6411 - binary_crossentropy: 0.6411 - val_loss: 0.5800 - val_binary_crossentropy: 0.5800
+Epoch 3/10
+120/120 - 29s - loss: 0.5920 - binary_crossentropy: 0.5920 - val_loss: 0.5720 - val_binary_crossentropy: 0.5720
+Epoch 4/10
+120/120 - 29s - loss: 0.4913 - binary_crossentropy: 0.4913 - val_loss: 0.4597 - val_binary_crossentropy: 0.4597
+Epoch 5/10
+120/120 - 29s - loss: 0.3050 - binary_crossentropy: 0.3050 - val_loss: 0.4048 - val_binary_crossentropy: 0.4048
+Epoch 6/10
+120/120 - 29s - loss: 0.1873 - binary_crossentropy: 0.1873 - val_loss: 0.1615 - val_binary_crossentropy: 0.1615
+Epoch 7/10
+120/120 - 29s - loss: 0.1314 - binary_crossentropy: 0.1314 - val_loss: 0.1690 - val_binary_crossentropy: 0.1690
+Epoch 8/10
+120/120 - 28s - loss: 0.0947 - binary_crossentropy: 0.0947 - val_loss: 0.0932 - val_binary_crossentropy: 0.0932
+Epoch 9/10
+120/120 - 28s - loss: 0.0781 - binary_crossentropy: 0.0781 - val_loss: 0.0867 - val_binary_crossentropy: 0.0867
+Epoch 10/10
+120/120 - 29s - loss: 0.0711 - binary_crossentropy: 0.0711 - val_loss: 0.0967 - val_binary_crossentropy: 0.0967
+############################
+[0, 2, 1, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7072 - binary_crossentropy: 0.7072 - val_loss: 0.5646 - val_binary_crossentropy: 0.5646
+Epoch 2/10
+120/120 - 29s - loss: 0.6151 - binary_crossentropy: 0.6151 - val_loss: 0.5252 - val_binary_crossentropy: 0.5252
+Epoch 3/10
+120/120 - 29s - loss: 0.4474 - binary_crossentropy: 0.4474 - val_loss: 0.3626 - val_binary_crossentropy: 0.3626
+Epoch 4/10
+120/120 - 28s - loss: 0.2576 - binary_crossentropy: 0.2576 - val_loss: 0.2327 - val_binary_crossentropy: 0.2327
+Epoch 5/10
+120/120 - 28s - loss: 0.1981 - binary_crossentropy: 0.1981 - val_loss: 0.1438 - val_binary_crossentropy: 0.1438
+Epoch 6/10
+120/120 - 29s - loss: 0.1328 - binary_crossentropy: 0.1328 - val_loss: 0.1093 - val_binary_crossentropy: 0.1093
+Epoch 7/10
+120/120 - 28s - loss: 0.1049 - binary_crossentropy: 0.1049 - val_loss: 0.0833 - val_binary_crossentropy: 0.0833
+Epoch 8/10
+120/120 - 28s - loss: 0.0949 - binary_crossentropy: 0.0949 - val_loss: 0.1061 - val_binary_crossentropy: 0.1061
+Epoch 9/10
+120/120 - 28s - loss: 0.0754 - binary_crossentropy: 0.0754 - val_loss: 0.0688 - val_binary_crossentropy: 0.0688
+Epoch 10/10
+120/120 - 29s - loss: 0.0768 - binary_crossentropy: 0.0768 - val_loss: 0.1111 - val_binary_crossentropy: 0.1111
+############################
+[0, 2, 1, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6815 - binary_crossentropy: 0.6815 - val_loss: 0.6145 - val_binary_crossentropy: 0.6145
+Epoch 2/10
+120/120 - 29s - loss: 0.5015 - binary_crossentropy: 0.5015 - val_loss: 0.4083 - val_binary_crossentropy: 0.4083
+Epoch 3/10
+120/120 - 29s - loss: 0.3051 - binary_crossentropy: 0.3051 - val_loss: 0.2765 - val_binary_crossentropy: 0.2765
+Epoch 4/10
+120/120 - 28s - loss: 0.2050 - binary_crossentropy: 0.2050 - val_loss: 0.2331 - val_binary_crossentropy: 0.2331
+Epoch 5/10
+120/120 - 28s - loss: 0.1478 - binary_crossentropy: 0.1478 - val_loss: 0.1314 - val_binary_crossentropy: 0.1314
+Epoch 6/10
+120/120 - 29s - loss: 0.1219 - binary_crossentropy: 0.1219 - val_loss: 0.1249 - val_binary_crossentropy: 0.1249
+Epoch 7/10
+120/120 - 29s - loss: 0.0912 - binary_crossentropy: 0.0912 - val_loss: 0.1267 - val_binary_crossentropy: 0.1267
+Epoch 8/10
+120/120 - 29s - loss: 0.0773 - binary_crossentropy: 0.0773 - val_loss: 0.0851 - val_binary_crossentropy: 0.0851
+Epoch 9/10
+120/120 - 28s - loss: 0.0773 - binary_crossentropy: 0.0773 - val_loss: 0.0779 - val_binary_crossentropy: 0.0779
+Epoch 10/10
+120/120 - 28s - loss: 0.0561 - binary_crossentropy: 0.0561 - val_loss: 0.0657 - val_binary_crossentropy: 0.0657
+############################
+[0, 2, 1, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6481 - binary_crossentropy: 0.6481 - val_loss: 0.5318 - val_binary_crossentropy: 0.5318
+Epoch 2/10
+120/120 - 28s - loss: 0.4006 - binary_crossentropy: 0.4006 - val_loss: 0.3764 - val_binary_crossentropy: 0.3764
+Epoch 3/10
+120/120 - 29s - loss: 0.2445 - binary_crossentropy: 0.2445 - val_loss: 0.2623 - val_binary_crossentropy: 0.2623
+Epoch 4/10
+120/120 - 28s - loss: 0.1656 - binary_crossentropy: 0.1656 - val_loss: 0.1759 - val_binary_crossentropy: 0.1759
+Epoch 5/10
+120/120 - 29s - loss: 0.1247 - binary_crossentropy: 0.1247 - val_loss: 0.1400 - val_binary_crossentropy: 0.1400
+Epoch 6/10
+120/120 - 29s - loss: 0.0927 - binary_crossentropy: 0.0927 - val_loss: 0.1021 - val_binary_crossentropy: 0.1021
+Epoch 7/10
+120/120 - 29s - loss: 0.0732 - binary_crossentropy: 0.0732 - val_loss: 0.1009 - val_binary_crossentropy: 0.1009
+Epoch 8/10
+120/120 - 28s - loss: 0.0710 - binary_crossentropy: 0.0710 - val_loss: 0.1325 - val_binary_crossentropy: 0.1325
+Epoch 9/10
+120/120 - 29s - loss: 0.0512 - binary_crossentropy: 0.0512 - val_loss: 0.0789 - val_binary_crossentropy: 0.0789
+Epoch 10/10
+120/120 - 28s - loss: 0.0428 - binary_crossentropy: 0.0428 - val_loss: 0.0745 - val_binary_crossentropy: 0.0745
+############################
+[0, 2, 0, 3]
+############################
+Epoch 1/10
+120/120 - 32s - loss: 0.6699 - binary_crossentropy: 0.6699 - val_loss: 0.5075 - val_binary_crossentropy: 0.5075
+Epoch 2/10
+120/120 - 29s - loss: 0.4888 - binary_crossentropy: 0.4888 - val_loss: 0.3537 - val_binary_crossentropy: 0.3537
+Epoch 3/10
+120/120 - 28s - loss: 0.3495 - binary_crossentropy: 0.3495 - val_loss: 0.2783 - val_binary_crossentropy: 0.2783
+Epoch 4/10
+120/120 - 28s - loss: 0.2675 - binary_crossentropy: 0.2675 - val_loss: 0.2763 - val_binary_crossentropy: 0.2763
+Epoch 5/10
+120/120 - 29s - loss: 0.1975 - binary_crossentropy: 0.1975 - val_loss: 0.1659 - val_binary_crossentropy: 0.1659
+Epoch 6/10
+120/120 - 29s - loss: 0.1489 - binary_crossentropy: 0.1489 - val_loss: 0.5955 - val_binary_crossentropy: 0.5955
+Epoch 7/10
+120/120 - 29s - loss: 0.1170 - binary_crossentropy: 0.1170 - val_loss: 0.1134 - val_binary_crossentropy: 0.1134
+Epoch 8/10
+120/120 - 28s - loss: 0.0967 - binary_crossentropy: 0.0967 - val_loss: 0.0995 - val_binary_crossentropy: 0.0995
+Epoch 9/10
+120/120 - 29s - loss: 0.0832 - binary_crossentropy: 0.0832 - val_loss: 0.0822 - val_binary_crossentropy: 0.0822
+Epoch 10/10
+120/120 - 29s - loss: 0.0689 - binary_crossentropy: 0.0689 - val_loss: 0.0975 - val_binary_crossentropy: 0.0975
+############################
+[0, 2, 0, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6987 - binary_crossentropy: 0.6987 - val_loss: 0.7486 - val_binary_crossentropy: 0.7486
+Epoch 2/10
+120/120 - 29s - loss: 0.5992 - binary_crossentropy: 0.5992 - val_loss: 0.6970 - val_binary_crossentropy: 0.6970
+Epoch 3/10
+120/120 - 29s - loss: 0.4162 - binary_crossentropy: 0.4162 - val_loss: 0.3720 - val_binary_crossentropy: 0.3720
+Epoch 4/10
+120/120 - 29s - loss: 0.2976 - binary_crossentropy: 0.2976 - val_loss: 0.2076 - val_binary_crossentropy: 0.2076
+Epoch 5/10
+120/120 - 29s - loss: 0.1887 - binary_crossentropy: 0.1887 - val_loss: 0.1802 - val_binary_crossentropy: 0.1802
+Epoch 6/10
+120/120 - 29s - loss: 0.1757 - binary_crossentropy: 0.1757 - val_loss: 0.1315 - val_binary_crossentropy: 0.1315
+Epoch 7/10
+120/120 - 29s - loss: 0.1227 - binary_crossentropy: 0.1227 - val_loss: 0.1172 - val_binary_crossentropy: 0.1172
+Epoch 8/10
+120/120 - 28s - loss: 0.1025 - binary_crossentropy: 0.1025 - val_loss: 0.0880 - val_binary_crossentropy: 0.0880
+Epoch 9/10
+120/120 - 29s - loss: 0.0909 - binary_crossentropy: 0.0909 - val_loss: 0.1267 - val_binary_crossentropy: 0.1267
+Epoch 10/10
+120/120 - 28s - loss: 0.0766 - binary_crossentropy: 0.0766 - val_loss: 0.1046 - val_binary_crossentropy: 0.1046
+############################
+[0, 2, 0, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6956 - binary_crossentropy: 0.6956 - val_loss: 0.6933 - val_binary_crossentropy: 0.6933
+Epoch 2/10
+120/120 - 29s - loss: 0.5933 - binary_crossentropy: 0.5933 - val_loss: 0.5721 - val_binary_crossentropy: 0.5721
+Epoch 3/10
+120/120 - 29s - loss: 0.3714 - binary_crossentropy: 0.3714 - val_loss: 0.5284 - val_binary_crossentropy: 0.5284
+Epoch 4/10
+120/120 - 28s - loss: 0.1853 - binary_crossentropy: 0.1853 - val_loss: 0.3002 - val_binary_crossentropy: 0.3002
+Epoch 5/10
+120/120 - 29s - loss: 0.1222 - binary_crossentropy: 0.1222 - val_loss: 0.1838 - val_binary_crossentropy: 0.1838
+Epoch 6/10
+120/120 - 28s - loss: 0.0970 - binary_crossentropy: 0.0970 - val_loss: 0.1723 - val_binary_crossentropy: 0.1723
+Epoch 7/10
+120/120 - 29s - loss: 0.0917 - binary_crossentropy: 0.0917 - val_loss: 0.1094 - val_binary_crossentropy: 0.1094
+Epoch 8/10
+120/120 - 28s - loss: 0.0703 - binary_crossentropy: 0.0703 - val_loss: 0.0756 - val_binary_crossentropy: 0.0756
+Epoch 9/10
+120/120 - 28s - loss: 0.0560 - binary_crossentropy: 0.0560 - val_loss: 0.0599 - val_binary_crossentropy: 0.0599
+Epoch 10/10
+120/120 - 29s - loss: 0.0517 - binary_crossentropy: 0.0517 - val_loss: 0.0560 - val_binary_crossentropy: 0.0560
+############################
+[0, 2, 0, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6913 - binary_crossentropy: 0.6913 - val_loss: 0.6830 - val_binary_crossentropy: 0.6830
+Epoch 2/10
+120/120 - 29s - loss: 0.5991 - binary_crossentropy: 0.5991 - val_loss: 0.8791 - val_binary_crossentropy: 0.8791
+Epoch 3/10
+120/120 - 29s - loss: 0.4809 - binary_crossentropy: 0.4809 - val_loss: 0.8029 - val_binary_crossentropy: 0.8029
+Epoch 4/10
+120/120 - 29s - loss: 0.3359 - binary_crossentropy: 0.3359 - val_loss: 0.5876 - val_binary_crossentropy: 0.5876
+Epoch 5/10
+120/120 - 28s - loss: 0.2417 - binary_crossentropy: 0.2417 - val_loss: 0.6408 - val_binary_crossentropy: 0.6408
+Epoch 6/10
+120/120 - 28s - loss: 0.1735 - binary_crossentropy: 0.1735 - val_loss: 0.3921 - val_binary_crossentropy: 0.3921
+Epoch 7/10
+120/120 - 29s - loss: 0.1286 - binary_crossentropy: 0.1286 - val_loss: 0.2417 - val_binary_crossentropy: 0.2417
+Epoch 8/10
+120/120 - 29s - loss: 0.0953 - binary_crossentropy: 0.0953 - val_loss: 0.2435 - val_binary_crossentropy: 0.2435
+Epoch 9/10
+120/120 - 29s - loss: 0.0742 - binary_crossentropy: 0.0742 - val_loss: 0.0829 - val_binary_crossentropy: 0.0829
+Epoch 10/10
+120/120 - 28s - loss: 0.0570 - binary_crossentropy: 0.0570 - val_loss: 0.0820 - val_binary_crossentropy: 0.0820
+############################
+[0, 1, 4, 0]
+############################
+Epoch 1/10
+120/120 - 32s - loss: 0.6993 - binary_crossentropy: 0.6993 - val_loss: 0.6032 - val_binary_crossentropy: 0.6032
+Epoch 2/10
+120/120 - 29s - loss: 0.6139 - binary_crossentropy: 0.6139 - val_loss: 0.5537 - val_binary_crossentropy: 0.5537
+Epoch 3/10
+120/120 - 29s - loss: 0.5527 - binary_crossentropy: 0.5527 - val_loss: 0.4662 - val_binary_crossentropy: 0.4662
+Epoch 4/10
+120/120 - 28s - loss: 0.4789 - binary_crossentropy: 0.4789 - val_loss: 0.4986 - val_binary_crossentropy: 0.4986
+Epoch 5/10
+120/120 - 29s - loss: 0.4078 - binary_crossentropy: 0.4078 - val_loss: 0.3929 - val_binary_crossentropy: 0.3929
+Epoch 6/10
+120/120 - 29s - loss: 0.3525 - binary_crossentropy: 0.3525 - val_loss: 0.4340 - val_binary_crossentropy: 0.4340
+Epoch 7/10
+120/120 - 28s - loss: 0.2957 - binary_crossentropy: 0.2957 - val_loss: 0.2415 - val_binary_crossentropy: 0.2415
+Epoch 8/10
+120/120 - 28s - loss: 0.2443 - binary_crossentropy: 0.2443 - val_loss: 0.2653 - val_binary_crossentropy: 0.2653
+Epoch 9/10
+120/120 - 29s - loss: 0.2174 - binary_crossentropy: 0.2174 - val_loss: 0.1747 - val_binary_crossentropy: 0.1747
+Epoch 10/10
+120/120 - 28s - loss: 0.1744 - binary_crossentropy: 0.1744 - val_loss: 0.1406 - val_binary_crossentropy: 0.1406
+############################
+[0, 1, 3, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6867 - binary_crossentropy: 0.6867 - val_loss: 0.6333 - val_binary_crossentropy: 0.6333
+Epoch 2/10
+120/120 - 29s - loss: 0.5966 - binary_crossentropy: 0.5966 - val_loss: 0.5363 - val_binary_crossentropy: 0.5363
+Epoch 3/10
+120/120 - 29s - loss: 0.5096 - binary_crossentropy: 0.5096 - val_loss: 0.3686 - val_binary_crossentropy: 0.3686
+Epoch 4/10
+120/120 - 29s - loss: 0.3472 - binary_crossentropy: 0.3472 - val_loss: 0.2022 - val_binary_crossentropy: 0.2022
+Epoch 5/10
+120/120 - 29s - loss: 0.2138 - binary_crossentropy: 0.2138 - val_loss: 0.1360 - val_binary_crossentropy: 0.1360
+Epoch 6/10
+120/120 - 28s - loss: 0.1667 - binary_crossentropy: 0.1667 - val_loss: 0.2044 - val_binary_crossentropy: 0.2044
+Epoch 7/10
+120/120 - 29s - loss: 0.1330 - binary_crossentropy: 0.1330 - val_loss: 0.1169 - val_binary_crossentropy: 0.1169
+Epoch 8/10
+120/120 - 29s - loss: 0.0996 - binary_crossentropy: 0.0996 - val_loss: 0.1128 - val_binary_crossentropy: 0.1128
+Epoch 9/10
+120/120 - 28s - loss: 0.0779 - binary_crossentropy: 0.0779 - val_loss: 0.2075 - val_binary_crossentropy: 0.2075
+Epoch 10/10
+120/120 - 28s - loss: 0.0742 - binary_crossentropy: 0.0742 - val_loss: 0.0740 - val_binary_crossentropy: 0.0740
+############################
+[0, 1, 3, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6812 - binary_crossentropy: 0.6812 - val_loss: 0.6362 - val_binary_crossentropy: 0.6362
+Epoch 2/10
+120/120 - 29s - loss: 0.5542 - binary_crossentropy: 0.5542 - val_loss: 0.5046 - val_binary_crossentropy: 0.5046
+Epoch 3/10
+120/120 - 29s - loss: 0.3888 - binary_crossentropy: 0.3888 - val_loss: 0.3179 - val_binary_crossentropy: 0.3179
+Epoch 4/10
+120/120 - 29s - loss: 0.2390 - binary_crossentropy: 0.2390 - val_loss: 0.1903 - val_binary_crossentropy: 0.1903
+Epoch 5/10
+120/120 - 29s - loss: 0.1633 - binary_crossentropy: 0.1633 - val_loss: 0.1417 - val_binary_crossentropy: 0.1417
+Epoch 6/10
+120/120 - 29s - loss: 0.1157 - binary_crossentropy: 0.1157 - val_loss: 0.1346 - val_binary_crossentropy: 0.1346
+Epoch 7/10
+120/120 - 28s - loss: 0.0836 - binary_crossentropy: 0.0836 - val_loss: 0.0934 - val_binary_crossentropy: 0.0934
+Epoch 8/10
+120/120 - 28s - loss: 0.0686 - binary_crossentropy: 0.0686 - val_loss: 0.1014 - val_binary_crossentropy: 0.1014
+Epoch 9/10
+120/120 - 29s - loss: 0.0643 - binary_crossentropy: 0.0643 - val_loss: 0.0940 - val_binary_crossentropy: 0.0940
+Epoch 10/10
+120/120 - 29s - loss: 0.0525 - binary_crossentropy: 0.0525 - val_loss: 0.1179 - val_binary_crossentropy: 0.1179
+############################
+[0, 1, 2, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6915 - binary_crossentropy: 0.6915 - val_loss: 0.5921 - val_binary_crossentropy: 0.5921
+Epoch 2/10
+120/120 - 29s - loss: 0.5778 - binary_crossentropy: 0.5778 - val_loss: 0.4669 - val_binary_crossentropy: 0.4669
+Epoch 3/10
+120/120 - 28s - loss: 0.3844 - binary_crossentropy: 0.3844 - val_loss: 0.2769 - val_binary_crossentropy: 0.2769
+Epoch 4/10
+120/120 - 29s - loss: 0.2337 - binary_crossentropy: 0.2337 - val_loss: 0.2045 - val_binary_crossentropy: 0.2045
+Epoch 5/10
+120/120 - 29s - loss: 0.1657 - binary_crossentropy: 0.1657 - val_loss: 0.1474 - val_binary_crossentropy: 0.1474
+Epoch 6/10
+120/120 - 29s - loss: 0.1258 - binary_crossentropy: 0.1258 - val_loss: 0.1200 - val_binary_crossentropy: 0.1200
+Epoch 7/10
+120/120 - 28s - loss: 0.0951 - binary_crossentropy: 0.0951 - val_loss: 0.0975 - val_binary_crossentropy: 0.0975
+Epoch 8/10
+120/120 - 29s - loss: 0.0903 - binary_crossentropy: 0.0903 - val_loss: 0.1270 - val_binary_crossentropy: 0.1270
+Epoch 9/10
+120/120 - 28s - loss: 0.0693 - binary_crossentropy: 0.0693 - val_loss: 0.0728 - val_binary_crossentropy: 0.0728
+Epoch 10/10
+120/120 - 29s - loss: 0.0609 - binary_crossentropy: 0.0609 - val_loss: 0.0712 - val_binary_crossentropy: 0.0712
+############################
+[0, 1, 2, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6860 - binary_crossentropy: 0.6860 - val_loss: 0.5703 - val_binary_crossentropy: 0.5703
+Epoch 2/10
+120/120 - 29s - loss: 0.4911 - binary_crossentropy: 0.4911 - val_loss: 0.3965 - val_binary_crossentropy: 0.3965
+Epoch 3/10
+120/120 - 29s - loss: 0.2952 - binary_crossentropy: 0.2952 - val_loss: 0.2616 - val_binary_crossentropy: 0.2616
+Epoch 4/10
+120/120 - 28s - loss: 0.1925 - binary_crossentropy: 0.1925 - val_loss: 0.1971 - val_binary_crossentropy: 0.1971
+Epoch 5/10
+120/120 - 29s - loss: 0.1399 - binary_crossentropy: 0.1399 - val_loss: 0.1209 - val_binary_crossentropy: 0.1209
+Epoch 6/10
+120/120 - 29s - loss: 0.1090 - binary_crossentropy: 0.1090 - val_loss: 0.1537 - val_binary_crossentropy: 0.1537
+Epoch 7/10
+120/120 - 29s - loss: 0.0940 - binary_crossentropy: 0.0940 - val_loss: 0.0704 - val_binary_crossentropy: 0.0704
+Epoch 8/10
+120/120 - 29s - loss: 0.0726 - binary_crossentropy: 0.0726 - val_loss: 0.0878 - val_binary_crossentropy: 0.0878
+Epoch 9/10
+120/120 - 29s - loss: 0.0685 - binary_crossentropy: 0.0685 - val_loss: 0.1128 - val_binary_crossentropy: 0.1128
+Epoch 10/10
+120/120 - 28s - loss: 0.0627 - binary_crossentropy: 0.0627 - val_loss: 0.0955 - val_binary_crossentropy: 0.0955
+############################
+[0, 1, 2, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6353 - binary_crossentropy: 0.6353 - val_loss: 0.5723 - val_binary_crossentropy: 0.5723
+Epoch 2/10
+120/120 - 30s - loss: 0.3873 - binary_crossentropy: 0.3873 - val_loss: 0.3772 - val_binary_crossentropy: 0.3772
+Epoch 3/10
+120/120 - 33s - loss: 0.2410 - binary_crossentropy: 0.2410 - val_loss: 0.2408 - val_binary_crossentropy: 0.2408
+Epoch 4/10
+120/120 - 31s - loss: 0.1680 - binary_crossentropy: 0.1680 - val_loss: 0.1687 - val_binary_crossentropy: 0.1687
+Epoch 5/10
+120/120 - 30s - loss: 0.1263 - binary_crossentropy: 0.1263 - val_loss: 0.1257 - val_binary_crossentropy: 0.1257
+Epoch 6/10
+120/120 - 30s - loss: 0.1017 - binary_crossentropy: 0.1017 - val_loss: 0.1064 - val_binary_crossentropy: 0.1064
+Epoch 7/10
+120/120 - 29s - loss: 0.0797 - binary_crossentropy: 0.0797 - val_loss: 0.0875 - val_binary_crossentropy: 0.0875
+Epoch 8/10
+120/120 - 29s - loss: 0.0654 - binary_crossentropy: 0.0654 - val_loss: 0.0593 - val_binary_crossentropy: 0.0593
+Epoch 9/10
+120/120 - 29s - loss: 0.0528 - binary_crossentropy: 0.0528 - val_loss: 0.0567 - val_binary_crossentropy: 0.0567
+Epoch 10/10
+120/120 - 29s - loss: 0.0449 - binary_crossentropy: 0.0449 - val_loss: 0.0972 - val_binary_crossentropy: 0.0972
+############################
+[0, 1, 1, 3]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7021 - binary_crossentropy: 0.7021 - val_loss: 0.6370 - val_binary_crossentropy: 0.6370
+Epoch 2/10
+120/120 - 29s - loss: 0.6457 - binary_crossentropy: 0.6457 - val_loss: 0.6294 - val_binary_crossentropy: 0.6294
+Epoch 3/10
+120/120 - 29s - loss: 0.5463 - binary_crossentropy: 0.5463 - val_loss: 0.4848 - val_binary_crossentropy: 0.4848
+Epoch 4/10
+120/120 - 28s - loss: 0.3724 - binary_crossentropy: 0.3724 - val_loss: 0.2800 - val_binary_crossentropy: 0.2800
+Epoch 5/10
+120/120 - 29s - loss: 0.2226 - binary_crossentropy: 0.2226 - val_loss: 0.1947 - val_binary_crossentropy: 0.1947
+Epoch 6/10
+120/120 - 28s - loss: 0.1837 - binary_crossentropy: 0.1837 - val_loss: 0.8650 - val_binary_crossentropy: 0.8650
+Epoch 7/10
+120/120 - 29s - loss: 0.1561 - binary_crossentropy: 0.1561 - val_loss: 0.1883 - val_binary_crossentropy: 0.1883
+Epoch 8/10
+120/120 - 28s - loss: 0.1022 - binary_crossentropy: 0.1022 - val_loss: 0.1188 - val_binary_crossentropy: 0.1188
+Epoch 9/10
+120/120 - 28s - loss: 0.0855 - binary_crossentropy: 0.0855 - val_loss: 0.0850 - val_binary_crossentropy: 0.0850
+Epoch 10/10
+120/120 - 29s - loss: 0.0716 - binary_crossentropy: 0.0716 - val_loss: 0.0784 - val_binary_crossentropy: 0.0784
+############################
+[0, 1, 1, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7083 - binary_crossentropy: 0.7083 - val_loss: 0.6498 - val_binary_crossentropy: 0.6498
+Epoch 2/10
+120/120 - 29s - loss: 0.6388 - binary_crossentropy: 0.6388 - val_loss: 0.6109 - val_binary_crossentropy: 0.6109
+Epoch 3/10
+120/120 - 29s - loss: 0.5594 - binary_crossentropy: 0.5594 - val_loss: 0.5459 - val_binary_crossentropy: 0.5459
+Epoch 4/10
+120/120 - 29s - loss: 0.4320 - binary_crossentropy: 0.4320 - val_loss: 0.5141 - val_binary_crossentropy: 0.5141
+Epoch 5/10
+120/120 - 29s - loss: 0.3014 - binary_crossentropy: 0.3014 - val_loss: 0.3534 - val_binary_crossentropy: 0.3534
+Epoch 6/10
+120/120 - 28s - loss: 0.1897 - binary_crossentropy: 0.1897 - val_loss: 0.1823 - val_binary_crossentropy: 0.1823
+Epoch 7/10
+120/120 - 29s - loss: 0.1367 - binary_crossentropy: 0.1367 - val_loss: 0.1215 - val_binary_crossentropy: 0.1215
+Epoch 8/10
+120/120 - 28s - loss: 0.1050 - binary_crossentropy: 0.1050 - val_loss: 0.1073 - val_binary_crossentropy: 0.1073
+Epoch 9/10
+120/120 - 29s - loss: 0.0892 - binary_crossentropy: 0.0892 - val_loss: 0.0986 - val_binary_crossentropy: 0.0986
+Epoch 10/10
+120/120 - 28s - loss: 0.0707 - binary_crossentropy: 0.0707 - val_loss: 0.1014 - val_binary_crossentropy: 0.1014
+############################
+[0, 1, 1, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7009 - binary_crossentropy: 0.7009 - val_loss: 0.7234 - val_binary_crossentropy: 0.7234
+Epoch 2/10
+120/120 - 29s - loss: 0.6351 - binary_crossentropy: 0.6351 - val_loss: 0.6437 - val_binary_crossentropy: 0.6437
+Epoch 3/10
+120/120 - 29s - loss: 0.5465 - binary_crossentropy: 0.5465 - val_loss: 0.6693 - val_binary_crossentropy: 0.6693
+Epoch 4/10
+120/120 - 28s - loss: 0.3754 - binary_crossentropy: 0.3754 - val_loss: 0.7866 - val_binary_crossentropy: 0.7866
+Epoch 5/10
+120/120 - 29s - loss: 0.2103 - binary_crossentropy: 0.2103 - val_loss: 0.4565 - val_binary_crossentropy: 0.4565
+Epoch 6/10
+120/120 - 28s - loss: 0.1734 - binary_crossentropy: 0.1734 - val_loss: 0.3171 - val_binary_crossentropy: 0.3171
+Epoch 7/10
+120/120 - 28s - loss: 0.1143 - binary_crossentropy: 0.1143 - val_loss: 0.1272 - val_binary_crossentropy: 0.1272
+Epoch 8/10
+120/120 - 29s - loss: 0.0823 - binary_crossentropy: 0.0823 - val_loss: 0.0817 - val_binary_crossentropy: 0.0817
+Epoch 9/10
+120/120 - 29s - loss: 0.0722 - binary_crossentropy: 0.0722 - val_loss: 0.0837 - val_binary_crossentropy: 0.0837
+Epoch 10/10
+120/120 - 29s - loss: 0.0700 - binary_crossentropy: 0.0700 - val_loss: 0.0808 - val_binary_crossentropy: 0.0808
+############################
+[0, 1, 1, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5907 - binary_crossentropy: 0.5907 - val_loss: 0.5134 - val_binary_crossentropy: 0.5134
+Epoch 2/10
+120/120 - 29s - loss: 0.3573 - binary_crossentropy: 0.3573 - val_loss: 0.3484 - val_binary_crossentropy: 0.3484
+Epoch 3/10
+120/120 - 29s - loss: 0.2414 - binary_crossentropy: 0.2414 - val_loss: 0.2634 - val_binary_crossentropy: 0.2634
+Epoch 4/10
+120/120 - 28s - loss: 0.1717 - binary_crossentropy: 0.1717 - val_loss: 0.1799 - val_binary_crossentropy: 0.1799
+Epoch 5/10
+120/120 - 29s - loss: 0.1223 - binary_crossentropy: 0.1223 - val_loss: 0.1495 - val_binary_crossentropy: 0.1495
+Epoch 6/10
+120/120 - 29s - loss: 0.0917 - binary_crossentropy: 0.0917 - val_loss: 0.0948 - val_binary_crossentropy: 0.0948
+Epoch 7/10
+120/120 - 29s - loss: 0.0744 - binary_crossentropy: 0.0744 - val_loss: 0.0874 - val_binary_crossentropy: 0.0874
+Epoch 8/10
+120/120 - 28s - loss: 0.0613 - binary_crossentropy: 0.0613 - val_loss: 0.1104 - val_binary_crossentropy: 0.1104
+Epoch 9/10
+120/120 - 29s - loss: 0.0470 - binary_crossentropy: 0.0470 - val_loss: 0.0589 - val_binary_crossentropy: 0.0589
+Epoch 10/10
+120/120 - 29s - loss: 0.0449 - binary_crossentropy: 0.0449 - val_loss: 0.0694 - val_binary_crossentropy: 0.0694
+############################
+[0, 1, 0, 4]
+############################
+Epoch 1/10
+120/120 - 32s - loss: 0.6726 - binary_crossentropy: 0.6726 - val_loss: 0.5776 - val_binary_crossentropy: 0.5776
+Epoch 2/10
+120/120 - 29s - loss: 0.5580 - binary_crossentropy: 0.5580 - val_loss: 0.4102 - val_binary_crossentropy: 0.4102
+Epoch 3/10
+120/120 - 29s - loss: 0.4409 - binary_crossentropy: 0.4409 - val_loss: 0.3235 - val_binary_crossentropy: 0.3235
+Epoch 4/10
+120/120 - 29s - loss: 0.4212 - binary_crossentropy: 0.4212 - val_loss: 0.3564 - val_binary_crossentropy: 0.3564
+Epoch 5/10
+120/120 - 28s - loss: 0.3521 - binary_crossentropy: 0.3521 - val_loss: 0.2665 - val_binary_crossentropy: 0.2665
+Epoch 6/10
+120/120 - 29s - loss: 0.2948 - binary_crossentropy: 0.2948 - val_loss: 0.5194 - val_binary_crossentropy: 0.5194
+Epoch 7/10
+120/120 - 29s - loss: 0.3118 - binary_crossentropy: 0.3118 - val_loss: 0.2182 - val_binary_crossentropy: 0.2182
+Epoch 8/10
+120/120 - 28s - loss: 0.2168 - binary_crossentropy: 0.2168 - val_loss: 0.1635 - val_binary_crossentropy: 0.1635
+Epoch 9/10
+120/120 - 29s - loss: 0.1894 - binary_crossentropy: 0.1894 - val_loss: 0.1630 - val_binary_crossentropy: 0.1630
+Epoch 10/10
+120/120 - 29s - loss: 0.1731 - binary_crossentropy: 0.1731 - val_loss: 0.4386 - val_binary_crossentropy: 0.4386
+############################
+[0, 1, 0, 3]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6955 - binary_crossentropy: 0.6955 - val_loss: 0.7864 - val_binary_crossentropy: 0.7864
+Epoch 2/10
+120/120 - 29s - loss: 0.5664 - binary_crossentropy: 0.5664 - val_loss: 0.5923 - val_binary_crossentropy: 0.5923
+Epoch 3/10
+120/120 - 28s - loss: 0.4393 - binary_crossentropy: 0.4393 - val_loss: 0.4268 - val_binary_crossentropy: 0.4268
+Epoch 4/10
+120/120 - 28s - loss: 0.3623 - binary_crossentropy: 0.3623 - val_loss: 0.5295 - val_binary_crossentropy: 0.5295
+Epoch 5/10
+120/120 - 29s - loss: 0.2541 - binary_crossentropy: 0.2541 - val_loss: 0.2432 - val_binary_crossentropy: 0.2432
+Epoch 6/10
+120/120 - 29s - loss: 0.2729 - binary_crossentropy: 0.2729 - val_loss: 0.7950 - val_binary_crossentropy: 0.7950
+Epoch 7/10
+120/120 - 29s - loss: 0.1978 - binary_crossentropy: 0.1978 - val_loss: 0.1860 - val_binary_crossentropy: 0.1860
+Epoch 8/10
+120/120 - 28s - loss: 0.1611 - binary_crossentropy: 0.1611 - val_loss: 0.1166 - val_binary_crossentropy: 0.1166
+Epoch 9/10
+120/120 - 29s - loss: 0.1223 - binary_crossentropy: 0.1223 - val_loss: 0.2447 - val_binary_crossentropy: 0.2447
+Epoch 10/10
+120/120 - 29s - loss: 0.1192 - binary_crossentropy: 0.1192 - val_loss: 0.1155 - val_binary_crossentropy: 0.1155
+############################
+[0, 1, 0, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6957 - binary_crossentropy: 0.6957 - val_loss: 0.6843 - val_binary_crossentropy: 0.6843
+Epoch 2/10
+120/120 - 29s - loss: 0.5213 - binary_crossentropy: 0.5213 - val_loss: 0.3997 - val_binary_crossentropy: 0.3997
+Epoch 3/10
+120/120 - 29s - loss: 0.3545 - binary_crossentropy: 0.3545 - val_loss: 0.2584 - val_binary_crossentropy: 0.2584
+Epoch 4/10
+120/120 - 28s - loss: 0.2292 - binary_crossentropy: 0.2292 - val_loss: 0.2057 - val_binary_crossentropy: 0.2057
+Epoch 5/10
+120/120 - 29s - loss: 0.1572 - binary_crossentropy: 0.1572 - val_loss: 0.1510 - val_binary_crossentropy: 0.1510
+Epoch 6/10
+120/120 - 29s - loss: 0.1217 - binary_crossentropy: 0.1217 - val_loss: 0.1830 - val_binary_crossentropy: 0.1830
+Epoch 7/10
+120/120 - 29s - loss: 0.1056 - binary_crossentropy: 0.1056 - val_loss: 0.1593 - val_binary_crossentropy: 0.1593
+Epoch 8/10
+120/120 - 29s - loss: 0.0818 - binary_crossentropy: 0.0818 - val_loss: 0.0784 - val_binary_crossentropy: 0.0784
+Epoch 9/10
+120/120 - 28s - loss: 0.0631 - binary_crossentropy: 0.0631 - val_loss: 0.0997 - val_binary_crossentropy: 0.0997
+Epoch 10/10
+120/120 - 29s - loss: 0.0584 - binary_crossentropy: 0.0584 - val_loss: 0.0529 - val_binary_crossentropy: 0.0529
+############################
+[0, 1, 0, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6813 - binary_crossentropy: 0.6813 - val_loss: 0.7637 - val_binary_crossentropy: 0.7637
+Epoch 2/10
+120/120 - 29s - loss: 0.4507 - binary_crossentropy: 0.4507 - val_loss: 0.5300 - val_binary_crossentropy: 0.5300
+Epoch 3/10
+120/120 - 29s - loss: 0.2473 - binary_crossentropy: 0.2473 - val_loss: 0.4208 - val_binary_crossentropy: 0.4208
+Epoch 4/10
+120/120 - 29s - loss: 0.1727 - binary_crossentropy: 0.1727 - val_loss: 0.2100 - val_binary_crossentropy: 0.2100
+Epoch 5/10
+120/120 - 29s - loss: 0.1384 - binary_crossentropy: 0.1384 - val_loss: 0.2155 - val_binary_crossentropy: 0.2155
+Epoch 6/10
+120/120 - 28s - loss: 0.0965 - binary_crossentropy: 0.0965 - val_loss: 0.0968 - val_binary_crossentropy: 0.0968
+Epoch 7/10
+120/120 - 29s - loss: 0.0734 - binary_crossentropy: 0.0734 - val_loss: 0.0806 - val_binary_crossentropy: 0.0806
+Epoch 8/10
+120/120 - 29s - loss: 0.0632 - binary_crossentropy: 0.0632 - val_loss: 0.0764 - val_binary_crossentropy: 0.0764
+Epoch 9/10
+120/120 - 28s - loss: 0.0607 - binary_crossentropy: 0.0607 - val_loss: 0.1332 - val_binary_crossentropy: 0.1332
+Epoch 10/10
+120/120 - 29s - loss: 0.0438 - binary_crossentropy: 0.0438 - val_loss: 0.0721 - val_binary_crossentropy: 0.0721
+############################
+[0, 1, 0, 0]
+############################
+Epoch 1/10
+120/120 - 30s - loss: 0.6333 - binary_crossentropy: 0.6333 - val_loss: 0.6012 - val_binary_crossentropy: 0.6012
+Epoch 2/10
+120/120 - 29s - loss: 0.3560 - binary_crossentropy: 0.3560 - val_loss: 0.3536 - val_binary_crossentropy: 0.3536
+Epoch 3/10
+120/120 - 29s - loss: 0.2343 - binary_crossentropy: 0.2343 - val_loss: 0.2358 - val_binary_crossentropy: 0.2358
+Epoch 4/10
+120/120 - 28s - loss: 0.1681 - binary_crossentropy: 0.1681 - val_loss: 0.2424 - val_binary_crossentropy: 0.2424
+Epoch 5/10
+120/120 - 29s - loss: 0.1376 - binary_crossentropy: 0.1376 - val_loss: 0.1209 - val_binary_crossentropy: 0.1209
+Epoch 6/10
+120/120 - 29s - loss: 0.0975 - binary_crossentropy: 0.0975 - val_loss: 0.0976 - val_binary_crossentropy: 0.0976
+Epoch 7/10
+120/120 - 29s - loss: 0.0830 - binary_crossentropy: 0.0830 - val_loss: 0.1956 - val_binary_crossentropy: 0.1956
+Epoch 8/10
+120/120 - 28s - loss: 0.0657 - binary_crossentropy: 0.0657 - val_loss: 0.0609 - val_binary_crossentropy: 0.0609
+Epoch 9/10
+120/120 - 29s - loss: 0.0603 - binary_crossentropy: 0.0603 - val_loss: 0.0555 - val_binary_crossentropy: 0.0555
+Epoch 10/10
+120/120 - 29s - loss: 0.0476 - binary_crossentropy: 0.0476 - val_loss: 0.0532 - val_binary_crossentropy: 0.0532
+############################
+[0, 0, 5, 0]
+############################
+Epoch 1/10
+120/120 - 32s - loss: 0.6811 - binary_crossentropy: 0.6811 - val_loss: 0.6574 - val_binary_crossentropy: 0.6574
+Epoch 2/10
+120/120 - 29s - loss: 0.6075 - binary_crossentropy: 0.6075 - val_loss: 0.5727 - val_binary_crossentropy: 0.5727
+Epoch 3/10
+120/120 - 29s - loss: 0.5435 - binary_crossentropy: 0.5435 - val_loss: 0.5515 - val_binary_crossentropy: 0.5515
+Epoch 4/10
+120/120 - 29s - loss: 0.4744 - binary_crossentropy: 0.4744 - val_loss: 0.5588 - val_binary_crossentropy: 0.5588
+Epoch 5/10
+120/120 - 29s - loss: 0.4009 - binary_crossentropy: 0.4009 - val_loss: 0.4295 - val_binary_crossentropy: 0.4295
+Epoch 6/10
+120/120 - 29s - loss: 0.3255 - binary_crossentropy: 0.3255 - val_loss: 0.2901 - val_binary_crossentropy: 0.2901
+Epoch 7/10
+120/120 - 29s - loss: 0.3003 - binary_crossentropy: 0.3003 - val_loss: 0.1942 - val_binary_crossentropy: 0.1942
+Epoch 8/10
+120/120 - 28s - loss: 0.2367 - binary_crossentropy: 0.2367 - val_loss: 0.2240 - val_binary_crossentropy: 0.2240
+Epoch 9/10
+120/120 - 29s - loss: 0.1910 - binary_crossentropy: 0.1910 - val_loss: 0.1437 - val_binary_crossentropy: 0.1437
+Epoch 10/10
+120/120 - 29s - loss: 0.1759 - binary_crossentropy: 0.1759 - val_loss: 0.1450 - val_binary_crossentropy: 0.1450
+############################
+[0, 0, 4, 1]
+############################
+Epoch 1/10
+120/120 - 32s - loss: 0.6863 - binary_crossentropy: 0.6863 - val_loss: 0.5667 - val_binary_crossentropy: 0.5667
+Epoch 2/10
+120/120 - 29s - loss: 0.5930 - binary_crossentropy: 0.5930 - val_loss: 0.4913 - val_binary_crossentropy: 0.4913
+Epoch 3/10
+120/120 - 29s - loss: 0.4944 - binary_crossentropy: 0.4944 - val_loss: 0.4035 - val_binary_crossentropy: 0.4035
+Epoch 4/10
+120/120 - 28s - loss: 0.3321 - binary_crossentropy: 0.3321 - val_loss: 0.4746 - val_binary_crossentropy: 0.4746
+Epoch 5/10
+120/120 - 28s - loss: 0.2371 - binary_crossentropy: 0.2371 - val_loss: 0.2954 - val_binary_crossentropy: 0.2954
+Epoch 6/10
+120/120 - 29s - loss: 0.1705 - binary_crossentropy: 0.1705 - val_loss: 0.2038 - val_binary_crossentropy: 0.2038
+Epoch 7/10
+120/120 - 29s - loss: 0.1295 - binary_crossentropy: 0.1295 - val_loss: 0.1600 - val_binary_crossentropy: 0.1600
+Epoch 8/10
+120/120 - 28s - loss: 0.1019 - binary_crossentropy: 0.1019 - val_loss: 0.1892 - val_binary_crossentropy: 0.1892
+Epoch 9/10
+120/120 - 29s - loss: 0.0859 - binary_crossentropy: 0.0859 - val_loss: 0.0997 - val_binary_crossentropy: 0.0997
+Epoch 10/10
+120/120 - 29s - loss: 0.0737 - binary_crossentropy: 0.0737 - val_loss: 0.0739 - val_binary_crossentropy: 0.0739
+############################
+[0, 0, 4, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6774 - binary_crossentropy: 0.6774 - val_loss: 0.5976 - val_binary_crossentropy: 0.5976
+Epoch 2/10
+120/120 - 29s - loss: 0.5268 - binary_crossentropy: 0.5268 - val_loss: 0.4770 - val_binary_crossentropy: 0.4770
+Epoch 3/10
+120/120 - 28s - loss: 0.3319 - binary_crossentropy: 0.3319 - val_loss: 0.3131 - val_binary_crossentropy: 0.3131
+Epoch 4/10
+120/120 - 28s - loss: 0.2427 - binary_crossentropy: 0.2427 - val_loss: 0.2096 - val_binary_crossentropy: 0.2096
+Epoch 5/10
+120/120 - 29s - loss: 0.1641 - binary_crossentropy: 0.1641 - val_loss: 0.1943 - val_binary_crossentropy: 0.1943
+Epoch 6/10
+120/120 - 29s - loss: 0.1308 - binary_crossentropy: 0.1308 - val_loss: 0.2236 - val_binary_crossentropy: 0.2236
+Epoch 7/10
+120/120 - 29s - loss: 0.1010 - binary_crossentropy: 0.1010 - val_loss: 0.1514 - val_binary_crossentropy: 0.1514
+Epoch 8/10
+120/120 - 29s - loss: 0.0831 - binary_crossentropy: 0.0831 - val_loss: 0.1035 - val_binary_crossentropy: 0.1035
+Epoch 9/10
+120/120 - 29s - loss: 0.0643 - binary_crossentropy: 0.0643 - val_loss: 0.0762 - val_binary_crossentropy: 0.0762
+Epoch 10/10
+120/120 - 28s - loss: 0.0604 - binary_crossentropy: 0.0604 - val_loss: 0.0904 - val_binary_crossentropy: 0.0904
+############################
+[0, 0, 3, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7003 - binary_crossentropy: 0.7003 - val_loss: 0.6288 - val_binary_crossentropy: 0.6288
+Epoch 2/10
+120/120 - 29s - loss: 0.6221 - binary_crossentropy: 0.6221 - val_loss: 0.6214 - val_binary_crossentropy: 0.6214
+Epoch 3/10
+120/120 - 28s - loss: 0.4284 - binary_crossentropy: 0.4284 - val_loss: 1.3971 - val_binary_crossentropy: 1.3971
+Epoch 4/10
+120/120 - 29s - loss: 0.2744 - binary_crossentropy: 0.2744 - val_loss: 0.6135 - val_binary_crossentropy: 0.6135
+Epoch 5/10
+120/120 - 29s - loss: 0.1945 - binary_crossentropy: 0.1945 - val_loss: 0.2489 - val_binary_crossentropy: 0.2489
+Epoch 6/10
+120/120 - 28s - loss: 0.1437 - binary_crossentropy: 0.1437 - val_loss: 0.1651 - val_binary_crossentropy: 0.1651
+Epoch 7/10
+120/120 - 29s - loss: 0.1146 - binary_crossentropy: 0.1146 - val_loss: 0.1316 - val_binary_crossentropy: 0.1316
+Epoch 8/10
+120/120 - 28s - loss: 0.1007 - binary_crossentropy: 0.1007 - val_loss: 0.0938 - val_binary_crossentropy: 0.0938
+Epoch 9/10
+120/120 - 29s - loss: 0.0763 - binary_crossentropy: 0.0763 - val_loss: 0.0957 - val_binary_crossentropy: 0.0957
+Epoch 10/10
+120/120 - 29s - loss: 0.0661 - binary_crossentropy: 0.0661 - val_loss: 0.0612 - val_binary_crossentropy: 0.0612
+############################
+[0, 0, 3, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6872 - binary_crossentropy: 0.6872 - val_loss: 0.6898 - val_binary_crossentropy: 0.6898
+Epoch 2/10
+120/120 - 29s - loss: 0.5830 - binary_crossentropy: 0.5830 - val_loss: 0.7261 - val_binary_crossentropy: 0.7261
+Epoch 3/10
+120/120 - 29s - loss: 0.3734 - binary_crossentropy: 0.3734 - val_loss: 0.6997 - val_binary_crossentropy: 0.6997
+Epoch 4/10
+120/120 - 28s - loss: 0.2560 - binary_crossentropy: 0.2560 - val_loss: 0.3604 - val_binary_crossentropy: 0.3604
+Epoch 5/10
+120/120 - 29s - loss: 0.1636 - binary_crossentropy: 0.1636 - val_loss: 0.1778 - val_binary_crossentropy: 0.1778
+Epoch 6/10
+120/120 - 29s - loss: 0.1235 - binary_crossentropy: 0.1235 - val_loss: 0.1154 - val_binary_crossentropy: 0.1154
+Epoch 7/10
+120/120 - 29s - loss: 0.1189 - binary_crossentropy: 0.1189 - val_loss: 0.1784 - val_binary_crossentropy: 0.1784
+Epoch 8/10
+120/120 - 29s - loss: 0.0860 - binary_crossentropy: 0.0860 - val_loss: 0.1278 - val_binary_crossentropy: 0.1278
+Epoch 9/10
+120/120 - 29s - loss: 0.0851 - binary_crossentropy: 0.0851 - val_loss: 0.0885 - val_binary_crossentropy: 0.0885
+Epoch 10/10
+120/120 - 29s - loss: 0.0629 - binary_crossentropy: 0.0629 - val_loss: 0.1008 - val_binary_crossentropy: 0.1008
+############################
+[0, 0, 3, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6348 - binary_crossentropy: 0.6348 - val_loss: 0.4918 - val_binary_crossentropy: 0.4918
+Epoch 2/10
+120/120 - 29s - loss: 0.3953 - binary_crossentropy: 0.3953 - val_loss: 0.3812 - val_binary_crossentropy: 0.3812
+Epoch 3/10
+120/120 - 29s - loss: 0.2771 - binary_crossentropy: 0.2771 - val_loss: 0.2327 - val_binary_crossentropy: 0.2327
+Epoch 4/10
+120/120 - 29s - loss: 0.1910 - binary_crossentropy: 0.1910 - val_loss: 0.1739 - val_binary_crossentropy: 0.1739
+Epoch 5/10
+120/120 - 28s - loss: 0.1400 - binary_crossentropy: 0.1400 - val_loss: 0.1297 - val_binary_crossentropy: 0.1297
+Epoch 6/10
+120/120 - 29s - loss: 0.1115 - binary_crossentropy: 0.1115 - val_loss: 0.1192 - val_binary_crossentropy: 0.1192
+Epoch 7/10
+120/120 - 29s - loss: 0.0854 - binary_crossentropy: 0.0854 - val_loss: 0.1084 - val_binary_crossentropy: 0.1084
+Epoch 8/10
+120/120 - 28s - loss: 0.0708 - binary_crossentropy: 0.0708 - val_loss: 0.0740 - val_binary_crossentropy: 0.0740
+Epoch 9/10
+120/120 - 29s - loss: 0.0616 - binary_crossentropy: 0.0616 - val_loss: 0.1092 - val_binary_crossentropy: 0.1092
+Epoch 10/10
+120/120 - 29s - loss: 0.0610 - binary_crossentropy: 0.0610 - val_loss: 0.0767 - val_binary_crossentropy: 0.0767
+############################
+[0, 0, 2, 3]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6800 - binary_crossentropy: 0.6800 - val_loss: 0.6072 - val_binary_crossentropy: 0.6072
+Epoch 2/10
+120/120 - 29s - loss: 0.5707 - binary_crossentropy: 0.5707 - val_loss: 0.5839 - val_binary_crossentropy: 0.5839
+Epoch 3/10
+120/120 - 28s - loss: 0.4431 - binary_crossentropy: 0.4431 - val_loss: 0.5551 - val_binary_crossentropy: 0.5551
+Epoch 4/10
+120/120 - 28s - loss: 0.3315 - binary_crossentropy: 0.3315 - val_loss: 0.3229 - val_binary_crossentropy: 0.3229
+Epoch 5/10
+120/120 - 29s - loss: 0.2877 - binary_crossentropy: 0.2877 - val_loss: 0.2083 - val_binary_crossentropy: 0.2083
+Epoch 6/10
+120/120 - 29s - loss: 0.2346 - binary_crossentropy: 0.2346 - val_loss: 0.1296 - val_binary_crossentropy: 0.1296
+Epoch 7/10
+120/120 - 29s - loss: 0.1569 - binary_crossentropy: 0.1569 - val_loss: 0.1477 - val_binary_crossentropy: 0.1477
+Epoch 8/10
+120/120 - 28s - loss: 0.1349 - binary_crossentropy: 0.1349 - val_loss: 0.3311 - val_binary_crossentropy: 0.3311
+Epoch 9/10
+120/120 - 29s - loss: 0.1049 - binary_crossentropy: 0.1049 - val_loss: 0.0839 - val_binary_crossentropy: 0.0839
+Epoch 10/10
+120/120 - 29s - loss: 0.0841 - binary_crossentropy: 0.0841 - val_loss: 0.0880 - val_binary_crossentropy: 0.0880
+############################
+[0, 0, 2, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.7121 - binary_crossentropy: 0.7121 - val_loss: 0.6203 - val_binary_crossentropy: 0.6203
+Epoch 2/10
+120/120 - 29s - loss: 0.5544 - binary_crossentropy: 0.5544 - val_loss: 0.9588 - val_binary_crossentropy: 0.9588
+Epoch 3/10
+120/120 - 29s - loss: 0.3850 - binary_crossentropy: 0.3850 - val_loss: 0.4236 - val_binary_crossentropy: 0.4236
+Epoch 4/10
+120/120 - 29s - loss: 0.2675 - binary_crossentropy: 0.2675 - val_loss: 0.2505 - val_binary_crossentropy: 0.2505
+Epoch 5/10
+120/120 - 29s - loss: 0.1936 - binary_crossentropy: 0.1936 - val_loss: 0.2571 - val_binary_crossentropy: 0.2571
+Epoch 6/10
+120/120 - 28s - loss: 0.2428 - binary_crossentropy: 0.2428 - val_loss: 0.1752 - val_binary_crossentropy: 0.1752
+Epoch 7/10
+120/120 - 29s - loss: 0.1377 - binary_crossentropy: 0.1377 - val_loss: 0.1371 - val_binary_crossentropy: 0.1371
+Epoch 8/10
+120/120 - 28s - loss: 0.1110 - binary_crossentropy: 0.1110 - val_loss: 0.0949 - val_binary_crossentropy: 0.0949
+Epoch 9/10
+120/120 - 29s - loss: 0.0876 - binary_crossentropy: 0.0876 - val_loss: 0.0870 - val_binary_crossentropy: 0.0870
+Epoch 10/10
+120/120 - 29s - loss: 0.0724 - binary_crossentropy: 0.0724 - val_loss: 0.0896 - val_binary_crossentropy: 0.0896
+############################
+[0, 0, 2, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6408 - binary_crossentropy: 0.6408 - val_loss: 0.5109 - val_binary_crossentropy: 0.5109
+Epoch 2/10
+120/120 - 29s - loss: 0.4230 - binary_crossentropy: 0.4230 - val_loss: 0.3563 - val_binary_crossentropy: 0.3563
+Epoch 3/10
+120/120 - 29s - loss: 0.2663 - binary_crossentropy: 0.2663 - val_loss: 0.2540 - val_binary_crossentropy: 0.2540
+Epoch 4/10
+120/120 - 29s - loss: 0.1884 - binary_crossentropy: 0.1884 - val_loss: 0.2136 - val_binary_crossentropy: 0.2136
+Epoch 5/10
+120/120 - 29s - loss: 0.1339 - binary_crossentropy: 0.1339 - val_loss: 0.1735 - val_binary_crossentropy: 0.1735
+Epoch 6/10
+120/120 - 29s - loss: 0.1026 - binary_crossentropy: 0.1026 - val_loss: 0.1164 - val_binary_crossentropy: 0.1164
+Epoch 7/10
+120/120 - 29s - loss: 0.0806 - binary_crossentropy: 0.0806 - val_loss: 0.0809 - val_binary_crossentropy: 0.0809
+Epoch 8/10
+120/120 - 29s - loss: 0.0654 - binary_crossentropy: 0.0654 - val_loss: 0.1392 - val_binary_crossentropy: 0.1392
+Epoch 9/10
+120/120 - 29s - loss: 0.0567 - binary_crossentropy: 0.0567 - val_loss: 0.0871 - val_binary_crossentropy: 0.0871
+Epoch 10/10
+120/120 - 29s - loss: 0.0471 - binary_crossentropy: 0.0471 - val_loss: 0.0734 - val_binary_crossentropy: 0.0734
+############################
+[0, 0, 2, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5544 - binary_crossentropy: 0.5544 - val_loss: 0.4057 - val_binary_crossentropy: 0.4057
+Epoch 2/10
+120/120 - 29s - loss: 0.3053 - binary_crossentropy: 0.3053 - val_loss: 0.3019 - val_binary_crossentropy: 0.3019
+Epoch 3/10
+120/120 - 29s - loss: 0.2047 - binary_crossentropy: 0.2047 - val_loss: 0.2501 - val_binary_crossentropy: 0.2501
+Epoch 4/10
+120/120 - 28s - loss: 0.1431 - binary_crossentropy: 0.1431 - val_loss: 0.1670 - val_binary_crossentropy: 0.1670
+Epoch 5/10
+120/120 - 29s - loss: 0.1132 - binary_crossentropy: 0.1132 - val_loss: 0.1280 - val_binary_crossentropy: 0.1280
+Epoch 6/10
+120/120 - 29s - loss: 0.0891 - binary_crossentropy: 0.0891 - val_loss: 0.0903 - val_binary_crossentropy: 0.0903
+Epoch 7/10
+120/120 - 29s - loss: 0.0696 - binary_crossentropy: 0.0696 - val_loss: 0.0861 - val_binary_crossentropy: 0.0861
+Epoch 8/10
+120/120 - 28s - loss: 0.0656 - binary_crossentropy: 0.0656 - val_loss: 0.0931 - val_binary_crossentropy: 0.0931
+Epoch 9/10
+120/120 - 29s - loss: 0.0556 - binary_crossentropy: 0.0556 - val_loss: 0.0731 - val_binary_crossentropy: 0.0731
+Epoch 10/10
+120/120 - 29s - loss: 0.0411 - binary_crossentropy: 0.0411 - val_loss: 0.0545 - val_binary_crossentropy: 0.0545
+############################
+[0, 0, 1, 4]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6770 - binary_crossentropy: 0.6770 - val_loss: 0.6617 - val_binary_crossentropy: 0.6617
+Epoch 2/10
+120/120 - 29s - loss: 0.5761 - binary_crossentropy: 0.5761 - val_loss: 0.5646 - val_binary_crossentropy: 0.5646
+Epoch 3/10
+120/120 - 28s - loss: 0.4759 - binary_crossentropy: 0.4759 - val_loss: 0.4833 - val_binary_crossentropy: 0.4833
+Epoch 4/10
+120/120 - 28s - loss: 0.4151 - binary_crossentropy: 0.4151 - val_loss: 0.3916 - val_binary_crossentropy: 0.3916
+Epoch 5/10
+120/120 - 28s - loss: 0.3674 - binary_crossentropy: 0.3674 - val_loss: 0.3618 - val_binary_crossentropy: 0.3618
+Epoch 6/10
+120/120 - 29s - loss: 0.2855 - binary_crossentropy: 0.2855 - val_loss: 0.3196 - val_binary_crossentropy: 0.3196
+Epoch 7/10
+120/120 - 29s - loss: 0.2895 - binary_crossentropy: 0.2895 - val_loss: 0.2896 - val_binary_crossentropy: 0.2896
+Epoch 8/10
+120/120 - 29s - loss: 0.2273 - binary_crossentropy: 0.2273 - val_loss: 0.1921 - val_binary_crossentropy: 0.1921
+Epoch 9/10
+120/120 - 29s - loss: 0.2258 - binary_crossentropy: 0.2258 - val_loss: 0.2019 - val_binary_crossentropy: 0.2019
+Epoch 10/10
+120/120 - 28s - loss: 0.2090 - binary_crossentropy: 0.2090 - val_loss: 0.2203 - val_binary_crossentropy: 0.2203
+############################
+[0, 0, 1, 3]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6778 - binary_crossentropy: 0.6778 - val_loss: 0.5636 - val_binary_crossentropy: 0.5636
+Epoch 2/10
+120/120 - 29s - loss: 0.5585 - binary_crossentropy: 0.5585 - val_loss: 0.5081 - val_binary_crossentropy: 0.5081
+Epoch 3/10
+120/120 - 29s - loss: 0.4310 - binary_crossentropy: 0.4310 - val_loss: 0.4655 - val_binary_crossentropy: 0.4655
+Epoch 4/10
+120/120 - 29s - loss: 0.3502 - binary_crossentropy: 0.3502 - val_loss: 1.2787 - val_binary_crossentropy: 1.2787
+Epoch 5/10
+120/120 - 28s - loss: 0.2892 - binary_crossentropy: 0.2892 - val_loss: 0.2936 - val_binary_crossentropy: 0.2936
+Epoch 6/10
+120/120 - 29s - loss: 0.2083 - binary_crossentropy: 0.2083 - val_loss: 0.2001 - val_binary_crossentropy: 0.2001
+Epoch 7/10
+120/120 - 29s - loss: 0.1957 - binary_crossentropy: 0.1957 - val_loss: 0.1668 - val_binary_crossentropy: 0.1668
+Epoch 8/10
+120/120 - 28s - loss: 0.1613 - binary_crossentropy: 0.1613 - val_loss: 0.1373 - val_binary_crossentropy: 0.1373
+Epoch 9/10
+120/120 - 29s - loss: 0.1251 - binary_crossentropy: 0.1251 - val_loss: 0.1123 - val_binary_crossentropy: 0.1123
+Epoch 10/10
+120/120 - 28s - loss: 0.1093 - binary_crossentropy: 0.1093 - val_loss: 0.1070 - val_binary_crossentropy: 0.1070
+############################
+[0, 0, 1, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6361 - binary_crossentropy: 0.6361 - val_loss: 0.5614 - val_binary_crossentropy: 0.5614
+Epoch 2/10
+120/120 - 29s - loss: 0.4251 - binary_crossentropy: 0.4251 - val_loss: 0.4154 - val_binary_crossentropy: 0.4154
+Epoch 3/10
+120/120 - 29s - loss: 0.2837 - binary_crossentropy: 0.2837 - val_loss: 0.2872 - val_binary_crossentropy: 0.2872
+Epoch 4/10
+120/120 - 29s - loss: 0.1905 - binary_crossentropy: 0.1905 - val_loss: 0.2102 - val_binary_crossentropy: 0.2102
+Epoch 5/10
+120/120 - 29s - loss: 0.1373 - binary_crossentropy: 0.1373 - val_loss: 0.1435 - val_binary_crossentropy: 0.1435
+Epoch 6/10
+120/120 - 29s - loss: 0.0989 - binary_crossentropy: 0.0989 - val_loss: 0.1440 - val_binary_crossentropy: 0.1440
+Epoch 7/10
+120/120 - 29s - loss: 0.0807 - binary_crossentropy: 0.0807 - val_loss: 0.1233 - val_binary_crossentropy: 0.1233
+Epoch 8/10
+120/120 - 29s - loss: 0.0692 - binary_crossentropy: 0.0692 - val_loss: 0.1537 - val_binary_crossentropy: 0.1537
+Epoch 9/10
+120/120 - 29s - loss: 0.0649 - binary_crossentropy: 0.0649 - val_loss: 0.0863 - val_binary_crossentropy: 0.0863
+Epoch 10/10
+120/120 - 29s - loss: 0.0910 - binary_crossentropy: 0.0910 - val_loss: 0.1720 - val_binary_crossentropy: 0.1720
+############################
+[0, 0, 1, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6890 - binary_crossentropy: 0.6890 - val_loss: 0.7045 - val_binary_crossentropy: 0.7045
+Epoch 2/10
+120/120 - 29s - loss: 0.4996 - binary_crossentropy: 0.4996 - val_loss: 2.3128 - val_binary_crossentropy: 2.3128
+Epoch 3/10
+120/120 - 29s - loss: 0.3179 - binary_crossentropy: 0.3179 - val_loss: 0.4422 - val_binary_crossentropy: 0.4422
+Epoch 4/10
+120/120 - 29s - loss: 0.2205 - binary_crossentropy: 0.2205 - val_loss: 0.6025 - val_binary_crossentropy: 0.6025
+Epoch 5/10
+120/120 - 29s - loss: 0.1571 - binary_crossentropy: 0.1571 - val_loss: 0.1504 - val_binary_crossentropy: 0.1504
+Epoch 6/10
+120/120 - 29s - loss: 0.1176 - binary_crossentropy: 0.1176 - val_loss: 0.2438 - val_binary_crossentropy: 0.2438
+Epoch 7/10
+120/120 - 29s - loss: 0.0998 - binary_crossentropy: 0.0998 - val_loss: 0.1691 - val_binary_crossentropy: 0.1691
+Epoch 8/10
+120/120 - 29s - loss: 0.0760 - binary_crossentropy: 0.0760 - val_loss: 0.1023 - val_binary_crossentropy: 0.1023
+Epoch 9/10
+120/120 - 28s - loss: 0.0615 - binary_crossentropy: 0.0615 - val_loss: 0.1282 - val_binary_crossentropy: 0.1282
+Epoch 10/10
+120/120 - 29s - loss: 0.0501 - binary_crossentropy: 0.0501 - val_loss: 0.0651 - val_binary_crossentropy: 0.0651
+############################
+[0, 0, 1, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6340 - binary_crossentropy: 0.6340 - val_loss: 0.6314 - val_binary_crossentropy: 0.6314
+Epoch 2/10
+120/120 - 33s - loss: 0.4111 - binary_crossentropy: 0.4111 - val_loss: 0.3959 - val_binary_crossentropy: 0.3959
+Epoch 3/10
+120/120 - 32s - loss: 0.2659 - binary_crossentropy: 0.2659 - val_loss: 0.2799 - val_binary_crossentropy: 0.2799
+Epoch 4/10
+120/120 - 30s - loss: 0.1872 - binary_crossentropy: 0.1872 - val_loss: 0.2194 - val_binary_crossentropy: 0.2194
+Epoch 5/10
+120/120 - 29s - loss: 0.1474 - binary_crossentropy: 0.1474 - val_loss: 0.1387 - val_binary_crossentropy: 0.1387
+Epoch 6/10
+120/120 - 30s - loss: 0.1050 - binary_crossentropy: 0.1050 - val_loss: 0.1084 - val_binary_crossentropy: 0.1084
+Epoch 7/10
+120/120 - 30s - loss: 0.0814 - binary_crossentropy: 0.0814 - val_loss: 0.0864 - val_binary_crossentropy: 0.0864
+Epoch 8/10
+120/120 - 30s - loss: 0.0668 - binary_crossentropy: 0.0668 - val_loss: 0.0938 - val_binary_crossentropy: 0.0938
+Epoch 9/10
+120/120 - 29s - loss: 0.0577 - binary_crossentropy: 0.0577 - val_loss: 0.0592 - val_binary_crossentropy: 0.0592
+Epoch 10/10
+120/120 - 30s - loss: 0.0506 - binary_crossentropy: 0.0506 - val_loss: 0.0955 - val_binary_crossentropy: 0.0955
+############################
+[0, 0, 0, 5]
+############################
+Epoch 1/10
+120/120 - 33s - loss: 0.6794 - binary_crossentropy: 0.6794 - val_loss: 0.6404 - val_binary_crossentropy: 0.6404
+Epoch 2/10
+120/120 - 30s - loss: 0.5793 - binary_crossentropy: 0.5793 - val_loss: 0.5272 - val_binary_crossentropy: 0.5272
+Epoch 3/10
+120/120 - 30s - loss: 0.5128 - binary_crossentropy: 0.5128 - val_loss: 0.5240 - val_binary_crossentropy: 0.5240
+Epoch 4/10
+120/120 - 30s - loss: 0.4419 - binary_crossentropy: 0.4419 - val_loss: 0.4478 - val_binary_crossentropy: 0.4478
+Epoch 5/10
+120/120 - 29s - loss: 0.3652 - binary_crossentropy: 0.3652 - val_loss: 0.2957 - val_binary_crossentropy: 0.2957
+Epoch 6/10
+120/120 - 30s - loss: 0.3612 - binary_crossentropy: 0.3612 - val_loss: 0.2607 - val_binary_crossentropy: 0.2607
+Epoch 7/10
+120/120 - 30s - loss: 0.3260 - binary_crossentropy: 0.3260 - val_loss: 0.5772 - val_binary_crossentropy: 0.5772
+Epoch 8/10
+120/120 - 30s - loss: 0.2521 - binary_crossentropy: 0.2521 - val_loss: 0.2022 - val_binary_crossentropy: 0.2022
+Epoch 9/10
+120/120 - 30s - loss: 0.2106 - binary_crossentropy: 0.2106 - val_loss: 0.1781 - val_binary_crossentropy: 0.1781
+Epoch 10/10
+120/120 - 30s - loss: 0.2001 - binary_crossentropy: 0.2001 - val_loss: 0.1782 - val_binary_crossentropy: 0.1782
+############################
+[0, 0, 0, 4]
+############################
+Epoch 1/10
+120/120 - 32s - loss: 0.6545 - binary_crossentropy: 0.6545 - val_loss: 0.6023 - val_binary_crossentropy: 0.6023
+Epoch 2/10
+120/120 - 30s - loss: 0.5363 - binary_crossentropy: 0.5363 - val_loss: 0.4495 - val_binary_crossentropy: 0.4495
+Epoch 3/10
+120/120 - 29s - loss: 0.4330 - binary_crossentropy: 0.4330 - val_loss: 0.3263 - val_binary_crossentropy: 0.3263
+Epoch 4/10
+120/120 - 30s - loss: 0.3338 - binary_crossentropy: 0.3338 - val_loss: 0.4107 - val_binary_crossentropy: 0.4107
+Epoch 5/10
+120/120 - 30s - loss: 0.2723 - binary_crossentropy: 0.2723 - val_loss: 0.2587 - val_binary_crossentropy: 0.2587
+Epoch 6/10
+120/120 - 30s - loss: 0.2642 - binary_crossentropy: 0.2642 - val_loss: 0.1757 - val_binary_crossentropy: 0.1757
+Epoch 7/10
+120/120 - 30s - loss: 0.2127 - binary_crossentropy: 0.2127 - val_loss: 0.2253 - val_binary_crossentropy: 0.2253
+Epoch 8/10
+120/120 - 30s - loss: 0.1597 - binary_crossentropy: 0.1597 - val_loss: 0.1440 - val_binary_crossentropy: 0.1440
+Epoch 9/10
+120/120 - 29s - loss: 0.1321 - binary_crossentropy: 0.1321 - val_loss: 0.1116 - val_binary_crossentropy: 0.1116
+Epoch 10/10
+120/120 - 29s - loss: 0.1027 - binary_crossentropy: 0.1027 - val_loss: 0.1093 - val_binary_crossentropy: 0.1093
+############################
+[0, 0, 0, 3]
+############################
+Epoch 1/10
+120/120 - 32s - loss: 0.6498 - binary_crossentropy: 0.6498 - val_loss: 0.6232 - val_binary_crossentropy: 0.6232
+Epoch 2/10
+120/120 - 29s - loss: 0.4301 - binary_crossentropy: 0.4301 - val_loss: 0.5336 - val_binary_crossentropy: 0.5336
+Epoch 3/10
+120/120 - 29s - loss: 0.2966 - binary_crossentropy: 0.2966 - val_loss: 0.4602 - val_binary_crossentropy: 0.4602
+Epoch 4/10
+120/120 - 30s - loss: 0.1999 - binary_crossentropy: 0.1999 - val_loss: 0.2998 - val_binary_crossentropy: 0.2998
+Epoch 5/10
+120/120 - 30s - loss: 0.1478 - binary_crossentropy: 0.1478 - val_loss: 0.1824 - val_binary_crossentropy: 0.1824
+Epoch 6/10
+120/120 - 30s - loss: 0.1113 - binary_crossentropy: 0.1113 - val_loss: 0.1845 - val_binary_crossentropy: 0.1845
+Epoch 7/10
+120/120 - 29s - loss: 0.0887 - binary_crossentropy: 0.0887 - val_loss: 0.1006 - val_binary_crossentropy: 0.1006
+Epoch 8/10
+120/120 - 30s - loss: 0.0695 - binary_crossentropy: 0.0695 - val_loss: 0.0911 - val_binary_crossentropy: 0.0911
+Epoch 9/10
+120/120 - 29s - loss: 0.0583 - binary_crossentropy: 0.0583 - val_loss: 0.0743 - val_binary_crossentropy: 0.0743
+Epoch 10/10
+120/120 - 30s - loss: 0.0490 - binary_crossentropy: 0.0490 - val_loss: 0.0583 - val_binary_crossentropy: 0.0583
+############################
+[0, 0, 0, 2]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5802 - binary_crossentropy: 0.5802 - val_loss: 0.4707 - val_binary_crossentropy: 0.4707
+Epoch 2/10
+120/120 - 30s - loss: 0.3195 - binary_crossentropy: 0.3195 - val_loss: 0.3203 - val_binary_crossentropy: 0.3203
+Epoch 3/10
+120/120 - 30s - loss: 0.2205 - binary_crossentropy: 0.2205 - val_loss: 0.3027 - val_binary_crossentropy: 0.3027
+Epoch 4/10
+120/120 - 29s - loss: 0.1579 - binary_crossentropy: 0.1579 - val_loss: 0.1777 - val_binary_crossentropy: 0.1777
+Epoch 5/10
+120/120 - 30s - loss: 0.1161 - binary_crossentropy: 0.1161 - val_loss: 0.1264 - val_binary_crossentropy: 0.1264
+Epoch 6/10
+120/120 - 30s - loss: 0.0907 - binary_crossentropy: 0.0907 - val_loss: 0.1094 - val_binary_crossentropy: 0.1094
+Epoch 7/10
+120/120 - 29s - loss: 0.0918 - binary_crossentropy: 0.0918 - val_loss: 0.1035 - val_binary_crossentropy: 0.1035
+Epoch 8/10
+120/120 - 30s - loss: 0.0632 - binary_crossentropy: 0.0632 - val_loss: 0.0620 - val_binary_crossentropy: 0.0620
+Epoch 9/10
+120/120 - 29s - loss: 0.0489 - binary_crossentropy: 0.0489 - val_loss: 0.0765 - val_binary_crossentropy: 0.0765
+Epoch 10/10
+120/120 - 30s - loss: 0.0412 - binary_crossentropy: 0.0412 - val_loss: 0.0490 - val_binary_crossentropy: 0.0490
+############################
+[0, 0, 0, 1]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.5747 - binary_crossentropy: 0.5747 - val_loss: 0.4543 - val_binary_crossentropy: 0.4543
+Epoch 2/10
+120/120 - 30s - loss: 0.3519 - binary_crossentropy: 0.3519 - val_loss: 0.3104 - val_binary_crossentropy: 0.3104
+Epoch 3/10
+120/120 - 30s - loss: 0.2449 - binary_crossentropy: 0.2449 - val_loss: 0.2366 - val_binary_crossentropy: 0.2366
+Epoch 4/10
+120/120 - 29s - loss: 0.1741 - binary_crossentropy: 0.1741 - val_loss: 0.1653 - val_binary_crossentropy: 0.1653
+Epoch 5/10
+120/120 - 30s - loss: 0.1385 - binary_crossentropy: 0.1385 - val_loss: 0.2065 - val_binary_crossentropy: 0.2065
+Epoch 6/10
+120/120 - 30s - loss: 0.1044 - binary_crossentropy: 0.1044 - val_loss: 0.1281 - val_binary_crossentropy: 0.1281
+Epoch 7/10
+120/120 - 29s - loss: 0.0899 - binary_crossentropy: 0.0899 - val_loss: 0.0826 - val_binary_crossentropy: 0.0826
+Epoch 8/10
+120/120 - 30s - loss: 0.0657 - binary_crossentropy: 0.0657 - val_loss: 0.0689 - val_binary_crossentropy: 0.0689
+Epoch 9/10
+120/120 - 29s - loss: 0.0606 - binary_crossentropy: 0.0606 - val_loss: 0.0812 - val_binary_crossentropy: 0.0812
+Epoch 10/10
+120/120 - 30s - loss: 0.0457 - binary_crossentropy: 0.0457 - val_loss: 0.0497 - val_binary_crossentropy: 0.0497
+############################
+[0, 0, 0, 0]
+############################
+Epoch 1/10
+120/120 - 31s - loss: 0.6374 - binary_crossentropy: 0.6374 - val_loss: 0.6723 - val_binary_crossentropy: 0.6723
+Epoch 2/10
+120/120 - 30s - loss: 0.4472 - binary_crossentropy: 0.4472 - val_loss: 0.5778 - val_binary_crossentropy: 0.5778
+Epoch 3/10
+120/120 - 30s - loss: 0.2977 - binary_crossentropy: 0.2977 - val_loss: 0.4380 - val_binary_crossentropy: 0.4380
+Epoch 4/10
+120/120 - 29s - loss: 0.2208 - binary_crossentropy: 0.2208 - val_loss: 0.2756 - val_binary_crossentropy: 0.2756
+Epoch 5/10
+120/120 - 29s - loss: 0.1646 - binary_crossentropy: 0.1646 - val_loss: 0.1594 - val_binary_crossentropy: 0.1594
+Epoch 6/10
+120/120 - 29s - loss: 0.1412 - binary_crossentropy: 0.1412 - val_loss: 32.8484 - val_binary_crossentropy: 32.8484
+Epoch 7/10
+120/120 - 30s - loss: 0.1331 - binary_crossentropy: 0.1331 - val_loss: 0.1693 - val_binary_crossentropy: 0.1693
+Epoch 8/10
+120/120 - 30s - loss: 0.0941 - binary_crossentropy: 0.0941 - val_loss: 0.1090 - val_binary_crossentropy: 0.1090
+Epoch 9/10
+120/120 - 29s - loss: 0.0824 - binary_crossentropy: 0.0824 - val_loss: 0.0925 - val_binary_crossentropy: 0.0925
+Epoch 10/10
+120/120 - 30s - loss: 0.0687 - binary_crossentropy: 0.0687 - val_loss: 0.0813 - val_binary_crossentropy: 0.0813

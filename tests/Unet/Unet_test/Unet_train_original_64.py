@@ -20,11 +20,10 @@ os.environ [ "TF_FORCE_GPU_ALLOW_GROWTH" ] = "true"
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
 batch_size = 4
-# img_size = (512, 512)
-img_size = (256, 256)
+img_size = (512, 512)
 in_dim = 3
 out_dim = 1
-num_filters = 16
+num_filters = 64
 epochs=100
 # random_seed = random.randint(0, 32)
 random_seed = 0
@@ -79,24 +78,13 @@ def combination_gen(n, k, combi, ret):
     else:
         for i in range(n+1):
             combination_gen(n - i, k - 1, combi + [i], ret)
-
-
 combinations = []
 total_limit = 5
 depth = 4
-combination_gen(4, 4, [], combinations)
-combinations = combinations + [[0,0,0,0]]
+combination_gen(5, 4, [], combinations)
 # for i in range(0, 5):
-
-start_point = [0, 1, 2, 0]
-flag = False
-for com in combinations[::-1]:
+for com in combinations:
     # model_file_name = "./checkpoint-epoch-{epoch:04d}-" + time.strftime("%y%m%d-%H%M") + "maxpool_{}th-compression".format(i) + "-512.h5"
-    if flag or com == start_point:
-        flag = True
-    else:
-        continue
-
     print("############################")
     print(com)
     print("############################")
@@ -119,13 +107,12 @@ for com in combinations[::-1]:
     )
     early_stop = tf.keras.callbacks.EarlyStopping(monitor='binary_crossentropy', patience=5)
     # if i == 0:
-    #     model = UNet(3,1,16, [])
+    #     model = UNet(3,1,16, [>])
     # else:
     #     model = UNet(3,1,16, [i])
-    # if com[0] < 2:
-    #     continue
-    model = UnetAS(3, 1, 64, com)
+    model = UnetAS(3, 1, 16, com)
     batch_size = 4
+    img_size = (512,512)
     model.build(input_shape=(batch_size,img_size,3))
     model.compile(optimizer=tf.keras.optimizers.Adam(lr=1e-4), loss=tf.keras.losses.BinaryCrossentropy(from_logits=True), metrics=['binary_crossentropy'])
     # model.fit(data_generator_train, epochs=50, steps_per_epoch=len(x_train)-1, callbacks=[checkpoint, early_stop], validation_data=data_generator_validation, validation_steps=50)
