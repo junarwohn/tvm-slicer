@@ -7,7 +7,7 @@ import tvm.relay as relay
 from tvm.contrib import graph_executor
 import numpy as np
 
-model_config = [0,0,0,0]
+model_config = [2,0,0,0]
 model = UnetAS(3, 1, 64, model_config)
 model.build(input_shape=(1,256, 256, 3))
 model.compile(optimizer=tf.keras.optimizers.Adam(lr=1e-4), loss=tf.keras.losses.BinaryCrossentropy(from_logits=True), metrics=['binary_crossentropy'])

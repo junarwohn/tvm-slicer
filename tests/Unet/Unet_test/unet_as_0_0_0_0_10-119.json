@@ -1,0 +1,1 @@
+{"nodes": [{"op": "null", "name": "p74", "inputs": []}], "arg_nodes": [0], "heads": [[0, 0, 0]], "attrs": {"dltype": ["list_str", ["float32"]], "device_index": ["list_int", [2]], "storage_id": ["list_int", [99]], "shape": ["list_shape", [[1, 128, 1, 1]]]}, "node_row_ptr": [0, 1], "extra": {"inputs": [], "outputs": [119]}}

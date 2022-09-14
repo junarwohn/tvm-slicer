@@ -120,7 +120,9 @@ def UNet(in_dim, out_dim, num_filter, mutation=[0, 0, 0, 0]):
     num_filter = int(num_filter / 2)
     trans_2 = _conv_trans_block(up_1, num_filter*2, num_filter*1, act_fn)
     for i in range(mutation[3]):
+        num_filter = num_filter * 2
         trans_2 = _conv_trans_block(trans_2, num_filter*2, num_filter*1, act_fn)
+
 
     concat_2 = tf.keras.layers.Concatenate(axis=3)([trans_2, down_3])
     # print("concat_2", concat_2.shape)
@@ -131,7 +133,9 @@ def UNet(in_dim, out_dim, num_filter, mutation=[0, 0, 0, 0]):
     num_filter = int(num_filter / 2)
     trans_3 = _conv_trans_block(up_2, num_filter*2, num_filter*1, act_fn)
     for i in range(mutation[2]):
+        num_filter = num_filter * 2
         trans_3 = _conv_trans_block(trans_3, num_filter*2, num_filter*1, act_fn)
+
     
     concat_3 = tf.keras.layers.Concatenate(axis=3)([trans_3, down_2])
     # print("concat_3", concat_3.shape)
@@ -143,7 +147,9 @@ def UNet(in_dim, out_dim, num_filter, mutation=[0, 0, 0, 0]):
     trans_4 = _conv_trans_block(up_3, num_filter*2, num_filter*1, act_fn)
     # print("trans_4", trans_4.shape)
     for i in range(mutation[1]):
+        num_filter = num_filter * 2
         trans_4 = _conv_trans_block(trans_4, num_filter*2, num_filter*1, act_fn)
+
         # print("trans_4", trans_4.shape)
 
     concat_4 = tf.keras.layers.Concatenate(axis=3)([trans_4, down_1])
@@ -153,7 +159,9 @@ def UNet(in_dim, out_dim, num_filter, mutation=[0, 0, 0, 0]):
     # print("up_4", up_4.shape)
 
     for i in range(mutation[0]):
+        num_filter = num_filter * 2
         up_4 = _conv_trans_block(up_4, num_filter*2, num_filter*1, act_fn)
+
         # print("up_4", up_4.shape)
 
     out = layers.Conv2D(filters=out_dim, kernel_size=3, strides=1, padding='same', activation=activations.sigmoid)(up_4)

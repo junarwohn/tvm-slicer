@@ -5,7 +5,7 @@ from tvm.contrib import graph_executor
 target = 'cuda'
 dev = tvm.cuda()
 img_size = 256
-model_config = [0,0,2,0]
+model_config = [3,0,0,0]
 model_path = "unet_as_{}_{}_{}_{}.so".format(*model_config)
 lib = tvm.runtime.load_module(model_path)
 model = graph_executor.GraphModule(lib['default'](dev))
