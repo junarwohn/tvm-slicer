@@ -22,8 +22,11 @@ dev = tvm.cuda()
 with tvm.transform.PassContext(opt_level=3):
     lib = relay.build(mod, target, params=params)
 
-lib.export_library("unet_as_{}_{}_{}_{}.so".format(*model_config))
+lib.export_library("unet_as_{}_{}_{}_{}_full.so".format(*model_config))
 graph_json_raw = lib['get_graph_json']()
-
-with open("unet_as_{}_{}_{}_{}.json".format(*model_config), "w") as json_graph:
+param_bytes = tvm.runtime.save_param_dict(lib.get_params())
+with open("unet_as_{}_{}_{}_{}_full.params".format(*model_config), "wb") as f:
+    f.write(param_bytes)
+    
+with open("unet_as_{}_{}_{}_{}_full.json".format(*model_config), "w") as json_graph:
     json_graph.write(graph_json_raw)
