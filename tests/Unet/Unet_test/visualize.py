@@ -49,7 +49,7 @@ def show_graph(json_data, file_name=None):
                 A.add_edge(json_data['nodes'][src[0]]['name'] + '[{}]'.format(src[0]) + '{}'.format(json_data['attrs']['dltype'][1][src[0]]), node['name'] + '[{}]'.format(node_idx) + '{}'.format(json_data['attrs']['dltype'][1][node_idx]))
     if file_name:
         A.draw(file_name + '.png', format='png', prog='dot')
-model_config = [1,0,0,0]
+model_config = [2,0,0,0]
 path = "./unet_as_{}_{}_{}_{}.json".format(*model_config)
 path = "./unet_as_{}_{}_{}_{}_full.json".format(*model_config)
 img_path = "./unet_as_{}_{}_{}_{}".format(*model_config)

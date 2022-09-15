@@ -187,6 +187,5 @@ if __name__ == '__main__':
         # Send object
         client_socket.sendall(send_msg)
 
-
     client_socket.close()
     
