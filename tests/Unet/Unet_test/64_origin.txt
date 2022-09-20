@@ -1,8 +1,0 @@
-Found 483 images belonging to 1 classes.
-Found 161 images belonging to 1 classes.
-Found 483 images belonging to 1 classes.
-Found 161 images belonging to 1 classes.
-############################
-[0, 0, 0, 0]
-############################
-Epoch 1/10

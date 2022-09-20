@@ -24,10 +24,10 @@ g_ntp_client = ntplib.NTPClient()
 parser = ArgumentParser()
 parser.add_argument('--start_point', '-s', type=int, default=0)
 parser.add_argument('--end_point', '-e', type=int, default=-1)
-parser.add_argument('--partition_points', '-p', nargs='+', type=int, default=0, help='set partition point')
-parser.add_argument('--front', '-f', nargs='+', type=int, default=0, help='set front partition point')
-parser.add_argument('--back', '-b', nargs='+', type=int, default=0, help='set back partition point')
-parser.add_argument('--img_size', '-i', type=int, default=512, help='set image size')
+parser.add_argument('--partition_points', '-p', nargs='+', type=str, default=[], help='set partition points')
+parser.add_argument('--front', '-f', nargs='+', type=str, default=[], help='set front partition point')
+parser.add_argument('--back', '-b', nargs='+', type=str, default=[], help='set back partition point')
+parser.add_argument('--img_size', '-i', type=int, default=256, help='set image size')
 parser.add_argument('--model', '-m', type=str, default='unet', help='name of model')
 parser.add_argument('--target', '-t', type=str, default='cuda', help='name of taget')
 parser.add_argument('--opt_level', '-o', type=int, default=3, help='set opt_level')
@@ -35,6 +35,8 @@ parser.add_argument('--ip', type=str, default='192.168.0.184', help='input ip of
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
 parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
 parser.add_argument('--visualize', '-v', type=int, default=0, help='visualize option')
+parser.add_argument('--model_config', '-c', nargs='+', type=int, default=0, help='set partition point')
+parser.add_argument('--quantization_level', '-q', type=int, default=0, help='set quantization level')
 args = parser.parse_args()
 
 def make_preprocess(model, im_sz):
@@ -75,6 +77,9 @@ img_size = args.img_size
 org=(50,100)
 font=cv2.FONT_HERSHEY_SIMPLEX
 
+model_config = args.model_config
+quantization_level = args.quantization_level
+
 def load_data():
     cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
     data_queue = []
@@ -102,10 +107,18 @@ def get_model_info(partition_points):
 
     # Load front model json infos
     for i in range(len(partition_points) - 1):
-        start_point = partition_points[i]
-        end_point = partition_points[i + 1]
-        current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
-        with open(current_file_path + "../src/graph/{}_{}_{}_{}_{}-{}.json".format(args.model, args.target, args.img_size, args.opt_level, start_point, end_point), "r") as json_file:
+        # start_point = partition_points[i]
+        # end_point = partition_points[i + 1]
+        start_points = [int(i) for i in partition_points[i].split(',')]
+        end_points =  [int(i) for i in partition_points[i + 1].split(',')]
+        print(start_points, end_points)
+        # current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
+        with open("UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}].json".format(
+            *model_config, 
+            quantization_level, 
+            "_".join(map(str,[i for i in start_points])), 
+            "_".join(map(str, end_points))), "r") as json_file:
+        # with open("unet_as_{}_{}_{}_{}_{}-{}.json".format(*model_config, start_point, end_point), "r") as json_file:
             graph_json = json.load(json_file)
         input_indexs = graph_json['extra']["inputs"]
         output_indexs = graph_json['extra']["outputs"]
@@ -168,11 +181,13 @@ if __name__ == '__main__':
     recv_queue_idxs = np.intersect1d(total_server_output_idxs, total_back_input_idxs)
     print(total_front_output_idxs, total_server_output_idxs, total_back_input_idxs)
     print(send_queue_idxs, pass_queue_idxs, recv_queue_idxs)
+
+
     # Load models
-    model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
+    model_path = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.so".format(*model_config, quantization_level)
     lib = tvm.runtime.load_module(model_path)
 
-    param_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
+    param_path = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.params".format(*model_config, quantization_level)
     with open(param_path, "rb") as fi:
         loaded_params = bytearray(fi.read())
 

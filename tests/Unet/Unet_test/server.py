@@ -26,7 +26,7 @@ g_ntp_client = ntplib.NTPClient()
 parser = ArgumentParser()
 parser.add_argument('--start_point', '-s', type=int, default=0)
 parser.add_argument('--end_point', '-e', type=int, default=-1)
-parser.add_argument('--partition_points', '-p', nargs='+', type=int, default=0, help='set partition point')
+parser.add_argument('--partition_points', '-p', nargs='+', type=str, default=[], help='set partition points')
 parser.add_argument('--front', '-f', nargs='+', type=int, default=0, help='set front partition point')
 parser.add_argument('--back', '-b', nargs='+', type=int, default=0, help='set back partition point')
 parser.add_argument('--img_size', '-i', type=int, default=256, help='set image size')
@@ -38,8 +38,11 @@ parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket d
 parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
 parser.add_argument('--visualize', '-v', type=int, default=0, help='visualize option')
 parser.add_argument('--model_config', '-c', nargs='+', type=int, default=0, help='set partition point')
+parser.add_argument('--quantization_level', '-q', type=int, default=0, help='set quantization level')
 args = parser.parse_args()
 
+model_config = args.model_config
+quantization_level = args.quantization_level
 
 def get_time(is_enabled):
     if is_enabled == 1:
@@ -63,15 +66,21 @@ def get_model_info(partition_points):
 
     # Load front model json infos
     for i in range(len(partition_points) - 1):
-        start_point = partition_points[i]
-        end_point = partition_points[i + 1]
-        current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
+        # start_point = partition_points[i]
+        # end_point = partition_points[i + 1]
+        start_points = [int(i) + 1 for i in partition_points[i].split(',')]
+        end_points =  [int(i) for i in partition_points[i + 1].split(',')]
+
         # with open(current_file_path + "../src/graph/{}_{}_{}_{}_{}-{}.json".format(args.model, args.target, args.img_size, args.opt_level, start_point, end_point), "r") as json_file:
-        with open("unet_as_{}_{}_{}_{}_{}-{}.json".format(*model_config, start_point, end_point), "r") as json_file:
+        with open("UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}].json".format(
+            *model_config, 
+            quantization_level, 
+            "_".join(map(str,[i - 1 for i in start_points])), 
+            "_".join(map(str, end_points))), "r") as json_file:
+        # with open("unet_as_{}_{}_{}_{}_{}-{}.json".format(*model_config, start_point, end_point), "r") as json_file:
             graph_json = json.load(json_file)
         input_indexs = graph_json['extra']["inputs"]
         output_indexs = graph_json['extra']["outputs"]
-        
         model_input_indexs.append(input_indexs)
         model_output_indexs.append(output_indexs)
         del graph_json['extra']
@@ -102,17 +111,17 @@ elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
 
-model_config = args.model_config
+
 
 if __name__ == '__main__':
 
     # Load lib
-    lib_path = "unet_as_{}_{}_{}_{}_full.so".format(*model_config)
+    lib_path = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.so".format(*model_config, quantization_level)
     # lib_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
     lib = tvm.runtime.load_module(lib_path)
 
     # Load params
-    params_path = "unet_as_{}_{}_{}_{}_full.params".format(*model_config)
+    params_path = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.params".format(*model_config, quantization_level)
     # params_path = "../src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, args.img_size, args.opt_level)
     with open(params_path, "rb") as fi:
         loaded_params = bytearray(fi.read())

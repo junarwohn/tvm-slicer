@@ -43,7 +43,7 @@ class TVMSlicer:
     def get_mark(self):
         return self.dfs_list
 
-    def slice_graph(self, start_nodes, end_nodes, is_quantize_sliced=False):
+    def slice_graph(self, start_node, end_node, is_quantize_sliced=False):
 
         graph_config = copy.deepcopy(self.graph_config)
 
@@ -53,7 +53,7 @@ class TVMSlicer:
                 return mark_list
 
             # Check upper bound
-            if cur_node_index == upper_bound:
+            if cur_node_index <= upper_bound:
                 mark_list.append(cur_node_index)
                 return mark_list
 
@@ -68,29 +68,19 @@ class TVMSlicer:
 
         self.sliced_graph = []
 
-        start_points = [start_node - 1 for start_node in start_nodes]
-        end_points = [end_node for end_node in end_nodes]
+        start_p = start_node - 1
+        end_p = end_node
 
         # print("pre_nodes")
-        pre_nodes = []
-        for start_point in start_points:
-            nodes = np.array(sorted(dfs(start_point, 0, [])))
-            pre_nodes = np.union1d(pre_nodes, nodes).astype(int)
-            # pre_nodes = np.array(sorted(dfs(start_point, 0, [])))
+        pre_nodes = np.array(sorted(dfs(start_p, 0, [])))
         # print("target_nodes")
-        target_nodes = []
-        for end_point in end_points:
-            nodes = np.array(sorted(dfs(end_point, 0, [])))
-            target_nodes = np.union1d(target_nodes, nodes).astype(int)
-            # target_nodes = np.array(sorted(dfs(end_p, 0, [])))
-    
+        target_nodes = np.array(sorted(dfs(end_p, 0, [])))
         # print("total_nodes")
         total_nodes = [i for i in range(len(graph_config['nodes']))]
 
         # model_nodes = target_nodes - pre_nodes 
         model_nodes = np.setdiff1d(target_nodes, pre_nodes)
         np.sort(model_nodes)
-        # print(model_nodes)
         
         # complement_nodes = total_nodes - model_nodes
         complement_nodes = pre_nodes

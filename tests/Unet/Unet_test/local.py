@@ -24,7 +24,7 @@ g_ntp_client = ntplib.NTPClient()
 parser = ArgumentParser()
 parser.add_argument('--start_point', '-s', type=int, default=0)
 parser.add_argument('--end_point', '-e', type=int, default=-1)
-parser.add_argument('--partition_points', '-p', nargs='+', type=int, default=0, help='set partition point')
+parser.add_argument('--partition_points', '-p', nargs='+', type=str, default=[], help='set partition points')
 parser.add_argument('--front', '-f', nargs='+', type=int, default=0, help='set front partition point')
 parser.add_argument('--back', '-b', nargs='+', type=int, default=0, help='set back partition point')
 parser.add_argument('--img_size', '-i', type=int, default=256, help='set image size')
@@ -36,6 +36,7 @@ parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket d
 parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
 parser.add_argument('--visualize', '-v', type=int, default=0, help='visualize option')
 parser.add_argument('--model_config', '-c', nargs='+', type=int, default=0, help='set partition point')
+parser.add_argument('--quantization_level', '-q', type=int, default=0, help='set quantization level')
 args = parser.parse_args()
 
 def make_preprocess(model, im_sz):
@@ -72,6 +73,7 @@ img_size = args.img_size
 org=(50,100)
 font=cv2.FONT_HERSHEY_SIMPLEX
 model_config = args.model_config
+quantization_level = args.quantization_level
 
 def load_data():
     cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
@@ -100,10 +102,19 @@ def get_model_info(partition_points):
 
     # Load front model json infos
     for i in range(len(partition_points) - 1):
-        start_point = partition_points[i]
-        end_point = partition_points[i + 1]
-        current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
-        with open(current_file_path + "unet_as_{}_{}_{}_{}_{}-{}.json".format(*model_config, start_point, end_point), "r") as json_file:
+        # start_point = partition_points[i]
+        # end_point = partition_points[i + 1]
+        # current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
+        start_points = [int(i) for i in partition_points[i].split(',')]
+        end_points =  [int(i) for i in partition_points[i + 1].split(',')]
+
+        # with open(current_file_path + "unet_as_{}_{}_{}_{}_{}-{}.json".format(*model_config, start_point, end_point), "r") as json_file:
+        with open("UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}].json".format(
+            *model_config, 
+            quantization_level, 
+            "_".join(map(str, start_points)), 
+            "_".join(map(str, end_points))), "r") as json_file:
+
             graph_json = json.load(json_file)
         input_indexs = graph_json['extra']["inputs"]
         output_indexs = graph_json['extra']["outputs"]
@@ -128,11 +139,11 @@ if __name__ == '__main__':
     front_input_idxs, front_output_idxs, front_graph_json_strs = get_model_info(points_front_model)
 
     # Load models
-    model_path = "unet_as_{}_{}_{}_{}_full.so".format(*model_config)
+    model_path = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.so".format(*model_config, quantization_level)
     # model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
     lib = tvm.runtime.load_module(model_path)
 
-    param_path = "unet_as_{}_{}_{}_{}_full.params".format(*model_config)
+    param_path = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.params".format(*model_config, quantization_level)
     with open(param_path, "rb") as fi:
         loaded_params = bytearray(fi.read())
 

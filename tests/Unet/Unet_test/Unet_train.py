@@ -1,4 +1,5 @@
-from UNetKerasAS import UNet as UnetAS
+# from UNetKerasAS import UNet as UnetAS
+from UNetKerasReshapePreserve import UNet as UnetAS
 import copy
 import numpy as np
 import tensorflow as tf
@@ -88,15 +89,11 @@ combination_gen(4, 4, [], combinations)
 combinations = combinations + [[0,0,0,0]]
 # for i in range(0, 5):
 
-start_point = [0, 1, 2, 0]
-flag = False
-for com in combinations[::-1]:
-    # model_file_name = "./checkpoint-epoch-{epoch:04d}-" + time.strftime("%y%m%d-%H%M") + "maxpool_{}th-compression".format(i) + "-512.h5"
-    if flag or com == start_point:
-        flag = True
-    else:
-        continue
+# start_point = [0, 1, 2, 0]
+# flag = False
 
+combinations = [[i, 0, 0, 0] for i in range(3)]
+for com in combinations[::-1]:
     print("############################")
     print(com)
     print("############################")
@@ -108,7 +105,7 @@ for com in combinations[::-1]:
     data_generator_train = zip(x_train, y_train)
     data_generator_validation = zip(x_validation, y_validation)
 
-    model_file_name = "./model_{}th_512.h5".format(0)
+    model_file_name = "./UNet_M[{}-{}-{}-{}].h5".format(*com)
     checkpoint = keras.callbacks.ModelCheckpoint(
         model_file_name,
         monitor='binary_crossentropy',  
@@ -118,15 +115,12 @@ for com in combinations[::-1]:
         mode='auto'
     )
     early_stop = tf.keras.callbacks.EarlyStopping(monitor='binary_crossentropy', patience=5)
-    # if i == 0:
-    #     model = UNet(3,1,16, [])
-    # else:
-    #     model = UNet(3,1,16, [i])
-    # if com[0] < 2:
-    #     continue
     model = UnetAS(3, 1, 64, com)
     batch_size = 4
     model.build(input_shape=(batch_size,img_size,3))
     model.compile(optimizer=tf.keras.optimizers.Adam(lr=1e-4), loss=tf.keras.losses.BinaryCrossentropy(from_logits=True), metrics=['binary_crossentropy'])
-    # model.fit(data_generator_train, epochs=50, steps_per_epoch=len(x_train)-1, callbacks=[checkpoint, early_stop], validation_data=data_generator_validation, validation_steps=50)
-    model.fit(data_generator_train, epochs=10, steps_per_epoch=len(x_train)-1, callbacks=[early_stop], validation_data=data_generator_validation, validation_steps=10, verbose=2)
+    model.fit(data_generator_train, epochs=50, steps_per_epoch=len(x_train)-1, callbacks=[checkpoint, early_stop], validation_data=data_generator_validation, validation_steps=50, verbose=2)
+    # model.fit(data_generator_train, epochs=10, steps_per_epoch=len(x_train)-1, callbacks=[early_stop], validation_data=data_generator_validation, validation_steps=10, verbose=2)
+    # model.save(model_file_name)
+    tf.keras.backend.clear_session()
+
