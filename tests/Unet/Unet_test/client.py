@@ -103,7 +103,7 @@ def get_model_info(partition_points):
 
     # If there is no model to be executed
     if len(partition_points) == 1:
-        return [partition_points], [partition_points], []
+        return [int(partition_points)], [int(partition_points)], []
 
     # Load front model json infos
     for i in range(len(partition_points) - 1):
