@@ -103,7 +103,8 @@ def get_model_info(partition_points):
 
     # If there is no model to be executed
     if len(partition_points) == 1:
-        return [int(partition_points[0])], [int(partition_points[0])], []
+        partition_points = list(map(int, partition_points))
+        return [partition_points], [partition_points], []
 
     # Load front model json infos
     for i in range(len(partition_points) - 1):
@@ -179,9 +180,10 @@ if __name__ == '__main__':
     send_queue_idxs = total_server_input_idxs
     pass_queue_idxs = np.intersect1d(total_front_output_idxs, total_back_input_idxs)
     recv_queue_idxs = np.intersect1d(total_server_output_idxs, total_back_input_idxs)
+    print("###################")
     print(total_front_output_idxs, total_server_output_idxs, total_back_input_idxs)
     print(send_queue_idxs, pass_queue_idxs, recv_queue_idxs)
-
+    print("###################")
 
     # Load models
     model_path = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.so".format(*model_config, quantization_level)
@@ -210,6 +212,7 @@ if __name__ == '__main__':
 
     stime = time.time()
     for frame in data_queue:
+        print(1)
         in_data = {}
         # Data preprocessing
         if len(frame) == 0:
