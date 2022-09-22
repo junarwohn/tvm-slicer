@@ -1,19 +1,70 @@
-server_ip=""
+server_ip=192.168.0.184
+# server_ip=172.17.0.2
 
-python3 client.py -c 0 0 0 0 -q 0 -f 0 9 -b 94 111 --ip=$server_ip -v 1
 
-python3 client.py -c 0 0 0 0 -q 1 -f 0 9 -b 107 119 --ip=$server_ip
+python3 client.py -c 0 0 0 0 -q 0 -f 0 9 -b 100 111 --ip=$server_ip
+sleep 3
+python3 client.py -c 0 0 0 0 -q 0 -f 0 9 -b 100 111 --ip=$server_ip
+sleep 3
+python3 client.py -c 0 0 0 0 -q 0 -f 0 19 -b 85 111 --ip=$server_ip
+sleep 3
+python3 client.py -c 0 0 0 0 -q 0 -f 0 19 -b 85 111 --ip=$server_ip
+sleep 3
+python3 client.py -c 0 0 0 0 -q 0 -f 0 39 -b 55 111 --ip=$server_ip
+sleep 3
+python3 client.py -c 0 0 0 0 -q 0 -f 0 39 -b 55 111 --ip=$server_ip
+sleep 3
 
-python3 client.py -c 0 0 0 0 -q 2 -f 0 11 -b 115 141 --ip=$server_ip
-            
-python3 client.py -c 1 0 0 0 -q 0 -f 0 20,66 -b 66,126 148 --ip=$server_ip
 
-python3 client.py -c 1 0 0 0 -q 1 -f 0 29,132 -b 132,113 155 --ip=$server_ip
+python3 client.py -c 0 0 0 0 -q 2 -f 0 11 -b 133 141 --ip=$server_ip
+sleep 3
+python3 client.py -c 0 0 0 0 -q 2 -f 0 11 -b 133 141 --ip=$server_ip
+sleep 3
+python3 client.py -c 0 0 0 0 -q 2 -f 0 13 -b 115 141 --ip=$server_ip
+sleep 3
+python3 client.py -c 0 0 0 0 -q 2 -f 0 13 -b 115 141 --ip=$server_ip
+sleep 3
+python3 client.py -c 0 0 0 0 -q 2 -f 0 41 -b 73 141 --ip=$server_ip
+sleep 3
+python3 client.py -c 0 0 0 0 -q 2 -f 0 41 -b 73 141 --ip=$server_ip
+sleep 3
 
-python3 client.py -c 1 0 0 0 -q 2 -f 0 25,171 -b 144,171 186 --ip=$server_ip
-            
-python3 client.py -c 2 0 0 0 -q 0 -f 0 39,89 -b 167,89 184 --ip=$server_ip
 
-python3 client.py -c 2 0 0 0 -q 1 -f 0 39,155 -b 155,146 191 --ip=$server_ip
+python3 client.py -c 1 0 0 0 -q 0 -f 0 29,54 -b 100,54 126 --ip=$server_ip
+sleep 3
+python3 client.py -c 1 0 0 0 -q 0 -f 0 29,54 -b 100,54 126 --ip=$server_ip
+sleep 3
+python3 client.py -c 1 0 0 0 -q 0 -f 0 39,54 -b 85,54 126 --ip=$server_ip
+sleep 3
+python3 client.py -c 1 0 0 0 -q 0 -f 0 39,54 -b 85,54 126 --ip=$server_ip
+sleep 3
 
-python3 client.py -c 2 0 0 0 -q 2 -f 0 44,201 -b 201,174 233 --ip=$server_ip
+
+python3 client.py -c 1 0 0 0 -q 2 -f 0 18 -b 151 159 --ip=$server_ip
+sleep 3
+python3 client.py -c 1 0 0 0 -q 2 -f 0 18 -b 151 159 --ip=$server_ip
+sleep 3
+python3 client.py -c 1 0 0 0 -q 2 -f 0 20,144 -b 128,144 159 --ip=$server_ip
+sleep 3
+python3 client.py -c 1 0 0 0 -q 2 -f 0 20,144 -b 128,144 159 --ip=$server_ip
+sleep 3
+
+
+python3 client.py -c 2 0 0 0 -q 0 -f 0 40,70 -b 116,70 142 --ip=$server_ip
+sleep 3
+python3 client.py -c 2 0 0 0 -q 0 -f 0 40,70 -b 116,70 142 --ip=$server_ip
+sleep 3
+python3 client.py -c 2 0 0 0 -q 0 -f 0 50,70 -b 101,70 142 --ip=$server_ip
+sleep 3
+python3 client.py -c 2 0 0 0 -q 0 -f 0 50,70 -b 101,70 142 --ip=$server_ip
+sleep 3
+
+
+python3 client.py -c 2 0 0 0 -q 2 -f 0 18 -b 165 179 --ip=$server_ip
+sleep 3
+python3 client.py -c 2 0 0 0 -q 2 -f 0 18 -b 165 179 --ip=$server_ip
+sleep 3
+python3 client.py -c 2 0 0 0 -q 2 -f 0 28,158 -b 142,158 179 --ip=$server_ip
+sleep 3
+python3 client.py -c 2 0 0 0 -q 2 -f 0 28,158 -b 142,158 179 --ip=$server_ip
+sleep 3

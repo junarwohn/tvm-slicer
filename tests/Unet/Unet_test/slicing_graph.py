@@ -292,7 +292,7 @@ upc = UnetPreProcessCallback()
 out = rewrite(upc, mod['main'])
 
 if quantization_level == 0:
-    out = relay.Function(out.params, relay.Tuple(upc.match_node + [out.body]), out.ret_type, out.type_params, out.attrs)
+    out = relay.Function(out.params, relay.Tuple(upc.match_node + upc.match_node2 + [out.body]), out.ret_type, out.type_params, out.attrs)
 else:
     uc = UnetCallback(upc.match_node)
     out = rewrite(uc, mod['main'])
@@ -359,7 +359,7 @@ for i in range(len(partition_points) - 1):
     start_points = [int(i) + 1 for i in partition_points[i].split(',')]
     end_points =  [int(i) for i in partition_points[i + 1].split(',')]
 
-    # graph_json, input_indexs, output_indexs = tvm_slicer.slice_graph(start_point + 1, end_point, is_quantize_sliced=True)
+    # graph_json, input_indexs, output_indexs = tvm_sxlicer.slice_graph(start_point + 1, end_point, is_quantize_sliced=True)
     graph_json, input_indexs, output_indexs = tvm_slicer.slice_graph(start_points, end_points, is_quantize_sliced=True)
     with open("UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}].json".format(
         *model_config, 

@@ -112,7 +112,7 @@ def get_model_info(partition_points):
         # end_point = partition_points[i + 1]
         start_points = [int(i) for i in partition_points[i].split(',')]
         end_points =  [int(i) for i in partition_points[i + 1].split(',')]
-        print(start_points, end_points)
+        # print(start_points, end_points)
         # current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
         with open("UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}].json".format(
             *model_config, 
@@ -180,10 +180,10 @@ if __name__ == '__main__':
     send_queue_idxs = total_server_input_idxs
     pass_queue_idxs = np.intersect1d(total_front_output_idxs, total_back_input_idxs)
     recv_queue_idxs = np.intersect1d(total_server_output_idxs, total_back_input_idxs)
-    print("###################")
-    print(total_front_output_idxs, total_server_output_idxs, total_back_input_idxs)
-    print(send_queue_idxs, pass_queue_idxs, recv_queue_idxs)
-    print("###################")
+    # print("###################")
+    # print(total_front_output_idxs, total_server_output_idxs, total_back_input_idxs)
+    # print(send_queue_idxs, pass_queue_idxs, recv_queue_idxs)
+    # print("###################")
 
     # Load models
     model_path = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.so".format(*model_config, quantization_level)
@@ -212,7 +212,6 @@ if __name__ == '__main__':
 
     stime = time.time()
     for frame in data_queue:
-        print(1)
         in_data = {}
         # Data preprocessing
         if len(frame) == 0:
@@ -291,7 +290,7 @@ if __name__ == '__main__':
 
         if args.visualize:
             cv2.imshow("received - client", img_in_rgb)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
+            if cv2.waitKey(0) & 0xFF == ord('q'):
                 break
 
         # Option : visualize

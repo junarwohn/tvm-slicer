@@ -34,14 +34,23 @@ def _conv_block_2(in_data, out_dim):
     return out
 
 def _mutate_reduction(down, pool, num_filter):
+    # print("_mutate_reduction")
     num_filter = int(num_filter / 2)
-    down = _conv_block_2(in_data=pool, out_dim=num_filter)
+    # print(pool.shape)
+    # down = _conv_block_2(in_data=pool, out_dim=num_filter)
+    down = _conv_block(in_data=pool, out_dim=num_filter)
     pool = _maxpool(down)
+    # print(pool.shape)
+    # print("################")
     return down, pool, num_filter
 
 def _mutate_expansion(trans, num_filter):
-    trans = _conv_block_2(in_data=trans, out_dim=num_filter)
+    # print("_mutate_expansion")
+    # print(trans.shape)
+    # trans = _conv_block_2(in_data=trans, out_dim=num_filter)
     trans = _conv_trans_block(in_data=trans, out_dim=num_filter)
+    # print(trans.shape)
+    # print("################")
     num_filter = num_filter * 2
     return trans, num_filter
 
