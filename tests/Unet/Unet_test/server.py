@@ -130,14 +130,15 @@ if __name__ == '__main__':
 
     # Assume that there is only one model    
     model = graph_executor.create(server_graph_json_strs[0], lib, dev)
+    print("load params")
     model.load_params(loaded_params)
 
+    print("ll")
     total_inputs = len(server_input_idxs[0])
     
     recv_msg = b''
 
     client_connection = True
-
     while True:
         # recv messages as the number of inputs
         # if recv the 0 size packet -> break the main loop
@@ -176,6 +177,7 @@ if __name__ == '__main__':
         # inference
         for key in recv_queue.keys():
             # print('input_{}'.format(key))
+            # print(recv_queue[key].shape)
             model.set_input('input_{}'.format(key), recv_queue[key])
             
         model.run()

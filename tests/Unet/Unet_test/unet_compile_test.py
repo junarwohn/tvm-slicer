@@ -1,7 +1,7 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 # from UNetKerasAS import UNet as UnetAS
-from UNetKerasReshapePreserve import UNet as UnetAS
+from UNetKerasReshapePreserve_noauto import UNet as UnetAS
 import tensorflow as tf
 # from UNetKerasOriginal import UNet as UnetAS
 

@@ -268,13 +268,6 @@ model_config = args.model_config
 
 np.random.seed(0)
 img_size = args.img_size
-input_data = np.random.normal(0,1,(1,img_size,img_size,3)).astype(np.float32)
-model_keras = tf.keras.models.load_model("UNet_M[{}-{}-{}-{}].h5".format(*model_config))
-
-# tvm result
-input_data = input_data.transpose([0, 3, 1, 2])
-shape_dict = {"input_1": input_data.shape}
-mod, params = relay.frontend.from_keras(model_keras, shape_dict)
 
 if args.target == 'llvm':
     target = 'llvm'
@@ -288,77 +281,27 @@ elif args.target == 'opencl':
 
 quantization_level = args.quantization_level
 
-upc = UnetPreProcessCallback()
-out = rewrite(upc, mod['main'])
 
-if quantization_level == 0:
-    out = relay.Function(out.params, relay.Tuple(upc.match_node + upc.match_node2 + [out.body]), out.ret_type, out.type_params, out.attrs)
-else:
-    uc = UnetCallback(upc.match_node)
-    out = rewrite(uc, mod['main'])
-    upc = UnetPreProcessCallback()
-    rewrite(upc, out)
-    uc2 = UnetCallback2(upc.match_node2)
-    out = rewrite(uc2, out)
-    
-    if quantization_level == 1:
-        out = relay.Function(out.params, relay.Tuple(uc.tmp + [out.body]), out.ret_type, out.type_params, out.attrs)
-
-    elif quantization_level == 2:
-
-        upc = UnetMaxPool2dCallback()
-        rewrite(upc, out)
-        # print(len(upc.match_node))
-        uc2 = UnetCallback3(upc.match_node)
-        out = rewrite(uc2, out)
-
-        upc = UnetLeakyReLUCallback()
-        rewrite(upc, out)
-        # print(len(upc.match_node))
-        uc2 = UnetCallback4(upc.match_node)
-        out = rewrite(uc2, out)
-
-        int8_collector = Int8Collector()
-        rewrite(int8_collector, out)
-        out = relay.Function(out.params, relay.Tuple(int8_collector.match_node + [out.body]), out.ret_type, out.type_params, out.attrs)
-
-with tvm.transform.PassContext(opt_level=args.opt_level):
-    lib = relay.build(out, target, params=params)
-
-graph_json_raw = lib['get_graph_json']()
-
-tvm_slicer = TVMSlicer(graph_json_raw)
-
-# Build lib and params
-if args.build == 1:
-    lib.export_library("UNet_M[{}-{}-{}-{}]_Q[{}]_full.so".format(*model_config, quantization_level))
-    param_bytes = tvm.runtime.save_param_dict(lib.get_params())
-    with open("UNet_M[{}-{}-{}-{}]_Q[{}]_full.params".format(*model_config, quantization_level), "wb") as f:
-        f.write(param_bytes)
 
 # TODO adding final_shape 
 # do 'extra' job to 
-with open("UNet_M[{}-{}-{}-{}]_Q[{}]_full.json".format(*model_config, quantization_level), "w") as json_file:
-    json_file.write(graph_json_raw)
+with open("UNet_M[{}-{}-{}-{}]_Q[{}]_full.json".format(*model_config, quantization_level), "r") as json_file:
+    graph_json_raw = json.load(json_file)
 
-graph_info = json.loads(graph_json_raw)
-# print(len(graph_info['nodes'])-1)
-with open("UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}].json".format(*model_config, quantization_level, 0, len(graph_info['nodes'])-1), "w") as json_file:
-    graph_json, input_indexs, output_indexs = tvm_slicer.slice_graph([1], [len(graph_info['nodes'])-1], is_quantize_sliced=True)
-    graph_json['extra'] = {}
-    graph_json['extra']['inputs'] = input_indexs
-    graph_json['extra']['outputs'] = output_indexs
-    json_file.write(json.dumps(graph_json))
+tvm_slicer = TVMSlicer(graph_json_raw)
+
+graph_info = graph_json_raw
 
 # json format would be {model}_{target}_{img_size}_{opt_level}_{partition_start}-{partition_end}.json
 partition_points = args.partition_points
+if len(partition_points) > 4:
+    partition_points = partition_points[:4]
+    
 for i in range(len(partition_points) - 1):
     # start_point = partition_points[i]
     # end_point = partition_points[i + 1]
-
     start_points = [int(i) + 1 for i in partition_points[i].split(',')]
     end_points =  [int(i) for i in partition_points[i + 1].split(',')]
-
     # graph_json, input_indexs, output_indexs = tvm_sxlicer.slice_graph(start_point + 1, end_point, is_quantize_sliced=True)
     graph_json, input_indexs, output_indexs = tvm_slicer.slice_graph(start_points, end_points, is_quantize_sliced=True)
     with open("UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}].json".format(

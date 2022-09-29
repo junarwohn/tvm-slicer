@@ -37,6 +37,7 @@ parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
 parser.add_argument('--visualize', '-v', type=int, default=0, help='visualize option')
 parser.add_argument('--model_config', '-c', nargs='+', type=int, default=0, help='set partition point')
 parser.add_argument('--quantization_level', '-q', type=int, default=0, help='set quantization level')
+parser.add_argument('--jetson', '-j', type=int, default=0, help='jetson')
 args = parser.parse_args()
 
 def make_preprocess(model, im_sz):
@@ -79,6 +80,7 @@ font=cv2.FONT_HERSHEY_SIMPLEX
 
 model_config = args.model_config
 quantization_level = args.quantization_level
+is_jetson = args.jetson
 
 def load_data():
     cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
@@ -114,7 +116,13 @@ def get_model_info(partition_points):
         end_points =  [int(i) for i in partition_points[i + 1].split(',')]
         # print(start_points, end_points)
         # current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
-        with open("UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}].json".format(
+        
+        if is_jetson == 1:
+            json_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}]_jetson.json"
+        else:
+            json_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}].json"
+
+        with open(json_format.format(
             *model_config, 
             quantization_level, 
             "_".join(map(str,[i for i in start_points])), 
@@ -186,10 +194,20 @@ if __name__ == '__main__':
     # print("###################")
 
     # Load models
-    model_path = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.so".format(*model_config, quantization_level)
+    if is_jetson == 1:
+        model_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_full_jetson.so"
+    else:
+        model_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.so"
+    
+    model_path = model_format.format(*model_config, quantization_level)
     lib = tvm.runtime.load_module(model_path)
 
-    param_path = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.params".format(*model_config, quantization_level)
+    if is_jetson == 1:
+        param_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_full_jetson.params"
+    else:
+        param_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.params"
+
+    param_path = param_format.format(*model_config, quantization_level)
     with open(param_path, "rb") as fi:
         loaded_params = bytearray(fi.read())
 
@@ -209,7 +227,6 @@ if __name__ == '__main__':
     pass_queue = {}
     recv_msg = b''
     # Load network connection
-
     stime = time.time()
     for frame in data_queue:
         in_data = {}
@@ -232,7 +249,6 @@ if __name__ == '__main__':
             model.run()
             for i, output_index in enumerate(out_indexs):
                 in_data[output_index] = model.get_output(i).numpy()
-        
         # Send
         for output_idxs in front_output_idxs:
             for output_idx in output_idxs:
@@ -270,16 +286,15 @@ if __name__ == '__main__':
                     recv_queue[k] = data[k]
             except:
                 break
-
         # Back inference
         if len(back_models) == 0:
             out = recv_queue[recv_queue_idxs[0]]
         else:
             for in_idx in pass_queue_idxs:
                 back_models[0].set_input("input_{}".format(in_idx), pass_queue[in_idx])
-
             for in_idx in recv_queue_idxs:
                 back_models[0].set_input("input_{}".format(in_idx), recv_queue[in_idx])
+                # print(recv_queue[in_idx])
 
             back_models[0].run()
             out = back_models[0].get_output(0).numpy()
@@ -290,7 +305,7 @@ if __name__ == '__main__':
 
         if args.visualize:
             cv2.imshow("received - client", img_in_rgb)
-            if cv2.waitKey(0) & 0xFF == ord('q'):
+            if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
         # Option : visualize

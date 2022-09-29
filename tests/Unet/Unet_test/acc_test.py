@@ -203,6 +203,6 @@ if __name__ == '__main__':
             result += iou
             cnt += 1
     print(result / cnt)
-    print(time.time() - stime)
+    # print(time.time() - stime)
 
     print("------------------------")

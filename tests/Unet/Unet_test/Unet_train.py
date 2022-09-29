@@ -1,5 +1,6 @@
 # from UNetKerasAS import UNet as UnetAS
-from UNetKerasReshapePreserve import UNet as UnetAS
+# from UNetKerasReshapePreserve import UNet as UnetAS
+from UNetKerasReshapePreserve_noauto import UNet as UnetAS
 import copy
 import numpy as np
 import tensorflow as tf
@@ -119,8 +120,9 @@ for com in combinations[::-1]:
     batch_size = 4
     model.build(input_shape=(batch_size,img_size,3))
     model.compile(optimizer=tf.keras.optimizers.Adam(lr=1e-4), loss=tf.keras.losses.BinaryCrossentropy(from_logits=True), metrics=['binary_crossentropy'])
-    model.fit(data_generator_train, epochs=10, steps_per_epoch=len(x_train)-1, callbacks=[checkpoint, early_stop], validation_data=data_generator_validation, validation_steps=10, verbose=2)
-    # model.fit(data_generator_train, epochs=50, steps_per_epoch=len(x_train)-1, callbacks=[checkpoint, early_stop], validation_data=data_generator_validation, validation_steps=50, verbose=2)
+    # model.fit(data_generator_train, epochs=10, steps_per_epoch=len(x_train)-1, callbacks=[checkpoint, early_stop], validation_data=data_generator_validation, validation_steps=10, verbose=2)
+    # model.fit(data_generator_train, epochs=10, steps_per_epoch=len(x_train)-1, callbacks=[checkpoint, early_stop], validation_data=data_generator_validation, validation_steps=10, verbose=2)
+    model.fit(data_generator_train, epochs=50, steps_per_epoch=len(x_train)-1, callbacks=[checkpoint, early_stop], validation_data=data_generator_validation, validation_steps=50, verbose=2)
     # model.fit(data_generator_train, epochs=10, steps_per_epoch=len(x_train)-1, callbacks=[early_stop], validation_data=data_generator_validation, validation_steps=10, verbose=2)
     # model.save(model_file_name)
     tf.keras.backend.clear_session()

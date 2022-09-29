@@ -37,6 +37,7 @@ parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
 parser.add_argument('--visualize', '-v', type=int, default=0, help='visualize option')
 parser.add_argument('--model_config', '-c', nargs='+', type=int, default=0, help='set partition point')
 parser.add_argument('--quantization_level', '-q', type=int, default=0, help='set quantization level')
+parser.add_argument('--jetson', '-j', type=int, default=0, help='jetson')
 args = parser.parse_args()
 
 def make_preprocess(model, im_sz):
@@ -74,6 +75,7 @@ org=(50,100)
 font=cv2.FONT_HERSHEY_SIMPLEX
 model_config = args.model_config
 quantization_level = args.quantization_level
+is_jetson = args.jetson
 
 def load_data():
     cap = cv2.VideoCapture("../../../tvm-slicer/src/data/j_scan.mp4")
@@ -108,8 +110,12 @@ def get_model_info(partition_points):
         start_points = [int(i) for i in partition_points[i].split(',')]
         end_points =  [int(i) for i in partition_points[i + 1].split(',')]
 
+        if is_jetson == 1:
+            json_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}]_jetson.json"
+        else:
+            json_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}].json"
         # with open(current_file_path + "unet_as_{}_{}_{}_{}_{}-{}.json".format(*model_config, start_point, end_point), "r") as json_file:
-        with open("UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}].json".format(
+        with open(json_format.format(
             *model_config, 
             quantization_level, 
             "_".join(map(str, start_points)), 
@@ -139,11 +145,20 @@ if __name__ == '__main__':
     front_input_idxs, front_output_idxs, front_graph_json_strs = get_model_info(points_front_model)
 
     # Load models
-    model_path = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.so".format(*model_config, quantization_level)
+    if is_jetson == 1:
+        model_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_full_jetson.so"
+    else:
+        model_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.so"
+        
+    model_path = model_format.format(*model_config, quantization_level)
     # model_path = "../src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, args.img_size, args.opt_level)
     lib = tvm.runtime.load_module(model_path)
 
-    param_path = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.params".format(*model_config, quantization_level)
+    if is_jetson == 1:
+        param_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_full_jetson.params"
+    else:
+        param_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.params"
+    param_path = param_format.format(*model_config, quantization_level)
     with open(param_path, "rb") as fi:
         loaded_params = bytearray(fi.read())
 

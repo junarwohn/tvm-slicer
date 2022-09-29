@@ -44,7 +44,6 @@ class TVMSlicer:
         return self.dfs_list
 
     def slice_graph(self, start_nodes, end_nodes, is_quantize_sliced=False):
-
         graph_config = copy.deepcopy(self.graph_config)
 
         def dfs(cur_node_index, upper_bound, mark_list):
@@ -69,28 +68,27 @@ class TVMSlicer:
         self.sliced_graph = []
 
         start_points = [start_node - 1 for start_node in start_nodes]
+        # start_points.sort(reverse=True)
         end_points = [end_node for end_node in end_nodes]
+        # start_points.sort(reverse=True)
 
-        # print("pre_nodes")
         pre_nodes = []
         for start_point in start_points:
             nodes = np.array(sorted(dfs(start_point, 0, [])))
             pre_nodes = np.union1d(pre_nodes, nodes).astype(int)
             # pre_nodes = np.array(sorted(dfs(start_point, 0, [])))
-        # print("target_nodes")
         target_nodes = []
         for end_point in end_points:
             nodes = np.array(sorted(dfs(end_point, 0, [])))
             target_nodes = np.union1d(target_nodes, nodes).astype(int)
             # target_nodes = np.array(sorted(dfs(end_p, 0, [])))
-    
+        # print(target_nodes)
         # print("total_nodes")
         total_nodes = [i for i in range(len(graph_config['nodes']))]
 
         # model_nodes = target_nodes - pre_nodes 
         model_nodes = np.setdiff1d(target_nodes, pre_nodes)
         np.sort(model_nodes)
-        # print(model_nodes)
         
         # complement_nodes = total_nodes - model_nodes
         complement_nodes = pre_nodes
@@ -206,24 +204,6 @@ class TVMSlicer:
             model_nodes = np.concatenate([model_nodes, np.array(intermediate_nodes)])
             np.sort(model_nodes)
 
-        # for e_node in ex_nodes:
-        #     for input_node_index in graph_config['nodes'][e_node]['inputs']:
-        #         if input_node_index[0] in model_nodes:
-        #             if is_quantize_sliced:
-        #                 cur_output_node = input_node_index[0]
-        #                 parent_output_node_index = graph_config['nodes'][cur_output_node]['inputs'][0][0]
-        #                 parent_output_node_dtype = graph_config["attrs"]["dltype"][1][parent_output_node_index]
-        #                 if parent_output_node_dtype == 'int8':
-        #                     try:
-        #                         dep_output_info[int(np.where(model_nodes == parent_output_node_index)[0])] = parent_output_node_index[0]
-        #                     except:
-        #                         pass
-        #                 else:
-        #                     dep_output_info[int(np.where(model_nodes == input_node_index[0])[0])] = input_node_index[0]
-        #             else:
-        #                 dep_output_info[int(np.where(model_nodes == input_node_index[0])[0])] = input_node_index[0]
-        # print("dep_output_info", dep_output_info)
-
         sliced_graph_config = {
             "nodes" : [],
             "arg_nodes": [],
@@ -268,17 +248,6 @@ class TVMSlicer:
             sliced_graph_config["node_row_ptr"].append(int(input_node_index))
 
 
-            # sliced_graph_config["nodes"].append(copy.deepcopy(graph_config['nodes'][input_node_index]))
-            # sliced_graph_config["nodes"][-1]["op"] = "null"
-            # sliced_graph_config["nodes"][-1]["name"] = "input_{}".format(input_node_index)
-            # sliced_graph_config["nodes"][-1]["inputs"] = [] 
-            # sliced_graph_config["arg_nodes"].append(int(input_nodes.index(input_node_index)))
-            # sliced_graph_config["attrs"]["dltype"][1].append(graph_config["attrs"]["dltype"][1][input_node_index])
-            # sliced_graph_config["attrs"]["device_index"][1].append(graph_config["attrs"]["device_index"][1][input_node_index])
-            # sliced_graph_config["attrs"]["storage_id"][1].append(graph_config["attrs"]["storage_id"][1][input_node_index])
-            # sliced_graph_config["attrs"]["shape"][1].append(copy.deepcopy(graph_config["attrs"]["shape"][1][input_node_index]))
-            # sliced_graph_config["node_row_ptr"].append(int(input_node_index))
-
         # Add body
         model_nodes = sorted(model_nodes)
         model_nodes = input_nodes + model_nodes
@@ -293,19 +262,6 @@ class TVMSlicer:
             sliced_graph_config["attrs"]["storage_id"][1].append(graph_config["attrs"]["storage_id"][1][node_index])
             sliced_graph_config["attrs"]["shape"][1].append(copy.deepcopy(graph_config["attrs"]["shape"][1][node_index]))
             sliced_graph_config["node_row_ptr"].append(int(node_index))
-
-        # # Set input
-        # for node_index, input_index in enumerate(model_nodes):
-        #     node_input_indexs = sliced_graph_config["nodes"][node_index]['inputs']
-        #     for i, node in enumerate(node_input_indexs):
-        #         sliced_graph_config["nodes"][node_index]['inputs'][i] = [model_nodes.index(node[0]), 0, 0]
-
-        # for dep_input_index in dep_input_info:
-        #     dep_node_indexs = dep_input_info[dep_input_index]
-        #     for node_index in dep_node_indexs:
-        #         # print(sliced_graph_config["nodes"][model_nodes.index(node_index)]['inputs'])
-        #         node_input_index = sliced_graph_config["nodes"][model_nodes.index(node_index)]['inputs'].index([dep_input_index, 0, 0])
-        #         sliced_graph_config["nodes"][model_nodes.index(node_index)]['inputs'][node_input_index] = [input_nodes.index(dep_input_index), 0, 0]
 
         # Set output
         output_nodes = sorted(output_dependency.keys())

@@ -275,16 +275,23 @@ model_keras = tf.keras.models.load_model("UNet_M[{}-{}-{}-{}].h5".format(*model_
 input_data = input_data.transpose([0, 3, 1, 2])
 shape_dict = {"input_1": input_data.shape}
 mod, params = relay.frontend.from_keras(model_keras, shape_dict)
-
 if args.target == 'llvm':
     target = 'llvm'
     dev = tvm.cpu()
 elif args.target == 'cuda':
-    target = 'cuda -model=nx'
+    target = 'cuda'
     dev = tvm.cuda()
 elif args.target == 'opencl':
     target = 'opencl'
     dev = tvm.opencl()
+    
+target = tvm.target.Target("nvidia/jetson-nano")
+assert target.kind.name == "cuda"
+assert target.attrs["arch"] == "sm_53"
+assert target.attrs["shared_memory_per_block"] == 49152
+assert target.attrs["max_threads_per_block"] == 1024
+assert target.attrs["thread_warp_size"] == 32
+assert target.attrs["registers_per_block"] == 32768
 
 quantization_level = args.quantization_level
 
@@ -292,7 +299,18 @@ upc = UnetPreProcessCallback()
 out = rewrite(upc, mod['main'])
 
 if quantization_level == 0:
-    out = relay.Function(out.params, relay.Tuple(upc.match_node + [out.body]), out.ret_type, out.type_params, out.attrs)
+    maxpool = UnetMaxPool2dCallback()
+    rewrite(maxpool, out)
+    callnodes = upc.match_node + upc.match_node2 + maxpool.match_node + [out.body]
+    callnodes_str = [str(node) for node in callnodes]
+    callnodes_str = list(set(callnodes_str))
+    callnodes_str.sort(key=lambda x: len(x))
+    callnodes_str = callnodes_str[::-1]
+    out_nodes = [None for i in range(len(callnodes_str))]
+    for node in callnodes:
+        out_nodes[callnodes_str.index(str(node))] = node
+    # out = relay.Function(out.params, relay.Tuple(upc.match_node + upc.match_node2 + maxpool.match_node + [out.body]), out.ret_type, out.type_params, out.attrs)
+    out = relay.Function(out.params, relay.Tuple(out_nodes), out.ret_type, out.type_params, out.attrs)
 else:
     uc = UnetCallback(upc.match_node)
     out = rewrite(uc, mod['main'])
@@ -302,7 +320,16 @@ else:
     out = rewrite(uc2, out)
     
     if quantization_level == 1:
-        out = relay.Function(out.params, relay.Tuple(uc.tmp + [out.body]), out.ret_type, out.type_params, out.attrs)
+        callnodes = uc.tmp + [out.body]
+        callnodes_str = [str(node) for node in callnodes]
+        callnodes_str = list(set(callnodes_str))
+        callnodes_str.sort(key=lambda x: len(x))
+        callnodes_str = callnodes_str[::-1]
+        out_nodes = [None for i in range(len(callnodes_str))]
+        for node in callnodes:
+            out_nodes[callnodes_str.index(str(node))] = node
+        # out = relay.Function(out.params, relay.Tuple(uc.tmp + [out.body]), out.ret_type, out.type_params, out.attrs)
+        out = relay.Function(out.params, relay.Tuple(out_nodes), out.ret_type, out.type_params, out.attrs)
 
     elif quantization_level == 2:
 
@@ -320,7 +347,18 @@ else:
 
         int8_collector = Int8Collector()
         rewrite(int8_collector, out)
-        out = relay.Function(out.params, relay.Tuple(int8_collector.match_node + [out.body]), out.ret_type, out.type_params, out.attrs)
+        
+        callnodes = int8_collector.match_node + [out.body]
+        callnodes_str = [str(node) for node in callnodes]
+        callnodes_str = list(set(callnodes_str))
+        callnodes_str.sort(key=lambda x: len(x))
+        callnodes_str = callnodes_str[::-1]
+        out_nodes = [None for i in range(len(callnodes_str))]
+        for node in callnodes:
+            out_nodes[callnodes_str.index(str(node))] = node
+        # out = relay.Function(out.params, relay.Tuple(int8_collector.match_node + [out.body]), out.ret_type, out.type_params, out.attrs)
+        out = relay.Function(out.params, relay.Tuple(out_nodes), out.ret_type, out.type_params, out.attrs)
+
 
 with tvm.transform.PassContext(opt_level=args.opt_level):
     lib = relay.build(out, target=target, params=params)
@@ -338,18 +376,21 @@ if args.build == 1:
 
 # # TODO adding final_shape 
 # # do 'extra' job to 
-# with open("UNet_M[{}-{}-{}-{}]_Q[{}]_full.json".format(*model_config, quantization_level), "w") as json_file:
-#     json_file.write(graph_json_raw)
+with open("UNet_M[{}-{}-{}-{}]_Q[{}]_full_jetson.json".format(*model_config, quantization_level), "w") as json_file:
+    json_file.write(graph_json_raw)
 
-# graph_info = json.loads(graph_json_raw)
-# # print(len(graph_info['nodes'])-1)
-# with open("UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}].json".format(*model_config, quantization_level, 0, len(graph_info['nodes'])-1), "w") as json_file:
-#     graph_json, input_indexs, output_indexs = tvm_slicer.slice_graph([1], [len(graph_info['nodes'])-1], is_quantize_sliced=True)
-#     graph_json['extra'] = {}
-#     graph_json['extra']['inputs'] = input_indexs
-#     graph_json['extra']['outputs'] = output_indexs
-#     json_file.write(json.dumps(graph_json))
-
+graph_info = json.loads(graph_json_raw)
+# print(len(graph_info['nodes'])-1)
+with open("UNet_M[{}-{}-{}-{}]_Q[{}]_S[{}-{}]_jetson.json".format(*model_config, quantization_level, 0, len(graph_info['nodes'])-1), "w") as json_file:
+    graph_json, input_indexs, output_indexs = tvm_slicer.slice_graph([1], [len(graph_info['nodes'])-1], is_quantize_sliced=True)
+    graph_json['extra'] = {}
+    graph_json['extra']['inputs'] = input_indexs
+    graph_json['extra']['outputs'] = output_indexs
+    json_file.write(json.dumps(graph_json))
+    
+with open("UNet_M[{}-{}-{}-{}]_Q[{}]_full_jetson.json".format(*model_config, quantization_level), "w") as json_file:
+    json_file.write(graph_json_raw)
+    
 # # json format would be {model}_{target}_{img_size}_{opt_level}_{partition_start}-{partition_end}.json
 # partition_points = args.partition_points
 # for i in range(len(partition_points) - 1):
