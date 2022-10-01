@@ -173,7 +173,7 @@ if len(input_idxs) == 3:
         total_network_time += network_simulator(msg_size, 'wifi')
 
     ### INFERENCE
-    total_inference_time += sum(list(map(float, time_2080ti_info[0]))) + sum(list(map(float, time_jetson_info[1]))) + sum(list(map(float, time_2080ti_info[2])))
+    total_inference_time += sum(list(map(float, time_jetson_info[0]))) + sum(list(map(float, time_2080ti_info[1]))) + sum(list(map(float, time_jetson_info[2])))
     
 else:
     print("Wrong slicing configure!!!!!")
