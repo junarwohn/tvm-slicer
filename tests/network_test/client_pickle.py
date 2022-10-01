@@ -33,7 +33,6 @@ parser.add_argument('--opt_level', '-o', type=int, default=2, help='set opt_leve
 parser.add_argument('--ip', type=str, default='192.168.0.184', help='input ip of host')
 parser.add_argument('--socket_size', type=int, default=1024*1024, help='socket data size')
 parser.add_argument('--ntp_enable', type=int, default=0, help='ntp support')
-
 args = parser.parse_args()
 
 HOST_IP = args.ip

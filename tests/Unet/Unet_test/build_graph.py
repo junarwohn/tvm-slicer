@@ -13,6 +13,8 @@ import pygraphviz as pgv
 from argparse import ArgumentParser
 from tvm.relay.build_module import bind_params_by_name
 from tvm.relay.dataflow_pattern import *
+from tvm import rpc
+from tvm.autotvm.measure.measure_methods import set_cuda_target_arch
 
 class UnetPreProcessCallback(DFPatternCallback):
     # A callback class to rewrite the matched pattern to a batch_norm op.
@@ -261,8 +263,11 @@ parser.add_argument('--opt_level', '-o', type=int, default=3, help='set opt_leve
 parser.add_argument('--build', '-b', type=int, default=0, help='build model')
 parser.add_argument('--quantization_level', '-q', type=int, default=0, help='set quantization level')
 parser.add_argument('--model_config', '-c', nargs='+', type=int, default=0, help='set partition point')
-parser.add_argument('--jetson', '-j', nargs='+', type=int, default=0, help='jetson')
+parser.add_argument('--jetson', '-j', type=int, default=0, help='jetson')
 args = parser.parse_args()
+
+# set_cuda_target_arch("sm_62")
+set_cuda_target_arch("sm_72")
 
 current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
 model_config = args.model_config
@@ -277,24 +282,29 @@ input_data = input_data.transpose([0, 3, 1, 2])
 shape_dict = {"input_1": input_data.shape}
 mod, params = relay.frontend.from_keras(model_keras, shape_dict)
 
-if args.target == 'llvm':
-    target = 'llvm'
-    dev = tvm.cpu()
-elif args.target == 'cuda':
-    target = 'cuda'
-    dev = tvm.cuda()
-elif args.target == 'opencl':
-    target = 'opencl'
-    dev = tvm.opencl()
+
 
 if is_jetson == 1:
-    target = tvm.target.Target("nvidia/jetson-nano")
+    # target = tvm.target.Target("nvidia/jetson-nano")
+    target = tvm.target.Target("nvidia/jetson-agx-xavier")
+    # target = tvm.target.Target("nvidia/jetson-tx2")
     assert target.kind.name == "cuda"
-    assert target.attrs["arch"] == "sm_53"
+    # assert target.attrs["arch"] == "sm_62"
+    # target.attrs["arch"] = "sm_62"
     assert target.attrs["shared_memory_per_block"] == 49152
     assert target.attrs["max_threads_per_block"] == 1024
     assert target.attrs["thread_warp_size"] == 32
-    assert target.attrs["registers_per_block"] == 32768
+    # assert target.attrs["registers_per_block"] == 65536
+else:
+    if args.target == 'llvm':
+        target = 'llvm'
+        dev = tvm.cpu()
+    elif args.target == 'cuda':
+        target = 'cuda'
+        dev = tvm.cuda()
+    elif args.target == 'opencl':
+        target = 'opencl'
+        dev = tvm.opencl()
 
 quantization_level = args.quantization_level
 
@@ -304,7 +314,9 @@ out = rewrite(upc, mod['main'])
 if quantization_level == 0:
     maxpool = UnetMaxPool2dCallback()
     rewrite(maxpool, out)
-    callnodes = upc.match_node + upc.match_node2 + maxpool.match_node + [out.body]
+    leakyrelu = UnetLeakyReLUCallback()
+    rewrite(leakyrelu, out)
+    callnodes = upc.match_node + upc.match_node2 + maxpool.match_node + leakyrelu.match_node + [out.body]
     callnodes_str = [str(node) for node in callnodes]
     callnodes_str = list(set(callnodes_str))
     callnodes_str.sort(key=lambda x: len(x))
@@ -363,7 +375,10 @@ else:
         out = relay.Function(out.params, relay.Tuple(out_nodes), out.ret_type, out.type_params, out.attrs)
 
 with tvm.transform.PassContext(opt_level=args.opt_level):
-    lib = relay.build(out, target, params=params)
+    # lib = relay.build(out, target, params=params)
+    lib = relay.build(out, target, params=params, target_host="llvm -mtriple=aarch64-linux-gnueabihf -device=arm_cpu")
+    # lib = relay.build(out, target='cuda -arch=sm_72 -model=tx2', params=params, target_host="llvm -mtriple=aarch64-linux-gnueabihf -device=arm_cpu")
+    # lib = relay.build(out, target='cuda -arch=sm_72 -model=tx2', params=params, target_host='llvm -mtriple=aarch64-linux-gnueabihf -device=arm_cpu')
 
 graph_json_raw = lib['get_graph_json']()
 
@@ -375,7 +390,10 @@ if args.build == 1:
         model_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_full_jetson.so"
     else:
         model_format = "UNet_M[{}-{}-{}-{}]_Q[{}]_full.so"
-    lib.export_library(model_format.format(*model_config, quantization_level))
+    # lib.export_library(model_format.format(*model_config, quantization_level))
+    lib.export_library(model_format.format(*model_config, quantization_level), cc=f'/usr/bin/aarch64-linux-gnu-g++')
+    # lib.export_library(lib_path, cc=f'/usr/bin/aarch64-linux-gnu-g++')
+
 
 
     if is_jetson == 1:
