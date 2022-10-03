@@ -1,10 +1,16 @@
+import pickle
 import socket
 import struct
 import numpy as np
+from multiprocessing import Process, Queue
+import time
+from argparse import ArgumentParser
 
-HOST_IP = "127.0.0.1" 
 HOST_IP = "192.168.0.184" 
 PORT = 9998        
+parser = ArgumentParser()
+parser.add_argument('--size', '-s', type=int, default=786432)
+args = parser.parse_args()
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -12,29 +18,59 @@ server_socket.bind((HOST_IP, PORT))
 
 server_socket.listen()
 client_socket, addr = server_socket.accept()
+arr = np.random.normal(0, 1, (args.size)).astype(np.float32)
 
-recv_msg = b''
-
-while True:
-    try:
+def recv_img(q):
+    recv_msg = b''
+    while True:
         while len(recv_msg) < 4:
             recv_msg += client_socket.recv(4)
         total_recv_msg_size = struct.unpack('i', recv_msg[:4])[0]
         recv_msg = recv_msg[4:]
         if total_recv_msg_size == 0:
-            client_socket.sendall(struct.pack('i', 0))
+            q.put([])
+            break 
+        while len(recv_msg) < total_recv_msg_size:
+            recv_msg += client_socket.recv(total_recv_msg_size)
+        msg_data = recv_msg[:total_recv_msg_size]
+        recv_msg = recv_msg[total_recv_msg_size:]
+        data = pickle.loads(msg_data)
+        q.put(arr)
+        
+def send_img(q):
+    while True:
+        try:
+            frame = q.get()
+            if len(frame) == 0:
+                total_msg = struct.pack('i', 0)
+                client_socket.sendall(total_msg)
+                client_socket.close()
+                break
+        except:
+            total_msg = struct.pack('i', 0)
+            client_socket.sendall(total_msg)
+            client_socket.close()
             break
-    except:
-        break
+        
+        # Send msg
+        msg_body = pickle.dumps(frame)
+        total_send_msg_size = len(msg_body)
+        print(total_send_msg_size)
+        send_msg = struct.pack('i', total_send_msg_size) + msg_body
+        # Send object
+        client_socket.sendall(send_msg)
+    client_socket.close()
 
-    while len(recv_msg) < total_recv_msg_size:
-        # packet = client_socket.recvall()
-        recv_msg += client_socket.recv(total_recv_msg_size)
- 
-    arr = np.random.normal(0, 1, (3, 512, 512)).astype(np.float32)
-    send_msg = arr.tobytes()
-    client_socket.sendall(struct.pack('i', len(send_msg)) + send_msg)
-    recv_msg = recv_msg[total_recv_msg_size:]
 
-client_socket.close()
-server_socket.close()
+if __name__ == '__main__':
+    q = Queue()
+    p1 = Process(target=send_img, args=(q,))
+    p2 = Process(target=recv_img, args=(q,))
+    p1.start(); 
+    p2.start(); 
+    stime = time.time()
+    p1.join(); p2.join()
+    print(time.time() - stime)
+
+    client_socket.close()
+    server_socket.close()

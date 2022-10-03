@@ -22,4 +22,9 @@ tags
 **/*.so
 **/*.pyc
 **/*.png
-./include/*
+**/*.params
+**/*.h5
+#include/
+tests/Unet/Unet_test/data/
+tests/Unet/Unet_test/*.h5
+

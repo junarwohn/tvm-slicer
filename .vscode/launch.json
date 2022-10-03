@@ -10,6 +10,8 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "cwd": "${fileDirname}" 
+            "cwd": "${fileDirname}",
+            "args": ["-p", "0", "141", "-m", "unet", "-t", "cuda", "-o", "3", "-i", "512"]
         }
     ]
+}

@@ -23,12 +23,13 @@ class UnetPreProcessCallback(DFPatternCallback):
         concat_node = is_op('concatenate')(tuple_node)
         self.pattern = concat_node
         self.match_node = []
+        self.match_node2 = []
 
     def callback(self, pre, post, node_map):
         var2 = node_map[self.var2][0]
         self.match_node.append(var2)
+        self.match_node2.append(pre)
         return post
-
 
 class UnetCallback(DFPatternCallback):
     # A callback class to rewrite the matched pattern to a batch_norm op.
@@ -39,8 +40,10 @@ class UnetCallback(DFPatternCallback):
         self.tuple_get_item_node = is_tuple_get_item(wildcard(), 0)
         self.pattern_1 = self.tuple_get_item_node
 
-        self.pattern = self.pattern_1
+        self.pattern = self.pattern_1 
         self.match_node = match_node
+        self.counter = 0
+        self.tmp = []
 
     def quant(self, node):
         cast_to_int8 = relay.cast(
@@ -52,7 +55,9 @@ class UnetCallback(DFPatternCallback):
             ),
             dtype="int8"
         )
-        return relay.annotation.stop_fusion(cast_to_int8)
+        result_node = relay.annotation.stop_fusion(cast_to_int8)
+        self.tmp.append(result_node)
+        return result_node
 
     def dequant(self, node):
         cast_to_float32 = relay.divide(
@@ -66,6 +71,52 @@ class UnetCallback(DFPatternCallback):
                 print("pat 1")
                 return self.dequant(self.quant(post))
         return post
+
+
+class UnetCallback2(DFPatternCallback):
+    # A callback class to rewrite the matched pattern to a batch_norm op.
+    def __init__(self, match_node, require_type=False):
+        super().__init__(require_type)
+        super().__init__(rewrite_once=True)
+
+        # self.tuple_get_item_node = is_tuple_get_item(wildcard(), 0)
+        # self.pattern_1 = self.tuple_get_item_node
+        self.var2 = wildcard()
+        tuple_node = is_tuple([wildcard(), self.var2])
+        concat_node = is_op('concatenate')(tuple_node)
+        self.pattern = concat_node
+        # self.pattern = self.pattern_1 
+        self.match_node = match_node
+        self.counter = 0
+        self.tmp = []
+
+    def quant(self, node):
+        cast_to_int8 = relay.cast(
+            relay.clip(
+                relay.round(
+                    relay.multiply(node, relay.const(8.0))
+                ), 
+                a_min=-127.0, a_max=127.0
+            ),
+            dtype="int8"
+        )
+        result_node = relay.annotation.stop_fusion(cast_to_int8)
+        self.tmp.append(result_node)
+        return result_node
+
+    def dequant(self, node):
+        cast_to_float32 = relay.divide(
+            relay.cast(node, dtype='float32'), relay.const(8.0)
+        )
+        return cast_to_float32
+
+    def callback(self, pre, post, node_map):
+        if self.pattern.match(pre):
+            if pre in self.match_node:
+                print("pat 1")
+                return self.dequant(self.quant(post))
+        return post
+
 
 parser = ArgumentParser()
 parser.add_argument('--start_point', '-s', type=int, default=0)
@@ -85,7 +136,7 @@ current_file_path = os.path.dirname(os.path.realpath(__file__)) + "/"
 np.random.seed(0)
 img_size = args.img_size
 input_data = np.random.normal(0,1,(1,img_size,img_size,3)).astype(np.float32)
-model_keras = tf.keras.models.load_model(current_file_path + '../src/model/{}_{}.h5'.format(args.model, img_size))
+model_keras = tf.keras.models.load_model(current_file_path + '../../tvm-slicer/src/model/{}_{}.h5'.format(args.model, img_size))
 
 ## tvm result
 input_data = input_data.transpose([0, 3, 1, 2])
@@ -108,19 +159,48 @@ rewrite(upc, mod['main'])
 uc = UnetCallback(upc.match_node)
 out = rewrite(uc, mod['main'])
 
+upc = UnetPreProcessCallback()
+rewrite(upc, out)
+uc2 = UnetCallback2(upc.match_node2)
+out = rewrite(uc2, out)
+
+out = relay.Function(out.params, relay.Tuple(uc.tmp + [out.body]), out.ret_type, out.type_params, out.attrs)
+# out = mod
+
+print(out)
+
+with tvm.transform.PassContext(opt_level=args.opt_level):
+    lib = relay.build(out, target, params=params)
+
+# if args.whole_build == 1:
+#     # if not os.path.isfile("./model/{}_{}_full_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
+#     if True:
+#         # with open(current_file_path + "./src/graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_full:
+#         #     json_graph_full = json.load(json_graph_full)
+#         #     # del json_graph_front['extra']
+#         with tvm.transform.PassContext(opt_level=args.opt_level):
+#             lib = relay.build(out, target, params=params)
+#             # lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_full))
+#         # lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
+#         lib.export_library(current_file_path + "./src/model/{}_{}_ori_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
+#         param_bytes = tvm.runtime.save_param_dict(lib.get_params())
+#         with open(current_file_path + "./src/model/{}_{}_ori_{}_{}.params".format(args.model, args.target, img_size, args.opt_level), "wb") as f:
+#             f.write(param_bytes)
+
 if args.whole_build == 1:
     # if not os.path.isfile("./model/{}_{}_full_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
     if True:
-        with open(current_file_path + "./src/graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_full:
-            json_graph_full = json.load(json_graph_full)
-            # del json_graph_front['extra']
-            with tvm.transform.PassContext(opt_level=args.opt_level):
-                lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_full))
-            lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
-
-    # with tvm.transform.PassContext(opt_level=args.opt_level):
-    #     lib = relay.build(out, target, params=params)
-    #     lib.export_library("./model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
+        # with open(current_file_path + "./src/graph/{}_{}_full_{}_{}_{}.json".format(args.model, args.target, img_size, args.opt_level, args.partition_point), "r") as json_graph_full:
+        #     json_graph_full = json.load(json_graph_full)
+        #     # del json_graph_front['extra']
+        with tvm.transform.PassContext(opt_level=args.opt_level):
+            lib = relay.build(out, target, params=params)
+            # lib = relay.build_graph(out, target=target, target_host=None, params=params, mod_name="default", graph_config=json.dumps(json_graph_full))
+        # lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
+        lib.export_library(current_file_path + "./src/model/{}_{}_full_{}_{}.so".format(args.model, args.target, img_size, args.opt_level))
+        param_bytes = tvm.runtime.save_param_dict(lib.get_params())
+        with open(current_file_path + "./src/model/{}_{}_full_{}_{}.params".format(args.model, args.target, img_size, args.opt_level), "wb") as f:
+            f.write(param_bytes)
 
 if args.front_build == 1:
     # if not os.path.isfile("./model/{}_{}_front_{}_{}_{}.so".format(args.model, args.target, img_size, args.opt_level, args.partition_point)):
