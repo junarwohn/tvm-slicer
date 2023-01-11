@@ -7,7 +7,7 @@ from tensorflow.keras.layers.experimental.preprocessing import Rescaling
 from tensorflow.keras import layers
 from tensorflow.keras import activations
 from tensorflow.keras import layers
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt 
 from tqdm.auto import tqdm
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
